@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-
 import wrapper from '../store/configureStore';
+
+// css import
+import 'bootstrap/dist/css/bootstrap.css';
+import '../css/layout.css';
+import '../css/mainPage.css';
+
+import AppLayout from '../containers/AppLayout';
 
 const Connected = ({ Component }) => {
 	return (
@@ -11,9 +17,9 @@ const Connected = ({ Component }) => {
 				<meta charSet="utf-8" />
 				<title>Connected</title>
 			</Head>
-			<div>
-				hello connected
-			</div>
+			<AppLayout>
+				<Component />
+			</AppLayout>
 		</>
 	);
 };
