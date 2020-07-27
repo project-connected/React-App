@@ -5,8 +5,8 @@ import wrapper from '../store/configureStore';
 
 // css import
 import 'bootstrap/dist/css/bootstrap.css';
-import '../css/layout.css';
-import '../css/mainPage.css';
+import '../css/layout.scss';
+import '../css/mainPage.scss';
 
 import AppLayout from '../containers/AppLayout';
 

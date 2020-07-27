@@ -1,20 +1,147 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { Chat } from '@material-ui/icons';
 
+// reducer
 import { useSelector, useDispatch } from 'react-redux';
+import { CLOSE_CHAT, OPEN_CHAT, OPEN_USER_MENU, CLOSE_USER_MENU } from '../reducers/component';
+import { LOGIN_REQUEST, LOGOUT_REQUEST } from '../reducers/user';
 
-import { Chat, Close } from '@material-ui/icons';
-import { CLOSE_CHAT, OPEN_CHAT } from '../reducers/component';
+// customs
+import ChatComponent from '../components/chat/ChatComponent';
 
-const DummyProfile = () => {
+// custom hooks
+import useInput from '../hooks/useInput';
+
+export const DummyProfile = () => {
 	return (
 		<img src="https://media.vlpt.us/images/yujo/profile/053c9bee-1076-418c-808d-f9a1b88dc445/KakaoTalk_20200229_162658088.jpg?w=240" />
 	);
 }
 
+export const LoadingCircle = () => {
+	return (
+		<div className="loading-spinner"></div>
+	);
+}
+
+const UserLoggedIn = () => {
+	const dispatch = useDispatch();
+
+	const onClickLogoutBtn = useCallback((e) => {
+		e.preventDefault();
+		if (confirm('로그아웃 하시겠습니까?')) {
+			dispatch({
+				type: LOGOUT_REQUEST,
+			})
+		}
+	})
+
+	return (
+		<>
+		<li>
+			<Link href="/">
+				<a>
+					Profile
+				</a>
+			</Link>
+		</li>
+		<li>
+			<Link href="/">
+				<a>
+					My Project
+				</a>
+			</Link>
+		</li>
+		<li>
+			<button onClick={onClickLogoutBtn}>
+				<a>
+					Log out
+				</a>
+			</button>
+		</li>
+		</>
+	);
+};
+
+const UserLogin = ({ isLoggingIn }) => {
+	const dispatch = useDispatch();
+
+	const [email, OCEmail] = useInput('');
+	const [password, OCPassword] = useInput('');
+
+	const [notSubmitReason, setNotSubmitReason] = useState('');
+
+
+	const onSubmitLogin = useCallback((e) => {
+		e.preventDefault();
+
+		dispatch({
+			type: LOGIN_REQUEST,
+		});
+	})
+
+	return (
+		<>
+			{ isLoggingIn && <div className="login-loading">
+				<LoadingCircle />
+			</div>}
+			<p>
+				로그인이 필요합니다.
+			</p>
+			<form onSubmit={onSubmitLogin}>
+				<div className="login-ipt-box">
+					<input
+						type="text"
+						name="email"
+						onChange={OCEmail}
+						placeholder="Email"
+						required
+					/>
+				</div>
+				<div className="login-ipt-box">
+					<input
+						type="password"
+						name="password"
+						onChange={OCPassword}
+						placeholder="Password"
+						required
+					/>
+				</div>
+				<input type="submit" value="LOGIN"/>
+			</form>
+			<div className="link-comment">
+				<p>아직 회원이 아니신가요? </p>
+				<Link href="/">
+					<a>
+						SIGN IN
+					</a>
+				</Link>
+			</div>
+		</>
+	)
+}
+
+const UserMenu = ({ user, isLoggingIn, openUserMenu }) => {
+	const subMenuClass = openUserMenu ? "profile-sub-menu has-visibility" : "profile-sub-menu";
+
+	return (
+		<>
+			<ul className={subMenuClass} >
+				{ user ?
+					<UserLoggedIn />
+					:
+					<UserLogin isLoggingIn={isLoggingIn} />
+				}
+			</ul>
+		</>
+	)
+}
+
 const AppLayout = ({ children }) => {
-	const { openChat } = useSelector(state=>state.component);
+	const { openChat, openUserMenu } = useSelector(state=>state.component);
+	const { user, isLoggingIn } = useSelector(state=>state.user);
 
 	const dispatch = useDispatch();
 
@@ -34,6 +161,19 @@ const AppLayout = ({ children }) => {
 			})
 		}
 	}, [openChat]);
+
+	const onClickProfileBtn = useCallback((e) => {
+		e.preventDefault();
+		if (!openUserMenu) {
+			dispatch({
+				type: OPEN_USER_MENU,
+			})
+		} else {
+			dispatch({
+				type: CLOSE_USER_MENU,
+			})
+		}
+	})
 
 	return (
 		<div id="wrapper">
@@ -61,9 +201,13 @@ const AppLayout = ({ children }) => {
 								</a>
 							</Link>
 						</div>
-						<button type="button" className="nav-profile-btn">
-							<DummyProfile />
-						</button>
+						<div type="button" className="nav-profile-btn" onClick={onClickProfileBtn}>
+							{ user ?
+								<DummyProfile /> :
+								<img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/b7c76929274393.55ead42cd721c.jpg"/>
+							}
+						</div>
+						<UserMenu user={user} isLoggingIn={isLoggingIn} openUserMenu={openUserMenu}/>
 					</div>
 				</header>
 				<main className="page-wrap">
@@ -76,48 +220,7 @@ const AppLayout = ({ children }) => {
 						<Chat />
 					</button>
 				}
-				<div id="chat-wrap" style={openChatComponent}>
-					<div className="chat-header">
-						Chat room
-						<button onClick={onClickChatBtn}>
-							<Close />
-						</button>
-					</div>
-					<div className="chat-list">
-						<div className="chat-room">
-							<DummyProfile />
-							<div className="chat-recent-message">
-								<p>
-									건강하세요?
-								</p>
-							</div>
-						</div>
-						<div className="chat-room">
-							<DummyProfile />
-							<div className="chat-recent-message">
-								<p>
-									건강하세요?
-								</p>
-							</div>
-						</div>
-						<div className="chat-room">
-							<DummyProfile />
-							<div className="chat-recent-message">
-								<p>
-									건강하세요?
-								</p>
-							</div>
-						</div>
-						<div className="chat-room">
-							<DummyProfile />
-							<div className="chat-recent-message">
-								<p>
-									건강하세요?
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
+				<ChatComponent openChatComponent={openChatComponent} onClickChatBtn={onClickChatBtn}/>
 			</div>
 		</div>
 	);
