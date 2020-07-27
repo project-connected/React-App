@@ -39,29 +39,29 @@ const UserLoggedIn = () => {
 	})
 
 	return (
-		<>
-		<li>
-			<Link href="/">
-				<a>
-					Profile
-				</a>
-			</Link>
-		</li>
-		<li>
-			<Link href="/">
-				<a>
-					My Project
-				</a>
-			</Link>
-		</li>
-		<li>
-			<button onClick={onClickLogoutBtn}>
-				<a>
-					Log out
-				</a>
-			</button>
-		</li>
-		</>
+		<ul>
+			<li>
+				<Link href="/">
+					<a>
+						Profile
+					</a>
+				</Link>
+			</li>
+			<li>
+				<Link href="/">
+					<a>
+						My Project
+					</a>
+				</Link>
+			</li>
+			<li>
+				<button onClick={onClickLogoutBtn}>
+					<a>
+						Log out
+					</a>
+				</button>
+			</li>
+		</ul>
 	);
 };
 
@@ -115,7 +115,7 @@ const UserLogin = ({ isLoggingIn }) => {
 				<p>아직 회원이 아니신가요? </p>
 				<Link href="/">
 					<a>
-						SIGN IN
+						SIGN UP
 					</a>
 				</Link>
 			</div>
@@ -128,13 +128,13 @@ const UserMenu = ({ user, isLoggingIn, openUserMenu }) => {
 
 	return (
 		<>
-			<ul className={subMenuClass} >
+			<div className={subMenuClass} >
 				{ user ?
 					<UserLoggedIn />
 					:
 					<UserLogin isLoggingIn={isLoggingIn} />
 				}
-			</ul>
+			</div>
 		</>
 	)
 }

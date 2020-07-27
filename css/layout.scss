@@ -26,21 +26,24 @@ button:focus {
 	min-height: 100vh;
 	width: 100%;
 	top: 0;
-	z-index: 1;
 }
 
 .page-inner-container {
-	max-width: 800px;
+	position: relative;
+	max-width: 1000px;
+	min-width: 800px;
 	margin: 0 auto;
 }
 
 .page-wrap {
-	margin-top: 70px;
+	position: relative;
+	margin-top: 100px;
 }
 
 #nav-header {
 	position: fixed;
 	box-shadow: 0 4px 10px -2px rgba(90, 90, 90, 0.1);
+	z-index: 2;
 }
 
 .menu-navigation {
@@ -157,13 +160,6 @@ button:focus {
 		}
 	}
 }
-	// .sub-menu {
-		// opacity: 1;
-		// transform: perspective(0) rotateX(0);
-		// transition: 0.3s;
-		// z-index: 50;
-		// visibility: visible;
-	// }
 
 .profile-sub-menu {
 	position: absolute;
@@ -173,12 +169,13 @@ button:focus {
 	border-radius: 2px;
 	padding: 15px 20px;
 	margin: 0;
-	min-width: 300px;
+	max-width: 300px;
 	font-weight: 400;
-	opacity: 0;
 	transform: perspective(300px) rotateX(-6deg);
 	transform-origin: top;
 	box-shadow: 0px 0px 8px 4px rgba(90, 90, 90, 0.2);
+	z-index: 0;
+	opacity: 0;
 
 	p {
 		text-align: center;
@@ -202,7 +199,7 @@ button:focus {
 		width: 100%;
 
 		input {
-			width: 100%;
+			width: 260px;
 			padding: 12px;
 			font-size: 14px;
 			line-height: 17px;
@@ -294,7 +291,7 @@ button:focus {
 		&:hover,
 		&:focus {
 			text-decoration: none;
-			color: rgb(15, 15, 15);
+			color: rgb(90, 125, 212);
 			transform: translateX(5px);
 		}
 	}
