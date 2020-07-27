@@ -7,6 +7,7 @@ import wrapper from '../store/configureStore';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../css/layout.scss';
 import '../css/mainPage.scss';
+import '../css/signup.scss';
 
 import AppLayout from '../containers/AppLayout';
 

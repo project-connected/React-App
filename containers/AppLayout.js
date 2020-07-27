@@ -97,6 +97,7 @@ const UserLogin = ({ isLoggingIn }) => {
 						name="email"
 						onChange={OCEmail}
 						placeholder="Email"
+						autoComplete="username"
 						required
 					/>
 				</div>
@@ -106,6 +107,7 @@ const UserLogin = ({ isLoggingIn }) => {
 						name="password"
 						onChange={OCPassword}
 						placeholder="Password"
+						autoComplete="current-password"
 						required
 					/>
 				</div>
@@ -113,7 +115,7 @@ const UserLogin = ({ isLoggingIn }) => {
 			</form>
 			<div className="link-comment">
 				<p>아직 회원이 아니신가요? </p>
-				<Link href="/">
+				<Link href="/signup">
 					<a>
 						SIGN UP
 					</a>
@@ -215,12 +217,12 @@ const AppLayout = ({ children }) => {
 						{children}
 					</div>
 				</main>
-				{ !openChat &&
+				{ (!openChat && user ) &&
 					<button onClick={onClickChatBtn} type="button" className="chat-btn-container">
 						<Chat />
 					</button>
 				}
-				<ChatComponent openChatComponent={openChatComponent} onClickChatBtn={onClickChatBtn}/>
+				{ user && <ChatComponent openChatComponent={openChatComponent} onClickChatBtn={onClickChatBtn}/> }
 			</div>
 		</div>
 	);

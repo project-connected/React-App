@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { Visibility } from "@material-ui/icons";
 
-const ProjectCart = () => {
+const ProjectCard = () => {
 	return (
 		<Link href="/">
 			<a className="project-card">
@@ -44,7 +44,7 @@ const MainPage = props => {
 			<div className="project-card-container">
 				{dummy.map((i) => {
 					return (
-						<ProjectCart key={(i)}/>
+						<ProjectCard key={(i)}/>
 					)
 				})}
 			</div>

@@ -177,6 +177,11 @@ button:focus {
 	z-index: 0;
 	opacity: 0;
 
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+
 	p {
 		text-align: center;
 		color: rgb(119, 158, 255);
