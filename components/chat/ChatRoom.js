@@ -49,11 +49,14 @@ const ChatRoom = () => {
 	const sendMessage = useCallback((e) => {
 		e.preventDefault();
 		console.log(msg);
-		dummyChatLog.push({
+		if (msg !== '')
+		{
+			dummyChatLog.push({
 			id: 2,
 			name: 'han',
 			text: msg,
-		})
+			})
+		}
 		setMsg('');
 		console.log(dummyChatLog)
 	}, [msg, dummyChatLog])
@@ -87,14 +90,14 @@ const ChatRoom = () => {
 					);
 				})}
 			</div>
-			<div className="chat-ipt-wrap">
+			<form onSubmit={sendMessage} className="chat-ipt-wrap">
 				<input type="text" value={msg} onChange={OCMsg} placeholder="메세지를 입력하세요." name="messageInput" />
 				<button onClick={sendMessage}>
 					<span>
 						보내기
 					</span>
 				</button>
-			</div>
+			</form>
 		</div>
 	);
 };
