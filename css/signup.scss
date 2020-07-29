@@ -6,15 +6,37 @@
 }
 
 .signup-container {
-	padding: 20px 3rem;
+	padding: 3rem 2rem 4rem 2rem;
 	width: 400px;
 	margin: 0 auto;
+	border-radius: 3px;
+	box-shadow: 0px 0px 6px 1000px rgba(90, 90, 90, 0.2);
+	border: 1px solid rgba(100, 100, 100, 0.2);
 
 	form {
 		span {
 			font-size: 12px;
 			margin-left: 10px;
 			color: #666;
+		}
+
+		p {
+			color: red;
+		}
+
+		.contain-toggle-message {
+			padding-top: 30px;
+			position: relative;
+
+			p {
+				width: 100%;
+				position: absolute;
+				top: 0;
+				color: red;
+				font-size: 13px;
+				text-align: left;
+				margin: 0;
+			}
 		}
 
 		input {
@@ -25,7 +47,6 @@
 			border: 1px solid #DCDEDD;
 			margin: 0 auto;
 			margin-bottom: 18px;
-			transition: .5s;
 
 			&[type="submit"] {
 				background: rgb(119, 158, 233);

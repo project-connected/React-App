@@ -1,13 +1,19 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import Router from 'next/router'
+import axios from 'axios';
+import Router from 'next/router';
+import Head from 'next/head';
+import { END } from 'redux-saga';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { useSelector } from 'react-redux';
+import wrapper from '../store/configureStore';
+import { SIGNUP_REQUEST, RESET_DONE_FLAG } from '../reducers/user';
 
 import useInput from '../hooks/useInput';
+import { CLOSE_USER_MENU } from '../reducers/component';
 
 const Signup = () => {
-	const { user } = useSelector(state=>state.user);
+	const dispatch = useDispatch();
+	const { user, isSignedup } = useSelector(state=>state.user);
 
 	const [name, OCName] = useInput('');
 	const [email, OCEmail] = useInput('');
@@ -22,11 +28,18 @@ const Signup = () => {
 	}, [term])
 
 	useEffect(() => {
+		dispatch({ type: CLOSE_USER_MENU });
 		if (user) {
 			alert('메인페이지로 이동합니다.');
+			dispatch({ type: RESET_DONE_FLAG });
 			Router.push('/');
 		}
-	}, [user]);
+		if (isSignedup) {
+			alert('회원가입되었어요.');
+			dispatch({ type: RESET_DONE_FLAG });
+			Router.push('/');
+		}
+	}, [user, isSignedup]);
 
 	useEffect(() => {
 		if (pw !== '' && rePw !== '') {
@@ -35,17 +48,38 @@ const Signup = () => {
 			} else {
 				setTogglePw(true);
 			}
+		} else {
+			setTogglePw(true);
 		}
 	}, [pw, rePw, togglePw])
 
-	useEffect(() => {
-		console.log(term);
-	}, [term]);
+	const submitSignup = useCallback((e) => {
+		e.preventDefault();
+		if (!term) {
+			alert('약관에 동의해주세요.');
+			return ;
+		}
+		if (confirm('입력한 정보로 회원가입하실거에용?')) {
+			dispatch({
+				type: SIGNUP_REQUEST,
+				data: {
+					email: email,
+					name: name,
+					password: pw,
+					term: term
+				}
+			})
+		}
+	})
 
 	return (
+		<>
+		<Head>
+			<title>회원가입</title>
+		</Head>
 		<div id="signup-wrap">
 			<div className="signup-container">
-				<form>
+				<form onSubmit={submitSignup}>
 					<h4>Sign up</h4>
 					<div className="signup-ipt-box">
 						<input
@@ -93,19 +127,28 @@ const Signup = () => {
 							Are you agree to our term, policy?
 						</span>
 					</div>
-					<input
-						type="submit"
-						value="Create Account"
-					/>
-					{!togglePw && <p>비밀번호가 일치하지 않습니다.</p> }
+					<div className="contain-toggle-message">
+						{ !togglePw && <p>비밀번호가 일치하지 않습니다.</p> }
+						<input
+							type="submit"
+							value="Create Account"
+						/>
+					</div>
 				</form>
 			</div>
 		</div>
+		</>
 	);
 };
 
-Signup.propTypes = {
-
-};
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+	const cookie = context.req ? context.req.headers.cookie : '';
+	axios.defaults.headers.Cookie = '';
+	if (context.req && cookie) {
+	  axios.defaults.headers.Cookie = cookie;
+	}
+	context.store.dispatch(END);
+	await context.store.sagaTask.toPromise();
+});
 
 export default Signup;

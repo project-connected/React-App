@@ -6,7 +6,10 @@ import {
 	LOGIN_FAILURE,
 	LOGOUT_REQUEST,
 	LOGOUT_SUCCESS,
-	LOGOUT_FAILURE
+	LOGOUT_FAILURE,
+	SIGNUP_REQUEST,
+	SIGNUP_SUCCESS,
+	SIGNUP_FAILURE
 } from '../reducers/user';
 
 const dummyUser = {
@@ -61,9 +64,32 @@ function* watchLogout() {
 	yield takeLatest(LOGOUT_REQUEST, logout);
 }
 
+function signupAPI(signupData) {
+	return ;
+}
+
+function* signup(action) {
+	try {
+		const result = yield call(signupAPI, action.data);
+		yield put({
+			type: SIGNUP_SUCCESS,
+		})
+	} catch(e) {
+		yield put({
+			type: SIGNUP_FAILURE,
+			error: e.response.error,
+		})
+	}
+}
+
+function* watchSignup() {
+	yield takeLatest(SIGNUP_REQUEST, signup);
+}
+
 export default function* userSaga(){
 	yield all([
 		fork(watchLogin),
 		fork(watchLogout),
+		fork(watchSignup)
 	]);
 }

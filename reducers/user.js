@@ -4,11 +4,16 @@ const initialState = {
 	user: null,
 	isLoggingIn: false,
 	isLoggingOut: false,
+	isSigningup: false,
+	isSignedup: false,
 	isLoggedIn: false,
 	isLoggedOut: false,
 	loginErrorReason: '',
 	logoutErrorReason: '',
+	signupErrorReason: '',
 }
+
+export const RESET_DONE_FLAG = 'RESET_DONE_FLAG';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -18,6 +23,10 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+
 const dummyUser = {
 	email: 'anhs0220@gmail.com',
 	name: '안홍섭',
@@ -26,6 +35,12 @@ const dummyUser = {
 
 const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 	switch (action.type) {
+		case RESET_DONE_FLAG: {
+			draft.isLoggedIn = false;
+			draft.isLoggedOut = false;
+			draft.isSignedup = false;
+			break;
+		}
 		case LOGIN_REQUEST: {
 			draft.isLoggingIn = true;
 			break;
@@ -57,6 +72,21 @@ const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 		case LOGOUT_FAILURE: {
 			draft.isLoggingOut = false;
 			draft.logoutErrorReason = 'logout error';
+			break;
+		}
+
+		case SIGNUP_REQUEST: {
+			draft.isSigningup = true;
+			break;
+		}
+		case SIGNUP_SUCCESS: {
+			draft.isSignedup = true;
+			draft.isSigningup = false;
+			break ;
+		}
+		case SIGNUP_FAILURE: {
+			draft.isSigningup = false;
+			draft.signupErrorReason = action.error;
 			break;
 		}
 
