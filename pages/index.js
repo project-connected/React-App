@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import axios from 'axios';
+import wrapper from '../store/configureStore';
+import { END } from 'redux-saga';
 
 import { Visibility } from "@material-ui/icons";
 
@@ -35,7 +38,7 @@ const ProjectCard = () => {
 	);
 }
 
-const MainPage = props => {
+const MainPage = () => {
 	const dummy = [1,2,3,4,5,6];
 
 	return (
@@ -51,6 +54,17 @@ const MainPage = props => {
 		</div>
 	);
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+	const cookie = context.req ? context.req.headers.cookie : '';
+	axios.defaults.headers.Cookie = '';
+	if (context.req && cookie) {
+	  axios.defaults.headers.Cookie = cookie;
+	}
+	context.store.dispatch(END);
+	await context.store.sagaTask.toPromise();
+});
+
 
 MainPage.propTypes = {
 

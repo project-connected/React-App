@@ -1,11 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import Router from 'next/router'
-
+import axios from 'axios';
+import Router from 'next/router';
+import Head from 'next/head';
+import { END } from 'redux-saga';
 import { useSelector, useDispatch } from 'react-redux';
-import { SIGNUP_REQUEST } from '../reducers/user';
+
+import wrapper from '../store/configureStore';
+import { SIGNUP_REQUEST, RESET_DONE_FLAG } from '../reducers/user';
 
 import useInput from '../hooks/useInput';
+import { CLOSE_USER_MENU } from '../reducers/component';
 
 const Signup = () => {
 	const dispatch = useDispatch();
@@ -24,12 +28,15 @@ const Signup = () => {
 	}, [term])
 
 	useEffect(() => {
+		dispatch({ type: CLOSE_USER_MENU });
 		if (user) {
 			alert('메인페이지로 이동합니다.');
+			dispatch({ type: RESET_DONE_FLAG });
 			Router.push('/');
 		}
 		if (isSignedup) {
 			alert('회원가입되었어요.');
+			dispatch({ type: RESET_DONE_FLAG });
 			Router.push('/');
 		}
 	}, [user, isSignedup]);
@@ -66,6 +73,10 @@ const Signup = () => {
 	})
 
 	return (
+		<>
+		<Head>
+			<title>회원가입</title>
+		</Head>
 		<div id="signup-wrap">
 			<div className="signup-container">
 				<form onSubmit={submitSignup}>
@@ -126,11 +137,18 @@ const Signup = () => {
 				</form>
 			</div>
 		</div>
+		</>
 	);
 };
 
-Signup.propTypes = {
-
-};
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+	const cookie = context.req ? context.req.headers.cookie : '';
+	axios.defaults.headers.Cookie = '';
+	if (context.req && cookie) {
+	  axios.defaults.headers.Cookie = cookie;
+	}
+	context.store.dispatch(END);
+	await context.store.sagaTask.toPromise();
+});
 
 export default Signup;

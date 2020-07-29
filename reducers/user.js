@@ -13,6 +13,8 @@ const initialState = {
 	signupErrorReason: '',
 }
 
+export const RESET_DONE_FLAG = 'RESET_DONE_FLAG';
+
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -33,6 +35,12 @@ const dummyUser = {
 
 const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 	switch (action.type) {
+		case RESET_DONE_FLAG: {
+			draft.isLoggedIn = false;
+			draft.isLoggedOut = false;
+			draft.isSignedup = false;
+			break;
+		}
 		case LOGIN_REQUEST: {
 			draft.isLoggingIn = true;
 			break;
