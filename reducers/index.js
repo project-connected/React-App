@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 
 import component from './component';
 import user from './user';
+import chat from './chat';
 
 const rootReducer = (state, action) => {
 	switch (action.type) {
@@ -12,6 +13,7 @@ const rootReducer = (state, action) => {
 			const combineReducer = combineReducers({
 				component,
 				user,
+				chat,
 			});
 			return combineReducer(state, action);
 		}
