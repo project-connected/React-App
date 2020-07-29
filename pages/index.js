@@ -6,6 +6,35 @@ import wrapper from '../store/configureStore';
 import { END } from 'redux-saga';
 
 import { Visibility } from "@material-ui/icons";
+import StackBlock from '../components/StackBlock';
+
+const dummyStack = [
+	{
+		name: 'Node.JS',
+		color: 'rgb(65, 169, 76)',
+	}, {
+		name: 'photoshop',
+		color: '#187bcd',
+	}, {
+		name: 'React.JS',
+		color: '#03254c',
+	}, {
+		name: 'Swift',
+		color: '#FC6A03',
+	}, {
+		name: 'photoshop',
+		color: '#187bcd',
+	}, {
+		name: 'Node.JS',
+		color: 'rgb(65, 169, 76)',
+	}, {
+		name: 'React.JS',
+		color: '#03254c',
+	}, {
+		name: 'Swift',
+		color: '#FC6A03',
+	},
+];
 
 const ProjectCard = () => {
 	return (
@@ -26,6 +55,13 @@ const ProjectCard = () => {
 					<p>
 					discriptiondiscriptiondiscriptiondiscriptiondiscriptiondiscriptiondiscriptiondiscriptiondiscriptiondiscriptiondiscriptiondiscriptiondiscriptiondiscriptiondiscriptiondiscription
 					</p>
+				</div>
+				<div className="project-card-stack-block-wrap">
+					{dummyStack.map((c, i) => {
+						return (
+							<StackBlock key={(i)} name={c.name} color={c.color} />
+						);
+					})}
 				</div>
 				<div className="project-card-footer">
 					<div className="project-card-view">
