@@ -1,0 +1,69 @@
+import produce from '../util/produce';
+
+const initialState = {
+	user: null,
+	isLoggingIn: false,
+	isLoggingOut: false,
+	isLoggedIn: false,
+	isLoggedOut: false,
+	loginErrorReason: '',
+	logoutErrorReason: '',
+}
+
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+
+const dummyUser = {
+	email: 'anhs0220@gmail.com',
+	name: '안홍섭',
+	profileImg: 'https://media.vlpt.us/images/yujo/profile/053c9bee-1076-418c-808d-f9a1b88dc445/KakaoTalk_20200229_162658088.jpg?w=240',
+}
+
+const reducer = ( state=initialState, action ) => produce(state, (draft) => {
+	switch (action.type) {
+		case LOGIN_REQUEST: {
+			draft.isLoggingIn = true;
+			break;
+		}
+		case LOGIN_SUCCESS: {
+			draft.user = action.data;
+			draft.isLoggingIn = false;
+			draft.isLoggedIn = true;
+			draft.isLoggedOut = false;
+			break;
+		}
+		case LOGIN_FAILURE: {
+			draft.isLoggingIn = false;
+			draft.loginErrorReason = 'dummy is undefined';
+			break;
+		}
+
+		case LOGOUT_REQUEST: {
+			draft.isLoggingOut = true;
+			break;
+		}
+		case LOGOUT_SUCCESS: {
+			draft.user = null;
+			draft.isLoggingOut = false;
+			draft.isLoggedOut = true;
+			draft.isLoggedIn = false;
+			break;
+		}
+		case LOGOUT_FAILURE: {
+			draft.isLoggingOut = false;
+			draft.logoutErrorReason = 'logout error';
+			break;
+		}
+
+		default: {
+			break;
+		}
+	}
+})
+
+export default reducer;
