@@ -2,12 +2,14 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router'
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { SIGNUP_REQUEST } from '../reducers/user';
 
 import useInput from '../hooks/useInput';
 
 const Signup = () => {
-	const { user } = useSelector(state=>state.user);
+	const dispatch = useDispatch();
+	const { user, isSignedup } = useSelector(state=>state.user);
 
 	const [name, OCName] = useInput('');
 	const [email, OCEmail] = useInput('');
@@ -26,7 +28,11 @@ const Signup = () => {
 			alert('메인페이지로 이동합니다.');
 			Router.push('/');
 		}
-	}, [user]);
+		if (isSignedup) {
+			alert('회원가입되었어요.');
+			Router.push('/');
+		}
+	}, [user, isSignedup]);
 
 	useEffect(() => {
 		if (pw !== '' && rePw !== '') {
@@ -35,17 +41,34 @@ const Signup = () => {
 			} else {
 				setTogglePw(true);
 			}
+		} else {
+			setTogglePw(true);
 		}
 	}, [pw, rePw, togglePw])
 
-	useEffect(() => {
-		console.log(term);
-	}, [term]);
+	const submitSignup = useCallback((e) => {
+		e.preventDefault();
+		if (!term) {
+			alert('약관에 동의해주세요.');
+			return ;
+		}
+		if (confirm('입력한 정보로 회원가입하실거에용?')) {
+			dispatch({
+				type: SIGNUP_REQUEST,
+				data: {
+					email: email,
+					name: name,
+					password: pw,
+					term: term
+				}
+			})
+		}
+	})
 
 	return (
 		<div id="signup-wrap">
 			<div className="signup-container">
-				<form>
+				<form onSubmit={submitSignup}>
 					<h4>Sign up</h4>
 					<div className="signup-ipt-box">
 						<input
@@ -93,11 +116,13 @@ const Signup = () => {
 							Are you agree to our term, policy?
 						</span>
 					</div>
-					<input
-						type="submit"
-						value="Create Account"
-					/>
-					{!togglePw && <p>비밀번호가 일치하지 않습니다.</p> }
+					<div className="contain-toggle-message">
+						{ !togglePw && <p>비밀번호가 일치하지 않습니다.</p> }
+						<input
+							type="submit"
+							value="Create Account"
+						/>
+					</div>
 				</form>
 			</div>
 		</div>

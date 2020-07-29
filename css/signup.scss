@@ -17,6 +17,25 @@
 			color: #666;
 		}
 
+		p {
+			color: red;
+		}
+
+		.contain-toggle-message {
+			padding-top: 30px;
+			position: relative;
+
+			p {
+				width: 100%;
+				position: absolute;
+				top: 0;
+				color: red;
+				font-size: 13px;
+				text-align: left;
+				margin: 0;
+			}
+		}
+
 		input {
 			width: -webkit-fill-available;
 			padding: 12px;
@@ -25,7 +44,6 @@
 			border: 1px solid #DCDEDD;
 			margin: 0 auto;
 			margin-bottom: 18px;
-			transition: .5s;
 
 			&[type="submit"] {
 				background: rgb(119, 158, 233);
