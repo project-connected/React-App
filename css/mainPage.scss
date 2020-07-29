@@ -61,6 +61,7 @@
 					overflow-wrap: break-word;
 					-webkit-line-clamp: 3;
 					display: -webkit-box;
+					-webkit-box-orient: vertical;
 					margin: 7px 0 0 0;
 					color: #666;
 					overflow: hidden;
@@ -105,7 +106,7 @@
 			.project-card-footer {
 				position: relative;
 				padding: 0.5rem 1rem;
-				margin-top: 20px;
+				// margin-top: 20px;
 				border-top: 1px solid rgba(90, 90, 90, 0.1);
 				height: 40px;
 
@@ -118,6 +119,16 @@
 						margin-left: 7px;
 					}
 				}
+			}
+
+			.project-card-stack-block-wrap{
+				padding: 0.5rem 1rem 0.5rem 1rem;
+				display: flex;
+				flex-wrap: wrap;
+				-webkit-line-clamp: 1;
+				border-top: 1px solid rgba(90, 90, 90, 0.1);
+				overflow: hidden;
+				max-height: 40px;
 			}
 		}
 	}
