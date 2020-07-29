@@ -5,6 +5,7 @@ import wrapper from '../store/configureStore';
 
 // css import
 import 'bootstrap/dist/css/bootstrap.css';
+import '../css/design.scss';
 import '../css/layout.scss';
 import '../css/mainPage.scss';
 import '../css/signup.scss';
