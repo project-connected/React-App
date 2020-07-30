@@ -1,7 +1,7 @@
 import produce from '../util/produce';
 
 const initialState = {
-	user: 1,
+	user: null,
 	isLoggingIn: false,
 	isLoggingOut: false,
 	isSigningup: false,
