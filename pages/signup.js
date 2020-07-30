@@ -93,7 +93,7 @@ const Signup = () => {
 					</div>
 					<div className="signup-ipt-box">
 						<input
-							type="text"
+							type="email"
 							placeholder="Email"
 							autoComplete="username"
 							onChange={OCEmail}

@@ -84,12 +84,6 @@ button:focus {
 	}
 }
 
-.chat-list .chat-room img {
-	border-radius: 100%;
-	width: 40px;
-	height: 40px;
-}
-
 .menu-navigation .nav-link-btn {
 	width: 100px;
 
@@ -98,66 +92,6 @@ button:focus {
 		display: block;
 		text-align: center;
 		font-size: 12px;
-	}
-}
-
-.chat-btn-container {
-	position: fixed;
-	width: 50px;
-	height: 50px;
-	right: 40px;
-	bottom: 40px;
-	color: white;
-	border-radius: 100%;
-	background: linear-gradient(rgb(121, 144, 255), #9198e5);
-	box-shadow: 0px 0px 8px 4px rgba(121, 144, 255, 0.3);
-	z-index: 2;
-}
-
-#chat-wrap {
-	position: fixed;
-	width: 320px;
-	bottom: 0;
-	right: 0;
-	max-height: 500px;
-	border-radius: 10px 10px 0 0;
-	transition: all .6s cubic-bezier(0.65, 0.05, 0.36, 1);
-	z-index: 3;
-	background: white;
-}
-
-.chat-header {
-	position: relative;
-	display: flex;
-	color: white;
-	background: linear-gradient(rgb(121, 144, 255), #9198e5);
-	padding: 0 16px;
-	height: 52px;
-	align-items: center;
-	justify-content: center;
-
-	button {
-		position: absolute;
-		right: 10px;
-		bottom: 0;
-		transform: translateY(-50%);
-		color: white;
-	}
-}
-
-.chat-list .chat-room{
-	display: flex;
-	padding: 20px 10px;
-	border-bottom: 1px solid #EEE;
-
-	.chat-recent-message {
-		margin-left: 20px;
-		display: flex;
-
-		p {
-			margin: auto 0;
-			color: #666;
-		}
 	}
 }
 

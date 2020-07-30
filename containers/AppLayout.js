@@ -93,7 +93,7 @@ const UserLogin = ({ isLoggingIn }) => {
 			<form onSubmit={onSubmitLogin}>
 				<div className="login-ipt-box">
 					<input
-						type="text"
+						type="email"
 						name="email"
 						onChange={OCEmail}
 						placeholder="Email"
