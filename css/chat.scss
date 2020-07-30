@@ -33,6 +33,7 @@
 	.chat-content {
 		width: 100%;
 		transition: all .5s;
+		transition: all .6s cubic-bezier(0.65, 0.05, 0.36, 1);
 	}
 }
 
@@ -104,10 +105,12 @@
 	height: 648px;
 	display: flex;
 	flex-direction: column;
+	transition: all .6s cubic-bezier(0.65, 0.05, 0.36, 1);
 
 	.chat-log-wrap {
 		height: 592px;
 		overflow-y: scroll;
+		transition: all .6s cubic-bezier(0.65, 0.05, 0.36, 1);
 
 		.msg-container {
 			display: flex;

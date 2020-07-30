@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Mood } from '@material-ui/icons';
 
 import useInputWithSetter from '../../hooks/useInputWithSetter';
 
-const dummyChatLog = [
+const chatLog = [
 	{
 		id: 1,
 		name: 'yojo',
@@ -45,25 +45,30 @@ const dummyChatLog = [
 
 const ChatRoom = () => {
 	const [msg, setMsg, OCMsg] = useInputWithSetter('');
+	const [dummyChatLog, setdl] = useState(chatLog);
+	const chatRef = useRef();
 
 	const sendMessage = useCallback((e) => {
 		e.preventDefault();
 		console.log(msg);
 		if (msg !== '')
 		{
-			dummyChatLog.push({
-			id: 2,
-			name: 'han',
-			text: msg,
-			})
+			setdl([...dummyChatLog, {
+				id: 2,
+				name: 'han',
+				text: msg
+			}])
 		}
 		setMsg('');
-		console.log(dummyChatLog)
-	}, [msg, dummyChatLog])
+	}, [msg, dummyChatLog, chatRef]);
+
+	useEffect(() => {
+		chatRef.current.scrollTop = chatRef.current.scrollHeight;
+	}, [chatRef, dummyChatLog])
 
 	return (
 		<div data-aos="pade-up" className="chat-room">
-			<div className="chat-log-wrap">
+			<div ref={chatRef} className="chat-log-wrap">
 				{dummyChatLog.map((c, i) => {
 					return (
 						<div key={(i)}>
@@ -91,7 +96,7 @@ const ChatRoom = () => {
 				})}
 			</div>
 			<form onSubmit={sendMessage} className="chat-ipt-wrap">
-				<input type="text" value={msg} onChange={OCMsg} placeholder="메세지를 입력하세요." name="messageInput" />
+				<input autoComplete="off" type="text" value={msg} onChange={OCMsg} placeholder="메세지를 입력하세요." name="messageInput" />
 				<button onClick={sendMessage}>
 					<span>
 						보내기
