@@ -199,9 +199,9 @@ const AppLayout = ({ children }) => {
 							</Link>
 						</div>
 						<div className="nav-link-btn">
-							<Link href="/">
+							<Link href="/project">
 								<a>
-									어떠한 기능 버튼
+									프로젝트 만들기
 								</a>
 							</Link>
 						</div>
