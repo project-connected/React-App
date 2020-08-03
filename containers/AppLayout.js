@@ -185,7 +185,7 @@ const AppLayout = ({ children }) => {
 						<div className="nav-logo-btn">
 							<Link href="/">
 								<a>
-									<img src="./images/long-logo.svg" height="30px"/>
+									<img src="http://connected.anjoy.info/images/long-logo.svg" height="30px"/>
 								</a>
 							</Link>
 						</div>

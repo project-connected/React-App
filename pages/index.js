@@ -36,9 +36,9 @@ const dummyStack = [
 	},
 ];
 
-const ProjectCard = () => {
+const ProjectCard = ({ idx }) => {
 	return (
-		<Link href="/">
+		<Link href="/project/[id]" as={`/project/${idx}`} prefetch={false}>
 			<a className="project-card">
 				<div className="project-card-img-container">
 					<img src="https://cdn.inflearn.com/wp-content/uploads/react.png" />
@@ -83,7 +83,7 @@ const MainPage = () => {
 			<div className="project-card-container">
 				{dummy.map((i) => {
 					return (
-						<ProjectCard key={(i)}/>
+						<ProjectCard key={(i)} idx={i}/>
 					)
 				})}
 			</div>

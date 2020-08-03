@@ -12,6 +12,7 @@ import '../css/layout.scss';
 import '../css/mainPage.scss';
 import '../css/signup.scss';
 import '../css/chat.scss';
+import '../css/project.scss';
 
 import AppLayout from '../containers/AppLayout';
 
