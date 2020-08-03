@@ -13,6 +13,7 @@ import '../css/mainPage.scss';
 import '../css/signup.scss';
 import '../css/chat.scss';
 import '../css/project.scss';
+import '../css/forms.scss';
 
 import AppLayout from '../containers/AppLayout';
 

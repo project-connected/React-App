@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Head from 'next/head';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { OPEN_APPLY, OPEN_USER_MENU } from '../../reducers/component';
 
 import StackBlock from '../../components/StackBlock';
 
@@ -30,6 +33,22 @@ const InfoBlock = ({ name, data }) => {
 }
 
 const Project = () => {
+	const dispatch = useDispatch();
+	const { user } = useSelector(state=>state.user);
+
+	const applyProj = useCallback((e) => {
+		if (!user) {
+			alert('로그인이 필요해요.');
+			dispatch({
+				type: OPEN_USER_MENU,
+			})
+		} else {
+			dispatch({
+				type: OPEN_APPLY,
+			})
+		}
+	}, [user]);
+
 	return (
 		<>
 		<Head>
@@ -70,7 +89,7 @@ const Project = () => {
 				</div>
 			</div>
 			<div className="proj-button-wrap">
-				<button id="apply">신청하기</button>
+				<button id="apply" onClick={applyProj} >신청하기</button>
 				<button id="listup">관심등록</button>
 			</div>
 			<div>

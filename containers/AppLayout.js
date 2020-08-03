@@ -10,9 +10,11 @@ import { LOGIN_REQUEST, LOGOUT_REQUEST } from '../reducers/user';
 
 // customs
 import ChatComponent from '../components/chat/ChatComponent';
+import RequestMember from '../components/forms/RequestMember';
 
 // custom hooks
 import useInput from '../hooks/useInput';
+import Curtain from './Curtain';
 
 export const DummyProfile = () => {
 	return (
@@ -142,7 +144,7 @@ const UserMenu = ({ user, isLoggingIn, openUserMenu }) => {
 }
 
 const AppLayout = ({ children }) => {
-	const { openChat, openUserMenu } = useSelector(state=>state.component);
+	const { openChat, openUserMenu, openApply } = useSelector(state=>state.component);
 	const { user, isLoggingIn } = useSelector(state=>state.user);
 
 	const dispatch = useDispatch();
@@ -217,6 +219,9 @@ const AppLayout = ({ children }) => {
 						{children}
 					</div>
 				</main>
+				{
+					openApply && <Curtain component={<RequestMember />} />
+				}
 				{ (!openChat && user ) &&
 					<button onClick={onClickChatBtn} type="button" className="chat-btn-container">
 						<Chat />
