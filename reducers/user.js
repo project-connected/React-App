@@ -31,6 +31,15 @@ const dummyUser = {
 	email: 'anhs0220@gmail.com',
 	name: '안홍섭',
 	profileImg: 'https://media.vlpt.us/images/yujo/profile/053c9bee-1076-418c-808d-f9a1b88dc445/KakaoTalk_20200229_162658088.jpg?w=240',
+	subProfile: {
+		userRegion: "",
+		userStack: [{
+			name: "React.js",
+			level: 3,
+		}],
+		userURL: "",
+		introduct: "",
+	}
 }
 
 const reducer = ( state=initialState, action ) => produce(state, (draft) => {

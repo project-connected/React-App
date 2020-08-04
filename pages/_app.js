@@ -7,6 +7,7 @@ import AOS from 'aos';
 // css import
 import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-calendar/dist/Calendar.css';
 import '../css/design.scss';
 import '../css/layout.scss';
 import '../css/mainPage.scss';

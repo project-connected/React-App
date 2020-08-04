@@ -43,7 +43,7 @@ const UserLoggedIn = () => {
 	return (
 		<ul>
 			<li>
-				<Link href="/">
+				<Link href="/profile">
 					<a>
 						Profile
 					</a>
