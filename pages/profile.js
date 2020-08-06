@@ -1,13 +1,28 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router'
 import { useSelector } from 'react-redux';
 import { InsertPhoto, Email, PersonPin, VpnKey } from '@material-ui/icons';
 
+import useInput from '../hooks/useInput';
+
 const Profile = () => {
 	const { user } = useSelector(state=>state.user);
 
+	const [name, OCName] = useInput(user.name);
+	const [password, OCPassword] = useInput('');
+	const [newPW, OCNewPW] = useInput('');
+	const [checkNewPW, OCCheckNewPW] = useInput('');
+
 	const imageInput = useRef();
+
+	const changePWRequest = useCallback((e) => {
+		e.preventDefault();
+		if (newPW !== checkNewPW) {
+			alert('비밀번호가 일치하지 않아요');
+			return ;
+		}
+	}, [password, newPW, checkNewPW]);
 
 	useEffect(() => {
 		if (!user) {
@@ -20,7 +35,7 @@ const Profile = () => {
 		<form id="myProfile">
 			<div className="default-info">
 				<div role="region" id="img-section">
-					<div style={{background: `url(${user.profileImg}) 50% 50% no-repeat`}}>
+					<div style={{background: `url(${user.profileImg}) `}}>
 						<button >
 							<InsertPhoto style={{color: 'white'}}/>
 							<p>이미지 변경하기</p>
@@ -35,15 +50,20 @@ const Profile = () => {
 					</div>
 					<div>
 						<PersonPin />
-						{user.name}
+						<input type="text" value={name} onChange={OCName} />
 					</div>
-					<div>
+					<div className="change-pwd-container">
 						<VpnKey />
-						비밀번호 변경하기
+						<input type="password" value={password} onChange={OCPassword} placeholder="비밀번호를 입력하세요"/>
+						<input type="password" value={newPW} onChange={OCNewPW} placeholder="새로운 비밀번호를 입력하세요"/>
+						<input type="password" value={checkNewPW} onChange={OCCheckNewPW} placeholder="새로운 비밀번호를 한번더 입력하세요"/>
+						<button onClick={changePWRequest}>
+							비밀번호 변경하기
+						</button>
 					</div>
 				</div>
 			</div>
-			<div className="sub-info">
+			<div className="info-section">
 				<div>
 					지역
 				</div>

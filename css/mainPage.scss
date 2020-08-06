@@ -12,6 +12,7 @@
 	.project-card-container {
 		display: flex;
 		flex-wrap: wrap;
+		justify-content: center;
 		margin-top: 30px;
 
 		.project-card {
@@ -66,7 +67,7 @@
 					color: #666;
 					overflow: hidden;
 					line-height: 1.5;
-					height: 4rem;
+					height: 3.8rem;
 				}
 
 				.project-card-line {
