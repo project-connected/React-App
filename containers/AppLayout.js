@@ -192,14 +192,14 @@ const AppLayout = ({ children }) => {
 							</Link>
 						</div>
 						<div className="nav-link-btn">
-							<Link href="/">
+							<Link href="/project">
 								<a>
 									모집 중인 프로젝트
 								</a>
 							</Link>
 						</div>
 						<div className="nav-link-btn">
-							<Link href="/project">
+							<Link href="/project/create">
 								<a>
 									프로젝트 만들기
 								</a>

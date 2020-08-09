@@ -1,198 +1,62 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
-import Calendar from 'react-calendar';
 
-import useInput from '../../hooks/useInput';
-
-const dummyRegion = [
-	{
-		main: "서울",
-		sub: null,
-	},{
-		main: "부산",
-		sub: null,
-	},{
-		main: "대구",
-		sub: null,
-	},{
-		main: "인천",
-		sub: null,
-	},{
-		main: "광주",
-		sub: null,
-	},{
-		main: "대전",
-		sub: null,
-	},{
-		main: "울산",
-		sub: null,
-	},{
-		main: "제주",
-		sub: null,
-	},
-	{
-		main: "경기",
-		sub: ["수원", "성남", "안양", "안산", "용인", "부천", "광명", "평택", "과천", "오산", "시흥", "군포", "의왕", "하남", "이천", "안성", "김포", "화성", "광주", "여주", "양평", "일산", "고양", "의정부", "구리", "남양주", "파주", "양주", "동두천", "포천", "가평"],
-	},
-	{
-		main: "강원",
-		sub: ["춘천", "원주", "강릉", "동해", "태백", "속초", "삼척", "홍천", "횡성", "영월", "평창", "정선", "철원", "화천", "양구", "인제", "고성", "양양"],
-	},
-	{
-		main: "충북",
-		sub: ["", ],
-	},
-	{
-		main: "충남",
-		sub: ["", ],
-	},
-	{
-		main: "전북",
-		sub: ["", ],
-	},
-	{
-		main: "전남",
-		sub: ["", ],
-	},
-	{
-		main: "경북",
-		sub: ["", ],
-	},
-	{
-		main: "경남",
-		sub: ["", ]
-	},
-	{
-		main: "",
-		sub: ["", ]
-	}
-];
-
-
-const Ipt = ({name, val, OCF}) => {
+const SearchProj = props => {
 	return (
-		<div className="ipt-line">
-			<div>
-				{name}
-			</div>
-			<input value={val} onChange={OCF} placeholder={`${name} 을 입력하세요.`}/>
-		</div>
-	)
-}
-
-const CreateProj = props => {
-	const [title, OCTitle] = useInput('');
-	const [subject, OCSebject] = useInput('');
-	const [description, OCDesription] = useInput('');
-	const [ region, OCRegion ] = useInput('지역');
-	const [ subRegion, OCSubRegion ] = useInput('');
-
-	const [ openSC, setOpenSC] = useState(false);
-	const [ openEC, setOpenEC] = useState(false);
-
-	const [startDate, setStartDate] = useState(new Date());
-	const [endDate, setEndDate] = useState(new Date());
-
-	const OCStartDate = useCallback((date) => {
-		setStartDate(date);
-	}, [startDate]);
-
-	const OCEndDate = useCallback((date) => {
-		setEndDate(date);
-	}, [endDate]);
-
-	return (
-		<div>
-			<h1>프로젝트 만들기</h1>
-			<Ipt name="제목" val={title} OCF={OCTitle} />
-			<Ipt name="주제" val={subject} OCF={OCSebject} />
-			<div className="ipt-line">
-				<div>기간</div>
-				<div className="calendar-wrap">
-					<button onClick={()=>setOpenSC(!openSC)}>시작일</button>
-					{openSC &&
-						<div className="calendar">
-							<Calendar
-								value={startDate}
-								onChange={OCStartDate}
-						/>
+		<div className="proj-search-page">
+			<div className="proj-etc-wrap">
+				<Link href="/project/create">
+					<a>
+						<div id="create">
+						프로젝트 만들기 버튼
 						</div>
-					}
-				</div>
-				<div className="calendar-wrap">
-					<button onClick={()=>setOpenEC(!openEC)}>종료일</button>
-					{openEC &&
-						<div className="calendar">
-							<Calendar
-								value={endDate}
-								onChange={OCEndDate}
-						/>
+					</a>
+				</Link>
+				<Link href="/">
+					<a>
+						<div id="apply">
+						인재풀 등록 버튼
 						</div>
-					}
+					</a>
+				</Link>
+				<div className="etc-link">
+					<Link href="/">
+						<a>
+							마감 임박
+						</a>
+					</Link>
+					<Link href="/">
+						<a>
+							관심있을 프로젝트
+						</a>
+					</Link>
 				</div>
 			</div>
-			<div className="ipt-line">
-				<div>
-					지역
+			<div className="proj-search-wrap">
+				<div className="search-filter-box">
+					<h3>검색 필터링</h3>
+					<div className="choice-filter-box">
+						지역, 기간, 테마, 스택
+					</div>
+					<div className="filter-attr-box">
+						필터링 요소들
+					</div>
+					<div className="filter-btn-box">
+						안내사항, 버튼
+					</div>
 				</div>
-				<select value={region} onChange={OCRegion}>
-					{dummyRegion.map((c, i) => {
-						return (
-							<option key={(i)} value={c.main}>{c.main}</option>
-						)
-					})}
-				</select>
-				{(region !== '지역' && dummyRegion.find(v=>v.main === region).sub !== null) &&
-					<select value={subRegion} onChange={OCSubRegion}>
-						{
-							dummyRegion.find(v=>v.main === region).sub.map((c, i) => {
-								return (
-									<option key={(i)} value={c}>{c}</option>
-								);
-							})
-						}
-					</select>
-				}
-			</div>
-			<div>
-				<table>
-					<thead>
-						<tr>
-							<td>스택</td>
-							<td>인원</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>노드</td>
-							<td>3명</td>
-						</tr>
-					</tbody>
-				</table>
-				<button>
-					모집 인원 추가하기
-				</button>
-			</div>
-			<textarea value={description} onChange={OCDesription} placeholder="프로젝트를 설명해주세요." />
-			<div>
-				<button>모집하기</button>
-				<button>취소하기</button>
+				<div className="proj-result-box">
+					<div className="proj-result-header">해더 - 검색결과, 소트 기준 버튼</div>
+					<div className="proj-result">결과들</div>
+				</div>
 			</div>
 		</div>
 	);
 };
 
-CreateProj.propTypes = {
+SearchProj.propTypes = {
 
 };
 
-export default CreateProj;
-
-
-// 지역 ( + 온라인)
-// 기간 - 캘린더로 선택
-// 주제
-// 테마 - list
-// 최대인원 -> 테이블과 연결
-// 테이블 (스택, 인원) -> 최대인원으로 자동 합
-// 프로젝트 설명(텍스트)
+export default SearchProj;
