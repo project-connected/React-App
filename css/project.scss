@@ -180,6 +180,10 @@
 			border: 1px solid #e4eaf2;
 			border-radius: 5px;
 			padding: .5rem 1rem;
+
+			.choice-filter-box {
+				display: flex;
+			}
 		}
 
 		.proj-result-box {

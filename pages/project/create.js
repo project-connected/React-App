@@ -115,6 +115,7 @@ const CreateProj = props => {
 							<Calendar
 								value={startDate}
 								onChange={OCStartDate}
+								selectRange={true}
 						/>
 						</div>
 					}

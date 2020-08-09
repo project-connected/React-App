@@ -1,10 +1,11 @@
 import produce from '../util/produce';
 
 const initialState = {
-	search_region: '',
-	search_theme: '',
+	search_region: [],
+	search_theme: [],
 	search_priod: '',
 	search_stacks: [],
+	filterAttrOpenIndx: -1,
 }
 
 export const GET_REGION_FOR_SEARCH = 'GET_REGION_FOR_SEARCH';
@@ -12,23 +13,49 @@ export const GET_THEME_FOR_SEARCH = 'GET_THEME_FOR_SEARCH';
 export const GET_PRIOD_FOR_SEARCH = 'GET_PRIOD_FOR_SEARCH';
 export const GET_STACK_FOR_SEARCH = 'GET_STACK_FOR_SEARCH';
 
+export const LOSE_REGION_FOR_SEARCH = 'LOSE_REGION_FOR_SEARCH';
+export const LOSE_THEME_FOR_SEARCH = 'LOSE_THEME_FOR_SEARCH';
+export const LOSE_PRIOD_FOR_SEARCH = 'LOSE_PRIOD_FOR_SEARCH';
+export const LOSE_STACK_FOR_SEARCH = 'LOSE_STACK_FOR_SEARCH';
+
+export const OPEN_FILTER_ATTR = 'OPEN_FILTER_ATTR';
+
 const reducer = (state=initialState, action) => produce(state, (draft) => {
 	switch (action.type) {
 		case GET_REGION_FOR_SEARCH: {
-			draft.search_region = action.data;
+			draft.search_region = draft.search_region.push(action.data);
 			break;
 		}
+		case LOSE_REGION_FOR_SEARCH: {
+			draft.search_region = draft.search_region.filter(v => v.name !== action.data.name);
+			break;
+		}
+
 		case GET_THEME_FOR_SEARCH: {
-			draft.search_theme = action.data;
+			draft.search_theme = draft.search_theme.push(action.data);
 			break;
 		}
+		case LOSE_THEME_FOR_SEARCH: {
+			draft.search_region = draft.search_theme.filter(v => v.name !== action.data.name);
+			break;
+		}
+
 		case GET_PRIOD_FOR_SEARCH: {
 			draft.search_priod = action.data;
 			break;
 		}
 
 		case GET_STACK_FOR_SEARCH: {
-			draft.search_stacks = action.data;
+			draft.search_stacks = draft.search_stacks.push(action.data);
+			break;
+		}
+		case LOSE_REGION_FOR_SEARCH: {
+			draft.search_region = draft.search_stacks.filter(v => v.name !== action.data.name);
+			break;
+		}
+
+		case OPEN_FILTER_ATTR: {
+			draft.filterAttrOpenIndx = action.data;
 			break;
 		}
 

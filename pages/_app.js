@@ -15,6 +15,7 @@ import '../css/signup.scss';
 import '../css/chat.scss';
 import '../css/project.scss';
 import '../css/forms.scss';
+import '../css/buttons.scss';
 
 import AppLayout from '../containers/AppLayout';
 
