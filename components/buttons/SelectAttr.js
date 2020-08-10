@@ -1,16 +1,56 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardArrowDown, Search } from '@material-ui/icons';
+import { CLOSE_ALL_COMP2 } from '../../reducers/project';
 
-import useInput from '../../hooks/useInput';
 
-const SelectAttr = ({ name, data, clickFunc, idx}) => {
-	const { filterAttrOpenIndx } = useSelector(state=>state.project);
+const SelectAttr = ({ name, data, clickFunc, idx, getAction}) => {
+	const dispatch = useDispatch();
+	const { filterAttrOpenIndx, search_region, search_theme } = useSelector(state=>state.project);
 
 	const wrapClassName = filterAttrOpenIndx === idx ? 'select-btn-wrap clicked' : 'select-btn-wrap';
 
-	const [text, OCText] = useInput('');
+	const [text, setText] = useState('');
+	const [attrs, setAttrs] = useState(data);
+
+	const OCText = useCallback((e) => {
+		setText(e.target.value);
+		setAttrs(data.filter(v => v.toLowerCase().match(e.target.value.toLowerCase())));
+	}, [text]);
+
+	const getAttrs = useCallback((attr) => (e) => {
+		e.preventDefault();
+		console.log(attr)
+		if (idx === 0) {
+			if (!search_region.find(v => v === attr))
+			{
+				dispatch({
+					type: getAction,
+					data: attr,
+				})
+				dispatch({
+					type: CLOSE_ALL_COMP2
+				})
+			}
+		} else  if (idx === 1) {
+			if (!search_theme.find(v => v === attr))
+			{
+				dispatch({
+					type: getAction,
+					data: attr,
+				})
+				dispatch({
+					type: CLOSE_ALL_COMP2
+				})
+			}
+		} else {
+			dispatch({
+				type: getAction,
+				data: attr,
+			})
+		}
+	})
 
 
 	return (
@@ -24,9 +64,9 @@ const SelectAttr = ({ name, data, clickFunc, idx}) => {
 					<input type="text" value={text} onChange={OCText}/>
 					<Search />
 				</div>
-				{data.map((c, i) => {
+				{attrs.map((c, i) => {
 					return (
-						<div key={(i)} className="attribute">
+						<div key={(i)} className="attribute" onClick={getAttrs(c)}>
 							{c}
 						</div>
 					);

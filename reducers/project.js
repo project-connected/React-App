@@ -20,10 +20,16 @@ export const LOSE_STACK_FOR_SEARCH = 'LOSE_STACK_FOR_SEARCH';
 
 export const OPEN_FILTER_ATTR = 'OPEN_FILTER_ATTR';
 
+export const CLOSE_ALL_COMP2 = 'CLOSE_ALL_COMP2';
+
 const reducer = (state=initialState, action) => produce(state, (draft) => {
 	switch (action.type) {
+		case CLOSE_ALL_COMP2: {
+			draft.filterAttrOpenIndx = -1;
+			break;
+		}
 		case GET_REGION_FOR_SEARCH: {
-			draft.search_region = draft.search_region.push(action.data);
+			draft.search_region = draft.search_region.concat(action.data);
 			break;
 		}
 		case LOSE_REGION_FOR_SEARCH: {
@@ -32,7 +38,7 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 		}
 
 		case GET_THEME_FOR_SEARCH: {
-			draft.search_theme = draft.search_theme.push(action.data);
+			draft.search_theme = draft.search_theme.concat(action.data);
 			break;
 		}
 		case LOSE_THEME_FOR_SEARCH: {
@@ -46,11 +52,11 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 		}
 
 		case GET_STACK_FOR_SEARCH: {
-			draft.search_stacks = draft.search_stacks.push(action.data);
+			draft.search_stacks = draft.search_stacks.concat(action.data);
 			break;
 		}
-		case LOSE_REGION_FOR_SEARCH: {
-			draft.search_region = draft.search_stacks.filter(v => v.name !== action.data.name);
+		case LOSE_STACK_FOR_SEARCH: {
+			draft.search_stacks = draft.search_stacks.filter(v => v.name !== action.data.name);
 			break;
 		}
 

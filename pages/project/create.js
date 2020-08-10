@@ -102,7 +102,7 @@ const CreateProj = props => {
 	}, [endDate]);
 
 	return (
-		<div>
+		<div id="proj-create-wrap">
 			<h1>프로젝트 만들기</h1>
 			<Ipt name="제목" val={title} OCF={OCTitle} />
 			<Ipt name="주제" val={subject} OCF={OCSebject} />

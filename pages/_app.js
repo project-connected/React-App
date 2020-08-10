@@ -20,12 +20,6 @@ import '../css/buttons.scss';
 import AppLayout from '../containers/AppLayout';
 
 const Connected = ({ Component }) => {
-	useEffect(() => {
-		AOS.init({
-			duration: 1500
-		});
-		AOS.refresh();
-	});
 	return (
 		<>
 			<Head>

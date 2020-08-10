@@ -5,7 +5,7 @@ import { KeyboardArrowDown, Search } from '@material-ui/icons';
 import useInput from '../../hooks/useInput';
 import StackBlock from '../StackBlock';
 import { useSelector, useDispatch } from 'react-redux';
-import { OPEN_FILTER_ATTR } from '../../reducers/project';
+import { OPEN_FILTER_ATTR, GET_STACK_FOR_SEARCH } from '../../reducers/project';
 
 const dummyStack = [
 	{
@@ -56,8 +56,9 @@ const dummyStack = [
 	},
 ]
 
-const SelectStack = ({ clickFunc, getAction }) => {
-	const { filterAttrOpenIndx } = useSelector(state=>state.project);
+const SelectStack = ({ clickFunc }) => {
+	const { filterAttrOpenIndx, search_stacks } = useSelector(state=>state.project);
+	const dispatch = useDispatch();
 
 	const wrapClassName = filterAttrOpenIndx === 3 ? 'select-btn-wrap clicked' : 'select-btn-wrap';
 
@@ -69,6 +70,16 @@ const SelectStack = ({ clickFunc, getAction }) => {
 		e.preventDefault();
 		setData(dummyStack.filter(v => v.name.toLowerCase().match(e.target.value.toLowerCase())));
 	}, [text, data]);
+
+	const cilckStack = useCallback((c) => (e) => {
+		e.preventDefault();
+		if (!search_stacks.find(v => v.name === c.name)) {
+			dispatch({
+				type: GET_STACK_FOR_SEARCH,
+				data: c,
+			})
+		}
+	}, [search_stacks]);
 
 	return (
 		<>
@@ -85,7 +96,9 @@ const SelectStack = ({ clickFunc, getAction }) => {
 					<div className="project-card-stack-block-wrap">
 						{data.map((c, i) => {
 							return (
-								<StackBlock key={(i)} name={c.name} color={c.color}/>
+								<div onClick={cilckStack(c)} key={(i)} >
+									<StackBlock name={c.name} color={c.color} />
+								</div>
 							);
 						})}
 					</div>

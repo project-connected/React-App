@@ -7,6 +7,8 @@ const initialState = {
 	openUserProfile: false,
 }
 
+export const CLOSE_ALL_COMP1 = 'CLOSE_ALL_COMP1';
+
 export const OPEN_CHAT = "OPEN_CHAT";
 export const CLOSE_CHAT = "CLOSE_CHAT";
 
@@ -18,6 +20,10 @@ export const CLOSE_APPLY = "CLOSE_APPLY";
 
 const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 	switch (action.type) {
+		case CLOSE_ALL_COMP1: {
+			draft.openChat = false;
+			break;
+		}
 		case OPEN_CHAT: {
 			draft.openChat = true;
 			break;
