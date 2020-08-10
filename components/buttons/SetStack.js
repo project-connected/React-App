@@ -94,6 +94,8 @@ const SetStack = ({ getAction=GET_STACK_FOR_CREATE }) => {
 
 	const openAttr = useCallback((e) => {
 		e.preventDefault();
+		setStackSetting(null);
+		setStackNumber(0);
 		if (6 === filterAttrOpenIndx) {
 			dispatch({
 				type: OPEN_FILTER_ATTR,
