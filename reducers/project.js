@@ -6,6 +6,10 @@ const initialState = {
 	search_priod: '',
 	search_stacks: [],
 	filterAttrOpenIndx: -1,
+	create_stacks: [],
+	create_theme: '',
+	create_region: '',
+	create_priod: '',
 }
 
 export const GET_REGION_FOR_SEARCH = 'GET_REGION_FOR_SEARCH';
@@ -17,6 +21,12 @@ export const LOSE_REGION_FOR_SEARCH = 'LOSE_REGION_FOR_SEARCH';
 export const LOSE_THEME_FOR_SEARCH = 'LOSE_THEME_FOR_SEARCH';
 export const LOSE_PRIOD_FOR_SEARCH = 'LOSE_PRIOD_FOR_SEARCH';
 export const LOSE_STACK_FOR_SEARCH = 'LOSE_STACK_FOR_SEARCH';
+
+
+export const GET_REGION_FOR_CREATE = 'GET_REGION_FOR_CREATE';
+export const GET_THEME_FOR_CREATE = 'GET_THEME_FOR_CREATE';
+export const GET_PRIOD_FOR_CREATE = 'GET_PRIOD_FOR_CREATE';
+export const GET_STACK_FOR_CREATE = 'GET_STACK_FOR_CREATE';
 
 export const OPEN_FILTER_ATTR = 'OPEN_FILTER_ATTR';
 
@@ -62,6 +72,23 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 
 		case OPEN_FILTER_ATTR: {
 			draft.filterAttrOpenIndx = action.data;
+			break;
+		}
+
+		case GET_REGION_FOR_CREATE: {
+			draft.search_region = action.data;
+			break;
+		}
+		case GET_STACK_FOR_CREATE: {
+			draft.create_stacks = draft.create_stacks.concat(action.data);
+			break;
+		}
+		case GET_THEME_FOR_CREATE: {
+			draft.search_theme = action.data;
+			break;
+		}
+		case GET_PRIOD_FOR_CREATE: {
+			draft.search_priod = action.data;
 			break;
 		}
 

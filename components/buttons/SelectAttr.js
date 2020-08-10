@@ -2,10 +2,10 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardArrowDown, Search } from '@material-ui/icons';
-import { CLOSE_ALL_COMP2 } from '../../reducers/project';
+import { CLOSE_ALL_COMP2, OPEN_FILTER_ATTR } from '../../reducers/project';
 
 
-const SelectAttr = ({ name, data, clickFunc, idx, getAction}) => {
+const SelectAttr = ({ name, data, idx, getAction}) => {
 	const dispatch = useDispatch();
 	const { filterAttrOpenIndx, search_region, search_theme } = useSelector(state=>state.project);
 
@@ -18,6 +18,21 @@ const SelectAttr = ({ name, data, clickFunc, idx, getAction}) => {
 		setText(e.target.value);
 		setAttrs(data.filter(v => v.toLowerCase().match(e.target.value.toLowerCase())));
 	}, [text]);
+
+	const openAttr = useCallback((e) => {
+		e.preventDefault();
+		if (idx === filterAttrOpenIndx) {
+			dispatch({
+				type: OPEN_FILTER_ATTR,
+				data: -1,
+			})
+			return ;
+		}
+		dispatch({
+			type: OPEN_FILTER_ATTR,
+			data: idx,
+		})
+	}, [filterAttrOpenIndx]);
 
 	const getAttrs = useCallback((attr) => (e) => {
 		e.preventDefault();
@@ -49,13 +64,16 @@ const SelectAttr = ({ name, data, clickFunc, idx, getAction}) => {
 				type: getAction,
 				data: attr,
 			})
+			dispatch({
+				type: CLOSE_ALL_COMP2
+			})
 		}
 	})
 
 
 	return (
 		<div className={wrapClassName}>
-			<div className='select-btn' onClick={clickFunc}>
+			<div className='select-btn' onClick={openAttr}>
 				{name}
 				<KeyboardArrowDown />
 			</div>

@@ -2,10 +2,10 @@ import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { KeyboardArrowDown, Search } from '@material-ui/icons';
 
-import useInput from '../../hooks/useInput';
 import StackBlock from '../StackBlock';
+import useInputWithSetter from '../../hooks/useInputWithSetter';
 import { useSelector, useDispatch } from 'react-redux';
-import { OPEN_FILTER_ATTR, GET_STACK_FOR_SEARCH } from '../../reducers/project';
+import { OPEN_FILTER_ATTR, GET_STACK_FOR_SEARCH, GET_STACK_FOR_CREATE } from '../../reducers/project';
 
 const dummyStack = [
 	{
@@ -56,14 +56,16 @@ const dummyStack = [
 	},
 ]
 
-const SelectStack = ({ getAction=GET_STACK_FOR_SEARCH }) => {
-	const { filterAttrOpenIndx, search_stacks, create_stacks } = useSelector(state=>state.project);
+const SetStack = ({ getAction=GET_STACK_FOR_CREATE }) => {
+	const { filterAttrOpenIndx, create_stacks } = useSelector(state=>state.project);
 	const dispatch = useDispatch();
 
-	const wrapClassName = filterAttrOpenIndx === 3 ? 'select-btn-wrap clicked' : 'select-btn-wrap';
+	const wrapClassName = filterAttrOpenIndx === 6 ? 'select-btn-wrap clicked' : 'select-btn-wrap';
 
 	const [text, setText] = useState('');
 	const [data, setData] = useState(dummyStack);
+	const [stackSetting, setStackSetting] = useState(null);
+	const [stackNumber, setStackNumber, OCStackNumber] = useInputWithSetter(0);
 
 	const OCText = useCallback((e) => {
 		setText(e.target.value);
@@ -73,26 +75,26 @@ const SelectStack = ({ getAction=GET_STACK_FOR_SEARCH }) => {
 
 	const cilckStack = useCallback((c) => (e) => {
 		e.preventDefault();
-		if (getAction === GET_STACK_FOR_SEARCH) {
-			if (!search_stacks.find(v => v.name === c.name)) {
-				dispatch({
-					type: getAction,
-					data: c,
-				})
+		setStackSetting(c);
+		setStackNumber(0);
+	}, [stackSetting]);
+
+	const setRecruitStack = useCallback((e) => {
+		e.preventDefault();
+		dispatch({
+			type: getAction,
+			data: {
+				stack: stackSetting,
+				num: stackNumber,
 			}
-		} else {
-			if (!create_stacks.find(v => v.name === c.name)) {
-				dispatch({
-					type: getAction,
-					data: c,
-				})
-			}
-		}
-	}, [search_stacks, create_stacks]);
+		})
+		setStackSetting(null);
+		setStackNumber(0);
+	})
 
 	const openAttr = useCallback((e) => {
 		e.preventDefault();
-		if (3 === filterAttrOpenIndx) {
+		if (6 === filterAttrOpenIndx) {
 			dispatch({
 				type: OPEN_FILTER_ATTR,
 				data: -1,
@@ -101,7 +103,7 @@ const SelectStack = ({ getAction=GET_STACK_FOR_SEARCH }) => {
 		}
 		dispatch({
 			type: OPEN_FILTER_ATTR,
-			data: 3,
+			data: 6,
 		})
 	}, [filterAttrOpenIndx]);
 
@@ -126,14 +128,27 @@ const SelectStack = ({ getAction=GET_STACK_FOR_SEARCH }) => {
 							);
 						})}
 					</div>
+					{ stackSetting &&
+						<div className="stack-member-register">
+							<StackBlock name={stackSetting.name} color={stackSetting.color} />
+							<input type="number" value={stackNumber} onChange={OCStackNumber}
+								style={{
+									borderBottom: `1px solid ${stackSetting.color}`
+								}}
+							/>
+							<div className="set-stack-btn" onClick={setRecruitStack} >
+								SET
+							</div>
+						</div>
+					}
 				</div>
 			</div>
 		</>
 	);
 };
 
-SelectStack.propTypes = {
+SetStack.propTypes = {
 
 };
 
-export default SelectStack;
+export default SetStack;

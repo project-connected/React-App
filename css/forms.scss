@@ -292,5 +292,65 @@
 }
 
 #proj-create-wrap {
+	display: flex;
+	width: 100%;
 
+	.proj-input-box {
+		width: -webkit-fill-available;
+		position: relative;
+		border-radius: 5px;
+		border: 1px solid #bbb;
+		padding: .5rem 1rem;
+
+		.ipt-line {
+			padding: .5rem 1rem;
+			margin: 1rem 0;
+		}
+	}
+
+	.proj-create-box {
+		position: relative;
+		width: 350px !important;
+		margin-left: 2rem;
+
+		.proj-create-preview {
+			border-radius: 5px;
+			border: 1px solid #bbb;
+			padding: .5rem 1rem;
+		}
+
+		.proj-create-btn-box {
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+
+			button {
+				width: 100%;
+				border-radius: 5px;
+				padding: .5rem 1rem;
+				text-align: center;
+				color: white;
+				font-weight: 500;
+				transition: .3s;
+
+				&#recruit {
+					background: #4646ff;
+					margin-bottom: 5px;
+
+					&:hover {
+						background: #2323ff;
+					}
+				}
+				&#cancel {
+					background: #ff8686;
+
+					&:hover {
+						background: #ff2323;
+					}
+				}
+			}
+		}
+	}
 }

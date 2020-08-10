@@ -92,6 +92,36 @@
 			cursor: pointer;
 		}
 	}
+
+	.stack-member-register {
+		display: flex;
+		width: 100%;
+		border-top: 1px solid rgba(90, 90, 90, 0.1);
+		padding: .5rem 1rem;
+		position: relative;
+
+		input[type="number"] {
+			width: 50px;
+			margin-left: 10px;
+			-webkit-appearance: none;
+			-moz-appearance: textfield;
+		}
+
+		.stack-block {
+			margin-bottom: 0;
+		}
+
+		.set-stack-btn {
+			background: #4646ff;
+			border-radius: 5px;
+			padding: 0.1rem 1rem;
+			color: white;
+			font-weight: 500;
+			cursor: pointer;
+			position: absolute;
+			right: 1rem;
+		}
+	}
 }
 
 @keyframes padeDown {

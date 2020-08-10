@@ -2,7 +2,13 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Calendar from 'react-calendar';
 
+import {
+	GET_PRIOD_FOR_CREATE, GET_STACK_FOR_CREATE, GET_REGION_FOR_CREATE, GET_THEME_FOR_CREATE
+} from '../../reducers/project';
+
+import SelectAttr from '../../components/buttons/SelectAttr';
 import useInput from '../../hooks/useInput';
+import SetStack from '../../components/buttons/SetStack';
 
 const dummyRegion = [
 	{
@@ -103,81 +109,75 @@ const CreateProj = props => {
 
 	return (
 		<div id="proj-create-wrap">
-			<h1>프로젝트 만들기</h1>
-			<Ipt name="제목" val={title} OCF={OCTitle} />
-			<Ipt name="주제" val={subject} OCF={OCSebject} />
-			<div className="ipt-line">
-				<div>기간</div>
-				<div className="calendar-wrap">
-					<button onClick={()=>setOpenSC(!openSC)}>시작일</button>
-					{openSC &&
-						<div className="calendar">
-							<Calendar
-								value={startDate}
-								onChange={OCStartDate}
-								selectRange={true}
-						/>
-						</div>
-					}
+			<div className="proj-input-box">
+				<h1>프로젝트 만들기</h1>
+				<Ipt name="제목" val={title} OCF={OCTitle} />
+				<div className="ipt-line">
+					주제
+					<SelectAttr name="주제" data={["어플리케이션 개발", "해커톤", "공모전", "등"]} idx={4} getAction={GET_THEME_FOR_CREATE}/>
 				</div>
-				<div className="calendar-wrap">
-					<button onClick={()=>setOpenEC(!openEC)}>종료일</button>
-					{openEC &&
-						<div className="calendar">
-							<Calendar
-								value={endDate}
-								onChange={OCEndDate}
-						/>
-						</div>
-					}
-				</div>
-			</div>
-			<div className="ipt-line">
-				<div>
-					지역
-				</div>
-				<select value={region} onChange={OCRegion}>
-					{dummyRegion.map((c, i) => {
-						return (
-							<option key={(i)} value={c.main}>{c.main}</option>
-						)
-					})}
-				</select>
-				{(region !== '지역' && dummyRegion.find(v=>v.main === region).sub !== null) &&
-					<select value={subRegion} onChange={OCSubRegion}>
-						{
-							dummyRegion.find(v=>v.main === region).sub.map((c, i) => {
-								return (
-									<option key={(i)} value={c}>{c}</option>
-								);
-							})
+				<div className="ipt-line">
+					<div>기간</div>
+					<div className="calendar-wrap">
+						<button onClick={()=>setOpenSC(!openSC)}>시작일</button>
+						{openSC &&
+							<div className="calendar">
+								<Calendar
+									value={startDate}
+									onChange={OCStartDate}
+									selectRange={true}
+							/>
+							</div>
 						}
+					</div>
+					<div className="calendar-wrap">
+						<button onClick={()=>setOpenEC(!openEC)}>종료일</button>
+						{openEC &&
+							<div className="calendar">
+								<Calendar
+									value={endDate}
+									onChange={OCEndDate}
+							/>
+							</div>
+						}
+					</div>
+				</div>
+				<div className="ipt-line">
+						지역
+						<SelectAttr name="지역" data={["서울", "부산", "온라인"]} idx={5} getAction={GET_REGION_FOR_CREATE} />
+					{/* <select value={region} onChange={OCRegion}>
+						{dummyRegion.map((c, i) => {
+							return (
+								<option key={(i)} value={c.main}>{c.main}</option>
+							)
+						})}
 					</select>
-				}
+					{(region !== '지역' && dummyRegion.find(v=>v.main === region).sub !== null) &&
+						<select value={subRegion} onChange={OCSubRegion}>
+							{
+								dummyRegion.find(v=>v.main === region).sub.map((c, i) => {
+									return (
+										<option key={(i)} value={c}>{c}</option>
+									);
+								})
+							}
+						</select>
+					} */}
+				</div>
+				<div className="ipt-line">
+					스택
+					<SetStack getAction={GET_STACK_FOR_CREATE}/>
+				</div>
+				<textarea value={description} onChange={OCDesription} placeholder="프로젝트를 설명해주세요." />
 			</div>
-			<div>
-				<table>
-					<thead>
-						<tr>
-							<td>스택</td>
-							<td>인원</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>노드</td>
-							<td>3명</td>
-						</tr>
-					</tbody>
-				</table>
-				<button>
-					모집 인원 추가하기
-				</button>
-			</div>
-			<textarea value={description} onChange={OCDesription} placeholder="프로젝트를 설명해주세요." />
-			<div>
-				<button>모집하기</button>
-				<button>취소하기</button>
+			<div className="proj-create-box">
+				<div className="proj-create-preview">
+					스택 별 인원
+				</div>
+				<div className="proj-create-btn-box">
+					<button id="recruit">모집하기</button>
+					<button id="cancel">취소하기</button>
+				</div>
 			</div>
 		</div>
 	);

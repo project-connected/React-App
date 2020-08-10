@@ -1,10 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardArrowDown, Search } from '@material-ui/icons';
 import Calendar from 'react-calendar';
+import { OPEN_FILTER_ATTR } from '../../reducers/project';
 
-const SelectPeriod = ({ clickFunc, }) => {
+const SelectPeriod = () => {
+	const dispatch = useDispatch();
 	const { filterAttrOpenIndx } = useSelector(state=>state.project);
 
 	const wrapClassName = filterAttrOpenIndx === 2 ? 'select-btn-wrap clicked' : 'select-btn-wrap';
@@ -15,9 +17,24 @@ const SelectPeriod = ({ clickFunc, }) => {
 		setDate(date);
 	}, [date]);
 
+	const openAttr = useCallback((e) => {
+		e.preventDefault();
+		if (2 === filterAttrOpenIndx) {
+			dispatch({
+				type: OPEN_FILTER_ATTR,
+				data: -1,
+			})
+			return ;
+		}
+		dispatch({
+			type: OPEN_FILTER_ATTR,
+			data: 2,
+		})
+	}, [filterAttrOpenIndx]);
+
 	return (
 		<div className={wrapClassName}>
-			<div className='select-btn' onClick={clickFunc}>
+			<div className='select-btn' onClick={openAttr}>
 				기간
 				<KeyboardArrowDown />
 			</div>
