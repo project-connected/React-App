@@ -9,7 +9,7 @@ import useInput from '../hooks/useInput';
 const Profile = () => {
 	const { user } = useSelector(state=>state.user);
 
-	const [name, OCName] = useInput(user.name);
+	const [name, OCName] = useInput(user ? user.name : '');
 	const [password, OCPassword] = useInput('');
 	const [newPW, OCNewPW] = useInput('');
 	const [checkNewPW, OCCheckNewPW] = useInput('');
@@ -32,10 +32,12 @@ const Profile = () => {
 	}, [])
 
 	return (
+		<>
+		{user &&
 		<form id="myProfile">
 			<div className="default-info">
 				<div role="region" id="img-section">
-					<div style={{background: `url(${user.profileImg}) `}}>
+					<div style={{background: `url(${user && user.profileImg}) `}}>
 						<button >
 							<InsertPhoto style={{color: 'white'}}/>
 							<p>이미지 변경하기</p>
@@ -46,7 +48,7 @@ const Profile = () => {
 				<div role="region" id="info-section">
 					<div>
 						<Email />
-						{user.email}
+						{user && user.email}
 					</div>
 					<div>
 						<PersonPin />
@@ -79,6 +81,8 @@ const Profile = () => {
 			</div>
 			<input type="submit" value="수정하기"/>
 		</form>
+		}
+		</>
 	);
 };
 
