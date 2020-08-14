@@ -1,0 +1,247 @@
+@charset 'UTF-8';
+
+#project-page-wrap {
+	width: 100%;
+
+	p {
+		color: #999;
+		font-size: 13px;
+		margin: 0;
+	}
+
+	.proj-head-info {
+		width: 100%;
+		padding: 2rem;
+		border: 1px solid #DDD;
+		border-top: 3px solid #BBB;
+
+		.proj-head-title {
+			border-bottom: 1px solid #DDD;
+			padding-bottom: 10px;
+			margin-bottom: 15px;
+		}
+
+		.proj-info-container {
+			display: table;
+			width: 100%;
+			padding: 0;
+			border-spacing: 0;
+			table-layout: fixed;
+			letter-spacing: -1px;
+
+			h6 {
+				font-weight: 700;
+				font-size: 14px;
+			}
+			section {
+				display: table-cell;
+
+				.project-card-stack-block-wrap {
+					border: none;
+					padding: 15px 0;
+					overflow: unset;
+
+					.proj-stack-block {
+						position: relative;
+						overflow: unset;
+
+						&:hover, &:focus {
+							font-size: 20px;
+							.proj-stack-person {
+								display: block;
+							}
+						}
+
+						.proj-stack-person {
+							display: none;
+							position: absolute;
+							max-width: 70px;
+							min-width: 50px;
+							bottom: -20px;
+							left: 50%;
+							transform: translateX(-50%);
+							background: rgba(60, 60, 60, 0.9);
+							color: white;
+							font-size: 13px;
+							padding: 4px 8px;
+							text-align: center;
+
+							&::before {
+								content: '';
+								display: block;
+								position: absolute;
+								top: -5px;
+								right: 20px;
+								width: 0;
+								height: 0;
+								border-left: 5px solid transparent;
+								border-right: 5px solid transparent;
+								border-bottom: 5px solid rgba(60, 60, 60, 0.9);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.proj-button-wrap {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		margin-top: 20px;
+		justify-content: center;
+
+		button {
+			padding: 17px 30px;
+			font-size: 18px;
+			font-weight: 500;
+			border-radius: 3px;
+			border: 1px solid #BBB;
+			transition: .3s;
+			color: #555;
+
+			&#apply {
+				border: none;
+				margin-right: 20px;
+				color: white;
+				background: #779eff;
+				border: 1px solid #668eff;
+
+				&:hover {
+					background: #668eff;
+				}
+			}
+		}
+	}
+}
+
+.info-block {
+	font-size: 13px;
+	line-height: 1.8;
+	font-weight: 500;
+	color: #779ee9;
+
+	.block-name {
+		margin-right: 2rem;
+		color: #666;
+	}
+}
+
+.proj-search-page {
+	margin-top: 8rem;
+	display: flex;
+
+	.proj-etc-wrap {
+		width: 250px !important;
+		margin-right: 2rem;
+		position: relative;
+
+		a {
+			width: 100%;
+			div {
+				border-radius: 5px;
+				color: white;
+				padding: .5rem 1.5rem;
+				text-align: center;
+				margin-bottom: 1rem;
+
+				&#create {
+					background: #4e61ff;
+				}
+
+				&#apply {
+					background: #4e61ff;
+				}
+			}
+		}
+
+		.etc-link {
+			border: 1px solid #e4eaf2;
+			border-radius: 5px;
+			display: flex;
+			flex-direction: column;
+
+			a {
+				padding: .5rem 1.2rem;
+				color: #444;
+				&:nth-child(n+1){
+					border-top: 1px solid #e4eaf2;
+				}
+			}
+		}
+	}
+
+	.proj-search-wrap {
+		width: -webkit-fill-available;
+		min-width: 400px;
+
+		.search-filter-box {
+			border: 1px solid #e4eaf2;
+			border-radius: 5px;
+			padding: .5rem 1rem;
+
+			.choice-filter-box {
+				display: flex;
+			}
+
+			.filter-attr-box {
+				border: 1px solid #e4eaf2;
+				border-radius: 5px;
+				padding: .5rem 1rem;
+				margin-top: 1rem;
+
+				p {
+					font-size: 12px;
+					color: #666;
+					margin-bottom: 5px;
+				}
+
+				.filter-block-box {
+					display: flex;
+					flex-wrap: wrap;
+
+					.filter-block {
+						border-radius: 5px;
+						padding: .3rem .5rem;
+						text-align: center;
+						font-weight: 500;
+						font-size: 13px;
+						color: white;
+						background: linear-gradient(#7778f8, #4646ff);
+						cursor: pointer;
+						margin-bottom: 5px;
+
+						&:nth-child(n+2) {
+							margin-left: .5rem;
+						}
+						&.theme::before {
+							content: "테마: ";
+						}
+						&.region::before {
+							content: "지역: ";
+						}
+						&.stack::before {
+							content: "스택: "
+						}
+					}
+				}
+			}
+		}
+
+		.proj-result-box {
+			border: 1px solid #e4eaf2;
+			border-radius: 5px;
+			margin-top: 2rem;
+
+			.proj-result-header {
+				border-bottom: 1px solid #e4eaf2;
+				padding: .5rem 1.5rem;
+			}
+
+			.proj-result {
+				padding: .5rem 1.5rem;
+			}
+		}
+	}
+}
