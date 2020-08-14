@@ -6,6 +6,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from '../reducers';
 import rootSaga from '../sagas';
 
+import axios from 'axios';
+
 const configureStore = (context) => {
 	const sagaMiddleware = createSagaMiddleware();
 	const middlewares = [sagaMiddleware];
@@ -16,6 +18,8 @@ const configureStore = (context) => {
 		);
 	const store = createStore(reducer, enhancer);
 	store.sagaTask = sagaMiddleware.run(rootSaga);
+	const tk = store.getState().user.userToken;
+	axios.defaults.headers.common['authorization'] = tk;
 	return store;
 };
 

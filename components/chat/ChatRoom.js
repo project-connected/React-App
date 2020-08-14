@@ -77,17 +77,22 @@ const ChatRoom = () => {
 								<div className="chat-room-profile">
 									<Mood />
 								</div>
-								<div className="msgBox">
-									{c.text}
+								<div className="msg-box">
+									<div className="msg-content">
+										{c.text}
+									</div>
 								</div>
 							</div>
 						:
-							<div className="msg-container">
+							<div className="msg-container other-user">
 								<div className="chat-room-profile">
 									<Mood />
 								</div>
-								<div className="msgBox">
-									{c.text}
+								<div className="msg-box">
+									<p className="msg-name">{c.name}</p>
+									<div className="msg-content">
+										{c.text}
+									</div>
 								</div>
 							</div>
 						}

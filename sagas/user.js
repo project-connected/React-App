@@ -19,13 +19,13 @@ const dummyUser = {
 }
 
 function loginAPI(loginData) {
-	return { data: dummyUser };
+	return axios.post('/auth/local/login', loginData);
 }
 
 function* login(action) {
 	try {
 		const result = yield call(loginAPI, action.data);
-		yield delay(1000);
+		// yield delay(1000);
 		yield put({
 			type: LOGIN_SUCCESS,
 			data: result.data,
@@ -55,7 +55,7 @@ function* logout(action) {
 	} catch(e) {
 		yield put({
 			type: LOGOUT_FAILURE,
-			error: e.reponse.error,
+			error: e.reponse.data,
 		})
 	}
 }
@@ -65,7 +65,7 @@ function* watchLogout() {
 }
 
 function signupAPI(signupData) {
-	return ;
+	return axios.post('/user', signupData);
 }
 
 function* signup(action) {
@@ -77,7 +77,7 @@ function* signup(action) {
 	} catch(e) {
 		yield put({
 			type: SIGNUP_FAILURE,
-			error: e.response.error,
+			error: e.response.data,
 		})
 	}
 }

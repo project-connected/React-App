@@ -82,6 +82,10 @@ const UserLogin = ({ isLoggingIn }) => {
 
 		dispatch({
 			type: LOGIN_REQUEST,
+			data: {
+				email,
+				password,
+			}
 		});
 	})
 

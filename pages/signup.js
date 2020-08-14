@@ -64,9 +64,8 @@ const Signup = () => {
 				type: SIGNUP_REQUEST,
 				data: {
 					email: email,
-					name: name,
+					userName: name,
 					password: pw,
-					term: term
 				}
 			})
 		}

@@ -2,6 +2,7 @@ import produce from '../util/produce';
 
 const initialState = {
 	user: null,
+	userToken: '',
 	isLoggingIn: false,
 	isLoggingOut: false,
 	isSigningup: false,
@@ -55,10 +56,11 @@ const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 			break;
 		}
 		case LOGIN_SUCCESS: {
-			draft.user = action.data;
+			draft.user = action.data.result.user;
 			draft.isLoggingIn = false;
 			draft.isLoggedIn = true;
 			draft.isLoggedOut = false;
+			draft.userToken = action.data.result.token;
 			break;
 		}
 		case LOGIN_FAILURE: {
