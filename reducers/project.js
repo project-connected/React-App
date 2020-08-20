@@ -30,6 +30,8 @@ export const GET_RESULT_FOR_CREATE = 'GET_RESULT_FOR_CREATE';
 export const GET_PRIOD_FOR_CREATE = 'GET_PRIOD_FOR_CREATE';
 export const GET_STACK_FOR_CREATE = 'GET_STACK_FOR_CREATE';
 
+export const DELETE_STACK_FOR_CREATE = 'DELETE_STACK_FOR_CREATE';
+
 export const OPEN_FILTER_ATTR = 'OPEN_FILTER_ATTR';
 
 export const CLOSE_ALL_COMP2 = 'CLOSE_ALL_COMP2';
@@ -95,6 +97,11 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 		}
 		case GET_PRIOD_FOR_CREATE: {
 			draft.create_priod = action.data;
+			break;
+		}
+
+		case DELETE_STACK_FOR_CREATE: {
+			draft.create_stacks = draft.create_stacks.filter(v => v.name !== action.data.name)
 			break;
 		}
 

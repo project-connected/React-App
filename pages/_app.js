@@ -5,6 +5,9 @@ import wrapper from '../store/configureStore';
 import AOS from 'aos';
 
 // css import
+import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import 'codemirror/lib/codemirror.css';
 import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-calendar/dist/Calendar.css';

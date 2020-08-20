@@ -12,9 +12,11 @@
 		border: 1px solid rgb(100, 140, 255);
 	}
 
-	&.clicked, &.opened {
+	&.opened {
 		border: none;
+	}
 
+	&.clicked, &.opened {
 		.select-btn svg {
 			transform: translateY(-50%) rotate(180deg);
 		}
@@ -130,7 +132,6 @@
 			&:hover {
 				color: #666;
 				box-shadow:inset 1px 1px rgba(0, 0, 0, .1);
-				border: none;
 			}
 		}
 	}

@@ -230,9 +230,6 @@ const AppLayout = ({ children }) => {
 						<div type="button" className="nav-profile-btn" onClick={onClickProfileBtn}>
 							{ user ?
 								<>
-								<div className="my-alert">
-									알림창
-								</div>
 								<DummyProfile />
 								</> :
 								<img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/b7c76929274393.55ead42cd721c.jpg"/>

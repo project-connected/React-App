@@ -319,17 +319,17 @@
 				top: -3rem;
 				left: 0;
 			}
+			p {
+				color: #777;
+				font-size: 14px;
+				margin-bottom: 0.1rem;
+
+				&:nth-child(n+2) {
+					margin: 2rem 0 .1rem 0 ;
+				}
+			}
 
 			.selector {
-				p {
-					color: #777;
-					font-size: 14px;
-					margin-bottom: 0.1rem;
-
-					&:nth-child(n+2) {
-						margin: 2rem 0 .1rem 0 ;
-					}
-				}
 				.select-btn-wrap {
 					margin: 0;
 					.data-list{
@@ -373,10 +373,16 @@
 						margin-left: 1rem;
 						min-height: 200px;
 						overflow: auto;
+						position: relative;
 
 						.setting {
 							display: flex;
 							align-items: center;
+							position: absolute;
+							top: 0;
+							animation: .3s padeDown 1 ease-in-out;
+							z-index: 88;
+							background: white;
 
 							input[type="number"]{
 								width: 30px;
@@ -388,11 +394,16 @@
 						}
 
 						.setted-box {
-							min-height: 150px;
-							padding-top: 30px;
+							height: 150px;
+							overflow: auto;
 
 							.setted-stack {
 								display: flex;
+
+								svg {
+									width: 1em;
+									height: 1em;
+								}
 							}
 						}
 

@@ -1,11 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { KeyboardArrowDown, Search } from '@material-ui/icons';
+import { Search } from '@material-ui/icons';
 
 import StackBlock from '../StackBlock';
-import useInputWithSetter from '../../hooks/useInputWithSetter';
-import { useSelector, useDispatch } from 'react-redux';
-import { OPEN_FILTER_ATTR, GET_STACK_FOR_SEARCH, GET_STACK_FOR_CREATE } from '../../reducers/project';
+import { useSelector } from 'react-redux';
 
 const dummyStack = [
 	{
@@ -60,6 +58,8 @@ const SetStack = ({ value, setValue }) => {
 	const [text, setText] = useState('');
 	const [data, setData] = useState(dummyStack);
 
+	const { create_stacks } = useSelector(state=>state.project);
+
 	const OCText = useCallback((e) => {
 		setText(e.target.value);
 		e.preventDefault();
@@ -80,7 +80,7 @@ const SetStack = ({ value, setValue }) => {
 						<Search />
 					</div>
 					<div className="project-card-stack-block-wrap">
-						{data.map((c, i) => {
+						{data.filter(v => !create_stacks.find(elem => elem.name === v.name)).map((c, i) => {
 							return (
 								<div onClick={cilckStack(c)} key={(i)} >
 									<StackBlock name={c.name} color={c.color} />
