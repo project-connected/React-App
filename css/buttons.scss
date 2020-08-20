@@ -12,7 +12,9 @@
 		border: 1px solid rgb(100, 140, 255);
 	}
 
-	&.clicked {
+	&.clicked, &.opened {
+		border: none;
+
 		.select-btn svg {
 			transform: translateY(-50%) rotate(180deg);
 		}
@@ -31,6 +33,7 @@
 	position: relative;
 	width: fit-content;
 	cursor: pointer;
+	width: 100%;
 
 	svg {
 		position: absolute;
@@ -56,7 +59,7 @@
 	.data-list-search {
 		padding: .5rem 2.5rem .5rem 1rem;
 		position: relative;
-		width: 300px;
+		min-width: 300px;
 
 		input {
 			width: 100%;
@@ -114,14 +117,21 @@
 		}
 
 		.set-stack-btn {
-			background: #4646ff;
+			background: white;
 			border-radius: 5px;
+			border: 1px solid #DDD;
 			padding: 0.1rem 1rem;
-			color: white;
+			color: #999;
 			font-weight: 500;
 			cursor: pointer;
 			position: absolute;
 			right: 1rem;
+
+			&:hover {
+				color: #666;
+				box-shadow:inset 1px 1px rgba(0, 0, 0, .1);
+				border: none;
+			}
 		}
 	}
 }

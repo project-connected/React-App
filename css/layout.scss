@@ -31,8 +31,9 @@ button:focus {
 .page-inner-container {
 	position: relative;
 	max-width: 1200px;
-	min-width: 800px;
+	// min-width: 800px;
 	margin: 0 auto;
+	overflow: hidden;
 }
 
 .page-wrap {
@@ -66,12 +67,19 @@ button:focus {
 		right: 20px;
 		top: 50%;
 		transform: translateY(-50%);
+		display: flex;
+		align-items: center;
+
+		.my-alert {
+			margin-right: 2rem;
+		}
 
 		img {
 			border-radius: 100%;
 			width: 40px;
 			height: 40px;
 		}
+
 		&:active {
 			.sub-menu {
 			opacity: 1;

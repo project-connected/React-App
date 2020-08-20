@@ -1,7 +1,22 @@
 import produce from '../util/produce';
 
+const dummyUser = {
+	email: 'anhs0220@gmail.com',
+	name: '안홍섭',
+	profileImg: 'https://media.vlpt.us/images/yujo/profile/053c9bee-1076-418c-808d-f9a1b88dc445/KakaoTalk_20200229_162658088.jpg?w=240',
+	subProfile: {
+		userRegion: "",
+		userStack: [{
+			name: "React.js",
+			level: 3,
+		}],
+		userURL: "",
+		introduct: "",
+	}
+}
+
 const initialState = {
-	user: null,
+	user: dummyUser,
 	userToken: '',
 	isLoggingIn: false,
 	isLoggingOut: false,
@@ -27,21 +42,6 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
-
-const dummyUser = {
-	email: 'anhs0220@gmail.com',
-	name: '안홍섭',
-	profileImg: 'https://media.vlpt.us/images/yujo/profile/053c9bee-1076-418c-808d-f9a1b88dc445/KakaoTalk_20200229_162658088.jpg?w=240',
-	subProfile: {
-		userRegion: "",
-		userStack: [{
-			name: "React.js",
-			level: 3,
-		}],
-		userURL: "",
-		introduct: "",
-	}
-}
 
 const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 	switch (action.type) {

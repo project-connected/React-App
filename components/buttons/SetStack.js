@@ -56,16 +56,9 @@ const dummyStack = [
 	},
 ]
 
-const SetStack = ({ getAction=GET_STACK_FOR_CREATE }) => {
-	const { filterAttrOpenIndx, create_stacks } = useSelector(state=>state.project);
-	const dispatch = useDispatch();
-
-	const wrapClassName = filterAttrOpenIndx === 6 ? 'select-btn-wrap clicked' : 'select-btn-wrap';
-
+const SetStack = ({ value, setValue }) => {
 	const [text, setText] = useState('');
 	const [data, setData] = useState(dummyStack);
-	const [stackSetting, setStackSetting] = useState(null);
-	const [stackNumber, setStackNumber, OCStackNumber] = useInputWithSetter(0);
 
 	const OCText = useCallback((e) => {
 		setText(e.target.value);
@@ -75,47 +68,12 @@ const SetStack = ({ getAction=GET_STACK_FOR_CREATE }) => {
 
 	const cilckStack = useCallback((c) => (e) => {
 		e.preventDefault();
-		setStackSetting(c);
-		setStackNumber(0);
-	}, [stackSetting]);
-
-	const setRecruitStack = useCallback((e) => {
-		e.preventDefault();
-		dispatch({
-			type: getAction,
-			data: {
-				stack: stackSetting,
-				num: stackNumber,
-			}
-		})
-		setStackSetting(null);
-		setStackNumber(0);
-	})
-
-	const openAttr = useCallback((e) => {
-		e.preventDefault();
-		setStackSetting(null);
-		setStackNumber(0);
-		if (6 === filterAttrOpenIndx) {
-			dispatch({
-				type: OPEN_FILTER_ATTR,
-				data: -1,
-			})
-			return ;
-		}
-		dispatch({
-			type: OPEN_FILTER_ATTR,
-			data: 6,
-		})
-	}, [filterAttrOpenIndx]);
+		setValue(c)
+	}, [value]);
 
 	return (
 		<>
-			<div className={wrapClassName}>
-				<div className='select-btn' onClick={openAttr}>
-					스택
-					<KeyboardArrowDown />
-				</div>
+			<div className="select-btn-wrap opened">
 				<div className='data-list'>
 					<div className="data-list-search">
 						<input type="text" value={text} onChange={OCText}/>
@@ -130,19 +88,6 @@ const SetStack = ({ getAction=GET_STACK_FOR_CREATE }) => {
 							);
 						})}
 					</div>
-					{ stackSetting &&
-						<div className="stack-member-register">
-							<StackBlock name={stackSetting.name} color={stackSetting.color} />
-							<input type="number" value={stackNumber} onChange={OCStackNumber}
-								style={{
-									borderBottom: `1px solid ${stackSetting.color}`
-								}}
-							/>
-							<div className="set-stack-btn" onClick={setRecruitStack} >
-								SET
-							</div>
-						</div>
-					}
 				</div>
 			</div>
 		</>

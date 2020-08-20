@@ -1,14 +1,20 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Calendar from 'react-calendar';
 
 import {
-	GET_PRIOD_FOR_CREATE, GET_STACK_FOR_CREATE, GET_REGION_FOR_CREATE, GET_THEME_FOR_CREATE
+	GET_PRIOD_FOR_CREATE, GET_STACK_FOR_CREATE, GET_REGION_FOR_CREATE, GET_THEME_FOR_CREATE, GET_RESULT_FOR_CREATE
 } from '../../reducers/project';
 
 import SelectAttr from '../../components/buttons/SelectAttr';
 import useInput from '../../hooks/useInput';
+import useInputWithSetter from '../../hooks/useInputWithSetter';
 import SetStack from '../../components/buttons/SetStack';
+import StackBlock from '../../components/StackBlock';
+
+import { KeyboardArrowRight, KeyboardArrowLeft } from '@material-ui/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { Input } from '@material-ui/core';
 
 const dummyRegion = [
 	{
@@ -87,97 +93,153 @@ const Ipt = ({name, val, OCF}) => {
 }
 
 const CreateProj = props => {
-	const [title, OCTitle] = useInput('');
-	const [subject, OCSebject] = useInput('');
-	const [description, OCDesription] = useInput('');
-	const [ region, OCRegion ] = useInput('지역');
-	const [ subRegion, OCSubRegion ] = useInput('');
+	const widthRef = useRef();
+	const [width, setWidth] = useState(0);
+	const [pageOffset, setPageOffset] = useState('');
+	const [ title, OCTitle ] = useInput('');
+	const [stack, setStack] = useState(null);
+	const [stackNum, setStackNum, OCStackNum] = useInputWithSetter(0);
 
-	const [ openSC, setOpenSC] = useState(false);
-	const [ openEC, setOpenEC] = useState(false);
+	const { create_stacks } = useSelector(state=>state.project);
+	const dispatch = useDispatch();
 
-	const [startDate, setStartDate] = useState(new Date());
-	const [endDate, setEndDate] = useState(new Date());
+	const pageStyle = {
+		transform: `translateX(${pageOffset}px`
+	}
 
-	const OCStartDate = useCallback((date) => {
-		setStartDate(date);
-	}, [startDate]);
+	const ClickNext = useCallback((e) => {
+		e.preventDefault();
+		setPageOffset(pageOffset - width)
+		console.log(pageOffset)
+	}, [pageOffset, width])
 
-	const OCEndDate = useCallback((date) => {
-		setEndDate(date);
-	}, [endDate]);
+	const ClickBefore = useCallback((e) => {
+		e.preventDefault();
+		setPageOffset(pageOffset + width)
+		console.log(pageOffset)
+	}, [pageOffset, width])
+
+	const set_create_stacks = useCallback((e) => {
+		e.preventDefault()
+		if (stackNum > 0) {
+			dispatch({
+				type: GET_STACK_FOR_CREATE,
+				data: {
+					name: stack.name,
+					color: stack.color,
+					num: Number(stackNum),
+				}
+			})
+			setStack(null);
+			setStackNum(0);
+		}
+	}, [stack, stackNum])
+
+	useEffect(() => {
+		setWidth(widthRef.current.offsetWidth);
+		console.log(widthRef.current.offsetWidth);
+	}, [widthRef, width]);
 
 	return (
-		<div id="proj-create-wrap">
-			<div className="proj-input-box">
-				<h1>프로젝트 만들기</h1>
-				<Ipt name="제목" val={title} OCF={OCTitle} />
-				<div className="ipt-line">
-					주제
-					<SelectAttr name="주제" data={["어플리케이션 개발", "해커톤", "공모전", "등"]} idx={4} getAction={GET_THEME_FOR_CREATE}/>
-				</div>
-				<div className="ipt-line">
-					<div>기간</div>
-					<div className="calendar-wrap">
-						<button onClick={()=>setOpenSC(!openSC)}>시작일</button>
-						{openSC &&
-							<div className="calendar">
-								<Calendar
-									value={startDate}
-									onChange={OCStartDate}
-									selectRange={true}
-							/>
-							</div>
-						}
+		<div id="proj-create-wrap" style={pageStyle}>
+			<div className="one-page-component" ref={widthRef}>
+				<div className="content-box">
+					<h3>1.</h3>
+					<div className="selector">
+						<p>어떤 목적으로 프로젝트를 모집하세요?</p>
+						<SelectAttr name="목적" data={["헤커톤", "공모전", "취미", "스터디"]} idx={4} getAction={GET_THEME_FOR_CREATE}/>
+						<p>어떤 결과를 목표로 하시나요?</p>
+						<SelectAttr name="결과물" data={["어플리케이션 개발", "웹 개발", "API 개발", "스터디", "기타"]} getAction={GET_RESULT_FOR_CREATE} idx={5} />
 					</div>
-					<div className="calendar-wrap">
-						<button onClick={()=>setOpenEC(!openEC)}>종료일</button>
-						{openEC &&
-							<div className="calendar">
-								<Calendar
-									value={endDate}
-									onChange={OCEndDate}
-							/>
-							</div>
-						}
-					</div>
+					<button className="next" onClick={ClickNext}>
+						<KeyboardArrowRight />
+					</button>
 				</div>
-				<div className="ipt-line">
-						지역
-						<SelectAttr name="지역" data={["서울", "부산", "온라인"]} idx={5} getAction={GET_REGION_FOR_CREATE} />
-					{/* <select value={region} onChange={OCRegion}>
-						{dummyRegion.map((c, i) => {
-							return (
-								<option key={(i)} value={c.main}>{c.main}</option>
-							)
-						})}
-					</select>
-					{(region !== '지역' && dummyRegion.find(v=>v.main === region).sub !== null) &&
-						<select value={subRegion} onChange={OCSubRegion}>
-							{
-								dummyRegion.find(v=>v.main === region).sub.map((c, i) => {
-									return (
-										<option key={(i)} value={c}>{c}</option>
-									);
-								})
-							}
-						</select>
-					} */}
-				</div>
-				<div className="ipt-line">
-					스택
-					<SetStack getAction={GET_STACK_FOR_CREATE}/>
-				</div>
-				<textarea value={description} onChange={OCDesription} placeholder="프로젝트를 설명해주세요." />
 			</div>
-			<div className="proj-create-box">
-				<div className="proj-create-preview">
-					스택 별 인원
+			<div className="one-page-component">
+				<div className="content-box">
+					<div className="selector">
+						<p>모집글 제목을 어떻게 하시겠어요?</p>
+						<input name="title" type="text" value={title} onChange={OCTitle} placeholder="제목을 입력해주세요."/>
+					</div>
+					<button className="back" onClick={ClickBefore}>
+						<KeyboardArrowLeft />
+					</button>
+					<button className="next" onClick={ClickNext}>
+						<KeyboardArrowRight />
+					</button>
 				</div>
-				<div className="proj-create-btn-box">
-					<button id="recruit">모집하기</button>
-					<button id="cancel">취소하기</button>
+			</div>
+			<div className="one-page-component">
+				<div className="content-box">
+					<div className="selector">
+						<p>어느 지역에서 진행하시겠어요?</p>
+						<SelectAttr name="지역" data={["서울", '대전', '대구', '부산', '찍고', '아하']} getAction={GET_REGION_FOR_CREATE} idx={6}/>
+					</div>
+					<button className="back" onClick={ClickBefore}>
+						<KeyboardArrowLeft />
+					</button>
+					<button className="next" onClick={ClickNext}>
+						<KeyboardArrowRight />
+					</button>
 				</div>
+			</div>
+			<div className="one-page-component">
+				<div className="content-box">
+					<div className="selector">
+						<p>모집하고 싶은 기술을 가진 사람들을 설정해주세요.</p>
+						<div className="setting-stack-box">
+							<SetStack value={stack} setValue={setStack} />
+							<div className="setting-person">
+								{stack &&
+									<div className="setting">
+										<StackBlock name={stack.name} color={stack.color} />
+										<input type="number" value={stackNum} onChange={OCStackNum}/>
+										<button onClick={set_create_stacks}>
+											추가하기
+										</button>
+									</div>
+								}
+								<div className="setted-box">
+									{
+										create_stacks.map((c, i) => {
+											return (
+												<div className="setted-stack" key={(i)}>
+													<StackBlock name={c.name} color={c.color} />
+													{c.num}명
+												</div>
+											)
+										})
+									}
+								</div>
+								<div className="result">
+									<p>총 {create_stacks.reduce((a, b) => a + (b['num'] || 0), 0)}명</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button className="back" onClick={ClickBefore}>
+						<KeyboardArrowLeft />
+					</button>
+					<button className="next" onClick={ClickNext}>
+						<KeyboardArrowRight />
+					</button>
+				</div>
+			</div>
+			<div className="one-page-component">
+				discription
+				<button className="back" onClick={ClickBefore}>
+					<KeyboardArrowLeft />
+				</button>
+				<button className="next" onClick={ClickNext}>
+					<KeyboardArrowRight />
+				</button>
+			</div>
+			<div className="one-page-component">
+				입력 정보 확인, 만들기 버튼
+				<button className="back" onClick={ClickBefore}>
+					<KeyboardArrowLeft />
+				</button>
 			</div>
 		</div>
 	);

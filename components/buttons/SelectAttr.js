@@ -11,6 +11,7 @@ const SelectAttr = ({ name, data, idx, getAction}) => {
 
 	const wrapClassName = filterAttrOpenIndx === idx ? 'select-btn-wrap clicked' : 'select-btn-wrap';
 
+	const [attrName, setAttrName] = useState(name);
 	const [text, setText] = useState('');
 	const [attrs, setAttrs] = useState(data);
 
@@ -36,7 +37,7 @@ const SelectAttr = ({ name, data, idx, getAction}) => {
 
 	const getAttrs = useCallback((attr) => (e) => {
 		e.preventDefault();
-		console.log(attr)
+		setAttrName(attr);
 		if (idx === 0) {
 			if (!search_region.find(v => v === attr))
 			{
@@ -74,7 +75,7 @@ const SelectAttr = ({ name, data, idx, getAction}) => {
 	return (
 		<div className={wrapClassName}>
 			<div className='select-btn' onClick={openAttr}>
-				{name}
+				{attrName}
 				<KeyboardArrowDown />
 			</div>
 			<div className="data-list">

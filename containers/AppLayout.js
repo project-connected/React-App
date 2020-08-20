@@ -203,16 +203,38 @@ const AppLayout = ({ children }) => {
 								</a>
 							</Link>
 						</div>
-						<div className="nav-link-btn">
-							<Link href="/project/create">
-								<a>
-									프로젝트 만들기
-								</a>
-							</Link>
-						</div>
+						{user && <>
+							<div className="nav-link-btn">
+								<Link href="/project/create">
+									<a>
+										프로젝트 만들기
+									</a>
+								</Link>
+							</div>
+							<div className="nav-link-btn">
+								<Link href="/">
+									<a>
+										인재풀 등록하기
+									</a>
+								</Link>
+							</div>
+							<div className="nav-link-btn">
+								<Link href="/">
+									<a>
+										인재 살펴보기
+									</a>
+								</Link>
+							</div>
+						</>
+						}
 						<div type="button" className="nav-profile-btn" onClick={onClickProfileBtn}>
 							{ user ?
-								<DummyProfile /> :
+								<>
+								<div className="my-alert">
+									알림창
+								</div>
+								<DummyProfile />
+								</> :
 								<img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/b7c76929274393.55ead42cd721c.jpg"/>
 							}
 						</div>
