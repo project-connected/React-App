@@ -11,7 +11,7 @@ const SelectPeriod = () => {
 
 	const wrapClassName = filterAttrOpenIndx === 2 ? 'select-btn-wrap clicked' : 'select-btn-wrap';
 
-	const [date, setDate] = useState(new Date().toLocaleDateString('ko-KR'));
+	const [date, setDate] = useState(new Date());
 
 	const OCDate = useCallback((date) => {
 		setDate(date);

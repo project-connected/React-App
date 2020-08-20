@@ -22,6 +22,10 @@ const Editor = dynamic(import ('../../components/Toast'), {
 	ssr: false
 })
 
+// const Calendar = dynamic(import ('react-calendar'), {
+// 	ssr: false
+// })
+
 const CreateProj = props => {
 	const widthRef = useRef();
 	const [width, setWidth] = useState(0);
@@ -86,7 +90,6 @@ const CreateProj = props => {
 			setClickDate(true);
 			setStartDate(date);
 		}
-		console.log(date);
 	}, []);
 
 	const OCPeriod = useCallback((e) => {
@@ -99,10 +102,9 @@ const CreateProj = props => {
 		setWidth(widthRef.current.offsetWidth);
 	}, [widthRef, width]);
 
-	// useEffect(() => {
-	// 	console.log(startDate)
-	// 	console.log(startDate.getMonth())
-	// }, [startDate])
+	useEffect(() => {
+		setStartDate(new Date())
+	}, []);
 
 	return (
 		<div id="proj-create-wrap" style={pageStyle}>
