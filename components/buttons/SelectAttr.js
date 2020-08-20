@@ -5,7 +5,7 @@ import { KeyboardArrowDown, Search } from '@material-ui/icons';
 import { CLOSE_ALL_COMP2, OPEN_FILTER_ATTR } from '../../reducers/project';
 
 
-const SelectAttr = ({ name, data, idx, getAction}) => {
+const SelectAttr = ({ name, data, idx, getAction, onSearchBar=true}) => {
 	const dispatch = useDispatch();
 	const { filterAttrOpenIndx, search_region, search_theme } = useSelector(state=>state.project);
 
@@ -79,10 +79,12 @@ const SelectAttr = ({ name, data, idx, getAction}) => {
 				<KeyboardArrowDown />
 			</div>
 			<div className="data-list">
-				<div className="data-list-search">
-					<input type="text" value={text} onChange={OCText}/>
-					<Search />
-				</div>
+				{ onSearchBar &&
+					<div className="data-list-search">
+						<input type="text" value={text} onChange={OCText}/>
+						<Search />
+					</div>
+				}
 				{attrs.map((c, i) => {
 					return (
 						<div key={(i)} className="attribute" onClick={getAttrs(c)}>

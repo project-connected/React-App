@@ -16,7 +16,10 @@ const configureStore = (context) => {
 		: composeWithDevTools(
 			applyMiddleware(...middlewares),
 		);
-	const store = createStore(reducer, enhancer);
+
+	const preloadedState = process.env.__PRELOADED_STATE__;
+
+	const store = createStore(reducer, preloadedState, enhancer);
 	store.sagaTask = sagaMiddleware.run(rootSaga);
 	const tk = store.getState().user.userToken;
 	axios.defaults.headers.common['authorization'] = tk;

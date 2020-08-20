@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Calendar from 'react-calendar';
 import dynamic from 'next/dynamic';
-
+import moment from 'moment';
 import ReactMarkdown from "react-markdown";
 
 import {
@@ -30,6 +30,10 @@ const CreateProj = props => {
 	const [stack, setStack] = useState(null);
 	const [stackNum, setStackNum, OCStackNum] = useInputWithSetter(0);
 	const [desc, setDesc] = useState('');
+	const [startDate, setStartDate] = useState();
+	const [clickDate, setClickDate] = useState(false);
+	const [warning, setWarning] = useState('');
+	const [period, setPeriod] = useState(0);
 
 	const { create_stacks } = useSelector(state=>state.project);
 	const dispatch = useDispatch();
@@ -41,13 +45,11 @@ const CreateProj = props => {
 	const ClickNext = useCallback((e) => {
 		e.preventDefault();
 		setPageOffset(pageOffset - width)
-		console.log(pageOffset)
 	}, [pageOffset, width])
 
 	const ClickBefore = useCallback((e) => {
 		e.preventDefault();
 		setPageOffset(pageOffset + width)
-		console.log(pageOffset)
 	}, [pageOffset, width])
 
 	const set_create_stacks = useCallback((e) => {
@@ -73,10 +75,32 @@ const CreateProj = props => {
 		})
 	})
 
+	const OCStartDate = useCallback((date) => {
+		if (date.getTime() < new Date().getTime())
+		{
+			setClickDate(false);
+			setWarning('이전 날짜는 선택할 수 없습니다.');
+		}
+		else {
+			setWarning('');
+			setClickDate(true);
+			setStartDate(date);
+		}
+	}, []);
+
+	const OCPeriod = useCallback((e) => {
+		if (e.target.value.match(/[0-9]+/g) || e.target.value === '') {
+			setPeriod(e.target.value);
+		}
+	}, [period]);
+
 	useEffect(() => {
 		setWidth(widthRef.current.offsetWidth);
-		console.log(widthRef.current.offsetWidth);
 	}, [widthRef, width]);
+
+	useEffect(() => {
+		setStartDate(new Date());
+	}, [])
 
 	return (
 		<div id="proj-create-wrap" style={pageStyle}>
@@ -128,8 +152,44 @@ const CreateProj = props => {
 				<div className="content-box">
 					<h3>4.</h3>
 					<div className="selector">
+					{warning === '' ? <p>프로젝트 시작일을 선택해주세요.</p> : <p className="warn">{warning}</p>}
+					<div className="setting-box">
+							<Calendar
+								value={startDate}
+								onChange={OCStartDate}
+							/>
+							<div className="set-period">
+							{clickDate &&
+								<div className="period-box">
+									<div className="highlight period-text">
+										<h5>시작<KeyboardArrowRight /></h5>
+										<span>{moment(startDate).format('YYYY년 MM월 DD일')}</span>
+									</div>
+									<p>프로젝트 진행 기간을 입력해주세요.</p>
+									<div className="period-text period">
+										<h5>기간<KeyboardArrowRight/></h5>
+										<input value={period} onChange={OCPeriod} maxLength={4} placeholder="9999" type="text" name="name" pattern="[\d]{4}" autoComplete="off" autofocus/>
+										<p>일</p>
+									</div>
+								</div>
+							}
+						</div>
+					</div>
+					</div>
+					<button className="back" onClick={ClickBefore}>
+						<KeyboardArrowLeft />
+					</button>
+					<button className="next" onClick={ClickNext}>
+						<KeyboardArrowRight />
+					</button>
+				</div>
+			</div>
+			<div className="one-page-component">
+				<div className="content-box">
+					<h3>5.</h3>
+					<div className="selector">
 						<p>모집하고 싶은 기술을 가진 사람들을 설정해주세요.</p>
-						<div className="setting-stack-box">
+						<div className="setting-box">
 							<SetStack value={stack} setValue={setStack} />
 							<div className="setting-person">
 								{stack &&
@@ -172,6 +232,7 @@ const CreateProj = props => {
 			</div>
 			<div className="one-page-component">
 				<div className="content-box">
+					<h3>6.</h3>
 					<div className="selector">
 						<p>프로젝트에 대한 자세한 설명을 작성해주세요.</p>
 						<Editor editorValue={desc} OCV={setDesc} />
@@ -185,10 +246,13 @@ const CreateProj = props => {
 				</div>
 			</div>
 			<div className="one-page-component">
-				<ReactMarkdown source={desc} />
-				<button className="back" onClick={ClickBefore}>
-					<KeyboardArrowLeft />
-				</button>
+				<div className="content-box">
+					<h3>마지막 .</h3>
+					<ReactMarkdown source={desc} />
+					<button className="back" onClick={ClickBefore}>
+						<KeyboardArrowLeft />
+					</button>
+				</div>
 			</div>
 		</div>
 	);

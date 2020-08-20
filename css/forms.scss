@@ -293,7 +293,7 @@
 
 #proj-create-wrap {
 	display: flex;
-	width: 600%;
+	width: 700%;
 	transition: all .3s ease 0s;
 	height: 80vh;
 
@@ -349,10 +349,20 @@
 					font-size: 30px;
 				}
 
-				.setting-stack-box {
+				.setting-box {
 					display: flex;
 					width: 100%;
 					margin-top: 1rem;
+					position: relative;
+
+					.set-period {
+						padding: 3rem 2rem;
+						animation: .5s padeDown 1 ease-in-out;
+					}
+
+					.react-calendar {
+						border: none;
+					}
 
 					.select-btn-wrap {
 						margin: 0;
@@ -444,4 +454,56 @@
 			}
 		}
 	}
+}
+.period-box {
+	animation: .5s padeDown 1 ease-in-out;
+
+	.period-text {
+		display: flex;
+		align-items: center;
+
+		p{
+			margin: 0 !important;
+		}
+
+		h5 {
+			color: #666;
+			font-weight: 500;
+			font-size: 15px;
+			margin: 0 1rem 0 0;
+			min-width: 60px;
+		}
+		span {
+			font-size: 16px;
+			color: #338;
+		}
+		input {
+			max-width: 70px;
+			border-radius: 5px;
+			box-shadow: 0px 0px 2px 1px rgba(120, 120, 230, 0.6);
+			margin-right: .5rem;
+			text-align: center;
+		}
+
+		&.period {
+			margin-top: 1rem;
+		}
+	}
+}
+
+.highlight {
+	animation: .5s bright 1 ease-in-out;
+}
+
+@keyframes bright {
+	from {
+		color: #EFF;
+	}
+	to {
+		color: #339;
+	}
+}
+
+.warn {
+	color: red !important;
 }
