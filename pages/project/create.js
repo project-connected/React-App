@@ -30,7 +30,7 @@ const CreateProj = props => {
 	const [stack, setStack] = useState(null);
 	const [stackNum, setStackNum, OCStackNum] = useInputWithSetter(0);
 	const [desc, setDesc] = useState('');
-	const [startDate, setStartDate] = useState();
+	const [startDate, setStartDate] = useState(new Date());
 	const [clickDate, setClickDate] = useState(false);
 	const [warning, setWarning] = useState('');
 	const [period, setPeriod] = useState(0);
@@ -86,6 +86,7 @@ const CreateProj = props => {
 			setClickDate(true);
 			setStartDate(date);
 		}
+		console.log(date);
 	}, []);
 
 	const OCPeriod = useCallback((e) => {
@@ -98,9 +99,10 @@ const CreateProj = props => {
 		setWidth(widthRef.current.offsetWidth);
 	}, [widthRef, width]);
 
-	useEffect(() => {
-		setStartDate(new Date());
-	}, [])
+	// useEffect(() => {
+	// 	console.log(startDate)
+	// 	console.log(startDate.getMonth())
+	// }, [startDate])
 
 	return (
 		<div id="proj-create-wrap" style={pageStyle}>
@@ -168,7 +170,7 @@ const CreateProj = props => {
 									<p>프로젝트 진행 기간을 입력해주세요.</p>
 									<div className="period-text period">
 										<h5>기간<KeyboardArrowRight/></h5>
-										<input value={period} onChange={OCPeriod} maxLength={4} placeholder="9999" type="text" name="name" pattern="[\d]{4}" autoComplete="off" autofocus/>
+										<input value={period} onChange={OCPeriod} maxLength={4} type="text" name="name" pattern="[\d]{4}" autoComplete="off" autoFocus/>
 										<p>일</p>
 									</div>
 								</div>
