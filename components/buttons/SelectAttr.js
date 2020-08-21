@@ -5,7 +5,7 @@ import { KeyboardArrowDown, Search } from '@material-ui/icons';
 import { CLOSE_ALL_COMP2, OPEN_FILTER_ATTR } from '../../reducers/project';
 
 
-const SelectAttr = ({ name, data, idx, getAction, onSearchBar=true}) => {
+const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=true}) => {
 	const dispatch = useDispatch();
 	const { filterAttrOpenIndx, search_region, search_theme } = useSelector(state=>state.project);
 
@@ -37,7 +37,8 @@ const SelectAttr = ({ name, data, idx, getAction, onSearchBar=true}) => {
 
 	const getAttrs = useCallback((attr) => (e) => {
 		e.preventDefault();
-		setAttrName(attr);
+		if (status === "create")
+			setAttrName(attr);
 		if (idx === 0) {
 			if (!search_region.find(v => v === attr))
 			{

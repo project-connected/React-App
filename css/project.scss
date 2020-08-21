@@ -127,6 +127,7 @@
 			border: 1px solid #BBB;
 			transition: .3s;
 			color: #555;
+			background: #FFF;
 
 			&#apply {
 				border: none;
@@ -147,7 +148,7 @@
 	font-size: 13px;
 	line-height: 1.8;
 	font-weight: 500;
-	color: #779ee9;
+	color: #7990ff;
 	display: flex;
 
 	.block-name {
@@ -177,11 +178,11 @@
 				margin-bottom: 1rem;
 
 				&#create {
-					background: #4e61ff;
+					background: #7990ff;
 				}
 
 				&#apply {
-					background: #4e61ff;
+					background: #7990ff;
 				}
 			}
 		}
@@ -191,6 +192,7 @@
 			border-radius: 5px;
 			display: flex;
 			flex-direction: column;
+			background: #FFF;
 
 			a {
 				padding: .5rem 1.2rem;
@@ -210,6 +212,7 @@
 			border: 1px solid #e4eaf2;
 			border-radius: 5px;
 			padding: .5rem 1rem;
+			background: #FFF;
 
 			.choice-filter-box {
 				display: flex;
@@ -230,6 +233,7 @@
 				.filter-block-box {
 					display: flex;
 					flex-wrap: wrap;
+					min-height: 34px;
 
 					.filter-block {
 						border-radius: 5px;
@@ -238,9 +242,10 @@
 						font-weight: 500;
 						font-size: 13px;
 						color: white;
-						background: linear-gradient(#7778f8, #4646ff);
+						background: linear-gradient(to bottom right, #7990ff, #9198e5);
 						cursor: pointer;
 						margin-bottom: 5px;
+						animation: .5s padeUp 1 ease-in-out;
 
 						&:nth-child(n+2) {
 							margin-left: .5rem;
@@ -260,18 +265,119 @@
 		}
 
 		.proj-result-box {
-			border: 1px solid #e4eaf2;
-			border-radius: 5px;
 			margin-top: 2rem;
 
 			.proj-result-header {
 				border-bottom: 1px solid #e4eaf2;
 				padding: .5rem 1.5rem;
+				position: relative;
+				border-radius: 5px;
+				background: #FFF;
+				border: 1px solid #e4eaf2;
+				border-radius: 5px;
+				margin-bottom: 1rem;
+
+				p.search-result {
+					color: #666;
+					font-size: 14px;
+					margin: 0;
+				}
+
+				.search-sort-btn-container {
+					position: absolute;
+					top: 50%;
+					right: 5px;
+					transform: translateY(-50%);
+					display: flex;
+
+					div {
+						cursor: pointer;
+						color: #666;
+						font-size: 13px;
+						padding-bottom: -2px;
+						transition: .3s;
+						margin-right: 1rem;
+						&:hover {
+							color: #7990ff;
+						}
+					}
+				}
 			}
 
-			.proj-result {
-				padding: .5rem 1.5rem;
+			.proj-results {
+				width: 100%;
+				position: relative;
+
+				.searched-project {
+					width: 100%;
+					background: #FFF;
+					border: 1px solid #e4eaf2;
+					border-radius: 5px;
+					margin-bottom: 1rem;
+					display: flex;
+					height: 150px;
+					position: relative;
+					overflow: hidden;
+					transition: .3s;
+					cursor: pointer;
+
+					&:hover {
+						transform: translateY(-5px);
+						box-shadow: 0px 0px 4px 1px rgba(90, 90, 90, 0.2);
+					}
+
+					.thumbnail {
+						width: 20%;
+						position: relative;
+						height: 100%;
+
+						img {
+							width: 100%;
+							height: 100%;
+							object-fit: cover;
+						}
+					}
+
+					.content {
+						padding: .7rem 1rem;
+
+						p {
+							color: #666;
+							font-size: 12px;
+							font-weight: 400;
+							margin: 0;
+						}
+
+						.header {
+							font-weight: 700;
+							font-size: 18px;
+							color: #5a70dd;
+						}
+
+						.stack-box {
+							margin-top: 1rem;
+							width: 100%;
+							display: flex;
+							flex-wrap: wrap;
+							-webkit-line-clamp: 1;
+							overflow: hidden;
+							height: 40px;
+							align-items: center;
+							padding-left: 1rem;
+							border-left: 3px solid #7990ff;
+						}
+					}
+				}
 			}
 		}
+	}
+}
+
+@keyframes padeUp {
+	from {
+		opacity: 0;
+		transform: translateY(5px);
+	} to {
+		opacity: 1;
 	}
 }

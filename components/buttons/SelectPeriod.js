@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { KeyboardArrowDown, Search } from '@material-ui/icons';
+import { KeyboardArrowDown } from '@material-ui/icons';
 import Calendar from 'react-calendar';
-import { OPEN_FILTER_ATTR } from '../../reducers/project';
+import { OPEN_FILTER_ATTR, GET_PRIOD_FOR_SEARCH } from '../../reducers/project';
 
-const SelectPeriod = () => {
+const SelectPeriod = ({ name="시작일" }) => {
 	const dispatch = useDispatch();
 	const { filterAttrOpenIndx } = useSelector(state=>state.project);
 
@@ -15,6 +15,10 @@ const SelectPeriod = () => {
 
 	const OCDate = useCallback((date) => {
 		setDate(date);
+		dispatch({
+			type: GET_PRIOD_FOR_SEARCH,
+			data: date,
+		})
 	}, [date]);
 
 	const openAttr = useCallback((e) => {
@@ -35,14 +39,13 @@ const SelectPeriod = () => {
 	return (
 		<div className={wrapClassName}>
 			<div className='select-btn' onClick={openAttr}>
-				기간
+				{name}
 				<KeyboardArrowDown />
 			</div>
 			<div className="data-list">
 				<Calendar
 					value={date}
 					onChange={OCDate}
-					selectRange={true}
 				/>
 			</div>
 		</div>

@@ -210,12 +210,14 @@ const CreateProj = props => {
 							{clickDate &&
 								<div className="period-box">
 									<div className="highlight period-text">
-										<h5>시작<KeyboardArrowRight /></h5>
+										<h5>시작</h5>
+										<KeyboardArrowRight />
 										<span>{moment(startDate).format('YYYY년 MM월 DD일')}</span>
 									</div>
 									<p>프로젝트 진행 기간을 입력해주세요.</p>
 									<div className="period-text period">
-										<h5>기간<KeyboardArrowRight/></h5>
+										<h5>기간</h5>
+										<KeyboardArrowRight/>
 										<input value={period} onChange={OCPeriod} maxLength={4} type="text" name="name" pattern="[\d]{4}" autoComplete="off" autoFocus/>
 										<p>일</p>
 									</div>
