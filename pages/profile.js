@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router'
 import { useSelector } from 'react-redux';
-import { InsertPhoto, Email, PersonPin, VpnKey } from '@material-ui/icons';
+import { VpnKey, CameraAlt } from '@material-ui/icons';
 
 import useInput from '../hooks/useInput';
 
@@ -24,6 +24,10 @@ const Profile = () => {
 		}
 	}, [password, newPW, checkNewPW]);
 
+	const onClickImageUpload = useCallback(() => {
+		imageInput.current.click();
+	}, [imageInput.current]);
+
 	useEffect(() => {
 		if (!user) {
 			alert('로그인이 필요합니다.');
@@ -34,53 +38,43 @@ const Profile = () => {
 	return (
 		<>
 		{user &&
-		<form id="myProfile">
-			<div className="default-info">
-				<div role="region" id="img-section">
-					<div style={{background: `url(${user && user.profileImg}) `}}>
-						<button >
-							<InsertPhoto style={{color: 'white'}}/>
-							<p>이미지 변경하기</p>
+		<div id="myProfile">
+			<div className="main-info">
+				<div className="profile-img">
+					<div style={{backgroundImage: `url(${user && user.profileImg})`}}>
+						<button onClick={onClickImageUpload}>
+							<CameraAlt style={{color: 'white'}}/>
 						</button>
 						<input type="file" ref={imageInput} />
 					</div>
 				</div>
-				<div role="region" id="info-section">
-					<div>
-						<Email />
-						{user && user.email}
-					</div>
-					<div>
-						<PersonPin />
-						<input type="text" value={name} onChange={OCName} />
-					</div>
-					<div className="change-pwd-container">
-						<VpnKey />
-						<input type="password" value={password} onChange={OCPassword} placeholder="비밀번호를 입력하세요"/>
-						<input type="password" value={newPW} onChange={OCNewPW} placeholder="새로운 비밀번호를 입력하세요"/>
-						<input type="password" value={checkNewPW} onChange={OCCheckNewPW} placeholder="새로운 비밀번호를 한번더 입력하세요"/>
-						<button onClick={changePWRequest}>
-							비밀번호 변경하기
-						</button>
-					</div>
+				<div className="login-info">
+					<div name="email">{user.email}</div>
+					<div name="name">{user.name}</div>
+					<div name="change-pwd"><VpnKey/>비밀번호 변경하기</div>
 				</div>
 			</div>
-			<div className="info-section">
+			<div className="info-line">
+				<h3>  Info</h3>
+				<div className="line"></div>
+			</div>
+			<div className="profile-form">
 				<div>
-					지역
+					<p>nickname</p>
+					<input type="text" placeholder="닉네임"/>
 				</div>
 				<div>
-					가능 스택
+					<p>URL</p>
+					<input type="text" placeholder="url"/>
 				</div>
 				<div>
-					블로그, 깃 등의 링크
+					<p>스택</p>
 				</div>
 				<div>
-					자기소개
+					<p>자기소개</p>
 				</div>
 			</div>
-			<input type="submit" value="수정하기"/>
-		</form>
+		</div>
 		}
 		</>
 	);
