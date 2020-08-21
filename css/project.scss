@@ -9,16 +9,40 @@
 		margin: 0;
 	}
 
+	.proj-descript {
+		margin-top: 3rem;
+		position: relative;
+		padding: .5rem 1rem;
+		border: 1px solid #DDD;
+		border-top: 3px solid #BBB;
+
+		&::before {
+			content: "프로젝트 설명";
+			display: block;
+			position: absolute;
+			color: #666;
+			font-size: 14px;
+			top: -24px;
+			left: 0;
+		}
+	}
+
 	.proj-head-info {
 		width: 100%;
 		padding: 2rem;
 		border: 1px solid #DDD;
 		border-top: 3px solid #BBB;
+		position: relative;
 
 		.proj-head-title {
 			border-bottom: 1px solid #DDD;
 			padding-bottom: 10px;
 			margin-bottom: 15px;
+
+			h3 {
+				position: inherit !important;
+				color: #224 !important;
+			}
 		}
 
 		.proj-info-container {
@@ -122,8 +146,11 @@
 	line-height: 1.8;
 	font-weight: 500;
 	color: #779ee9;
+	display: flex;
 
 	.block-name {
+		width: 60px;
+		overflow: hidden;
 		margin-right: 2rem;
 		color: #666;
 	}

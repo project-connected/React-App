@@ -330,6 +330,23 @@
 			}
 
 			.selector {
+				max-height: 60vh;
+
+				&.overflowAuto {
+					overflow: auto;
+				}
+
+				button.proj-create-btn {
+					position: sticky;
+					bottom: 0;
+					// margin-top: 2rem;
+					padding: 1rem 0;
+					width: 100%;
+					border-radius: 5px;
+					background: #3090ff;
+					color: white;
+				}
+
 				.select-btn-wrap {
 					margin: 0;
 					.data-list{

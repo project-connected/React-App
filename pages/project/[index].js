@@ -2,6 +2,8 @@ import React, { useCallback } from 'react';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import ReactMarkdown from "react-markdown";
 
 import { OPEN_APPLY, OPEN_USER_MENU } from '../../reducers/component';
 
@@ -11,19 +13,27 @@ const dummyStack = [
 	{
 		name: 'Node.JS',
 		color: 'rgb(65, 169, 76)',
+		num: 1,
+		maxNum: 2,
 	}, {
 		name: 'photoshop',
 		color: '#187bcd',
+		num: 1,
+		maxNum: 2,
 	}, {
 		name: 'React.JS',
 		color: '#03254c',
+		num: 1,
+		maxNum: 2,
 	}, {
 		name: 'Swift',
 		color: '#FC6A03',
+		num: 1,
+		maxNum: 2,
 	}
 ];
 
-const InfoBlock = ({ name, data }) => {
+export const InfoBlock = ({ name, data }) => {
 	return (
 		<div className="info-block">
 			<span className="block-name">{name}</span>
@@ -32,7 +42,7 @@ const InfoBlock = ({ name, data }) => {
 	);
 }
 
-const Project = () => {
+export const ProjectPage = ({ status="view", title="프로젝트 제목", theme="목적", result="결과물", region="지역", startDate="2020년 8월 30일", period=14, stacks=dummyStack, desc="프로젝트 설명이 작성되지 않았습니다." }) => {
 	const dispatch = useDispatch();
 	const { user } = useSelector(state=>state.user);
 
@@ -50,36 +60,32 @@ const Project = () => {
 	}, [user]);
 
 	return (
-		<>
-		<Head>
-			<title>프로젝트</title>
-		</Head>
 		<div id='project-page-wrap'>
-			<h1>프로젝트 정보</h1>
 			<div className="proj-head-info">
 				<div className="proj-head-title">
-					<p>테마</p>
-					<h3>프로젝트 제목</h3>
+					<p>{theme}, {result}</p>
+					<h3>{title}</h3>
 				</div>
 				<div className="proj-info-container">
 					<section id="condition">
 						<h6>모집정보</h6>
-						<InfoBlock name="주제" data="너무 재밌는 프로젝트" />
-						<InfoBlock name="지역" data="지구촌 어디든" />
-						<InfoBlock name="기간" data="내가 죽는 날까지" />
-						<InfoBlock name="테마" data="웹페이지 개발" />
-						<InfoBlock name="인원" data="39102명" />
+						<InfoBlock name="목적" data={theme} />
+						<InfoBlock name="결과물" data={result} />
+						<InfoBlock name="지역" data={region} />
+						<InfoBlock name="시작일" data={startDate} />
+						<InfoBlock name="기간" data={`${period} 일`} />
+						<InfoBlock name="총인원" data={`${stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)} 명`} />
 					</section>
 					<section id="stack">
 						<h6>모집기술</h6>
-						<p>2/6명</p>
+						<p>{stacks.reduce((a, b) => a + (b['num'] || 0), 0)}/{stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)}명</p>
 						<div className="project-card-stack-block-wrap">
-							{dummyStack.map((c, i) => {
+							{stacks.map((c, i) => {
 								return (
 									<div key={(i)} className="proj-stack-block">
 										<StackBlock name={c.name} color={c.color} />
 										<span className="proj-stack-person">
-											1/2명
+											{c.num}/{c.maxNum} 명
 										</span>
 									</div>
 								)
@@ -88,17 +94,30 @@ const Project = () => {
 					</section>
 				</div>
 			</div>
-			<div className="proj-button-wrap">
-				<button id="apply" onClick={applyProj} >신청하기</button>
-				<button id="listup">관심등록</button>
-			</div>
-			<div>
-				descript
+			{ status === 'view' &&
+				<div className="proj-button-wrap">
+					<button id="apply" onClick={applyProj} >신청하기</button>
+					<button id="listup">관심등록</button>
+				</div>
+			}
+			<div className="proj-descript">
+				<ReactMarkdown source={desc} />
 			</div>
 		</div>
-		</>
 	);
 };
+
+const Project = () => {
+	return (
+		<>
+		<Head>
+			<title>프로젝트</title>
+		</Head>
+		<ProjectPage/>
+		</>
+	)
+}
+
  Project.propTypes = {
 
 };

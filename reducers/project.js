@@ -80,7 +80,7 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 		}
 
 		case GET_REGION_FOR_CREATE: {
-			draft.search_region = action.data;
+			draft.create_region = action.data;
 			break;
 		}
 		case GET_STACK_FOR_CREATE: {

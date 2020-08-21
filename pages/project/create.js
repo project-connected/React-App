@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Calendar from 'react-calendar';
 import dynamic from 'next/dynamic';
 import moment from 'moment';
-import ReactMarkdown from "react-markdown";
+import Router from 'next/router';
+import useWindowSize from '../../hooks/useWindowSize';
 
 import {
 	GET_PRIOD_FOR_CREATE, GET_STACK_FOR_CREATE, GET_REGION_FOR_CREATE, GET_THEME_FOR_CREATE, GET_RESULT_FOR_CREATE, DELETE_STACK_FOR_CREATE
@@ -17,6 +18,7 @@ import StackBlock from '../../components/StackBlock';
 
 import { KeyboardArrowRight, KeyboardArrowLeft, Close } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
+import { ProjectPage } from './[index]';
 
 const Editor = dynamic(import ('../../components/Toast'), {
 	ssr: false
@@ -29,7 +31,7 @@ const Editor = dynamic(import ('../../components/Toast'), {
 const CreateProj = props => {
 	const widthRef = useRef();
 	const [width, setWidth] = useState(0);
-	const [pageOffset, setPageOffset] = useState('');
+	const [pageOffset, setPageOffset] = useState(0);
 	const [ title, OCTitle ] = useInput('');
 	const [stack, setStack] = useState(null);
 	const [stackNum, setStackNum, OCStackNum] = useInputWithSetter(0);
@@ -39,17 +41,43 @@ const CreateProj = props => {
 	const [warning, setWarning] = useState('');
 	const [period, setPeriod] = useState(0);
 
-	const { create_stacks } = useSelector(state=>state.project);
+	const windowSize = useWindowSize();
+
+	const { create_stacks, create_theme, create_region, create_result } = useSelector(state=>state.project);
 	const dispatch = useDispatch();
 
 	const pageStyle = {
 		transform: `translateX(${pageOffset}px`
 	}
 
-	const ClickNext = useCallback((e) => {
+	const ClickNext = useCallback((idx) => (e) => {
 		e.preventDefault();
-		setPageOffset(pageOffset - width)
-	}, [pageOffset, width])
+		if (idx === 0) {
+			if (create_theme === '' || create_result === '')
+				return;
+		} else if (idx === 1) {
+			if (title === '')
+				return ;
+			// 타이틀
+		} else if (idx === 2) {
+			if (create_region === '')
+				return ;
+			// 지역
+		} else if (idx === 3) {
+			if (period === 0)
+				return ;
+			//기간
+		} else if (idx === 4) {
+			if (create_stacks.length === 0)
+				return ;
+			// 스택
+		} else {
+			if (desc === '')
+				return ;
+			// 소개
+		}
+		setPageOffset(pageOffset - width);
+	}, [pageOffset, width, create_theme, create_result, title, create_region, period, stack, desc, create_stacks])
 
 	const ClickBefore = useCallback((e) => {
 		e.preventDefault();
@@ -64,7 +92,8 @@ const CreateProj = props => {
 				data: {
 					name: stack.name,
 					color: stack.color,
-					num: Number(stackNum),
+					num: 0,
+					maxNum: Number(stackNum),
 				}
 			})
 			setStack(null);
@@ -99,8 +128,23 @@ const CreateProj = props => {
 	}, [period]);
 
 	useEffect(() => {
-		setWidth(widthRef.current.offsetWidth);
-	}, [widthRef, width]);
+		const preWidth = width;
+		const offset = widthRef.current.offsetWidth;
+		setWidth(offset);
+		if (pageOffset !== 0)
+			setPageOffset((pageOffset/preWidth)*offset);
+	}, [widthRef, width, windowSize]);
+
+	const createProject = useCallback((e) => {
+		e.preventDefault();
+		console.log('만들기!');
+		// dispatch
+	})
+
+	// useEffect(() => {
+	// 	alert('프로젝트 모집 게시글이 작성되었어요!');
+	// 	Router.push('/project/방금만들어진 프로젝트 id')
+	// }, [isCreatedProject]);
 
 	useEffect(() => {
 		setStartDate(new Date())
@@ -117,7 +161,7 @@ const CreateProj = props => {
 						<p>어떤 결과를 목표로 하시나요?</p>
 						<SelectAttr name="결과물" data={["어플리케이션 개발", "웹 개발", "API 개발", "스터디", "기타"]} getAction={GET_RESULT_FOR_CREATE} idx={5} />
 					</div>
-					<button className="next" onClick={ClickNext}>
+					<button className="next" onClick={ClickNext(0)}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
@@ -132,7 +176,7 @@ const CreateProj = props => {
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>
-					<button className="next" onClick={ClickNext}>
+					<button className="next" onClick={ClickNext(1)}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
@@ -147,7 +191,7 @@ const CreateProj = props => {
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>
-					<button className="next" onClick={ClickNext}>
+					<button className="next" onClick={ClickNext(2)}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
@@ -183,7 +227,7 @@ const CreateProj = props => {
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>
-					<button className="next" onClick={ClickNext}>
+					<button className="next" onClick={ClickNext(3)}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
@@ -211,7 +255,7 @@ const CreateProj = props => {
 											return (
 												<div className="setted-stack" key={(i)}>
 													<StackBlock name={c.name} color={c.color} />
-													{c.num}명
+													{c.maxNum}명
 													<button onClick={deleteStack(c)}>
 														<Close />
 													</button>
@@ -221,7 +265,7 @@ const CreateProj = props => {
 									}
 								</div>
 								<div className="result">
-									<p>총 {create_stacks.reduce((a, b) => a + (b['num'] || 0), 0)}명</p>
+									<p>총 {create_stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)}명</p>
 								</div>
 							</div>
 						</div>
@@ -229,7 +273,7 @@ const CreateProj = props => {
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>
-					<button className="next" onClick={ClickNext}>
+					<button className="next" onClick={ClickNext(4)}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
@@ -243,7 +287,7 @@ const CreateProj = props => {
 						<button className="back" onClick={ClickBefore}>
 							<KeyboardArrowLeft />
 						</button>
-						<button className="next" onClick={ClickNext}>
+						<button className="next" onClick={ClickNext(5)}>
 							<KeyboardArrowRight />
 						</button>
 					</div>
@@ -252,7 +296,23 @@ const CreateProj = props => {
 			<div className="one-page-component">
 				<div className="content-box">
 					<h3>마지막 .</h3>
-					<ReactMarkdown source={desc} />
+					<div className="selector overflowAuto">
+						<p>입력하신 정보가 맞는지 확인해주세요.</p>
+						<ProjectPage
+							status="create"
+							title={title}
+							theme={create_theme}
+							result={create_result}
+							region={create_region}
+							startDate={moment(startDate).format("YYYY년 MM월 DD일")}
+							period={period}
+							stacks={create_stacks}
+							desc={desc}
+						/>
+						<button className="proj-create-btn" onClick={createProject}>
+							모집 시작
+						</button>
+					</div>
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>
