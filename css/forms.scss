@@ -308,10 +308,13 @@
 
 		.content-box {
 			position: relative;
-			padding: 2rem 2rem 1rem 2rem;
+			padding: 2rem;
 			border-radius: 10px;
 			box-shadow: 0px 0px 4px 1px rgba(90, 90, 90, 0.2);
 			width: 60%;
+			background: #FFF;
+			justify-content: center;
+			margin-top: 30px;
 
 			h3 {
 				color: #6168f5;
@@ -328,23 +331,21 @@
 					margin: 2rem 0 .1rem 0 ;
 				}
 			}
+			button.proj-create-btn {
+				display: inherit;
+				padding: 1rem 0;
+				margin: 1rem auto 0 auto;
+				width: 40%;
+				border-radius: 5px;
+				background: #3090ff;
+				color: white;
+			}
 
 			.selector {
 				max-height: 60vh;
 
 				&.overflowAuto {
 					overflow: auto;
-				}
-
-				button.proj-create-btn {
-					position: sticky;
-					bottom: 0;
-					// margin-top: 2rem;
-					padding: 1rem 0;
-					width: 100%;
-					border-radius: 5px;
-					background: #3090ff;
-					color: white;
 				}
 
 				.select-btn-wrap {

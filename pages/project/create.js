@@ -309,10 +309,10 @@ const CreateProj = props => {
 							stacks={create_stacks}
 							desc={desc}
 						/>
-						<button className="proj-create-btn" onClick={createProject}>
+					</div>
+					<button className="proj-create-btn" onClick={createProject}>
 							모집 시작
 						</button>
-					</div>
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>

@@ -15,6 +15,7 @@
 		padding: .5rem 1rem;
 		border: 1px solid #DDD;
 		border-top: 3px solid #BBB;
+		background: #FFF;
 
 		&::before {
 			content: "프로젝트 설명";
@@ -33,6 +34,7 @@
 		border: 1px solid #DDD;
 		border-top: 3px solid #BBB;
 		position: relative;
+		background: #FFF;
 
 		.proj-head-title {
 			border-bottom: 1px solid #DDD;
