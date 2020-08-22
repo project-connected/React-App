@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { Chat } from '@material-ui/icons';
+import { Chat, Person, Assignment, ExitToApp, Notifications } from '@material-ui/icons';
 
 // reducer
 import { useSelector, useDispatch } from 'react-redux';
@@ -29,8 +29,56 @@ export const LoadingCircle = () => {
 	);
 }
 
+const dummyNotif = [{
+	class: 'chatting',
+	chat: {
+		roomIdx: 1,
+		chatRoomName: 'hhan',
+		mutichat: false,
+		recentContent: {
+			userId: 1,
+			userName: 'hhan',
+			content: '화이팅합시다.',
+		}
+	},
+	proj: null,
+	pool: null,
+},{
+	class: 'chatting',
+	chat: {
+		roomIdx: 1,
+		chatRoomName: 'Rank42',
+		mutichat: true,
+		recentContent: {
+			userId: 1,
+			userName: 'hhan',
+			content: '근본없는 Node.js는 당장 그만두고, 근본있는 Django를 씁시다.',
+		}
+	},
+	proj: null,
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'accept',
+	}
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+}];
+
 const UserLoggedIn = () => {
 	const dispatch = useDispatch();
+	const [open, setOpen] = useState(false);
 
 	const onClickLogoutBtn = useCallback((e) => {
 		e.preventDefault();
@@ -41,26 +89,78 @@ const UserLoggedIn = () => {
 		}
 	})
 
+	const openNotif = useCallback((e) => {
+		setOpen(!open);
+	}, [open])
+
+	const openNotifStyle = {
+		maxHeight: `${open ? 600 : 0}px`
+	}
+
 	return (
 		<ul>
 			<li>
 				<Link href="/profile">
-					<a>
-						Profile
+					<a className="sub-menu-line">
+						<Person /> Profile
 					</a>
 				</Link>
 			</li>
 			<li>
 				<Link href="/">
-					<a>
-						My Project
+					<a className="sub-menu-line">
+						<Assignment />My Project
 					</a>
 				</Link>
 			</li>
 			<li>
+				<div className="sub-menu-line" onClick={openNotif}>
+					<Notifications />Notification
+					{ dummyNotif.length !== 0 &&
+						<div className="notification-circle">
+							{dummyNotif.length}
+						</div>
+					}
+				</div>
+				<div className="notif-content-box" style={openNotifStyle}>
+					{dummyNotif.map((c, i) => {
+						if (c.class === 'chatting') {
+							return (
+								<div className="notif-content" key={(i)}>
+									<div>
+										<span>{c.chat.chatRoomName}</span>
+										{!c.chat.mutichat ?
+											<p>님과의 대화</p>
+											:
+											<p>단체방</p>
+										}
+										<span name="chat-content">{c.chat.recentContent.content}</span>
+									</div>
+								</div>
+							)
+						} else if (c.class === "project") {
+							return (
+								<div className="notif-content" key={(i)}>
+									<Link href={`/project/${c.proj.projIdx}`}>
+										<a>
+											{c.proj.status === "accept" ?
+											<><span>{c.proj.projectName}</span><p>프로젝트 참가 신청이 <b>수락</b>되었습니다.</p></>
+										:
+											<><span>{c.proj.projectName}</span><p>프로젝트에 <b>신청자</b>가 있습니다.</p></>
+										}
+										</a>
+									</Link>
+								</div>
+							)
+						}
+					})}
+				</div>
+			</li>
+
+			<li>
 				<button onClick={onClickLogoutBtn}>
-					<a>
-						Log out
+					<a className="sub-menu-line">
+						<ExitToApp />Log out
 					</a>
 				</button>
 			</li>
