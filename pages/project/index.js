@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import {
-	GET_REGION_FOR_SEARCH, GET_THEME_FOR_SEARCH, OPEN_FILTER_ATTR, LOSE_STACK_FOR_SEARCH, LOSE_REGION_FOR_SEARCH, LOSE_THEME_FOR_SEARCH
+	GET_REGION_FOR_SEARCH, GET_THEME_FOR_SEARCH, OPEN_FILTER_ATTR, LOSE_STACK_FOR_SEARCH, LOSE_REGION_FOR_SEARCH, LOSE_THEME_FOR_SEARCH, GET_RESULT_FOR_SEARCH, LOSE_RESULT_FOR_SEARCH
 } from '../../reducers/project';
 
 import SelectAttr from '../../components/buttons/SelectAttr';
@@ -45,7 +45,7 @@ const SearchResultProject = ({ project }) => {
 }
 
 const SearchProj = props => {
-	const { filterAttrOpenIndx, search_region, search_theme, search_stacks, projectList } = useSelector(state=>state.project);
+	const { filterAttrOpenIndx, search_result, search_region, search_theme, search_stacks, projectList } = useSelector(state=>state.project);
 	const dispatch = useDispatch();
 
 	return (
@@ -83,7 +83,8 @@ const SearchProj = props => {
 					<h3>검색 필터링</h3>
 					<div className="choice-filter-box">
 						<SelectAttr status="search" idx={0} name="지역" data={['서울', '대전', '대구', '부산']} getAction={GET_REGION_FOR_SEARCH} />
-						<SelectAttr status="search" idx={1} name="테마" data={['어플리케이션 개발', '해커톤', '공모전']} getAction={GET_THEME_FOR_SEARCH} />
+						<SelectAttr status="search" idx={1} name="목적" data={['취미', '해커톤', '공모전']} getAction={GET_THEME_FOR_SEARCH} />
+						<SelectAttr status="search" idx={2} name="결과물" data={['어플리케이션 개발', '웹 개발', '서버 개발']} getAction={GET_RESULT_FOR_SEARCH} />
 						<SelectPeriod />
 						<SelectStack />
 					</div>
@@ -100,6 +101,13 @@ const SearchProj = props => {
 							{search_theme.map((c, i) => {
 								return (
 									<div key={(i)} className="filter-block theme" onClick={() => dispatch({type: LOSE_THEME_FOR_SEARCH, data: c})}>
+										{c}
+									</div>
+								)
+							})}
+							{search_result.map((c, i) => {
+								return (
+									<div key={(i)} className="filter-block result" onClick={() => dispatch({type: LOSE_RESULT_FOR_SEARCH, data: c})}>
 										{c}
 									</div>
 								)

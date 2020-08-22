@@ -56,15 +56,16 @@
 	border: 1px solid rgba(90, 90, 90, 0.1);
 	top: 105%;
 	left: 0;
-
+	padding: 0 !important;
 
 	.data-list-search {
-		padding: .5rem 2.5rem .5rem 1rem;
+		padding: .5rem 2.5rem .5rem 1rem !important;
 		position: relative;
 		min-width: 300px;
 
 		input {
 			width: 100%;
+			box-shadow: none !important;
 		}
 
 		svg {
@@ -78,7 +79,7 @@
 	}
 
 	.attribute {
-		padding: .5rem 1rem;
+		padding: .5rem 1rem !important;
 		cursor: pointer;
 
 		&:hover {

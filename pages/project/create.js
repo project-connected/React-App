@@ -20,7 +20,7 @@ import { KeyboardArrowRight, KeyboardArrowLeft, Close } from '@material-ui/icons
 import { useSelector, useDispatch } from 'react-redux';
 import { ProjectPage } from './[index]';
 
-const Editor = dynamic(import ('../../components/Toast'), {
+export const Editor = dynamic(import ('../../components/Toast'), {
 	ssr: false
 })
 
@@ -157,9 +157,9 @@ const CreateProj = props => {
 					<h3>1.</h3>
 					<div className="selector">
 						<p>어떤 목적으로 프로젝트를 모집하세요?</p>
-						<SelectAttr name="목적" data={["헤커톤", "공모전", "취미", "스터디"]} idx={4} getAction={GET_THEME_FOR_CREATE}/>
+						<SelectAttr name="목적" data={["헤커톤", "공모전", "취미", "스터디"]} idx={5} getAction={GET_THEME_FOR_CREATE}/>
 						<p>어떤 결과를 목표로 하시나요?</p>
-						<SelectAttr name="결과물" data={["어플리케이션 개발", "웹 개발", "API 개발", "스터디", "기타"]} getAction={GET_RESULT_FOR_CREATE} idx={5} />
+						<SelectAttr name="결과물" data={["어플리케이션 개발", "웹 개발", "API 개발", "스터디", "기타"]} getAction={GET_RESULT_FOR_CREATE} idx={6} />
 					</div>
 					<button className="next" onClick={ClickNext(0)}>
 						<KeyboardArrowRight />
@@ -186,7 +186,7 @@ const CreateProj = props => {
 					<h3>3.</h3>
 					<div className="selector">
 						<p>어느 지역에서 진행하시겠어요?</p>
-						<SelectAttr name="지역" data={["서울", '대전', '대구', '부산', '찍고', '아하']} getAction={GET_REGION_FOR_CREATE} idx={6}/>
+						<SelectAttr name="지역" data={["서울", '대전', '대구', '부산', '찍고', '아하']} getAction={GET_REGION_FOR_CREATE} idx={7}/>
 					</div>
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />

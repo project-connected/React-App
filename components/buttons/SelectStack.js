@@ -60,7 +60,7 @@ const SelectStack = ({ getAction=GET_STACK_FOR_SEARCH }) => {
 	const { filterAttrOpenIndx, search_stacks, create_stacks } = useSelector(state=>state.project);
 	const dispatch = useDispatch();
 
-	const wrapClassName = filterAttrOpenIndx === 3 ? 'select-btn-wrap stacks clicked' : 'select-btn-wrap stacks';
+	const wrapClassName = filterAttrOpenIndx === 4 ? 'select-btn-wrap stacks clicked' : 'select-btn-wrap stacks';
 
 	const [text, setText] = useState('');
 	const [data, setData] = useState(dummyStack);
@@ -101,7 +101,7 @@ const SelectStack = ({ getAction=GET_STACK_FOR_SEARCH }) => {
 		}
 		dispatch({
 			type: OPEN_FILTER_ATTR,
-			data: 3,
+			data: 4,
 		})
 	}, [filterAttrOpenIndx]);
 

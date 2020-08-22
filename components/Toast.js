@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Editor } from '@toast-ui/react-editor';
 import { backUrl } from '../config/config';
 
-const Toast = ({ editorValue, OCV }) => {
+const Toast = ({ editorValue, OCV, mirror="tab" }) => {
 	const editorRef = useRef();
 
 	const handleChange = useCallback((e) => {
@@ -39,6 +39,8 @@ const Toast = ({ editorValue, OCV }) => {
 			ref={editorRef}
 			onChange={handleChange}
 			hideModeSwitch={true}
+			previewStyle={mirror}
+			previewHighlight={false}
 			hooks = {{
 				addImageBlobHook : (blob, callback, source) => {
 					uploadImage(blob).then(res => {

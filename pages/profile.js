@@ -5,24 +5,20 @@ import { useSelector } from 'react-redux';
 import { VpnKey, CameraAlt } from '@material-ui/icons';
 
 import useInput from '../hooks/useInput';
+import SelectAttr from '../components/buttons/SelectAttr';
+
+import { Editor } from './project/create';
 
 const Profile = () => {
 	const { user } = useSelector(state=>state.user);
 
 	const [name, OCName] = useInput(user ? user.name : '');
-	const [password, OCPassword] = useInput('');
-	const [newPW, OCNewPW] = useInput('');
-	const [checkNewPW, OCCheckNewPW] = useInput('');
+	const [url, OCUrl] = useInput(user ? user.subProfile.url : '');
+	const [region, setRegion] = useState(user ? (user.region ? user.region : '지역') : '');
+	const [stacks, setStacks] = useState(user ? user.subProfile.stacks : []);
+	const [intro, setIntro] = useState(user ? user.subProfile.introduct : '' );
 
 	const imageInput = useRef();
-
-	const changePWRequest = useCallback((e) => {
-		e.preventDefault();
-		if (newPW !== checkNewPW) {
-			alert('비밀번호가 일치하지 않아요');
-			return ;
-		}
-	}, [password, newPW, checkNewPW]);
 
 	const onClickImageUpload = useCallback(() => {
 		imageInput.current.click();
@@ -59,19 +55,24 @@ const Profile = () => {
 				<div className="line"></div>
 			</div>
 			<div className="profile-form">
-				<div>
-					<p>nickname</p>
-					<input type="text" placeholder="닉네임"/>
+				<div className="profile-attr">
+					<p className="title">nickname</p>
+					<input value={name} onChange={OCName} type="text" placeholder="닉네임"/>
 				</div>
-				<div>
-					<p>URL</p>
-					<input type="text" placeholder="url"/>
+				<div className="profile-attr">
+					<p className="title">URL</p>
+					<input value={url} onChange={OCUrl} type="text" placeholder="url"/>
 				</div>
-				<div>
-					<p>스택</p>
+				<div className="profile-attr">
+					<p className="title">Region</p>
+					<SelectAttr idx={8} getAction={setRegion} name={region} data={["서울", "대전", "대구", "부산", "찍고", "아하"]} status="profile" />
 				</div>
-				<div>
-					<p>자기소개</p>
+				<div className="profile-attr">
+					<p className="title">스택</p>
+				</div>
+				<div className="profile-attr">
+					<p className="title">자기소개</p>
+					<Editor editorValue={intro} OCV={setIntro}/>
 				</div>
 			</div>
 		</div>

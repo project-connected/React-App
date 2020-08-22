@@ -39,6 +39,16 @@ const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=t
 		e.preventDefault();
 		if (status === "create")
 			setAttrName(attr);
+		if (status === "profile") {
+			setAttrName(attr);
+			getAction(attr);
+			setText('');
+			setAttrs(data);
+			dispatch({
+				type: CLOSE_ALL_COMP2
+			})
+			return ;
+		}
 		if (idx === 0) {
 			if (!search_region.find(v => v === attr))
 			{
@@ -70,7 +80,7 @@ const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=t
 				type: CLOSE_ALL_COMP2
 			})
 		}
-	})
+	}, [text, attrs]);
 
 
 	return (

@@ -133,6 +133,7 @@ const initialState = {
 	search_theme: [],
 	search_priod: '',
 	search_stacks: [],
+	search_result: [],
 	filterAttrOpenIndx: -1,
 	create_stacks: [],
 	create_theme: '',
@@ -146,11 +147,13 @@ export const GET_REGION_FOR_SEARCH = 'GET_REGION_FOR_SEARCH';
 export const GET_THEME_FOR_SEARCH = 'GET_THEME_FOR_SEARCH';
 export const GET_PRIOD_FOR_SEARCH = 'GET_PRIOD_FOR_SEARCH';
 export const GET_STACK_FOR_SEARCH = 'GET_STACK_FOR_SEARCH';
+export const GET_RESULT_FOR_SEARCH = 'GET_RESULT_FOR_SEARCH';
 
 export const LOSE_REGION_FOR_SEARCH = 'LOSE_REGION_FOR_SEARCH';
 export const LOSE_THEME_FOR_SEARCH = 'LOSE_THEME_FOR_SEARCH';
 export const LOSE_PRIOD_FOR_SEARCH = 'LOSE_PRIOD_FOR_SEARCH';
 export const LOSE_STACK_FOR_SEARCH = 'LOSE_STACK_FOR_SEARCH';
+export const LOSE_RESULT_FOR_SEARCH = 'LOSE_RESULT_FOR_SEARCH';
 
 
 export const GET_REGION_FOR_CREATE = 'GET_REGION_FOR_CREATE';
@@ -186,6 +189,15 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 		}
 		case LOSE_THEME_FOR_SEARCH: {
 			draft.search_theme = draft.search_theme.filter(v => v !== action.data);
+			break;
+		}
+
+		case GET_RESULT_FOR_SEARCH: {
+			draft.search_result = draft.search_result.concat(action.data);
+			break;
+		}
+		case LOSE_RESULT_FOR_SEARCH: {
+			draft.search_result = draft.search_result.filter(v => v !== action.data);
 			break;
 		}
 

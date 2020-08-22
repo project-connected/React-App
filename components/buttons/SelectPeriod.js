@@ -9,7 +9,7 @@ const SelectPeriod = ({ name="시작일" }) => {
 	const dispatch = useDispatch();
 	const { filterAttrOpenIndx } = useSelector(state=>state.project);
 
-	const wrapClassName = filterAttrOpenIndx === 2 ? 'select-btn-wrap clicked' : 'select-btn-wrap';
+	const wrapClassName = filterAttrOpenIndx === 3 ? 'select-btn-wrap clicked' : 'select-btn-wrap';
 
 	const [date, setDate] = useState(new Date());
 
@@ -32,7 +32,7 @@ const SelectPeriod = ({ name="시작일" }) => {
 		}
 		dispatch({
 			type: OPEN_FILTER_ATTR,
-			data: 2,
+			data: 3,
 		})
 	}, [filterAttrOpenIndx]);
 

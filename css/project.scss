@@ -160,7 +160,7 @@
 }
 
 .proj-search-page {
-	margin-top: 8rem;
+	margin-top: 2rem;
 	display: flex;
 
 	.proj-etc-wrap {
@@ -251,7 +251,10 @@
 							margin-left: .5rem;
 						}
 						&.theme::before {
-							content: "테마: ";
+							content: "목적: ";
+						}
+						&.result::before {
+							content: "결과물: ";
 						}
 						&.region::before {
 							content: "지역: ";
@@ -323,7 +326,7 @@
 
 					&:hover {
 						transform: translateY(-5px);
-						box-shadow: 0px 0px 4px 1px rgba(90, 90, 90, 0.2);
+						box-shadow: 0px 04px 8px 0px rgba(90, 90, 90, 0.2);
 					}
 
 					.thumbnail {
