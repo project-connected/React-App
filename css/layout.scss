@@ -71,6 +71,19 @@ button:focus {
 		display: flex;
 		align-items: center;
 
+		div {
+			position: relative;
+
+			.notification-circle {
+				position: absolute;
+				width:15px;
+				height: 15px;
+				top: 0;
+				right: 0;
+				border: 1px solid #fff;
+			}
+		}
+
 		.my-alert {
 			margin-right: 2rem;
 			background: #CCC;
@@ -254,20 +267,6 @@ button:focus {
 		cursor: pointer;
 		padding: .7rem 1rem;
 
-		.notification-circle {
-			display: flex;
-			background: #ff7070;
-			color: white;
-			font-weight: 500;
-			font-size: 11px;
-			width: 20px;
-			height: 20px;
-			border-radius: 100%;
-			align-items: center;
-			justify-content: center;
-			margin-left: 10px;
-		}
-
 		svg {
 			width: 1rem;
 			height: 1rem;
@@ -301,7 +300,12 @@ button:focus {
 		background: rgba(30, 30, 30, 0.1);
 		box-shadow: inset 1px 1px 20px rgba(50, 50, 100, 0.1);
 		overflow: auto;
-		transition: .3s;
+		transition: 1s;
+		-ms-overflow-style: none;  /* IE and Edge */
+		scrollbar-width: none;  /* Firefox */
+		&::-webkit-scrollbar {
+			display: none;
+		}
 
 		.notif-content {
 			display: flex;
@@ -387,4 +391,18 @@ button:focus {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.notification-circle {
+	display: flex;
+	background: #ff7070;
+	color: white;
+	font-weight: 500;
+	font-size: 11px;
+	width: 20px;
+	height: 20px;
+	border-radius: 100%;
+	align-items: center;
+	justify-content: center;
+	margin-left: 10px;
 }

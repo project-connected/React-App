@@ -74,6 +74,177 @@ const dummyNotif = [{
 		status: 'apply',
 	},
 	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
+},{
+	class: 'project',
+	chat: null,
+	proj: {
+		projIdx: 1,
+		projectName: 'Rank42',
+		status: 'apply',
+	},
+	pool: null,
 }];
 
 const UserLoggedIn = () => {
@@ -329,9 +500,10 @@ const AppLayout = ({ children }) => {
 						}
 						<div type="button" className="nav-profile-btn" onClick={onClickProfileBtn}>
 							{ user ?
-								<>
-								<DummyProfile />
-								</> :
+								<div>
+									<DummyProfile />
+									{ dummyNotif && <div className="notification-circle"></div> }
+								</div> :
 								<img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/b7c76929274393.55ead42cd721c.jpg"/>
 							}
 						</div>
