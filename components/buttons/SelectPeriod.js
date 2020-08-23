@@ -23,7 +23,7 @@ const SelectPeriod = ({ name="시작일" }) => {
 
 	const openAttr = useCallback((e) => {
 		e.preventDefault();
-		if (2 === filterAttrOpenIndx) {
+		if (3 === filterAttrOpenIndx) {
 			dispatch({
 				type: OPEN_FILTER_ATTR,
 				data: -1,

@@ -92,7 +92,7 @@ const SelectStack = ({ getAction=GET_STACK_FOR_SEARCH }) => {
 
 	const openAttr = useCallback((e) => {
 		e.preventDefault();
-		if (3 === filterAttrOpenIndx) {
+		if (4 === filterAttrOpenIndx) {
 			dispatch({
 				type: OPEN_FILTER_ATTR,
 				data: -1,
