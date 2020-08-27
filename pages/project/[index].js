@@ -47,14 +47,8 @@ export const InfoBlock = ({ name, data }) => {
 }
 
 export const ProjectPage = ({ status="view", title="프로젝트 제목", theme="목적", result="결과물", region="지역", startDate="2020년 8월 30일", period=14, stacks=dummyStack, desc="프로젝트 설명이 작성되지 않았습니다." }) => {
-	const dispatch = useDispatch();
 	const { user } = useSelector(state=>state.user);
-
-	useEffect(() => {
-		dispatch({
-			type: LOAD_USER_REQUEST,
-		})
-	}, [])
+	const dispatch = useDispatch();
 
 	const applyProj = useCallback((e) => {
 		if (!user) {
@@ -118,6 +112,14 @@ export const ProjectPage = ({ status="view", title="프로젝트 제목", theme=
 };
 
 const Project = () => {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch({
+			type: LOAD_USER_REQUEST,
+		})
+	}, []);
+
 	return (
 		<>
 		<Head>

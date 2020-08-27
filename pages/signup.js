@@ -23,8 +23,6 @@ const Signup = () => {
 	const [togglePw, setTogglePw] = useState(true);
 	const [term, setTerm] = useState(false);
 
-	const dispatch = useDispatch();
-
 	useEffect(() => {
 		dispatch({
 			type: LOAD_USER_REQUEST,
