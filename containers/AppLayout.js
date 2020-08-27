@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { Chat, Person, Assignment, ExitToApp, Notifications } from '@material-ui/icons';
+import { Chat, Person, Assignment, ExitToApp, Notifications, Close } from '@material-ui/icons';
 
 // reducer
 import { useSelector, useDispatch } from 'react-redux';
@@ -339,6 +339,23 @@ const UserLoggedIn = () => {
 	);
 };
 
+const NotifBox = ({ flg, setFlg, actionFunction }) => {
+	const pushClass = flg ? 'new-notification occur' : 'new-notification';
+
+	return (
+		<div className={pushClass}>
+			<div className="new-notif-box">
+				<div className="notif-content" onClick={() => {console.log('click')}}>
+					new notification
+				</div>
+				<div className="close-box" onClick={() => {console.log('close')}}>
+					<Close/>
+				</div>
+			</div>
+		</div>
+	);
+}
+
 const UserLogin = ({ isLoggingIn }) => {
 	const dispatch = useDispatch();
 
@@ -361,7 +378,7 @@ const UserLogin = ({ isLoggingIn }) => {
 	})
 
 	return (
-		<>
+		<div className="login-box">
 			{ isLoggingIn && <div className="login-loading">
 				<LoadingCircle />
 			</div>}
@@ -399,7 +416,7 @@ const UserLogin = ({ isLoggingIn }) => {
 					</a>
 				</Link>
 			</div>
-		</>
+		</div>
 	)
 }
 
@@ -524,6 +541,7 @@ const AppLayout = ({ children }) => {
 					</button>
 				}
 				{ user && <ChatComponent openChatComponent={openChatComponent} onClickChatBtn={onClickChatBtn}/> }
+				{ <NotifBox />}
 			</div>
 		</div>
 	);

@@ -108,6 +108,20 @@
 	box-shadow: 0px 0px 4px 1px rgba(90, 90, 90, 0.2);
 	position: relative;
 
+	&.otherProfile .profile-form {
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr 1fr 6fr;
+
+		.profile-attr {
+			&:nth-child(4){
+				grid-column: 2;
+			}
+			&:nth-child(5){
+				grid-column: 1/ span 2;
+			}
+		}
+	}
+
 	.main-info {
 		display: flex;
 		align-items: center;
@@ -228,7 +242,7 @@
 	.profile-form {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		grid-template-rows: 1fr 1fr 6fr;
+		grid-template-rows: 1fr 1fr 2fr 6fr;
 		width: 100%;
 
 		.select-btn-wrap {
@@ -240,11 +254,21 @@
 			min-width: 200px;
 			padding: 1rem 1.5rem;
 
+			.intro-box {
+				box-shadow: 0px 0px 3px 1px #7990ff;
+				border-radius: 7px;
+				padding: 1rem;
+			}
+
 			.select-btn-wrap {
 				padding: 0;
 				border: none;
 				box-shadow: 0px 0px 3px 1px rgba(90, 90, 90, 0.2);
 				margin: 0;
+
+				&.stack {
+					z-index: 1;
+				}
 
 				&:hover, &.clicked {
 					box-shadow: 0px 0px 3px 1px #7990ff;
@@ -255,8 +279,11 @@
 					font-size: 16px;
 				}
 
-				.data-list .data-list-search input {
-					padding: 0;
+				.data-list {
+					width: 100%;
+					.data-list-search input {
+						padding: 0;
+					}
 				}
 			}
 
@@ -266,7 +293,10 @@
 				margin-bottom: .5rem;
 			}
 
-			&:nth-child(5){
+			&:nth-child(4) {
+				grid-column: 1;
+			}
+			&:nth-child(6){
 				grid-column: 1/ span 2;
 			}
 
@@ -281,6 +311,15 @@
 				&:focus, &:hover {
 					box-shadow: 0px 0px 3px 1px #7990ff;
 				}
+			}
+
+			div.notMyProfile {
+				width: 100%;
+				border-radius: 7px;
+				box-shadow: 0px 0px 3px 1px #7990ff;
+				padding: .5rem 1rem;
+				transition: .3s;
+				position: relative;
 			}
 		}
 	}

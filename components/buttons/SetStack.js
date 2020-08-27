@@ -73,7 +73,7 @@ const SetStack = ({ value, setValue }) => {
 
 	return (
 		<>
-			<div className="select-btn-wrap opened">
+			<div className="select-btn-wrap stack opened">
 				<div className='data-list'>
 					<div className="data-list-search">
 						<input type="text" value={text} onChange={OCText}/>
