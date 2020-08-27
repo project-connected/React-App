@@ -1,15 +1,19 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { VpnKey, CameraAlt, Reply } from '@material-ui/icons';
 import ReactMarkdown from "react-markdown";
+import wrapper from '../store/configureStore';
+import axios from 'axios';
+import { END } from 'redux-saga';
 
 import useInput from '../hooks/useInput';
 import SelectAttr from '../components/buttons/SelectAttr';
 
 import { Editor } from './project/create';
 import SetStack from '../components/buttons/SetStack';
+import { LOAD_USER_REQUEST } from '../reducers/user';
 
 const Profile = () => {
 	const { user } = useSelector(state=>state.user);
@@ -21,6 +25,14 @@ const Profile = () => {
 	const [intro, setIntro] = useState(user ? user.subProfile.introduct : '# test' );
 
 	const imageInput = useRef();
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch({
+			type: LOAD_USER_REQUEST,
+		})
+	}, []);
 
 	const onClickImageUpload = useCallback(() => {
 		imageInput.current.click();
@@ -122,11 +134,18 @@ Profile.propTypes = {
 
 };
 
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+	const cookie = context.req ? context.req.headers.cookie : '';
+	axios.defaults.headers.Cookie = '';
+	if (context.req && cookie) {
+		axios.defaults.headers.Cookie = cookie;
+		// axios.defaults.headers.auauthorization = localStorage.getItem('userToken');
+	}
+	context.store.dispatch({
+		type: LOAD_USER_REQUEST,
+	})
+	context.store.dispatch(END);
+	await context.store.sagaTask.toPromise();
+});
+
 export default Profile;
-
-// 지역
-// 가능 스택
-// 프로필 이미지 (선택)
-// 블로그, 깃 등의 링크
-// 자기 소개
-

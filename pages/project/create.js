@@ -5,10 +5,14 @@ import dynamic from 'next/dynamic';
 import moment from 'moment';
 import Router from 'next/router';
 import useWindowSize from '../../hooks/useWindowSize';
+import { END } from 'redux-saga';
 
+import wrapper from '../../store/configureStore';
+import axios from 'axios';
 import {
 	GET_PRIOD_FOR_CREATE, GET_STACK_FOR_CREATE, GET_REGION_FOR_CREATE, GET_THEME_FOR_CREATE, GET_RESULT_FOR_CREATE, DELETE_STACK_FOR_CREATE
 } from '../../reducers/project';
+import { LOAD_USER_REQUEST } from '../../reducers/user';
 
 import SelectAttr from '../../components/buttons/SelectAttr';
 import useInput from '../../hooks/useInput';
@@ -22,11 +26,7 @@ import { ProjectPage } from './[index]';
 
 export const Editor = dynamic(import ('../../components/Toast'), {
 	ssr: false
-})
-
-// const Calendar = dynamic(import ('react-calendar'), {
-// 	ssr: false
-// })
+});
 
 const CreateProj = props => {
 	const widthRef = useRef();
@@ -45,6 +45,12 @@ const CreateProj = props => {
 
 	const { create_stacks, create_theme, create_region, create_result } = useSelector(state=>state.project);
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch({
+			type: LOAD_USER_REQUEST,
+		})
+	}, []);
 
 	const pageStyle = {
 		transform: `translateX(${pageOffset}px`
@@ -327,5 +333,19 @@ const CreateProj = props => {
 CreateProj.propTypes = {
 
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+	const cookie = context.req ? context.req.headers.cookie : '';
+	axios.defaults.headers.Cookie = '';
+	if (context.req && cookie) {
+		axios.defaults.headers.Cookie = cookie;
+		// axios.defaults.headers.auauthorization = localStorage.getItem('userToken');
+	}
+	context.store.dispatch({
+		type: LOAD_USER_REQUEST,
+	})
+	context.store.dispatch(END);
+	await context.store.sagaTask.toPromise();
+});
 
 export default CreateProj;

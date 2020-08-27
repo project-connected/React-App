@@ -1,11 +1,15 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import ReactMarkdown from "react-markdown";
+import axios from 'axios';
+import { END } from 'redux-saga';
 
+import wrapper from '../../store/configureStore';
 import { OPEN_APPLY, OPEN_USER_MENU } from '../../reducers/component';
+import { LOAD_USER_REQUEST } from '../../reducers/user';
 
 import StackBlock from '../../components/StackBlock';
 
@@ -45,6 +49,12 @@ export const InfoBlock = ({ name, data }) => {
 export const ProjectPage = ({ status="view", title="프로젝트 제목", theme="목적", result="결과물", region="지역", startDate="2020년 8월 30일", period=14, stacks=dummyStack, desc="프로젝트 설명이 작성되지 않았습니다." }) => {
 	const dispatch = useDispatch();
 	const { user } = useSelector(state=>state.user);
+
+	useEffect(() => {
+		dispatch({
+			type: LOAD_USER_REQUEST,
+		})
+	}, [])
 
 	const applyProj = useCallback((e) => {
 		if (!user) {
@@ -121,5 +131,19 @@ const Project = () => {
  Project.propTypes = {
 
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+	const cookie = context.req ? context.req.headers.cookie : '';
+	axios.defaults.headers.Cookie = '';
+	if (context.req && cookie) {
+		axios.defaults.headers.Cookie = cookie;
+		// axios.defaults.headers.auauthorization = localStorage.getItem('userToken');
+	}
+	context.store.dispatch({
+		type: LOAD_USER_REQUEST,
+	})
+	context.store.dispatch(END);
+	await context.store.sagaTask.toPromise();
+});
 
 export default Project;

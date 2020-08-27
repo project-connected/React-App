@@ -9,7 +9,10 @@ import {
 	LOGOUT_FAILURE,
 	SIGNUP_REQUEST,
 	SIGNUP_SUCCESS,
-	SIGNUP_FAILURE
+	SIGNUP_FAILURE,
+	LOAD_USER_REQUEST,
+	LOAD_USER_SUCCESS,
+	LOAD_USER_FAILURE
 } from '../reducers/user';
 
 const dummyUser = {
@@ -18,8 +21,40 @@ const dummyUser = {
 	profileImg: 'https://media.vlpt.us/images/yujo/profile/053c9bee-1076-418c-808d-f9a1b88dc445/KakaoTalk_20200229_162658088.jpg?w=240',
 }
 
+function* getToken() {
+	axios.defaults.headers.authorization = localStorage.getItem('userToken');
+}
+
+function loadUserAPI() {
+	return axios.get('/auth/user');
+}
+
+function* loadUser() {
+	try {
+		yield call(getToken);
+		const result = yield call(loadUserAPI);
+		yield put({
+			type: LOAD_USER_SUCCESS,
+			data: result.data
+		})
+	} catch(e) {
+		console.error(e);
+		yield put({
+			type: LOAD_USER_FAILURE,
+			// error: e.response.error,
+		})
+	}
+}
+
+function* watchLoadUser() {
+	yield takeLatest(LOAD_USER_REQUEST, loadUser);
+}
+
 function loginAPI(loginData) {
-	return axios.post('/auth/local/login', loginData);
+	return axios.post('/auth/local/login', loginData).then((res) => {
+		localStorage.setItem('userToken', res.data.result.token);
+		return res;
+	});
 }
 
 function* login(action) {
@@ -52,6 +87,7 @@ function* logout(action) {
 		yield put({
 			type: LOGOUT_SUCCESS,
 		})
+		localStorage.removeItem("userToken");
 	} catch(e) {
 		yield put({
 			type: LOGOUT_FAILURE,
@@ -89,6 +125,7 @@ function* watchSignup() {
 export default function* userSaga(){
 	yield all([
 		fork(watchLogin),
+		fork(watchLoadUser),
 		fork(watchLogout),
 		fork(watchSignup)
 	]);

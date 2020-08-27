@@ -17,8 +17,7 @@ const dummyUser = {
 }
 
 const initialState = {
-	user: dummyUser,
-	userToken: '',
+	user: null,
 	isLoggingIn: false,
 	isLoggingOut: false,
 	isSigningup: false,
@@ -31,6 +30,10 @@ const initialState = {
 }
 
 export const RESET_DONE_FLAG = 'RESET_DONE_FLAG';
+
+export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
+export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -52,6 +55,19 @@ const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 			draft.isSignedup = false;
 			break;
 		}
+
+		case LOAD_USER_REQUEST: {
+			break;
+		}
+		case LOAD_USER_SUCCESS: {
+			draft.user = action.data;
+			draft.isLoggedIn = true;
+			break;
+		}
+		case LOAD_USER_FAILURE: {
+			break;
+		}
+
 		case LOGIN_REQUEST: {
 			draft.isLoggingIn = true;
 			break;
@@ -61,7 +77,6 @@ const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 			draft.isLoggingIn = false;
 			draft.isLoggedIn = true;
 			draft.isLoggedOut = false;
-			draft.userToken = action.data.result.token;
 			break;
 		}
 		case LOGIN_FAILURE: {

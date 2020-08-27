@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import axios from 'axios';
@@ -7,6 +7,8 @@ import { END } from 'redux-saga';
 
 import { Visibility } from "@material-ui/icons";
 import StackBlock from '../components/StackBlock';
+import { useDispatch } from 'react-redux';
+import { LOAD_USER_REQUEST } from '../reducers/user';
 
 const dummyStack = [
 	{
@@ -77,6 +79,14 @@ const ProjectCard = ({ idx }) => {
 const MainPage = () => {
 	const dummy = [1,2,3,4,5,6];
 
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch({
+			type: LOAD_USER_REQUEST,
+		})
+	}, []);
+
 	return (
 		<div className="main-page-wrap">
 			<h1>현재 모집 중인 프로젝트</h1>
@@ -95,7 +105,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	const cookie = context.req ? context.req.headers.cookie : '';
 	axios.defaults.headers.Cookie = '';
 	if (context.req && cookie) {
-	  axios.defaults.headers.Cookie = cookie;
+		axios.defaults.headers.Cookie = cookie;
 	}
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();

@@ -6,7 +6,7 @@ import { END } from 'redux-saga';
 import { useSelector, useDispatch } from 'react-redux';
 
 import wrapper from '../store/configureStore';
-import { SIGNUP_REQUEST, RESET_DONE_FLAG } from '../reducers/user';
+import { SIGNUP_REQUEST, RESET_DONE_FLAG, LOAD_USER_REQUEST } from '../reducers/user';
 
 import useInput from '../hooks/useInput';
 import { CLOSE_USER_MENU } from '../reducers/component';
@@ -22,6 +22,14 @@ const Signup = () => {
 
 	const [togglePw, setTogglePw] = useState(true);
 	const [term, setTerm] = useState(false);
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch({
+			type: LOAD_USER_REQUEST,
+		})
+	}, []);
 
 	const checkedTerm = useCallback((e) => {
 		setTerm(e.target.checked);
@@ -144,8 +152,12 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	const cookie = context.req ? context.req.headers.cookie : '';
 	axios.defaults.headers.Cookie = '';
 	if (context.req && cookie) {
-	  axios.defaults.headers.Cookie = cookie;
+		axios.defaults.headers.Cookie = cookie;
+		// axios.defaults.headers.auauthorization = localStorage.getItem('userToken');
 	}
+	context.store.dispatch({
+		type: LOAD_USER_REQUEST,
+	})
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();
 });

@@ -1,12 +1,16 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
+import axios from 'axios';
+import { END } from 'redux-saga';
 
+import wrapper from '../../store/configureStore';
 import {
 	GET_REGION_FOR_SEARCH, GET_THEME_FOR_SEARCH, OPEN_FILTER_ATTR, LOSE_STACK_FOR_SEARCH, LOSE_REGION_FOR_SEARCH, LOSE_THEME_FOR_SEARCH, GET_RESULT_FOR_SEARCH, LOSE_RESULT_FOR_SEARCH
 } from '../../reducers/project';
+import { LOAD_USER_REQUEST } from '../../reducers/user';
 
 import SelectAttr from '../../components/buttons/SelectAttr';
 import SelectPeriod from '../../components/buttons/SelectPeriod';
@@ -47,6 +51,12 @@ const SearchResultProject = ({ project }) => {
 const SearchProj = props => {
 	const { filterAttrOpenIndx, search_result, search_region, search_theme, search_stacks, projectList } = useSelector(state=>state.project);
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch({
+			type: LOAD_USER_REQUEST,
+		})
+	}, []);
 
 	return (
 		<div className="proj-search-page">
@@ -146,5 +156,19 @@ const SearchProj = props => {
 SearchProj.propTypes = {
 
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+	const cookie = context.req ? context.req.headers.cookie : '';
+	axios.defaults.headers.Cookie = '';
+	if (context.req && cookie) {
+		axios.defaults.headers.Cookie = cookie;
+		// axios.defaults.headers.auauthorization = localStorage.getItem('userToken');
+	}
+	context.store.dispatch({
+		type: LOAD_USER_REQUEST,
+	})
+	context.store.dispatch(END);
+	await context.store.sagaTask.toPromise();
+});
 
 export default SearchProj;
