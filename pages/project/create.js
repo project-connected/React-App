@@ -43,6 +43,8 @@ const CreateProj = props => {
 
 	const windowSize = useWindowSize();
 
+	const dispatch = useDispatch();
+
 	const { create_stacks, create_theme, create_region, create_result } = useSelector(state=>state.project);
 
 	const pageStyle = {
@@ -147,6 +149,9 @@ const CreateProj = props => {
 
 	useEffect(() => {
 		setStartDate(new Date())
+		dispatch({
+			type: LOAD_USER_REQUEST
+		})
 	}, []);
 
 	return (

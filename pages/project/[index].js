@@ -112,13 +112,13 @@ export const ProjectPage = ({ status="view", title="프로젝트 제목", theme=
 };
 
 const Project = () => {
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	dispatch({
-	// 		type: LOAD_USER_REQUEST,
-	// 	})
-	// }, []);
+	useEffect(() => {
+		dispatch({
+			type: LOAD_USER_REQUEST,
+		})
+	}, []);
 
 	return (
 		<>

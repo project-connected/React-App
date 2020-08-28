@@ -501,14 +501,14 @@ const AppLayout = ({ children }) => {
 								</Link>
 							</div>
 							<div className="nav-link-btn">
-								<Link href="/">
+								<Link href="/jewel/new">
 									<a>
 										인재풀 등록하기
 									</a>
 								</Link>
 							</div>
 							<div className="nav-link-btn">
-								<Link href="/">
+								<Link href="/jewel">
 									<a>
 										인재 살펴보기
 									</a>
