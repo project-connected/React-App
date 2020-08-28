@@ -63,6 +63,8 @@ const CreateMyAppeal = props => {
 	const [endDateAvail, setEndDateAvail] = useState(false);
 	const [periodWarn, setPeriodWarn] = useState('');
 
+	const scrollRef = useRef();
+
 	const nextIptvisible = useCallback((e) => {
 		e.preventDefault();
 
@@ -87,7 +89,11 @@ const CreateMyAppeal = props => {
 				return ;
 		}
 		setIptStatus(iptStatus + 1);
-	}, [iptStatus, theme, result, title, region, period, stacks, desc])
+	}, [iptStatus, theme, result, title, region, period, stacks, desc]);
+
+	useEffect(() => {
+		scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+	}, [scrollRef, iptStatus]);
 
 	const OCStartDate = useCallback((date) => {
 		if (date.getTime() < new Date().getTime())
@@ -130,7 +136,7 @@ const CreateMyAppeal = props => {
 
 	return (
 		<>
-		<div id="new-jewel-wrap">
+		<div id="new-jewel-wrap" ref={scrollRef}>
 			<div className={`new-jewel-page ${iptStatus > 0 ? 'visible' : ''}`}>
 				<div className="new-jewel-content">
 					<h3 className="title">1.</h3>
