@@ -44,13 +44,6 @@ const CreateProj = props => {
 	const windowSize = useWindowSize();
 
 	const { create_stacks, create_theme, create_region, create_result } = useSelector(state=>state.project);
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		dispatch({
-			type: LOAD_USER_REQUEST,
-		})
-	}, []);
 
 	const pageStyle = {
 		transform: `translateX(${pageOffset}px`
@@ -337,9 +330,9 @@ CreateProj.propTypes = {
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
 	const cookie = context.req ? context.req.headers.cookie : '';
 	axios.defaults.headers.Cookie = '';
+	console.log('getserversidepropr');
 	if (context.req && cookie) {
 		axios.defaults.headers.Cookie = cookie;
-		// axios.defaults.headers.auauthorization = localStorage.getItem('userToken');
 	}
 	context.store.dispatch({
 		type: LOAD_USER_REQUEST,

@@ -250,6 +250,7 @@ const dummyNotif = [{
 const UserLoggedIn = () => {
 	const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
+	const { user } = useSelector(state=>state.user);
 
 	const onClickLogoutBtn = useCallback((e) => {
 		e.preventDefault();
@@ -271,7 +272,7 @@ const UserLoggedIn = () => {
 	return (
 		<ul>
 			<li>
-				<Link href="/profile">
+				<Link href={`/user/${user.userId}`}>
 					<a className="sub-menu-line">
 						<Person /> Profile
 					</a>

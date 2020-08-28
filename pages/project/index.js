@@ -50,13 +50,13 @@ const SearchResultProject = ({ project }) => {
 
 const SearchProj = props => {
 	const { filterAttrOpenIndx, search_result, search_region, search_theme, search_stacks, projectList } = useSelector(state=>state.project);
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch({
-			type: LOAD_USER_REQUEST,
-		})
-	}, []);
+	// useEffect(() => {
+	// 	dispatch({
+	// 		type: LOAD_USER_REQUEST,
+	// 	})
+	// }, []);
 
 	return (
 		<div className="proj-search-page">
