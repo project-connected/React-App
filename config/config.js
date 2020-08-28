@@ -1,1 +1,1 @@
-export const backUrl = 'http://3.34.129.189/api';
+export const backUrl = 'https://gtserver.anjoy.info/api';
