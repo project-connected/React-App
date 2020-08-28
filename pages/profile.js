@@ -148,8 +148,4 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	await context.store.sagaTask.toPromise();
 });
 
-Profile.getInitialProps = async (ctx) => {
-	return {params: ctx.params}
-}
-
 export default Profile;
