@@ -155,7 +155,7 @@ const CreateProj = props => {
 	}, []);
 
 	return (
-		<div id="proj-create-wrap" style={pageStyle}>
+		<div id="create-wrap" style={pageStyle}>
 			<div className="one-page-component" ref={widthRef}>
 				<div className="content-box">
 					<h3>1.</h3>
@@ -209,6 +209,7 @@ const CreateProj = props => {
 							<Calendar
 								value={startDate}
 								onChange={OCStartDate}
+								calendarType="US"
 							/>
 							<div className="set-period">
 							{clickDate &&

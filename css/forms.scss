@@ -1,4 +1,5 @@
 @charset 'UTF-8';
+@import 'animation.scss';
 
 .req-mem-wrap {
 	position: relative;
@@ -72,15 +73,6 @@
 				}
 			}
 		}
-	}
-}
-
-@keyframes moveStack {
-	from {
-		right: 50px;
-	}
-	to {
-		right: 0;
 	}
 }
 
@@ -370,16 +362,8 @@
 	}
 }
 
-@keyframes unfold {
-	from {
-		width: 0;
-	}
-	to {
-		width: 100px;
-	}
-}
 
-#proj-create-wrap {
+#create-wrap {
 	display: flex;
 	width: 700%;
 	transition: all .3s ease 0s;
@@ -605,15 +589,145 @@
 	animation: .5s bright 1 ease-in-out;
 }
 
-@keyframes bright {
-	from {
-		color: #EFF;
-	}
-	to {
-		color: #339;
-	}
-}
 
 .warn {
 	color: red !important;
+}
+
+#new-jewel-wrap {
+	padding: 1rem;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	.new-jewel-page {
+		position: relative;
+		width: 100%;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		display: none;
+		animation: 1s pade-to-right 1 ease-in-out;
+
+		&.visible {
+			display: flex;
+		}
+
+		&:nth-child(n+2) {
+			margin-top: 1rem;
+		}
+		&:nth-child(even) {
+			animation: 1s pade-to-left 1 ease-in-out;
+		}
+
+		.new-jewel-content {
+			width: 80%;
+			border-radius: 7px;
+			background: #fff;
+			box-shadow: 0px 0px 4px 1px rgba(90, 90, 90, 0.2);
+			padding: 2rem;
+			position: relative;
+			min-width: 800px;
+
+			h3.title {
+				color: #7990ff;
+				font-weight: 800;
+				top: 0;
+				left: -3rem;
+				position: absolute;
+			}
+
+			p {
+				color: #777;
+				font-size: 14px;
+				margin-bottom: 0.1rem;
+
+				&:nth-child(n+3) {
+					margin-top: 2rem;
+				}
+			}
+
+			input[name="title"] {
+				color: #555;
+				width: 100%;
+				border-bottom: 3px solid #DDD;
+				height: 60px;
+				font-size: 30px;
+				transition: .5s;
+
+				&:focus {
+					border-bottom: 3px solid #7990ff;
+				}
+			}
+
+			.select-btn-wrap .data-list{
+				width: 100%;
+			}
+
+			.calendar-box {
+				animation: .5s padeUp 1 ease-in-out;
+				width: 50%;
+
+				&:nth-child(n+2) {
+					margin-left: 3rem;
+				}
+				.react-calendar {
+					border: none;
+					border-top: 2px solid #7990ff;
+					margin-top: 1rem;
+				}
+			}
+
+			.period-info-box {
+				display: flex;
+				width: 100%;
+				margin-top: 1rem;
+				animation: .5s padeUp 1 ease-in-out;
+
+				div{
+					width: 100%;
+
+					span {
+						font-size: 14px;
+						color: #444;
+
+						b {
+							font-size: 16px;
+							color: #4960ff;
+							font-weight: 600;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	button.next svg {
+		width: 5rem;
+		height: 5rem;
+		color: #888;
+		transition: .3s;
+
+		&:hover {
+			color: #7990ff;
+		}
+	}
+}
+
+.seperate-box {
+	display: flex;
+	// align-items: center;
+	// justify-content: center;
+	&.period {
+		margin-top: 2rem;
+	}
+}
+
+.react-calendar__tile--active {
+	background: #7990ff;
+
+	&:enabled:hover, &:enabled:focus {
+		background: #7990ff;
+	}
 }

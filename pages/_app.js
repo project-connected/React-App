@@ -28,6 +28,7 @@ const Connected = ({ Component }) => {
 			<Head>
 				<meta charSet="utf-8" />
 				<title>Connected</title>
+				<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Permanent+Marker" />
 			</Head>
 			<AppLayout>
 				<Component />
