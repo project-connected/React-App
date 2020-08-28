@@ -92,7 +92,7 @@ const CreateMyAppeal = props => {
 	const OCStartDate = useCallback((date) => {
 		if (date.getTime() < new Date().getTime())
 		{
-			setPeriodWarn('이전 날짜는 선택할 수 없습니다.');
+			setPeriodWarn('오늘 이후 날짜를 선택해주세요.');
 			setEndDateAvail(false);
 		} else {
 			setPeriodWarn('');
@@ -115,10 +115,12 @@ const CreateMyAppeal = props => {
 		}
 	}, [period]);
 
+	const getStack = useCallback((stack) => {
+		setStacks([...stacks, stack]);
+	}, [stacks]);
+
 	useEffect(() => {
-		console.log(period);
 		if (period.startDate.getTime() < period.endDate.getTime()) {
-			console.log('diff');
 			setPeriod({
 				...period,
 				diff: (period.endDate.getTime() - period.startDate.getTime()) / (24 * 60 * 60 * 1000),
@@ -209,13 +211,25 @@ const CreateMyAppeal = props => {
 				</div>
 			</div>
 			<div className={`new-jewel-page ${iptStatus > 3 ? 'visible' : ''}`}>
-				<div className="new-jewel-content">
+				<div className="new-jewel-content stack">
 					<h3 className="title">4.</h3>
+					<p>가능하신 기술 스택을 골라주세요.</p>
+					<SetStack value={stacks} setValue={getStack} />
+					<p>당신의 기술 스택</p>
+					<div className="stack-block-box">
+						{stacks.map((c, i) => {
+							return (
+								<StackBlock name={c.name} color={c.color} key={(i)}/>
+							)
+						})}
+					</div>
 				</div>
 			</div>
 			<div className={`new-jewel-page ${iptStatus > 4 ? 'visible' : ''}`}>
 				<div className="new-jewel-content">
 					<h3 className="title">5.</h3>
+					<p>자세한 자기 소개를 작성해주세요.</p>
+					<Editor editorValue={desc} OCV={setDesc} />
 				</div>
 			</div>
 			<button className="next" onClick={nextIptvisible}>

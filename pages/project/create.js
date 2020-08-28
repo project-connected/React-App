@@ -158,7 +158,7 @@ const CreateProj = props => {
 		<div id="create-wrap" style={pageStyle}>
 			<div className="one-page-component" ref={widthRef}>
 				<div className="content-box">
-					<h3>1.</h3>
+					<h3 className="title">1.</h3>
 					<div className="selector">
 						<p>어떤 목적으로 프로젝트를 모집하세요?</p>
 						<SelectAttr name="목적" data={["헤커톤", "공모전", "취미", "스터디"]} idx={5} getAction={GET_THEME_FOR_CREATE}/>
@@ -172,7 +172,7 @@ const CreateProj = props => {
 			</div>
 			<div className="one-page-component">
 				<div className="content-box">
-					<h3>2.</h3>
+					<h3 className="title">2.</h3>
 					<div className="selector">
 						<p>모집글 제목을 어떻게 하시겠어요?</p>
 						<input name="title" type="text" value={title} onChange={OCTitle} placeholder="제목을 입력해주세요."/>
@@ -187,7 +187,7 @@ const CreateProj = props => {
 			</div>
 			<div className="one-page-component">
 				<div className="content-box">
-					<h3>3.</h3>
+					<h3 className="title">3.</h3>
 					<div className="selector">
 						<p>어느 지역에서 진행하시겠어요?</p>
 						<SelectAttr name="지역" data={["서울", '대전', '대구', '부산', '찍고', '아하']} getAction={GET_REGION_FOR_CREATE} idx={7}/>
@@ -202,7 +202,7 @@ const CreateProj = props => {
 			</div>
 			<div className="one-page-component">
 				<div className="content-box">
-					<h3>4.</h3>
+					<h3 className="title">4.</h3>
 					<div className="selector">
 					{warning === '' ? <p>프로젝트 시작일을 선택해주세요.</p> : <p className="warn">{warning}</p>}
 					<div className="setting-box">
@@ -241,7 +241,7 @@ const CreateProj = props => {
 			</div>
 			<div className="one-page-component">
 				<div className="content-box">
-					<h3>5.</h3>
+					<h3 className="title">5.</h3>
 					<div className="selector">
 						<p>모집하고 싶은 기술을 가진 사람들을 설정해주세요.</p>
 						<div className="setting-box">
@@ -287,7 +287,7 @@ const CreateProj = props => {
 			</div>
 			<div className="one-page-component">
 				<div className="content-box">
-					<h3>6.</h3>
+					<h3 className="title">6.</h3>
 					<div className="selector">
 						<p>프로젝트에 대한 자세한 설명을 작성해주세요.</p>
 						<Editor editorValue={desc} OCV={setDesc} />
@@ -302,7 +302,7 @@ const CreateProj = props => {
 			</div>
 			<div className="one-page-component">
 				<div className="content-box">
-					<h3>마지막 .</h3>
+					<h3 className="title">마지막 .</h3>
 					<div className="selector overflowAuto">
 						<p>입력하신 정보가 맞는지 확인해주세요.</p>
 						<ProjectPage
