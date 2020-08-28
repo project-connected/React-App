@@ -661,8 +661,12 @@
 				}
 			}
 
-			.select-btn-wrap .data-list{
-				width: 100%;
+			.select-btn-wrap {
+				margin: 0;
+
+				.data-list{
+					width: 100%;
+				}
 			}
 
 			.calendar-box {

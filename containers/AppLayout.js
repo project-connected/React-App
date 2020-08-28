@@ -493,7 +493,7 @@ const AppLayout = ({ children }) => {
 								</a>
 							</Link>
 						</div>
-						{user && <>
+						{1 && <>
 							<div className="nav-link-btn">
 								<Link href="/project/create">
 									<a>
