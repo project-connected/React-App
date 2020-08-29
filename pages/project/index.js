@@ -18,6 +18,17 @@ import SelectStack from '../../components/buttons/SelectStack';
 import StackBlock from '../../components/StackBlock';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
+const dummyResult = [{
+	key: 'APPLICATION',
+	value: '어플리케이션 개발'
+}, {
+	key: 'WEB',
+	value: '웹 개발'
+}, {
+	key: 'SERVER',
+	value: '서버 개발'
+}];
+
 const SearchResultProject = ({ project }) => {
 	return (
 		<Link href={`/project/${project.id}`}>
@@ -51,6 +62,7 @@ const SearchResultProject = ({ project }) => {
 
 const SearchProj = props => {
 	const { filterAttrOpenIndx, search_result, search_region, search_theme, search_stacks, projectList } = useSelector(state=>state.project);
+	const { region, themes, skills } = useSelector(state=>state.common);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -93,11 +105,11 @@ const SearchProj = props => {
 				<div className="search-filter-box">
 					<h3>검색 필터링</h3>
 					<div className="choice-filter-box">
-						<SelectAttr status="search" idx={0} name="지역" data={['서울', '대전', '대구', '부산']} getAction={GET_REGION_FOR_SEARCH} />
-						<SelectAttr status="search" idx={1} name="목적" data={['취미', '해커톤', '공모전']} getAction={GET_THEME_FOR_SEARCH} />
-						<SelectAttr status="search" idx={2} name="결과물" data={['어플리케이션 개발', '웹 개발', '서버 개발']} getAction={GET_RESULT_FOR_SEARCH} />
+						<SelectAttr status="search" idx={0} name="지역" data={region} getAction={GET_REGION_FOR_SEARCH} />
+						<SelectAttr status="search" idx={1} name="목적" data={themes} getAction={GET_THEME_FOR_SEARCH} />
+						<SelectAttr status="search" idx={2} name="결과물" data={dummyResult} getAction={GET_RESULT_FOR_SEARCH} />
 						<SelectPeriod />
-						<SelectStack />
+						<SelectStack skills={skills}/>
 					</div>
 					<div className="filter-attr-box">
 						<p>블럭을 클릭하면 필터링이 취소돼요</p>
@@ -105,28 +117,28 @@ const SearchProj = props => {
 							{search_region !== [] && search_region.map((c, i) => {
 								return (
 									<div key={(i)} className="filter-block region" onClick={() => dispatch({type: LOSE_REGION_FOR_SEARCH, data: c})}>
-										{c}
+										{c.value}
 									</div>
 								)
 							})}
 							{search_theme.map((c, i) => {
 								return (
 									<div key={(i)} className="filter-block theme" onClick={() => dispatch({type: LOSE_THEME_FOR_SEARCH, data: c})}>
-										{c}
+										{c.value}
 									</div>
 								)
 							})}
 							{search_result.map((c, i) => {
 								return (
 									<div key={(i)} className="filter-block result" onClick={() => dispatch({type: LOSE_RESULT_FOR_SEARCH, data: c})}>
-										{c}
+										{c.value}
 									</div>
 								)
 							})}
 							{search_stacks.map((c, i) => {
 								return (
-									<div key={(c.name)} className="filter-block stack" style={{background: c.color}} onClick={() => dispatch({type: LOSE_STACK_FOR_SEARCH, data: c})}>
-										{c.name}
+									<div key={(c.key)} className="filter-block stack" style={{background: c.color}} onClick={() => dispatch({type: LOSE_STACK_FOR_SEARCH, data: c})}>
+										{c.value}
 									</div>
 								)
 							})}

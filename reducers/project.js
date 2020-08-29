@@ -179,7 +179,7 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 			break;
 		}
 		case LOSE_REGION_FOR_SEARCH: {
-			draft.search_region = draft.search_region.filter(v => v !== action.data);
+			draft.search_region = draft.search_region.filter(v => v.key !== action.data.key);
 			break;
 		}
 
@@ -188,7 +188,7 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 			break;
 		}
 		case LOSE_THEME_FOR_SEARCH: {
-			draft.search_theme = draft.search_theme.filter(v => v !== action.data);
+			draft.search_theme = draft.search_theme.filter(v => v.key !== action.data.key);
 			break;
 		}
 
@@ -197,7 +197,7 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 			break;
 		}
 		case LOSE_RESULT_FOR_SEARCH: {
-			draft.search_result = draft.search_result.filter(v => v !== action.data);
+			draft.search_result = draft.search_result.filter(v => v.key !== action.data.key);
 			break;
 		}
 
@@ -211,7 +211,7 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 			break;
 		}
 		case LOSE_STACK_FOR_SEARCH: {
-			draft.search_stacks = draft.search_stacks.filter(v => v.name !== action.data.name);
+			draft.search_stacks = draft.search_stacks.filter(v => v.key !== action.data.key);
 			break;
 		}
 
@@ -242,7 +242,7 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 		}
 
 		case DELETE_STACK_FOR_CREATE: {
-			draft.create_stacks = draft.create_stacks.filter(v => v.name !== action.data.name)
+			draft.create_stacks = draft.create_stacks.filter(v => v.key !== action.data.key)
 			break;
 		}
 

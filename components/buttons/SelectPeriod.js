@@ -11,7 +11,7 @@ const SelectPeriod = ({ name="시작일" }) => {
 
 	const wrapClassName = filterAttrOpenIndx === 3 ? 'select-btn-wrap clicked' : 'select-btn-wrap';
 
-	const [date, setDate] = useState(new Date());
+	const [startDate, setDate] = useState(new Date());
 
 	const OCDate = useCallback((date) => {
 		setDate(date);
@@ -19,7 +19,7 @@ const SelectPeriod = ({ name="시작일" }) => {
 			type: GET_PRIOD_FOR_SEARCH,
 			data: date,
 		})
-	}, [date]);
+	}, [startDate]);
 
 	const openAttr = useCallback((e) => {
 		e.preventDefault();
@@ -44,8 +44,9 @@ const SelectPeriod = ({ name="시작일" }) => {
 			</div>
 			<div className="data-list">
 				<Calendar
-					value={date}
+					value={startDate}
 					onChange={OCDate}
+					calendarType="US"
 				/>
 			</div>
 		</div>
