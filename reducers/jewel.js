@@ -117,6 +117,9 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 			draft.loadError = action.error;
 			break;
 		}
+		default: {
+			break;
+		}
 	}
 })
 

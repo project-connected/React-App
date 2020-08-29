@@ -21,17 +21,12 @@ const dummyUser = {
 	profileImg: 'https://media.vlpt.us/images/yujo/profile/053c9bee-1076-418c-808d-f9a1b88dc445/KakaoTalk_20200229_162658088.jpg?w=240',
 }
 
-function* getToken() {
-	axios.defaults.headers.authorization = localStorage.getItem('userToken');
-}
-
 function loadUserAPI() {
 	return axios.get('/auth/user');
 }
 
 function* loadUser() {
 	try {
-		yield call(getToken);
 		const result = yield call(loadUserAPI);
 		yield put({
 			type: LOAD_USER_SUCCESS,
@@ -51,10 +46,7 @@ function* watchLoadUser() {
 }
 
 function loginAPI(loginData) {
-	return axios.post('/auth/local/login', loginData).then((res) => {
-		localStorage.setItem('userToken', res.data.result.token);
-		return res;
-	});
+	return axios.post('/auth/local/login', loginData);
 }
 
 function* login(action) {

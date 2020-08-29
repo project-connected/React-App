@@ -23,6 +23,7 @@ import StackBlock from '../../components/StackBlock';
 import { KeyboardArrowRight, KeyboardArrowLeft, Close } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { ProjectPage } from './[index]';
+import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
 export const Editor = dynamic(import ('../../components/Toast'), {
 	ssr: false
@@ -342,6 +343,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	}
 	context.store.dispatch({
 		type: LOAD_USER_REQUEST,
+	})
+	context.store.dispatch({
+		type: LOAD_COMMON_REQUEST,
 	})
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();

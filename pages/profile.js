@@ -14,6 +14,7 @@ import SelectAttr from '../components/buttons/SelectAttr';
 import { Editor } from './project/create';
 import SetStack from '../components/buttons/SetStack';
 import { LOAD_USER_REQUEST } from '../reducers/user';
+import { LOAD_COMMON_REQUEST } from '../reducers/common';
 
 const Profile = ({ params }) => {
 	const { user } = useSelector(state=>state.user);
@@ -108,10 +109,12 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	axios.defaults.headers.Cookie = '';
 	if (context.req && cookie) {
 		axios.defaults.headers.Cookie = cookie;
-		// axios.defaults.headers.auauthorization = localStorage.getItem('userToken');
 	}
 	context.store.dispatch({
 		type: LOAD_USER_REQUEST,
+	})
+	context.store.dispatch({
+		type: LOAD_COMMON_REQUEST,
 	})
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();

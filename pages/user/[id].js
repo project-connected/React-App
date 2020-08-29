@@ -150,7 +150,6 @@
 // 	axios.defaults.headers.Cookie = '';
 // 	if (context.req && cookie) {
 // 		axios.defaults.headers.Cookie = cookie;
-// 		// axios.defaults.headers.auauthorization = localStorage.getItem('userToken');
 // 	}
 // 	// context.store.dispatch({
 // 	// 	type: LOAD_USER_REQUEST,

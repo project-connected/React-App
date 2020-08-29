@@ -9,6 +9,7 @@ import { Visibility } from "@material-ui/icons";
 import StackBlock from '../components/StackBlock';
 import { useDispatch } from 'react-redux';
 import { LOAD_USER_REQUEST } from '../reducers/user';
+import { LOAD_COMMON_REQUEST } from '../reducers/common';
 
 const dummyStack = [
 	{
@@ -107,6 +108,12 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	if (context.req && cookie) {
 		axios.defaults.headers.Cookie = cookie;
 	}
+	context.store.dispatch({
+		type: LOAD_USER_REQUEST,
+	})
+	context.store.dispatch({
+		type: LOAD_COMMON_REQUEST,
+	})
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();
 });

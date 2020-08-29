@@ -6,6 +6,7 @@ import user from './user';
 import chat from './chat';
 import project from './project';
 import jewel from './jewel';
+import common from './common';
 
 const rootReducer = (state, action) => {
 	switch (action.type) {
@@ -17,7 +18,8 @@ const rootReducer = (state, action) => {
 				user,
 				chat,
 				project,
-				jewel
+				jewel,
+				common,
 			});
 			return combineReducer(state, action);
 		}

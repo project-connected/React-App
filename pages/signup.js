@@ -10,6 +10,7 @@ import { SIGNUP_REQUEST, RESET_DONE_FLAG, LOAD_USER_REQUEST } from '../reducers/
 
 import useInput from '../hooks/useInput';
 import { CLOSE_USER_MENU } from '../reducers/component';
+import { LOAD_COMMON_REQUEST } from '../reducers/common';
 
 const Signup = () => {
 	const dispatch = useDispatch();
@@ -151,10 +152,12 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	axios.defaults.headers.Cookie = '';
 	if (context.req && cookie) {
 		axios.defaults.headers.Cookie = cookie;
-		// axios.defaults.headers.auauthorization = localStorage.getItem('userToken');
 	}
 	context.store.dispatch({
 		type: LOAD_USER_REQUEST,
+	})
+	context.store.dispatch({
+		type: LOAD_COMMON_REQUEST,
 	})
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();

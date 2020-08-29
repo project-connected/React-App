@@ -16,6 +16,7 @@ import SelectAttr from '../../components/buttons/SelectAttr';
 import SelectPeriod from '../../components/buttons/SelectPeriod';
 import SelectStack from '../../components/buttons/SelectStack';
 import StackBlock from '../../components/StackBlock';
+import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
 const SearchResultProject = ({ project }) => {
 	return (
@@ -162,10 +163,12 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	axios.defaults.headers.Cookie = '';
 	if (context.req && cookie) {
 		axios.defaults.headers.Cookie = cookie;
-		// axios.defaults.headers.auauthorization = localStorage.getItem('userToken');
 	}
 	context.store.dispatch({
 		type: LOAD_USER_REQUEST,
+	})
+	context.store.dispatch({
+		type: LOAD_COMMON_REQUEST,
 	})
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();
