@@ -5,7 +5,7 @@ import { Search } from '@material-ui/icons';
 import StackBlock from '../StackBlock';
 import { useSelector } from 'react-redux';
 
-const SetStack = ({ stacks, setValue }) => {
+const SetStack = ({ stacks, value, setValue }) => {
 	const [text, setText] = useState('');
 	const [data, setData] = useState([]);
 
@@ -20,7 +20,7 @@ const SetStack = ({ stacks, setValue }) => {
 	const cilckStack = useCallback((c) => (e) => {
 		e.preventDefault();
 		setValue(c)
-	}, []);
+	}, [value]);
 
 	return (
 		<>

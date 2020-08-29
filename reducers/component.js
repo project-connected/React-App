@@ -7,6 +7,8 @@ const initialState = {
 	openUserProfile: false,
 }
 
+export const WINDOW_REF_SAVE = 'WINDOW_REF_SAVE';
+
 export const CLOSE_ALL_COMP1 = 'CLOSE_ALL_COMP1';
 
 export const OPEN_CHAT = "OPEN_CHAT";

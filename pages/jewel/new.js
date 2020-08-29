@@ -21,47 +21,36 @@ import SetStack from '../../components/buttons/SetStack';
 import StackBlock from '../../components/StackBlock';
 import SelectAttr from '../../components/buttons/SelectAttr';
 
-// const dummyTheme = [{
-// 	key: 'CONTEST',
-// 	name: '공모전'
-// }, {
-// 	key: 'HACKERTON',
-// 	name: '해커톤'
-// }, {
-// 	key: 'STUDY',
-// 	name: '스터디'
-// }];
+import { LOAD_USER_REQUEST } from '../../reducers/user';
+import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
-// const dummyResult = [{
-// 	key: 'APPLICATION',
-// 	name: '어플리케이션'
-// }, {
-// 	key: 'WEB',
-// 	name: '웹'
-// }]
-
-// const dummyRegion = [{
-// 	key: 'SEOUL',
-// 	name: '서울'
-// }, {
-// 	key: 'BUSAN',
-// 	name: '부산',
-// }]
+const dummyResult = [{
+	key: 'APPLICATION',
+	value: '어플리케이션 개발'
+}, {
+	key: 'WEB',
+	value: '웹 개발'
+}, {
+	key: 'SERVER',
+	value: '서버 개발'
+}];
 
 const CreateMyAppeal = props => {
 	const dispatch = useDispatch();
 	const { user } = useSelector(state=>state.user);
+	const { skills, region, themes } = useSelector(state=>state.common);
+	const { windowRef } = useSelector(state=>state.component);
 
 	const [title, OCTitle] = useInput('');
-	const [region, setRegion] = useState('');
-	const [theme, setTheme] = useState('');
-	const [result, setResult] = useState('');
+	const [regionState, setRegion] = useState('');
+	const [themeState, setTheme] = useState('');
+	const [resultState, setResult] = useState('');
 	const [period, setPeriod] = useState({
 									startDate: new Date(),
 									endDate: new Date(),
 									diff: 0,
 								});
-	const [stacks, setStacks] = useState([]);
+	const [stackState, setStacks] = useState([]);
 	const [desc, setDesc] = useState('');
 	const [iptStatus, setIptStatus] = useState(1);
 	const [endDateAvail, setEndDateAvail] = useState(false);
@@ -73,31 +62,23 @@ const CreateMyAppeal = props => {
 		e.preventDefault();
 
 		if (iptStatus === 1) {
-			if (theme === '' || result === '' || region === '')
+			if (themeState === '' || resultState === '' || regionState === '')
 				return;
 		} else if (iptStatus === 2) {
-			console.log({
-				startdate: period.startDate.getTime(),
-				endDate: period.endDate.getTime(),
-			})
 			if (period.startDate.getTime() === period.endDate.getTime())
 				return ;
 		} else if (iptStatus === 3) {
 			if (title === '')
 				return ;
 		} else if (iptStatus === 4) {
-			if (stacks.length === 0)
+			if (stackState.length === 0)
 				return ;
 		} else {
 			if (desc === '')
 				return ;
 		}
 		setIptStatus(iptStatus + 1);
-	}, [iptStatus, theme, result, title, region, period, stacks, desc]);
-
-	useEffect(() => {
-		scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-	}, [scrollRef, iptStatus]);
+	}, [iptStatus, themeState, resultState, title, regionState, period, stackState, desc]);
 
 	const OCStartDate = useCallback((date) => {
 		if (date.getTime() < new Date().getTime())
@@ -126,8 +107,8 @@ const CreateMyAppeal = props => {
 	}, [period]);
 
 	const getStack = useCallback((stack) => {
-		setStacks([...stacks, stack]);
-	}, [stacks]);
+		setStacks([...stackState, stack]);
+	}, [stackState]);
 
 	useEffect(() => {
 		if (period.startDate.getTime() < period.endDate.getTime()) {
@@ -147,7 +128,7 @@ const CreateMyAppeal = props => {
 					<p>어떤 목적의 프로젝트를 하고 싶으신가요?</p>
 					<SelectAttr
 						name="목적"
-						data={['헤커톤', '공모전', '스터디', '취미']}
+						data={themes}
 						idx={8}
 						getAction={setTheme}
 						status="profile"
@@ -155,7 +136,7 @@ const CreateMyAppeal = props => {
 					<p>어떤 결과물을 만들어보고 싶으신가요?</p>
 					<SelectAttr
 						name="결과물"
-						data={['어플리케이션 개발', '웹 개발', '서버 개발', '기타']}
+						data={dummyResult}
 						idx={9}
 						getAction={setResult}
 						status="profile"
@@ -163,7 +144,7 @@ const CreateMyAppeal = props => {
 					<p>어느 지역에서 진행하고 싶으신가요?</p>
 					<SelectAttr
 						name="지역"
-						data={['서울', '대구', '대전', '부산', '찍고']}
+						data={region}
 						idx={10}
 						getAction={setRegion}
 						status="profile"
@@ -224,12 +205,12 @@ const CreateMyAppeal = props => {
 				<div className="new-jewel-content stack">
 					<h3 className="title">4.</h3>
 					<p>가능하신 기술 스택을 골라주세요.</p>
-					<SetStack value={stacks} setValue={getStack} />
+					<SetStack stacks={skills} value={stackState} setValue={getStack} />
 					<p>당신의 기술 스택</p>
 					<div className="stack-block-box">
-						{stacks.map((c, i) => {
+						{stackState.map((c, i) => {
 							return (
-								<StackBlock name={c.name} color={c.color} key={(i)}/>
+								<StackBlock name={c.value} color={c.color} key={(i)}/>
 							)
 						})}
 					</div>
