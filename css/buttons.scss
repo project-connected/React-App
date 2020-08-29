@@ -15,6 +15,7 @@
 
 	&.opened {
 		box-shadow: none !important;
+		border: none;
 
 		.select-btn svg {
 			transform: translateY(-50%) rotate(180deg);

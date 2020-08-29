@@ -5,71 +5,22 @@ import { Search } from '@material-ui/icons';
 import StackBlock from '../StackBlock';
 import { useSelector } from 'react-redux';
 
-const dummyStack = [
-	{
-		name: 'Node.JS',
-		color: 'rgb(65, 169, 76)',
-	}, {
-		name: 'photoshop',
-		color: '#187bcd',
-	}, {
-		name: 'React.JS',
-		color: '#03254c',
-	}, {
-		name: 'Swift',
-		color: '#FC6A03',
-	},{
-		name: 'JavaScript',
-		color: '#FC6A03',
-	},{
-		name: 'C',
-		color: '#4b00c1',
-	},{
-		name: 'C#',
-		color: 'rgb(65, 169, 76)',
-	},{
-		name: 'C++',
-		color: '#4b80a7',
-	},{
-		name: 'Java',
-		color: '#fb5743',
-	},{
-		name: 'Go',
-		color: '#74bdf0',
-	},{
-		name: 'R',
-		color: '#74a9ff',
-	},{
-		name: 'Python',
-		color: '#e7ec00',
-	},{
-		name: 'Spring',
-		color: 'rgb(65, 169, 76)',
-	},{
-		name: 'PHP',
-		color: '#9b7ed0',
-	},{
-		name: 'Andriod',
-		color: '#88d686',
-	},
-]
-
-const SetStack = ({ value, setValue }) => {
+const SetStack = ({ stacks, setValue }) => {
 	const [text, setText] = useState('');
-	const [data, setData] = useState(dummyStack);
+	const [data, setData] = useState([]);
 
 	const { create_stacks } = useSelector(state=>state.project);
 
 	const OCText = useCallback((e) => {
 		setText(e.target.value);
 		e.preventDefault();
-		setData(dummyStack.filter(v => v.name.toLowerCase().match(e.target.value.toLowerCase())));
+		setData(stacks.filter(v => v.name.toLowerCase().match(e.target.value.toLowerCase())));
 	}, [text, data]);
 
 	const cilckStack = useCallback((c) => (e) => {
 		e.preventDefault();
 		setValue(c)
-	}, [value]);
+	}, []);
 
 	return (
 		<>
@@ -80,10 +31,10 @@ const SetStack = ({ value, setValue }) => {
 						<Search />
 					</div>
 					<div className="project-card-stack-block-wrap">
-						{data.filter(v => !create_stacks.find(elem => elem.name === v.name)).map((c, i) => {
+						{stacks.filter(v => !data.find(elem => elem.key === v.key)).map((c, i) => {
 							return (
-								<div onClick={cilckStack(c)} key={(i)} >
-									<StackBlock name={c.name} color={c.color} />
+								<div onClick={cilckStack(c)} key={(c.key)} >
+									<StackBlock name={c.value} color={c.color} />
 								</div>
 							);
 						})}

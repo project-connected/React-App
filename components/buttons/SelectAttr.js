@@ -17,7 +17,7 @@ const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=t
 
 	const OCText = useCallback((e) => {
 		setText(e.target.value);
-		setAttrs(data.filter(v => v.toLowerCase().match(e.target.value.toLowerCase())));
+		setAttrs(data.filter(v => v.value.toLowerCase().match(e.target.value.toLowerCase())));
 	}, [text]);
 
 	const openAttr = useCallback((e) => {
@@ -38,9 +38,9 @@ const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=t
 	const getAttrs = useCallback((attr) => (e) => {
 		e.preventDefault();
 		if (status === "create")
-			setAttrName(attr);
+			setAttrName(attr.value);
 		if (status === "profile") {
-			setAttrName(attr);
+			setAttrName(attr.value);
 			getAction(attr);
 			setText('');
 			setAttrs(data);
@@ -50,7 +50,7 @@ const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=t
 			return ;
 		}
 		if (idx === 0) {
-			if (!search_region.find(v => v === attr))
+			if (!search_region.find(v => v.key === attr.key))
 			{
 				dispatch({
 					type: getAction,
@@ -61,7 +61,7 @@ const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=t
 				})
 			}
 		} else  if (idx === 1) {
-			if (!search_theme.find(v => v === attr))
+			if (!search_theme.find(v => v.key === attr.key))
 			{
 				dispatch({
 					type: getAction,
@@ -98,8 +98,8 @@ const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=t
 				}
 				{attrs.map((c, i) => {
 					return (
-						<div key={(i)} className="attribute" onClick={getAttrs(c)}>
-							{c}
+						<div key={(c.key)} className="attribute" onClick={getAttrs(c)}>
+							{c.value}
 						</div>
 					);
 				})}

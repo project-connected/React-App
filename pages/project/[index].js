@@ -47,7 +47,16 @@ export const InfoBlock = ({ name, data }) => {
 	);
 }
 
-export const ProjectPage = ({ status="view", title="프로젝트 제목", theme="목적", result="결과물", region="지역", startDate="2020년 8월 30일", period=14, stacks=dummyStack, desc="프로젝트 설명이 작성되지 않았습니다." }) => {
+export const ProjectPage = ({
+							status="view",
+							title="프로젝트 제목",
+							theme={key: 'DEFAULT', value: "목적"},
+							result={key: "DEFAULT", value: "결과물"},
+							region={key: "DEFAULT", value: "지역"},
+							startDate="2020년 8월 30일",
+							period=14,
+							stacks=[{key:"DEFAULT", value:'스택', color: '#333'}],
+							desc="프로젝트 설명이 작성되지 않았습니다." }) => {
 	const { user } = useSelector(state=>state.user);
 	const dispatch = useDispatch();
 
@@ -68,15 +77,15 @@ export const ProjectPage = ({ status="view", title="프로젝트 제목", theme=
 		<div id='project-page-wrap'>
 			<div className="proj-head-info">
 				<div className="proj-head-title">
-					<p>{theme}, {result}</p>
+					<p>{theme.value}, {result.value}</p>
 					<h3>{title}</h3>
 				</div>
 				<div className="proj-info-container">
 					<section id="condition">
 						<h6>모집정보</h6>
-						<InfoBlock name="목적" data={theme} />
-						<InfoBlock name="결과물" data={result} />
-						<InfoBlock name="지역" data={region} />
+						<InfoBlock name="목적" data={theme.value} />
+						<InfoBlock name="결과물" data={result.value} />
+						<InfoBlock name="지역" data={region.value} />
 						<InfoBlock name="시작일" data={startDate} />
 						<InfoBlock name="기간" data={`${period} 일`} />
 						<InfoBlock name="총인원" data={`${stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)} 명`} />
@@ -88,7 +97,7 @@ export const ProjectPage = ({ status="view", title="프로젝트 제목", theme=
 							{stacks.map((c, i) => {
 								return (
 									<div key={(i)} className="proj-stack-block">
-										<StackBlock name={c.name} color={c.color} />
+										<StackBlock name={c.value} color={c.color} />
 										<span className="proj-stack-person">
 											{c.num}/{c.maxNum} 명
 										</span>

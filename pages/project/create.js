@@ -29,6 +29,17 @@ export const Editor = dynamic(import ('../../components/Toast'), {
 	ssr: false
 });
 
+const dummyResult = [{
+	key: 'APPLICATION',
+	value: '어플리케이션 개발'
+}, {
+	key: 'WEB',
+	value: '웹 개발'
+}, {
+	key: 'SERVER',
+	value: '서버 개발'
+}];
+
 const CreateProj = props => {
 	const widthRef = useRef();
 	const [width, setWidth] = useState(0);
@@ -47,6 +58,7 @@ const CreateProj = props => {
 	const dispatch = useDispatch();
 
 	const { create_stacks, create_theme, create_region, create_result } = useSelector(state=>state.project);
+	const { region, skills, themes } = useSelector(state=>state.common);
 
 	const pageStyle = {
 		transform: `translateX(${pageOffset}px`
@@ -92,7 +104,7 @@ const CreateProj = props => {
 			dispatch({
 				type: GET_STACK_FOR_CREATE,
 				data: {
-					name: stack.name,
+					value: stack.value,
 					color: stack.color,
 					num: 0,
 					maxNum: Number(stackNum),
@@ -162,9 +174,9 @@ const CreateProj = props => {
 					<h3 className="title">1.</h3>
 					<div className="selector">
 						<p>어떤 목적으로 프로젝트를 모집하세요?</p>
-						<SelectAttr name="목적" data={["헤커톤", "공모전", "취미", "스터디"]} idx={5} getAction={GET_THEME_FOR_CREATE}/>
+						<SelectAttr name="목적" data={themes} idx={5} getAction={GET_THEME_FOR_CREATE}/>
 						<p>어떤 결과를 목표로 하시나요?</p>
-						<SelectAttr name="결과물" data={["어플리케이션 개발", "웹 개발", "API 개발", "스터디", "기타"]} getAction={GET_RESULT_FOR_CREATE} idx={6} />
+						<SelectAttr name="결과물" data={dummyResult} getAction={GET_RESULT_FOR_CREATE} idx={6} />
 					</div>
 					<button className="next" onClick={ClickNext(0)}>
 						<KeyboardArrowRight />
@@ -191,7 +203,7 @@ const CreateProj = props => {
 					<h3 className="title">3.</h3>
 					<div className="selector">
 						<p>어느 지역에서 진행하시겠어요?</p>
-						<SelectAttr name="지역" data={["서울", '대전', '대구', '부산', '찍고', '아하']} getAction={GET_REGION_FOR_CREATE} idx={7}/>
+						<SelectAttr name="지역" data={region} getAction={GET_REGION_FOR_CREATE} idx={7}/>
 					</div>
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
@@ -246,11 +258,11 @@ const CreateProj = props => {
 					<div className="selector">
 						<p>모집하고 싶은 기술을 가진 사람들을 설정해주세요.</p>
 						<div className="setting-box">
-							<SetStack value={stack} setValue={setStack} />
+							<SetStack stacks={skills} setValue={setStack} />
 							<div className="setting-person">
 								{stack &&
 									<div className="setting">
-										<StackBlock name={stack.name} color={stack.color} />
+										<StackBlock name={stack.value} color={stack.color} />
 										<input type="number" value={stackNum} onChange={OCStackNum}/>
 										<button onClick={set_create_stacks}>
 											추가하기
@@ -262,7 +274,7 @@ const CreateProj = props => {
 										create_stacks.map((c, i) => {
 											return (
 												<div className="setted-stack" key={(i)}>
-													<StackBlock name={c.name} color={c.color} />
+													<StackBlock name={c.value} color={c.color} />
 													{c.maxNum}명
 													<button onClick={deleteStack(c)}>
 														<Close />
