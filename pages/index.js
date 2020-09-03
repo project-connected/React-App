@@ -82,12 +82,6 @@ const MainPage = () => {
 
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch({
-			type: LOAD_USER_REQUEST,
-		})
-	}, []);
-
 	return (
 		<div className="main-page-wrap">
 			<h1>현재 모집 중인 프로젝트</h1>

@@ -29,12 +29,6 @@ const Profile = ({ params }) => {
 
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch({
-			type: LOAD_USER_REQUEST,
-		})
-	}, []);
-
 	const onClickImageUpload = useCallback(() => {
 		imageInput.current.click();
 	}, [imageInput.current]);

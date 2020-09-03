@@ -11,11 +11,6 @@ import { LOAD_COMMON_REQUEST } from '../reducers/common';
 const MyProject = props => {
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch({
-			type: LOAD_USER_REQUEST,
-		})
-	}, []);
 	return (
 		<div>
 			<div>

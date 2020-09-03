@@ -65,11 +65,6 @@ const SearchProj = props => {
 	const { region, themes, skills } = useSelector(state=>state.common);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch({
-			type: LOAD_USER_REQUEST,
-		})
-	}, []);
 
 	return (
 		<div className="proj-search-page">

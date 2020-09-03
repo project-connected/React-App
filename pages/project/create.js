@@ -160,13 +160,6 @@ const CreateProj = props => {
 	// 	Router.push('/project/방금만들어진 프로젝트 id')
 	// }, [isCreatedProject]);
 
-	useEffect(() => {
-		setStartDate(new Date())
-		dispatch({
-			type: LOAD_USER_REQUEST
-		})
-	}, []);
-
 	return (
 		<div id="create-wrap" style={pageStyle}>
 			<div className="one-page-component" ref={widthRef}>

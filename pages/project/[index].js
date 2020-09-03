@@ -124,12 +124,6 @@ export const ProjectPage = ({
 const Project = () => {
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch({
-			type: LOAD_USER_REQUEST,
-		})
-	}, []);
-
 	return (
 		<>
 		<Head>
