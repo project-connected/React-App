@@ -85,3 +85,32 @@
 		right: 0;
 	}
 }
+
+@keyframes hideDown {
+	from {
+		opacity: 1;
+		transform: none;
+	}
+	to {
+		opacity: 0;
+		transform: translateY(30%);
+	}
+}
+
+@keyframes appearAfterHideDown {
+	0% {
+		opacity: 0;
+		transform: translateY(30%);
+		display: none
+	}
+	50% {
+		display: block;
+		opacity: 0;
+		transform: translateY(30%);
+	}
+	100% {
+		display: block;
+		opacity: 1;
+		transform: none;
+	}
+}

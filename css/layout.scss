@@ -383,7 +383,7 @@ button:focus {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 60;
+	z-index: 999;
 	width: 100%;
 	height: 100vh;
 	background: rgba(60, 60, 60, 0.2);
@@ -445,4 +445,11 @@ button:focus {
 	.nav-logo-btn a h1 {
 		display: none;
 	}
+}
+
+.flex-row {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
