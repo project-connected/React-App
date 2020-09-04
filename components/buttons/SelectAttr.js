@@ -96,13 +96,15 @@ const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=t
 						<Search />
 					</div>
 				}
-				{attrs.map((c, i) => {
-					return (
-						<div key={(c.key)} className="attribute" onClick={getAttrs(c)}>
-							{c.value}
-						</div>
-					);
-				})}
+				<div className="list-box">
+					{attrs.map((c, i) => {
+						return (
+							<div key={(c.key)} className="attribute" onClick={getAttrs(c)}>
+								{c.value}
+							</div>
+						);
+					})}
+				</div>
 			</div>
 		</div>
 	);

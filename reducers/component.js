@@ -5,6 +5,7 @@ const initialState = {
 	openUserMenu: false,
 	openApply: false,
 	openUserProfile: false,
+	openSubProfile: false,
 }
 
 export const WINDOW_REF_SAVE = 'WINDOW_REF_SAVE';
@@ -19,6 +20,9 @@ export const CLOSE_USER_MENU = "CLOSE_USER_MENU";
 
 export const OPEN_APPLY = "OPEN_APPLY";
 export const CLOSE_APPLY = "CLOSE_APPLY";
+
+export const OPEN_SUB_PROFILE = 'OPEN_SUB_PROFILE';
+export const CLOSE_SUB_PROFILE = 'CLOSE_SUB_PROFILE';
 
 const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 	switch (action.type) {
@@ -41,6 +45,15 @@ const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 		}
 		case CLOSE_USER_MENU: {
 			draft.openUserMenu = false;
+			break;
+		}
+
+		case OPEN_SUB_PROFILE: {
+			draft.openSubProfile = true;
+			break;
+		}
+		case CLOSE_SUB_PROFILE: {
+			draft.openSubProfile = false;
 			break;
 		}
 

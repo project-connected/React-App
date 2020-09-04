@@ -16,6 +16,7 @@ import RequestMember from '../components/forms/RequestMember';
 // custom hooks
 import useInput from '../hooks/useInput';
 import Curtain from './Curtain';
+import NoSubProfile from './NoSubProfile';
 
 export const DummyProfile = () => {
 	return (
@@ -65,186 +66,6 @@ const dummyNotif = [{
 		projectName: 'Rank42',
 		status: 'accept',
 	}
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
-},{
-	class: 'project',
-	chat: null,
-	proj: {
-		projIdx: 1,
-		projectName: 'Rank42',
-		status: 'apply',
-	},
-	pool: null,
 }];
 
 const UserLoggedIn = () => {
@@ -438,7 +259,7 @@ const UserMenu = ({ user, isLoggingIn, openUserMenu }) => {
 }
 
 const AppLayout = ({ children }) => {
-	const { openChat, openUserMenu, openApply } = useSelector(state=>state.component);
+	const { openChat, openUserMenu, openApply, openSubProfile } = useSelector(state=>state.component);
 	const { user, isLoggingIn } = useSelector(state=>state.user);
 
 	const dispatch = useDispatch();
@@ -544,6 +365,7 @@ const AppLayout = ({ children }) => {
 				}
 				{ user && <ChatComponent openChatComponent={openChatComponent} onClickChatBtn={onClickChatBtn}/> }
 				{ <NotifBox />}
+				{ (user && openSubProfile) && <Curtain component={<NoSubProfile />} />}
 			</div>
 		</div>
 	);

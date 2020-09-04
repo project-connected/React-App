@@ -24,6 +24,7 @@ import { KeyboardArrowRight, KeyboardArrowLeft, Close } from '@material-ui/icons
 import { useSelector, useDispatch } from 'react-redux';
 import { ProjectPage } from './[index]';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
+import { OPEN_SUB_PROFILE } from '../../reducers/component';
 
 export const Editor = dynamic(import ('../../components/Toast'), {
 	ssr: false
@@ -59,6 +60,7 @@ const CreateProj = props => {
 
 	const { create_stacks, create_theme, create_region, create_result } = useSelector(state=>state.project);
 	const { region, skills, themes } = useSelector(state=>state.common);
+	const { user } = useSelector(state=>state.user)
 
 	const pageStyle = {
 		transform: `translateX(${pageOffset}px`
@@ -159,6 +161,13 @@ const CreateProj = props => {
 	// 	alert('프로젝트 모집 게시글이 작성되었어요!');
 	// 	Router.push('/project/방금만들어진 프로젝트 id')
 	// }, [isCreatedProject]);
+
+	useEffect(() => {
+		if (!user.subProfile) {
+			alert('추가 정보를 입력해주세요!');
+			dispatch({type: OPEN_SUB_PROFILE})
+		}
+	}, [user.subProfile])
 
 	return (
 		<div id="create-wrap" style={pageStyle}>
