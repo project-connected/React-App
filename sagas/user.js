@@ -28,6 +28,7 @@ function loadUserAPI() {
 function* loadUser() {
 	try {
 		const result = yield call(loadUserAPI);
+		console.log(result.headers);
 		yield put({
 			type: LOAD_USER_SUCCESS,
 			data: result.data
@@ -46,12 +47,15 @@ function* watchLoadUser() {
 }
 
 function loginAPI(loginData) {
-	return axios.post('/auth/local/login', loginData);
+	return axios.post('/auth/local/login', loginData, {
+		withCredentials: true
+	});
 }
 
 function* login(action) {
 	try {
 		const result = yield call(loginAPI, action.data);
+		console.log(result.headers);
 		// yield delay(1000);
 		yield put({
 			type: LOGIN_SUCCESS,
