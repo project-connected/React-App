@@ -18,12 +18,7 @@ const SetStack = ({ stacks=[], value, setValue }) => {
 	const cilckStack = useCallback((c) => (e) => {
 		e.preventDefault();
 		setValue(c)
-	}, [value]);
-
-	useEffect(() => {
-		console.log(value);
-		// console.log(value.length())
-		// value.find(v => elem.key === 'C');
+		// console.log(value)
 	}, [value]);
 
 	return (

@@ -110,6 +110,11 @@ const CreateMyAppeal = props => {
 		setStacks([...stackState, stack]);
 	}, [stackState]);
 
+	const removeStack = useCallback((stack) => (e) => {
+		e.preventDefault();
+		setStacks(stackState.filter(v => v.key !== stack.key));
+	}, [stackState]);
+
 	useEffect(() => {
 		if (period.startDate.getTime() < period.endDate.getTime()) {
 			setPeriod({
@@ -210,7 +215,7 @@ const CreateMyAppeal = props => {
 					<div className="stack-block-box">
 						{stackState.map((c, i) => {
 							return (
-								<StackBlock name={c.value} color={c.color} key={(i)}/>
+								<StackBlock onClick={removeStack(c)} name={c.value} color={c.color} key={(i)}/>
 							)
 						})}
 					</div>

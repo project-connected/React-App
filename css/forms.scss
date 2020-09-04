@@ -790,6 +790,7 @@
 	border-radius: 7px;
 
 	.stack-block {
+		cursor: pointer;
 		animation: .5s padeUp 1 ease-in-out;
 	}
 }
@@ -830,13 +831,23 @@
 			transition: .5s;
 			animation: .8s appearAfterHideDown 1 ease-in-out;
 
-			.stack-block-box {
+			.stack-wrap {
 				height: 100%;
+				width: 90%;
 				overflow: auto;
+
+				.stack-block-box {
+					box-shadow: none;
+				}
+			}
+			.stack-block {
+				cursor: pointer;
 			}
 
 			.select-btn-wrap {
 				width: 90%;
+				height: 100%;
+
 				.data-list{
 					width: 100%;
 				}
@@ -853,6 +864,15 @@
 				color: #777;
 				font-size: 14px;
 				margin-bottom: .1rem;
+			}
+
+			.flex-row.stack {
+				height: 200px;
+
+				.data-list {
+					height: 100%;
+					top: 0;
+				}
 			}
 		}
 

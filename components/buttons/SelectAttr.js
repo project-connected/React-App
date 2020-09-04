@@ -5,7 +5,7 @@ import { KeyboardArrowDown, Search } from '@material-ui/icons';
 import { CLOSE_ALL_COMP2, OPEN_FILTER_ATTR } from '../../reducers/project';
 
 
-const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=true}) => {
+const SelectAttr = ({ open=false, val, status="create", name, data, idx, getAction, onSearchBar=true}) => {
 	const dispatch = useDispatch();
 	const { filterAttrOpenIndx, search_region, search_theme } = useSelector(state=>state.project);
 
@@ -37,6 +37,11 @@ const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=t
 
 	const getAttrs = useCallback((attr) => (e) => {
 		e.preventDefault();
+		if (status === "many") {
+			getAction(attr);
+			setText('');
+			setAttrs(data);
+		}
 		if (status === "create")
 			setAttrName(attr.value);
 		if (status === "profile") {
@@ -71,7 +76,10 @@ const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=t
 					type: CLOSE_ALL_COMP2
 				})
 			}
-		} else {
+		} if (idx === 12) {
+			console.log(12);
+		} // 수정해야함
+		else {
 			dispatch({
 				type: getAction,
 				data: attr,
@@ -80,15 +88,15 @@ const SelectAttr = ({ status="create", name, data, idx, getAction, onSearchBar=t
 				type: CLOSE_ALL_COMP2
 			})
 		}
-	}, [text, attrs]);
+	}, [text, attrs, val]);
 
 
 	return (
-		<div className={wrapClassName}>
-			<div className='select-btn' onClick={openAttr}>
+		<div className={open ? 'select-btn-wrap opened' : wrapClassName}>
+			{!open && <div className='select-btn' onClick={openAttr}>
 				{attrName}
 				<KeyboardArrowDown />
-			</div>
+			</div>}
 			<div className="data-list">
 				{ onSearchBar &&
 					<div className="data-list-search">

@@ -9,6 +9,17 @@ import StackBlock from '../components/StackBlock';
 import SetStack from '../components/buttons/SetStack';
 import SelectAttr from '../components/buttons/SelectAttr';
 
+const dummyResult = [{
+	key: 'APPLICATION',
+	value: '어플리케이션 개발'
+}, {
+	key: 'WEB',
+	value: '웹 개발'
+}, {
+	key: 'SERVER',
+	value: '서버 개발'
+}];
+
 const NoSubProfile = props => {
 	const { skills, region } = useSelector(state=>state.common);
 	const dispatch = useDispatch();
@@ -22,25 +33,39 @@ const NoSubProfile = props => {
 	const hideName = 'sP-ipt-box hide';
 
 	const OCUserStacks = useCallback((stack) => {
-		setUserStacks([...userStacks, stack]);
-	})
+		setUserStacks([...userStacks, stack])
+	}, [userStacks])
 
 	const iptDone = useCallback((e) => {
 		if (status === 0) {
-			console.log(userRegion)
 			if (userRegion !== '')
 				setStatus(1)
 		} else if (status === 1) {
-			if (userStacks.length() > 0)
+			if (userStacks.length > 0)
 				setStatus(2)
 		} else if (status === 2) {
-			if (userInterest.length() > 0) {
+			if (userInterest.length > 0) {
 				setStatus(3)
 			}
 		} else {
 			dispatch({type: CLOSE_SUB_PROFILE})
 		}
 	}, [status, userRegion, userStacks, userInterest])
+
+	const removeStack = useCallback((stack) => (e) => {
+		e.preventDefault();
+		setUserStacks(userStacks.filter(v => v.key !== stack.key))
+	}, [userStacks]);
+
+	const OCInterset = useCallback((interest) =>{
+		if (!userInterest.find(v=>v.key === interest.key))
+			setUserInterest([...userInterest, interest]);
+	}, [userInterest]);
+
+	const removeInterest = useCallback((interest) => (e) => {
+		e.preventDefault();
+		setUserInterest(userInterest.filter(v => v.key !== interest.key));
+	}, [userInterest]);
 
 	const SetBtn = () => {
 		return (
@@ -63,22 +88,36 @@ const NoSubProfile = props => {
 				{status >= 1 &&
 					<div className={status === 1 ? visibleName : hideName}>
 						<p>관심있는 기술이나 가능한 기술을 선택해주세요.</p>
-						<div className="flex-row">
+						<div className="flex-row stack">
 							<SetStack stacks={skills} value={userStacks} setValue={OCUserStacks}/>
-							<div className="stack-block-box">
-								{userStacks.map((c) => {
-									return (
-										<StackBlock name={c.value} color={c.color} key={c.key} />
-									)
-								})}
+							<div className="stack-wrap">
+									<div className="stack-block-box">
+									{userStacks.map((c) => {
+										return (
+											<StackBlock name={c.value} color={c.color} key={c.key} onClick={removeStack(c)}/>
+										)
+									})}
+								</div>
 							</div>
 						</div>
+						<SetBtn />
 					</div>
 				}
 				{status >= 2 &&
 					<div className={status=== 2 ? visibleName : hideName}>
 						<p>관심 분야를 선택해주세요.</p>
-						관심 분야
+						<div className="flex-row stack">
+							<SelectAttr open={true} val={userInterest} status="many" name="분야" data={dummyResult} getAction={OCInterset} idx={12}/>
+							<div className="stack-wrap">
+								<div className="stack-block-box">
+									{userInterest.map((c) => {
+										return (
+											<StackBlock key={c.key} color="linear-gradient(to bottom right,#7990ff,#9198e5)" name={c.value} onClick={removeInterest(c)} />
+										)
+									})}
+								</div>
+							</div>
+						</div>
 					</div>
 				}
 				{status === 3 &&
