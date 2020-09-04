@@ -61,6 +61,7 @@ const CreateProj = props => {
 	const { create_stacks, create_theme, create_region, create_result } = useSelector(state=>state.project);
 	const { region, skills, themes } = useSelector(state=>state.common);
 	const { user } = useSelector(state=>state.user)
+	const { openSubProfile } = useSelector(state=>state.component);
 
 	const pageStyle = {
 		transform: `translateX(${pageOffset}px`
@@ -162,12 +163,12 @@ const CreateProj = props => {
 	// 	Router.push('/project/방금만들어진 프로젝트 id')
 	// }, [isCreatedProject]);
 
-	useEffect(() => {
-		if (!user.subProfile) {
-			alert('추가 정보를 입력해주세요!');
-			dispatch({type: OPEN_SUB_PROFILE})
-		}
-	}, [user.subProfile])
+	// useEffect(() => {
+	// 	if (!user.subProfile && !openSubProfile) {
+	// 		alert('추가 정보를 입력해주세요!');
+	// 		dispatch({type: OPEN_SUB_PROFILE})
+	// 	}
+	// }, [user.subProfile, openSubProfile])
 
 	return (
 		<div id="create-wrap" style={pageStyle}>
@@ -361,6 +362,13 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	context.store.dispatch({
 		type: LOAD_COMMON_REQUEST,
 	})
+	const state = context.store.getState()
+	if (!state.user.user.profile) {
+		context.store.dispatch({
+			type: OPEN_SUB_PROFILE,
+		});
+	}
+
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();
 });
