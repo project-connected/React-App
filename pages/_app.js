@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import wrapper from '../store/configureStore';
-import AOS from 'aos';
 
 // css import
 import '@toast-ui/editor/dist/toastui-editor.css';

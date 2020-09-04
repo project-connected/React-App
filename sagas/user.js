@@ -74,6 +74,7 @@ function* watchLogin() {
 }
 
 function logoutAPI(loginData) {
+	browser.cookies.remove({name: 'authorization'})
 	return null;
 }
 
