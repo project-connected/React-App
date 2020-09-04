@@ -7,12 +7,12 @@ import { useSelector } from 'react-redux';
 
 const SetStack = ({ stacks=[], value, setValue }) => {
 	const [text, setText] = useState('');
-	const [data, setData] = useState([]);
+	const [data, setData] = useState(stacks);
 
 	const OCText = useCallback((e) => {
 		setText(e.target.value);
 		e.preventDefault();
-		setData(stacks.filter(v => v.name.toLowerCase().match(e.target.value.toLowerCase())));
+		setData(stacks.filter(v => v.value.toLowerCase().match(e.target.value.toLowerCase())));
 	}, [text, data]);
 
 	const cilckStack = useCallback((c) => (e) => {
@@ -20,16 +20,23 @@ const SetStack = ({ stacks=[], value, setValue }) => {
 		setValue(c)
 	}, [value]);
 
+	useEffect(() => {
+		console.log(value);
+		// console.log(value.length())
+		// value.find(v => elem.key === 'C');
+	}, [value]);
+
 	return (
 		<>
 			<div className="select-btn-wrap stack opened">
+				{value &&
 				<div className='data-list'>
 					<div className="data-list-search">
 						<input type="text" value={text} onChange={OCText}/>
 						<Search />
 					</div>
 					<div className="project-card-stack-block-wrap">
-						{stacks.filter(v => !data.find(elem => elem.key === v.key)).map((c, i) => {
+						{data.filter(v => !value.find(elem => elem.key === v.key)).map((c, i) => {
 							return (
 								<div onClick={cilckStack(c)} key={(c.key)} >
 									<StackBlock name={c.value} color={c.color} />
@@ -38,6 +45,7 @@ const SetStack = ({ stacks=[], value, setValue }) => {
 						})}
 					</div>
 				</div>
+			}
 			</div>
 		</>
 	);
