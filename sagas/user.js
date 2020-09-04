@@ -74,7 +74,9 @@ function* watchLogin() {
 }
 
 function logoutAPI(loginData) {
-	browser.cookies.remove({name: 'authorization'})
+	document.cookie = 'authorization' + "=" +
+		(('.anjoy.info')?";domain="+'.anjoy.info':"") +
+		";expires=Thu, 01 Jan 1970 00:00:01 GMT";
 	return null;
 }
 
@@ -84,11 +86,9 @@ function* logout(action) {
 		yield put({
 			type: LOGOUT_SUCCESS,
 		})
-		localStorage.removeItem("userToken");
 	} catch(e) {
 		yield put({
 			type: LOGOUT_FAILURE,
-			error: e.reponse.data,
 		})
 	}
 }
