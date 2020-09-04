@@ -5,11 +5,9 @@ import { Search } from '@material-ui/icons';
 import StackBlock from '../StackBlock';
 import { useSelector } from 'react-redux';
 
-const SetStack = ({ stacks, value, setValue }) => {
+const SetStack = ({ stacks=[], value, setValue }) => {
 	const [text, setText] = useState('');
 	const [data, setData] = useState([]);
-
-	const { create_stacks } = useSelector(state=>state.project);
 
 	const OCText = useCallback((e) => {
 		setText(e.target.value);

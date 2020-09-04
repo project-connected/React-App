@@ -18,11 +18,12 @@ import { LOAD_COMMON_REQUEST } from '../reducers/common';
 
 const Profile = ({ params }) => {
 	const { user } = useSelector(state=>state.user);
+	const { skills, themes, region} = useSelector(state=>state.common);
 
 	const [name, OCName] = useInput(user ? user.userName : '');
 	const [url, OCUrl] = useInput((user && user.subProfile) ? user.subProfile.url : '등록된 URL이 없습니다.');
-	const [region, setRegion] = useState((user && user.subProfile) ? (user.region ? user.region : '지역') : '설정된 지역이 없습니다.');
-	const [stacks, setStacks] = useState((user && user.subProfile) ? user.subProfile.stacks : []);
+	const [userRegion, setUserRegion] = useState((user && user.subProfile) ? (user.region ? user.region : '지역') : '설정된 지역이 없습니다.');
+	const [userStacks, setUserStacks] = useState((user && user.subProfile) ? user.subProfile.stacks : []);
 	const [intro, setIntro] = useState((user && user.subProfile) ? user.subProfile.introduct : '# test' );
 
 	const imageInput = useRef();
@@ -33,12 +34,13 @@ const Profile = ({ params }) => {
 		imageInput.current.click();
 	}, [imageInput.current]);
 
-	// useEffect(() => {
-	// 	if (!user) {
-	// 		alert('로그인이 필요합니다.');
-	// 		Router.push("/");
-	// 	}
-	// }, [])
+	useEffect(() => {
+		if(!user) {
+			alert('로그인을 해주세요.')
+			Router.push('/')
+		}
+	}, [user])
+
 
 	return (
 		<>
@@ -74,11 +76,11 @@ const Profile = ({ params }) => {
 				</div>
 				<div className="profile-attr">
 					<p className="title">Region</p>
-					<SelectAttr idx={8} getAction={setRegion} name={region} data={["서울", "대전", "대구", "부산", "찍고", "아하"]} status="profile" />
+					<SelectAttr idx={8} getAction={setUserRegion} name={userRegion} data={region} status="profile" />
 				</div>
 				<div className="profile-attr">
 					<p className="title">스택 선택</p>
-					<SetStack />
+					<SetStack stacks={skills} value={userStacks} setValue={setUserStacks} />
 				</div>
 				<div className="profile-attr">
 					<p className="title">기술 스택</p>
@@ -87,6 +89,9 @@ const Profile = ({ params }) => {
 					<p className="title">자기소개</p>
 					<Editor editorValue={intro} OCV={setIntro}/>
 				</div>
+			</div>
+			<div className="profile-edit-btn">
+				수정하기
 			</div>
 		</div>
 		}
