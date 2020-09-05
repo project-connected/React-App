@@ -49,6 +49,8 @@ const NoSubProfile = props => {
 			}
 		} else {
 			dispatch({type: CLOSE_SUB_PROFILE})
+			// 서버로 전송
+			// 창 닫는 것도 state통해서 성공하면 닫기
 		}
 	}, [status, userRegion, userStacks, userInterest])
 
@@ -67,10 +69,10 @@ const NoSubProfile = props => {
 		setUserInterest(userInterest.filter(v => v.key !== interest.key));
 	}, [userInterest]);
 
-	const SetBtn = () => {
+	const SetBtn = ({ text="다음"}) => {
 		return (
 			<div className="sP-btn" onClick={iptDone}>
-				입력
+				{text}
 			</div>
 		)
 	}
@@ -82,8 +84,8 @@ const NoSubProfile = props => {
 					<p>지역을 선택해주세요.</p>
 					<div className="flex-row">
 						<SelectAttr status="profile" name="지역" data={region} getAction={setUserRegion} idx={11}/>
-						<SetBtn />
 					</div>
+					<SetBtn />
 				</div>
 				{status >= 1 &&
 					<div className={status === 1 ? visibleName : hideName}>
@@ -109,7 +111,7 @@ const NoSubProfile = props => {
 						<div className="flex-row stack">
 							<SelectAttr open={true} val={userInterest} status="many" name="분야" data={dummyResult} getAction={OCInterset} idx={12}/>
 							<div className="stack-wrap">
-								<div className="stack-block-box">
+								<div className="stack-block-box interest">
 									{userInterest.map((c) => {
 										return (
 											<StackBlock key={c.key} color="linear-gradient(to bottom right,#7990ff,#9198e5)" name={c.value} onClick={removeInterest(c)} />
@@ -118,11 +120,13 @@ const NoSubProfile = props => {
 								</div>
 							</div>
 						</div>
+						<SetBtn />
 					</div>
 				}
 				{status === 3 &&
 					<div className="sP-ipt-box visible">
-						감사합니덩
+						<h1>감사합닌다</h1>
+						<SetBtn text="완료"/>
 					</div>
 				}
 			</div>
