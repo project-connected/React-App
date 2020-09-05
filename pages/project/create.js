@@ -363,7 +363,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 		type: LOAD_COMMON_REQUEST,
 	})
 	const state = context.store.getState()
-	if (!state.user.user.profile) {
+	if (!state.user.user.subProfile) {
 		context.store.dispatch({
 			type: OPEN_SUB_PROFILE,
 		});

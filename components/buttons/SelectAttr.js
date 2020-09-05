@@ -7,7 +7,7 @@ import { CLOSE_ALL_COMP2, OPEN_FILTER_ATTR } from '../../reducers/project';
 
 const SelectAttr = ({ open=false, val, status="create", name, data, idx, getAction, onSearchBar=true}) => {
 	const dispatch = useDispatch();
-	const { filterAttrOpenIndx, search_region, search_theme } = useSelector(state=>state.project);
+	const { filterAttrOpenIndx, search_region, search_theme, search_result } = useSelector(state=>state.project);
 
 	const wrapClassName = filterAttrOpenIndx === idx ? 'select-btn-wrap clicked' : 'select-btn-wrap';
 
@@ -42,9 +42,9 @@ const SelectAttr = ({ open=false, val, status="create", name, data, idx, getActi
 			setText('');
 			setAttrs(data);
 		}
-		if (status === "create")
+		else if (status === "create")
 			setAttrName(attr.value);
-		if (status === "profile") {
+		else if (status === "profile") {
 			setAttrName(attr.value);
 			getAction(attr);
 			setText('');
@@ -76,17 +76,17 @@ const SelectAttr = ({ open=false, val, status="create", name, data, idx, getActi
 					type: CLOSE_ALL_COMP2
 				})
 			}
-		} if (idx === 12) {
-			console.log(12);
-		} // 수정해야함
-		else {
-			dispatch({
-				type: getAction,
-				data: attr,
-			})
-			dispatch({
-				type: CLOSE_ALL_COMP2
-			})
+		} else if (idx === 2) {
+			if (!search_result.find(v => v.key === attr.key))
+			{
+				dispatch({
+					type: getAction,
+					data: attr,
+				})
+				dispatch({
+					type: CLOSE_ALL_COMP2
+				})
+			}
 		}
 	}, [text, attrs, val]);
 
