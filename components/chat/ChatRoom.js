@@ -8,27 +8,12 @@ import useInputWithSetter from '../../hooks/useInputWithSetter';
 const chatLog = [
 	{
 		id: 1,
-		name: 'yojo',
+		name: '아이유',
 		text: '건강하신가요?'
 	},
 	{
 		id: 1,
-		name: 'yojo',
-		text: '건강하신가요?'
-	},
-	{
-		id: 2,
-		name: 'han',
-		text: '네 건강합니다.'
-	},
-	{
-		id: 1,
-		name: 'yojo',
-		text: '건강하신가요?'
-	},
-	{
-		id: 1,
-		name: 'yojo',
+		name: '아이유',
 		text: '건강하신가요?'
 	},
 	{
@@ -38,7 +23,22 @@ const chatLog = [
 	},
 	{
 		id: 1,
-		name: 'yojo',
+		name: '아이유',
+		text: '건강하신가요?'
+	},
+	{
+		id: 1,
+		name: '아이유',
+		text: '건강하신가요?'
+	},
+	{
+		id: 2,
+		name: 'han',
+		text: '네 건강합니다.'
+	},
+	{
+		id: 1,
+		name: '아이유',
 		text: '건강하신가요?'
 	},
 ]

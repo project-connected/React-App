@@ -62,7 +62,7 @@
 	border-radius: 7px;
 	box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
 	width: 15rem;
-	height: 20rem;
+	height: 22rem;
 	margin: 1rem;
 	overflow: hidden;
 	color: #333;
@@ -71,6 +71,7 @@
 	&:hover{
 		transform: translateY(-8px);
 		box-shadow: rgba(0, 0, 0, 0.08) 0px 12px 20px 0px;
+		color: #334;
 	}
 
 	.back-img {
@@ -86,7 +87,7 @@
 		position: relative;
 
 		.jewel-card-text {
-			padding: 2.5rem 1rem 1rem 1rem;
+			padding: 4.5rem 1rem 1rem 1rem;
 			text-align: center;
 
 			h2 {
@@ -96,52 +97,6 @@
 				font-size: 12px;
 				font-weight: 300;
 				color: #6980ff;
-			}
-
-			.multi-content {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				margin: .5rem;
-				position: relative;
-				overflow: hidden;
-
-				&.stack {
-					margin-top: 1.5em;
-				}
-
-				.jewel-card-stack {
-					border-radius: 10px;
-					color: #fff;
-					font-size: 11px;
-					background: linear-gradient(#7990ff, #9198e5);
-					padding: .2rem .4rem;
-
-					&:nth-child(n+2) {
-						margin-left: .5rem;
-					}
-				}
-
-				span {
-					font-size: 13px;
-					color: #666;
-					position: relative;
-
-					&:nth-child(n+2) {
-						margin-left: 10px;
-
-						&::before {
-							position: absolute;
-							top: 50%;
-							left: -5px;
-							width: 1px;
-							height: 1px;
-							content: '';
-							background: #999;
-							border-radius: 1px;
-						}
-					}
-				}
 			}
 		}
 
@@ -157,3 +112,53 @@
 	}
 }
 
+.multi-content {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: .5rem;
+	position: relative;
+	overflow: hidden;
+
+	&.stack {
+		margin-top: 1.5em;
+	}
+
+	&.profile {
+		padding: 0 1rem;
+		flex-flow: row wrap;
+	}
+
+	.jewel-card-stack {
+		border-radius: 10px;
+		color: #fff;
+		font-size: 11px;
+		background: linear-gradient(#7990ff, #9198e5);
+		padding: .2rem .4rem;
+
+		&:nth-child(n+2) {
+			margin-left: .5rem;
+		}
+	}
+
+	span {
+		font-size: 13px;
+		color: #666;
+		position: relative;
+
+		&:nth-child(n+2) {
+			margin-left: 10px;
+
+			&::before {
+				position: absolute;
+				top: 50%;
+				left: -5px;
+				width: 1px;
+				height: 1px;
+				content: '';
+				background: #999;
+				border-radius: 1px;
+			}
+		}
+	}
+}

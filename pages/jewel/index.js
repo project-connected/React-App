@@ -123,7 +123,7 @@ const FindJewel = props => {
 			<div className="jewel-card-wrap">
 				{jewels.map((c, i) => {
 					return (
-						<JewelCard data={c} />
+						<JewelCard data={c} key={(i)}/>
 					);
 				})}
 			</div>

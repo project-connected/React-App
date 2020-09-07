@@ -20,7 +20,7 @@ import NoSubProfile from './NoSubProfile';
 
 export const DummyProfile = () => {
 	return (
-		<img src="https://media.vlpt.us/images/yujo/profile/053c9bee-1076-418c-808d-f9a1b88dc445/KakaoTalk_20200229_162658088.jpg?w=240" />
+		<img src="https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg" />
 	);
 }
 

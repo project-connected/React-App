@@ -23,3 +23,45 @@
 .react-calendar {
 	border: none;
 }
+
+.boxShadow {
+	box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
+}
+
+.user-name {
+	color: #5970ff;
+	margin: 1rem auto;
+	transition: .5s;
+	position: relative;
+
+	.sub-information {
+		display: none;
+		position: absolute;
+		top: 50%;
+		right: 0;
+		transform: translate(105%, -50%);
+		font-size: 10px;
+		color: white;
+		background: rgba(121, 144, 255, 0.6);
+		box-shadow: 0px 1px 4px 0px rgba(121, 144, 255, 0.05);
+		width: 4.5rem;
+		padding: .5rem;
+		text-align: center;
+		border-radius: 5px;
+	}
+
+	&:hover {
+		color: #5970ff;
+		text-shadow: 0px 3px 6px rgba(121, 144, 255, 0.2);
+
+		.sub-information {
+			display: block;
+			animation: .5s appear 1 ease-in-out;
+		}
+	}
+
+	b {
+		font-weight: 400;
+		font-size: 22px;
+	}
+}
