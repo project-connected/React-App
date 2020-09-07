@@ -2,7 +2,6 @@ import React, {useState, useCallback, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-import moment from 'moment';
 import axios from 'axios';
 import { END } from 'redux-saga';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,7 +11,6 @@ import wrapper from '../../store/configureStore';
 import SelectAttr from '../../components/buttons/SelectAttr';
 import SelectPeriod from '../../components/buttons/SelectPeriod';
 import SelectStack from '../../components/buttons/SelectStack';
-import StackBlock from '../../components/StackBlock';
 
 // import useAppend from '../../hooks/useAppend';
 
@@ -135,8 +133,8 @@ const FindJewel = props => {
 
 const JewelCard = ({ data }) => {
 	return (
-		<Link href=''>
-			<a className="jewel-card">
+		<Link href={`/jewel/${data.id}`}>
+			<a target="_blank" className="jewel-card">
 				<div className="back-img blur" style={{backgroundImage: `url(${data.user.profileImg})`}}/>
 				<div className='jewel-card-content'>
 					<img className="profile-img" src={data.user.profileImg}/>
@@ -150,7 +148,7 @@ const JewelCard = ({ data }) => {
 							<span>{data.theme.value}</span>
 							<span>{data.result.value}</span>
 						</div>
-						<div className="multi-content">
+						<div className="multi-content stack">
 							{data.stacks.map((c, i) => {
 								return (
 									<div className="jewel-card-stack" key={(i)}>
