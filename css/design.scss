@@ -65,3 +65,39 @@
 		font-size: 22px;
 	}
 }
+
+.back-btn {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	left: 0;
+	top: 0;
+	cursor: pointer;
+	background: rgba(0, 0, 20, 0.5);
+	z-index: 99;
+
+	&.hide {
+		visibility: hidden;
+		opacity: 0;
+		animation: .3s disappear 1 ease-in-out;
+	}
+
+	&.visible {
+		visibility: visible;
+		opacity: 1;
+		animation: .3s appear 1 ease-in-out;
+	}
+}
+
+.animated-background {
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	animation-name: placeHolderShimmer;
+	animation-timing-function: linear;
+	background: #f6f7f8;
+	background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+	background-size: 800px 104px;
+	height: 96px;
+	position: relative;
+}

@@ -27,31 +27,11 @@ const dummyJewels = [{
 	stacks: [{
 		key: 'REACT',
 		value: 'React.JS',
-		color: 'rgb(65, 169, 75);'
+		color: 'rgb(255, 169, 75)'
 	},{
 		key: 'NODE',
 		value: 'Node.JS',
-		color: 'rgb(65, 169, 75);'
-	},{
-		key: 'NODE',
-		value: 'Node.JS',
-		color: 'rgb(65, 169, 75);'
-	},{
-		key: 'NODE',
-		value: 'Node.JS',
-		color: 'rgb(65, 169, 75);'
-	},{
-		key: 'NODE',
-		value: 'Node.JS',
-		color: 'rgb(65, 169, 75);'
-	},{
-		key: 'NODE',
-		value: 'Node.JS',
-		color: 'rgb(65, 169, 75);'
-	},{
-		key: 'NODE',
-		value: 'Node.JS',
-		color: 'rgb(65, 169, 75);'
+		color: 'rgb(65, 169, 255)'
 	}],
 	title: '전 대단한 사람입니다.',
 	desc: '# test ## test ### test'
@@ -82,11 +62,11 @@ const dummyJewels = [{
 	stacks: [{
 		key: 'REACT',
 		value: 'React.JS',
-		color: 'rgb(65, 169, 75);'
+		color: 'rgb(65, 169, 75)'
 	},{
 		key: 'NODE',
 		value: 'Node.JS',
-		color: 'rgb(65, 169, 75);'
+		color: 'rgb(65, 169, 75)'
 	}],
 	title: '전 대단한 사람입니다.',
 	desc: '# test ## test ### test'
@@ -117,11 +97,11 @@ const dummyJewels = [{
 	stacks: [{
 		key: 'REACT',
 		value: 'React.JS',
-		color: 'rgb(65, 169, 75);'
+		color: 'rgb(65, 169, 75)'
 	},{
 		key: 'NODE',
 		value: 'Node.JS',
-		color: 'rgb(65, 169, 75);'
+		color: 'rgb(65, 169, 75)'
 	}],
 	title: '전 대단한 사람입니다.',
 	desc: '# test ## test ### test'
@@ -152,11 +132,11 @@ const dummyJewels = [{
 	stacks: [{
 		key: 'REACT',
 		value: 'React.JS',
-		color: 'rgb(65, 169, 75);'
+		color: 'rgb(65, 169, 75)'
 	},{
 		key: 'NODE',
 		value: 'Node.JS',
-		color: 'rgb(65, 169, 75);'
+		color: 'rgb(65, 169, 75)'
 	}],
 	title: '전 대단한 사람입니다.',
 	desc: '# test ## test ### test'
@@ -171,13 +151,16 @@ const initialState = {
 	isDeleting: false,
 	isLoaded: false,
 	isLoading: false,
+	isLoadedJewel: false,
+	isLoadingJewel: false,
+	loadJewelError: '',
 	submitError: '',
 	updateError: '',
 	deleteError: '',
 	loadError: '',
+	// jewels: [],
 	jewels: dummyJewels,
 	jewelData: dummyJewels[0],
-	jewelBox: [],
 };
 
 export const CREATE_JEWEL_REQUEST = 'CREATE_JEWEL_REQUEST';
@@ -192,9 +175,14 @@ export const DELETE_JEWEL_REQUEST = 'DELETE_JEWEL_REQUEST';
 export const DELETE_JEWEL_SUCCESS = 'DELETE_JEWEL_SUCCESS';
 export const DELETE_JEWEL_FAILURE = 'DELETE_JEWEL_FAILURE';
 
+export const LOAD_JEWEL_LIST_REQUEST = 'LOAD_JEWEL_LIST_REQUEST';
+export const LOAD_JEWEL_LIST_SUCCESS = 'LOAD_JEWEL_LIST_SUCCESS';
+export const LOAD_JEWEL_LIST_FAILURE = 'LOAD_JEWEL_LIST_FAILURE';
+
 export const LOAD_JEWEL_REQUEST = 'LOAD_JEWEL_REQUEST';
 export const LOAD_JEWEL_SUCCESS = 'LOAD_JEWEL_SUCCESS';
 export const LOAD_JEWEL_FAILURE = 'LOAD_JEWEL_FAILURE';
+
 
 
 const reducer = (state=initialState, action) => produce(state, (draft) => {
@@ -244,21 +232,38 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 			break;
 		}
 
-		case LOAD_JEWEL_REQUEST: {
+		case LOAD_JEWEL_LIST_REQUEST: {
 			draft.isLoading = true;
 			break;
 		}
-		case LOAD_JEWEL_SUCCESS: {
+		case LOAD_JEWEL_LIST_SUCCESS: {
 			draft.isLoading = false;
 			draft.isLoaded = true;
-			draft.jewelBox = action.data;
+			draft.jewels = action.data;
 			break;
 		}
-		case LOAD_JEWEL_FAILURE: {
+		case LOAD_JEWEL_LIST_FAILURE: {
 			draft.isLoading = false;
 			draft.loadError = action.error;
 			break;
 		}
+
+		case LOAD_JEWEL_REQUEST: {
+			draft.isLoadingJewel = true;
+			break;
+		}
+		case LOAD_JEWEL_SUCCESS: {
+			draft.isLoadingJewel = false;
+			draft.isLoadedJewel = true;
+			draft.jewelData = action.data;
+			break;
+		}
+		case LOAD_JEWEL_FAILURE: {
+			draft.isLoadingJewel = false;
+			draft.loadJewelError = action.error;
+			break;
+		}
+
 		default: {
 			break;
 		}

@@ -6,6 +6,7 @@
 	margin: 2rem auto 0 auto;
 
 	.jewel-search-wrap {
+		position: fixed;
 		background: #fff;
 		width: 250px;
 		border-radius: 7px;
@@ -51,9 +52,10 @@
 }
 
 .jewel-card-wrap {
-	margin: -1rem 2rem 2rem 2rem;
+	margin: -1rem 2rem 2rem 280px;
 	display: flex;
 	flex-wrap: wrap;
+	min-width: 820px;
 }
 
 .jewel-card {
@@ -67,20 +69,12 @@
 	overflow: hidden;
 	color: #333;
 	transition: .5s;
+	cursor: pointer;
 
 	&:hover{
 		transform: translateY(-8px);
 		box-shadow: rgba(0, 0, 0, 0.08) 0px 12px 20px 0px;
 		color: #334;
-	}
-
-	.back-img {
-		height: 7rem;
-		width: 100%;
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-		z-index: 1;
 	}
 
 	.jewel-card-content{
@@ -160,5 +154,167 @@
 				border-radius: 1px;
 			}
 		}
+	}
+}
+
+
+.back-img {
+	height: 7rem;
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	z-index: 1;
+}
+
+.jewel-detail-box {
+	background: #fff;
+	padding: .5rem;
+	position: fixed;
+	z-index: 100;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 7px;
+
+	&.visible {
+		opacity: 1;
+		visibility: visible;
+		animation: .5s padeUp2 1 ease-in-out;
+	}
+	&.hide {
+		opacity: 0;
+		visibility: hidden;
+		animation: .5s hideDown2 1 ease-in-out;
+	}
+}
+
+.jewel-detail {
+	position: relative;
+	min-width: 600px;
+	max-width: 800px;
+	text-align: center;
+	padding-bottom: 2rem;
+
+	p {
+		font-size: 12px;
+		color: #666;
+		margin-bottom: 0;
+	}
+
+	.profile-box{
+		position: relative;
+		.profile-img {
+			transform: translate(-50%, -80%);
+			width: 10rem;
+			height: 10rem;
+			border-radius: 10rem;
+			position: absolute;
+			top: 0;
+			left: 50%
+		}
+		.user-name {
+			font-size: 42px;
+			color: #113;
+			font-weight: 700;
+			padding-top: 4rem;
+			margin: 0;
+		}
+		.btn-container{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			.btn {
+				padding: .5rem 1rem;
+				font-size: 12px;
+				width: 7rem;
+				border-radius: 20px;
+				text-align: center;
+				color: #fff;
+				background: #7990ff;
+
+				&.profile {
+					margin-right: 1rem;
+				}
+			}
+		}
+	}
+
+	.row-sep-box {
+		display: flex;
+		margin: 0 auto;
+
+		.one-side-box {
+			width: 50%;
+			margin: .5rem auto 0 auto;
+			text-align: left;
+			padding: 1rem 1rem 2rem 1rem;
+
+			&:nth-child(1) {
+				text-align: right;
+				border-right: 1px solid #b9c0ff;
+			}
+
+			.stack-wrap {
+				display: flex;
+				flex-flow: row wrap;
+				max-height: 150px;
+
+				.jewel-card-stack {
+					border-radius: 10px;
+					color: #fff;
+					font-size: 11px;
+					padding: .2rem .4rem;
+					width: fit-content;
+					margin-top: 0.5rem;
+
+					&:nth-child(n+1) {
+						margin-right: .5rem;
+					}
+				}
+			}
+		}
+
+		.one-info {
+			margin-bottom: .5rem;
+
+			.info {
+				font-weight: 700;
+				color: #3467dd;
+			}
+		}
+	}
+
+	.profile-period {
+		position: relative;
+		height: 1px;
+		border-top: 2px solid #99a0ff;
+		width: 100px;
+		margin: 0 auto;
+
+		.period-node {
+			color: #3467dd;
+			font-size: 14px;
+			font-weight: 500;
+			position: absolute;
+			top: 0;
+			right: 110%;
+			transform: translateY(-50%);
+			width: fit-content;
+			&.left {
+				left: 110%;
+			}
+		}
+	}
+
+	.text-content {
+		margin-top: 2rem;
+		max-height: 400px;
+		overflow: auto;
+	}
+
+	.back-img {
+		height: 10rem;
 	}
 }
