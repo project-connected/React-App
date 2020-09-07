@@ -18,6 +18,7 @@ import '../css/chat.scss';
 import '../css/project.scss';
 import '../css/forms.scss';
 import '../css/buttons.scss';
+import '../css/jewel.scss';
 
 import AppLayout from '../containers/AppLayout';
 

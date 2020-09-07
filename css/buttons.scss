@@ -10,7 +10,7 @@
 
 	&:hover, &.clicked {
 		color: #7990ff;
-		border: 1px solid #7990ff;
+		border: 1px solid #7990ff !important;
 	}
 
 	&.opened {

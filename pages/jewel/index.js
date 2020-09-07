@@ -1,5 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 import moment from 'moment';
 import axios from 'axios';
@@ -31,6 +32,7 @@ const dummyResult = [{
 
 const FindJewel = props => {
 	const { region, themes, skills } = useSelector(state=>state.common);
+	const { jewels } = useSelector(state=>state.jewel);
 	const dispatch = useDispatch();
 
 	const [searchRegion, setSearchRegion] = useState([]);
@@ -57,35 +59,28 @@ const FindJewel = props => {
 
 	const removeRegion = useCallback((data) => (e) => {
 		e.preventDefault();
-		setSearchRegion(searchRegion.fillter(v => v.key !== data.key));
+		setSearchRegion(searchRegion.filter(v => v.key !== data.key));
 	}, [searchRegion]);
 	const removeTheme = useCallback((data) => (e) => {
 		e.preventDefault();
-		setSearchTheme(searchTheme.fillter(v => v.key !== data.key));
+		setSearchTheme(searchTheme.filter(v => v.key !== data.key));
 	}, [searchTheme]);
 	const removeResult = useCallback((data) => (e) => {
 		e.preventDefault();
-		setSearchResult(searchResult.fillter(v => v.key !== data.key));
+		setSearchResult(searchResult.filter(v => v.key !== data.key));
 	}, [searchRegion]);
 	const removeStack = useCallback((data) => (e) => {
 		e.preventDefault();
-		setSearchStack(searchStack.fillter(v => v.key !== data.key));
+		setSearchStack(searchStack.filter(v => v.key !== data.key));
 	}, [searchRegion]);
 
 	return (
-		<div className="proj-search-page jewel">
-			<div className="proj-search-wrap">
+		<div className="jewel-search-page jewel">
+			<div className="jewel-search-wrap">
 				<div className="search-filter-box">
 					<h3>검색 필터링</h3>
-					<div className="choice-filter-box">
-						<SelectAttr val={searchRegion} status="many" idx={13} name="지역" data={region} getAction={OCSearchRegion} />
-						<SelectAttr val={searchTheme} status="many" idx={14} name="목적" data={themes} getAction={OCSearchTheme} />
-						<SelectAttr val={searchResult} status="many" idx={15} name="결과물" data={dummyResult} getAction={OCSearchResult} />
-						<SelectPeriod />
-						<SelectStack skills={skills}/>
-					</div>
+					<p>블럭을 클릭하면 필터링이 취소돼요</p>
 					<div className="filter-attr-box">
-						<p>블럭을 클릭하면 필터링이 취소돼요</p>
 							<div className="filter-block-box">
 							{searchRegion !== [] && searchRegion.map((c, i) => {
 								return (
@@ -117,11 +112,59 @@ const FindJewel = props => {
 							})}
 						</div>
 					</div>
+					<p>아래에서 필터를 선택해주세요</p>
+					<div className="choice-filter-box">
+						<SelectAttr val={searchRegion} status="many" idx={13} name="지역" data={region} getAction={OCSearchRegion} />
+						<SelectAttr val={searchTheme} status="many" idx={14} name="목적" data={themes} getAction={OCSearchTheme} />
+						<SelectAttr val={searchResult} status="many" idx={15} name="결과물" data={dummyResult} getAction={OCSearchResult} />
+						<SelectPeriod />
+						<SelectStack skills={skills}/>
+					</div>
 				</div>
+			</div>
+			<div className="jewel-card-wrap">
+				{jewels.map((c, i) => {
+					return (
+						<JewelCard data={c} />
+					);
+				})}
 			</div>
 		</div>
 	);
 };
+
+const JewelCard = ({ data }) => {
+	return (
+		<Link href=''>
+			<a className="jewel-card">
+				<div className="back-img blur" style={{backgroundImage: `url(${data.user.profileImg})`}}/>
+				<div className='jewel-card-content'>
+					<img className="profile-img" src={data.user.profileImg}/>
+					<div className='jewel-card-text'>
+						<h6>@ {data.user.userName}</h6>
+						<h2>{data.title}</h2>
+						<div className="multi-content">
+							<span>{data.region.value}</span>
+						</div>
+						<div className="multi-content">
+							<span>{data.theme.value}</span>
+							<span>{data.result.value}</span>
+						</div>
+						<div className="multi-content">
+							{data.stacks.map((c, i) => {
+								return (
+									<div className="jewel-card-stack" key={(i)}>
+										{c.value}
+									</div>
+								)
+							})}
+						</div>
+					</div>
+				</div>
+			</a>
+		</Link>
+	)
+}
 
 FindJewel.propTypes = {
 
