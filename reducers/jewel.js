@@ -160,7 +160,7 @@ const initialState = {
 	loadError: '',
 	// jewels: [],
 	jewels: dummyJewels,
-	jewelData: dummyJewels[0],
+	jewelData: null,
 };
 
 export const CREATE_JEWEL_REQUEST = 'CREATE_JEWEL_REQUEST';

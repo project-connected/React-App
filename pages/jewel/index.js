@@ -22,7 +22,7 @@ import { LOAD_JEWEL_REQUEST } from '../../reducers/jewel';
 
 const JewelDetail = ({ open, setOpen }) => {
 	const { jewelData, isLoadingJewel, isLoadedJewel } = useSelector(state=>state.jewel);
-	const userName = jewelData.user.userName;
+	const userName = jewelData ? jewelData.user.userName : '사용자';
 
 	const CloseDetail = useCallback((e) => {
 		e.preventDefault();
@@ -34,6 +34,8 @@ const JewelDetail = ({ open, setOpen }) => {
 
 	return (
 		<>
+		{jewelData &&
+			<>
 			<div className={boxClass}>
 				<div className="jewel-detail">
 					<div className="back-img blur" style={{backgroundImage: `url(${jewelData.user.profileImg})`}}/>
@@ -99,6 +101,8 @@ const JewelDetail = ({ open, setOpen }) => {
 				</div>
 			</div>
 			<div className={backgroundClass} onClick={CloseDetail} />
+			</>
+		}
 		</>
 	)
 }
@@ -162,10 +166,10 @@ const FindJewel = props => {
 
 	const openJewelDetail = useCallback((data) => (e) => {
 		e.preventDefault();
-		// dispatch({
-		// 	type: LOAD_JEWEL_REQUEST,
-		// 	data: data.id,
-		// })
+		dispatch({
+			type: LOAD_JEWEL_REQUEST,
+			data: data.id,
+		})
 		setOpenDetail(true);
 	}, []);
 
