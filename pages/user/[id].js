@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import moment from 'moment';
@@ -16,19 +16,156 @@ import { JewelDetail } from '../jewel';
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
+const SubProfileComponent = ({ other }) => {
+
+	return (
+		<>
+			<div className="subProfile-wrap">
+				<div className="subProfile-box mult">
+					<div>
+						<h3 className="title">
+							REGION
+						</h3>
+						<span>{other.subProfile.region}</span>
+					</div>
+					<div>
+						<h3 className="title">
+							URL
+						</h3>
+						<span>
+							<a href={other.subProfile.url} target="_blank">
+								{other.subProfile.url}
+							</a>
+						</span>
+					</div>
+				</div>
+				<div className="subProfile-box">
+					<h3 className="title">
+						STACK
+					</h3>
+					<div className="block-content-wrap stack">
+						{other.subProfile.stacks.map((c, i) => {
+							return (
+								<div className="block-content stack boxShadow" key={(i)} style={{background: `${c.color}`}}>
+									{c.value}
+								</div>
+							);
+						})}
+					</div>
+				</div>
+				<div className="subProfile-box">
+					<h3 className="title">
+						THEME
+					</h3>
+					<div className="block-content-wrap">
+						{other.subProfile.theme.map((c, i) => {
+							return (
+								<div className="block-content string" key={(i)}>
+									{c.value}
+								</div>
+							)
+						})}
+					</div>
+				</div>
+				<div className="subProfile-box">
+					<h3 className="title">
+						DEST
+					</h3>
+					<div className="block-content-wrap">
+					{other.subProfile.result.map((c, i) => {
+							return (
+								<div className="block-content string" key={(i)}>
+									{c.value}
+								</div>
+							)
+						})}
+					</div>
+				</div>
+			</div>
+			<div className="subProfile-box">
+				<h3 className="title">
+					INTRODUCT
+				</h3>
+				<div className="block-content-wrap introduct">
+					<ReactMarkdown source={other.subProfile.introduct} />
+				</div>
+			</div>
+		</>
+	)
+}
+
+const PrevProject = ({ data }) => {
+	return (
+		<div className="prevProject">
+			{data.score}, {data.title}, {data.part.stack[0].value},
+			{data.startDate}, {data.endDate}
+		</div>
+	)
+}
+
+const PrevProjects = ({ data, userName }) => {
+	const averageScore = (data.reduce((a, b) => a + (b.score || 0), 0) / data.length).toFixed(2)
+
+	return (
+		<div className="prevProject-container">
+			<div className="score">
+				<div className="header">
+					<p>지금까지의 팀원들이 생각한 <b>{userName}</b>님은</p>
+					<div>{averageScore}<span>점!</span></div>
+				</div>
+			</div>
+			<div className="prevProject-wrap">
+				<hr />
+				<p>지금까지 진행한 프로젝트들</p>
+				<div className="prevProject-list">
+					{data.map((c, i) => {
+						return (
+							<PrevProject data={c} />
+						)
+					})}
+				</div>
+			</div>
+		</div>
+	)
+}
+
 const User = props => {
 	const { other, user } = useSelector(state=>state.user);
 	const dispatch = useDispatch();
+
+	const [wrapHeight, setWrapHeight] = useState(0);
+
+	const page1ref = useRef();
+	const page2ref = useRef();
+	const page3ref = useRef();
 
 	const [viewIdx, setViewIdx] = useState(1);
 
 	const clickViewBtn = useCallback((idx) => (e) => {
 		e.preventDefault();
+		if (idx == 1) {
+			setWrapHeight(page1ref.current.clientHeight);
+		} else if (idx == 2) {
+			setWrapHeight(page2ref.current.clientHeight);
+		} else {
+			setWrapHeight(page3ref.current.clientHeight);
+		}
 		setViewIdx(idx);
-	}, [])
+		console.log(wrapHeight);
+	}, [page1ref, page2ref, page3ref])
+
+	useEffect(() => {
+		if (page1ref !== 'undefined') {
+			setWrapHeight(page1ref.current.clientHeight);
+		}
+	}, [page1ref])
 
 	const slideStyle = {
 		transform: `translateX(${(viewIdx-1) * 100 * -1}%)`
+	}
+
+	const wrapStyle = {
+		height: `${wrapHeight}px`
 	}
 
 	return (
@@ -70,92 +207,27 @@ const User = props => {
 						인재풀
 					</div>
 				</div>
-				<div className="detail-profile-wrap boxShadow">
+				<div className="detail-profile-wrap boxShadow" style={wrapStyle}>
 					<div className="detail-profile-box">
-						<div style={slideStyle} className="detail-profile">
+						<div style={slideStyle} className="detail-profile" ref={page1ref}>
 							{!other.subProfile ?
 								<div className="empty-info">
 									해당 사용자는 아직 추가 정보를 등록하지 않았어요.
 								</div>
 							:
-								<>
-								<div className="subProfile-wrap">
-									<div className="subProfile-box mult">
-										<div>
-											<h3 className="title">
-												REGION
-											</h3>
-											<span>{other.subProfile.region}</span>
-										</div>
-										<div>
-											<h3 className="title">
-												URL
-											</h3>
-											<span>
-												<a href={other.subProfile.url} target="_blank">
-													{other.subProfile.url}
-												</a>
-											</span>
-										</div>
-									</div>
-									<div className="subProfile-box">
-										<h3 className="title">
-											STACK
-										</h3>
-										<div className="block-content-wrap stack">
-											{other.subProfile.stacks.map((c, i) => {
-												return (
-													<div className="block-content stack boxShadow" key={(i)} style={{background: `${c.color}`}}>
-														{c.value}
-													</div>
-												);
-											})}
-										</div>
-									</div>
-									<div className="subProfile-box">
-										<h3 className="title">
-											THEME
-										</h3>
-										<div className="block-content-wrap">
-											{other.subProfile.theme.map((c, i) => {
-												return (
-													<div className="block-content string" key={(i)}>
-														{c.value}
-													</div>
-												)
-											})}
-										</div>
-									</div>
-									<div className="subProfile-box">
-										<h3 className="title">
-											DEST
-										</h3>
-										<div className="block-content-wrap">
-										{other.subProfile.result.map((c, i) => {
-												return (
-													<div className="block-content string" key={(i)}>
-														{c.value}
-													</div>
-												)
-											})}
-										</div>
-									</div>
-								</div>
-								<div className="subProfile-box">
-									<h3 className="title">
-										INTRODUCT
-									</h3>
-									<div className="block-content-wrap introduct">
-										<ReactMarkdown source={other.subProfile.introduct} />
-									</div>
-								</div>
-								</>
+								<SubProfileComponent other={other} />
 							}
 						</div>
-						<div style={slideStyle} className="detail-profile">
-							two
+						<div style={slideStyle} className="detail-profile" ref={page2ref}>
+						{other.projectData.length > 0 ?
+							<PrevProjects data={other.projectData} userName={other.userName} />
+							:
+							<div className="empty-info">
+								해당 사용자는 완료한 프로젝트가 없어요.
+							</div>
+						}
 						</div>
-						<div style={slideStyle} className="detail-profile jewel">
+						<div style={slideStyle} className="detail-profile jewel" ref={page3ref}>
 							{other.jewelData ?
 								<JewelDetail open={true} mode="page" jewelData={other.jewelData} />
 								:
