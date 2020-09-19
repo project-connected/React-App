@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,9 +7,6 @@ import axios from 'axios';
 import { END } from 'redux-saga';
 
 import wrapper from '../../store/configureStore';
-import {
-	GET_REGION_FOR_SEARCH, GET_THEME_FOR_SEARCH, OPEN_FILTER_ATTR, LOSE_STACK_FOR_SEARCH, LOSE_REGION_FOR_SEARCH, LOSE_THEME_FOR_SEARCH, GET_RESULT_FOR_SEARCH, LOSE_RESULT_FOR_SEARCH
-} from '../../reducers/project';
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 
 import SelectAttr from '../../components/buttons/SelectAttr';
@@ -61,10 +58,44 @@ const SearchResultProject = ({ project }) => {
 }
 
 const SearchProj = props => {
-	const { filterAttrOpenIndx, search_result, search_region, search_theme, search_stacks, projectList } = useSelector(state=>state.project);
+	const { projectList } = useSelector(state=>state.project);
 	const { region, themes, skills } = useSelector(state=>state.common);
 	const dispatch = useDispatch();
 
+	const [searchRegion, setSearchRegion] = useState([]);
+	const [searchTheme, setSearchTheme] = useState([]);
+	const [searchResult, setSearchResult] = useState([]);
+	const [searchStacks, setSearchStacks] = useState([]);
+
+	const getRegion = useCallback((rg) => {
+		setSearchRegion([...searchRegion, rg]);
+	}, [searchRegion]);
+	const getResult = useCallback((rs) => {
+		setSearchResult([...searchResult, rs]);
+	}, [searchResult]);
+	const getTheme = useCallback((t) => {
+		setSearchTheme([...searchTheme, t]);
+	}, [searchTheme]);
+	const getStacks = useCallback((stack) => {
+		setSearchStacks([...searchStacks, stack]);
+	}, [searchStacks]);
+
+	const removeTheme = useCallback((data) => (e) => {
+		e.preventDefault();
+		setSearchTheme(searchTheme.filter(v => v.key !== data.key))
+	}, [searchTheme]);
+	const removeResult = useCallback((data) => (e) => {
+		e.preventDefault();
+		setSearchResult(searchResult.filter(v => v.key !== data.key))
+	}, [searchResult]);
+	const removeRegion = useCallback((data) => (e) => {
+		e.preventDefault();
+		setSearchRegion(searchRegion.filter(v => v.key !== data.key))
+	}, [searchRegion]);
+	const removeStacks = useCallback((data) => (e) => {
+		e.preventDefault();
+		setSearchStacks(searchStacks.filter(v => v.key !== data.key))
+	}, [searchStacks]);
 
 	return (
 		<div className="proj-search-page">
@@ -100,39 +131,39 @@ const SearchProj = props => {
 				<div className="search-filter-box">
 					<h3>검색 필터링</h3>
 					<div className="choice-filter-box">
-						<SelectAttr status="search" idx={0} name="지역" data={region} getAction={GET_REGION_FOR_SEARCH} />
-						<SelectAttr status="search" idx={1} name="목적" data={themes} getAction={GET_THEME_FOR_SEARCH} />
-						<SelectAttr status="search" idx={2} name="결과물" data={dummyResult} getAction={GET_RESULT_FOR_SEARCH} />
+						<SelectAttr status="search" value={searchRegion} idx={0} name="지역" data={region} getAction={getRegion} />
+						<SelectAttr status="search" value={searchTheme} idx={1} name="목적" data={themes} getAction={getTheme} />
+						<SelectAttr status="search" value={searchResult} idx={2} name="결과물" data={dummyResult} getAction={getResult} />
 						<SelectPeriod />
-						<SelectStack skills={skills}/>
+						<SelectStack skills={skills} value={searchStacks} getAction={getStacks}/>
 					</div>
 					<div className="filter-attr-box">
 						<p>블럭을 클릭하면 필터링이 취소돼요</p>
 							<div className="filter-block-box">
-							{search_region !== [] && search_region.map((c, i) => {
+							{searchRegion !== [] && searchRegion.map((c, i) => {
 								return (
-									<div key={(i)} className="filter-block region" onClick={() => dispatch({type: LOSE_REGION_FOR_SEARCH, data: c})}>
+									<div key={(i)} className="filter-block region" onClick={removeRegion(c)}>
 										{c.value}
 									</div>
 								)
 							})}
-							{search_theme.map((c, i) => {
+							{searchTheme.map((c, i) => {
 								return (
-									<div key={(i)} className="filter-block theme" onClick={() => dispatch({type: LOSE_THEME_FOR_SEARCH, data: c})}>
+									<div key={(i)} className="filter-block theme" onClick={removeTheme(c)}>
 										{c.value}
 									</div>
 								)
 							})}
-							{search_result.map((c, i) => {
+							{searchResult.map((c, i) => {
 								return (
-									<div key={(i)} className="filter-block result" onClick={() => dispatch({type: LOSE_RESULT_FOR_SEARCH, data: c})}>
+									<div key={(i)} className="filter-block result" onClick={removeResult(c)}>
 										{c.value}
 									</div>
 								)
 							})}
-							{search_stacks.map((c, i) => {
+							{searchStacks.map((c, i) => {
 								return (
-									<div key={(c.key)} className="filter-block stack" style={{background: c.color}} onClick={() => dispatch({type: LOSE_STACK_FOR_SEARCH, data: c})}>
+									<div key={(c.key)} className="filter-block stack" style={{background: c.color}} onClick={removeStacks(c)}>
 										{c.value}
 									</div>
 								)
