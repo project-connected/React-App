@@ -29,12 +29,18 @@
 }
 
 .user-name {
-	color: #5970ff;
+	color: rgb(5, 5, 5);
 	margin: 1rem auto;
 	transition: .5s;
 	position: relative;
+	text-align: center;
 
-	.sub-information {
+	b {
+		font-weight: 800;
+		font-size: 2rem;
+	}
+
+	&.linked .sub-information {
 		display: none;
 		position: absolute;
 		top: 50%;
@@ -58,11 +64,6 @@
 			display: block;
 			animation: .5s appear 1 ease-in-out;
 		}
-	}
-
-	b {
-		font-weight: 400;
-		font-size: 22px;
 	}
 }
 

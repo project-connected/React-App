@@ -5,7 +5,7 @@
 	margin: 0 auto;
 	position: relative;
 	width: 100%;
-	display: flex;
+	// display: flex;
 
 	p {
 		font-size: 12px;
@@ -22,41 +22,62 @@
 	}
 
 	.profile-box {
-		background: #fff;
-		box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
-		width: 60%;
-		border-radius: 7px;
-		padding: 1rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		height: fit-content;
-		font-size: 20px;
-		color: #5970ff;
 
 		&.left {
-			width: 450px;
+			width: 20rem;
 			position: fixed;
+			background: #fff;
+			box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
+			border-radius: 17px;
+			padding: 3rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
 
 		&.right {
-			margin-left: 30rem;
+			margin-left: 21em;
 		}
 
-		.info-box {
-			position: relative;
-			margin-top: .8rem;
-			text-align: center;
+		.profile-img {
+			width: 10rem;
+			height: 10rem;
+			border-radius: 10rem;
+		}
 
-			&::before {
-				content: "";
-				position: absolute;
-				top: 0;
-				left: 50%;
-				width: 1px;
-				height: 1px;
-				background: #888;
-				transform: translate(-50%, -5px);
+		.info-line {
+			color: #8f8f8f;
+			margin: 0 auto;
+			font-size: 1rem;
+
+			svg {
+				margin-right: .5rem;
+			}
+		}
+
+		.chat-btn {
+			cursor: pointer;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			transform: translateY(120%);
+			width: 100%;
+			padding: .5rem;
+			background: rgb(121, 144, 255);
+			color: #fff;
+			border-radius: 17px;
+			text-align: center;
+			font-size: 14px;
+			box-shadow: rgba(121, 144, 255, 0.15) 0px 2px 8px 0px;
+			transition: .5s;
+
+			&:hover {
+				background: #5970ff;
+				box-shadow: rgba(121, 144, 255, 0.3) 0px 2px 8px 0px;
+			}
+
+			svg {
+				margin-right: .5rem;
 			}
 		}
 
@@ -91,5 +112,51 @@
 	.date {
 		color: #6980ff;
 		font-size: 14px;
+	}
+}
+
+.detail-profile-header {
+	display: flex;
+	z-index: 1;
+
+	.detail-profile-btn {
+		padding: .5rem;
+		background: #f3f3f3;
+		border-radius: 7px 7px 0 0;
+		cursor: pointer;
+		transition: .5s;
+		color: #666;
+
+		&.clicked {
+			background: #fff;
+			padding: .5rem 1.2rem;
+			color: #111;
+		}
+	}
+}
+
+.detail-profile-wrap {
+	background: #fff;
+	overflow: hidden;
+	border-radius: 0 17px 17px 17px;
+	z-index: 2;
+
+	.detail-profile-box {
+		width: 300%;
+		display: flex;
+
+		.detail-profile {
+			width: 100%;
+			padding: 3rem;
+			transition: .5s;
+		}
+
+		.empty-info {
+			width: 100%;
+			height: 60vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 	}
 }

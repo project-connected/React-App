@@ -682,6 +682,10 @@
 			.select-btn-wrap {
 				margin: 0;
 
+				&.stack:hover {
+					border: none;
+				}
+
 				.data-list{
 					width: 100%;
 				}

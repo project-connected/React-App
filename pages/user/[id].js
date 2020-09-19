@@ -2,6 +2,7 @@ import React, {useState, useCallback, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import moment from 'moment';
+import { EmailOutlined, ChatOutlined } from '@material-ui/icons';
 
 import axios from 'axios';
 import { END } from 'redux-saga';
@@ -13,54 +14,71 @@ import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
 const User = props => {
-	const { jewelData } = useSelector(state=>state.jewel);
+	const { other } = useSelector(state=>state.user);
 	const dispatch = useDispatch();
+
+	const [viewIdx, setViewIdx] = useState(1);
+
+	const clickViewBtn = useCallback((idx) => (e) => {
+		e.preventDefault();
+		setViewIdx(idx);
+	}, [])
+
+	const slideStyle = {
+		transform: `translateX(${(viewIdx-1) * 100 * -1}%)`
+	}
 
 	return (
 		<div id="profile-wrap">
 			<div className="profile-box left">
-				<img className="profile-img boxShadow" src={jewelData.user.profileImg} />
-				<Link href={`/user/${jewelData.user.userId}`}>
-					<a className="user-name">
-						@<b>{jewelData.user.userName}</b>
-						<div className="sub-information">
-							프로필 보기
-						</div>
-					</a>
-				</Link>
-				<div className="jewel-period">
-					<p>{jewelData.user.userName}님의 희망 기간</p>
-					<div className="date">{moment(new Date()).format('YY년 MM월 DD일')}</div>
-					<div className="period-line" />
-					<div className="date">{moment(new Date().setDate(31)).format('YY년 MM월 DD일')}</div>
+				<img className="profile-img boxShadow" src={other.profileImg} />
+				<div className="user-name">
+					<b>{other.userName}</b>
 				</div>
-				<div className="info-box">
-					<p>{jewelData.user.userName}님의 희망 지역</p>
-					<div>{jewelData.region.value}</div>
+				<div className="info-line">
+					<EmailOutlined />
+					{other.email}
 				</div>
-				<div className="info-box">
-					<p>{jewelData.user.userName}님의 희망 테마</p>
-					<div>{jewelData.theme.value}</div>
-				</div>
-				<div className="info-box">
-					<p>{jewelData.user.userName}님의 희망 결과물</p>
-					<div>{jewelData.result.value}</div>
-				</div>
-				<div className="info-box">
-					<p>{jewelData.user.userName}님의 스택</p>
-					<div className="multi-content profile">
-						{jewelData.stacks.map((c, i) => {
-							return (
-								<div className="jewel-card-stack">
-									{c.value}
-								</div>
-							);
-						})}
-					</div>
+				<div className="chat-btn">
+					<ChatOutlined />
+					채팅하기
 				</div>
 			</div>
 			<div className="profile-box right">
-				에디터로 입력한 정보
+				<div className="detail-profile-header">
+					<div className={viewIdx == 1 ? "detail-profile-btn clicked boxShadow" : "detail-profile-btn boxShadow"}  onClick={clickViewBtn(1)}>
+						정보
+					</div>
+					<div className={viewIdx == 2 ? "detail-profile-btn clicked boxShadow" : "detail-profile-btn boxShadow"}  onClick={clickViewBtn(2)}>
+						프로젝트
+					</div>
+					<div className={viewIdx == 3 ? "detail-profile-btn clicked boxShadow" : "detail-profile-btn boxShadow"}  onClick={clickViewBtn(3)}>
+						인재풀
+					</div>
+				</div>
+				<div className="detail-profile-wrap boxShadow">
+					<div className="detail-profile-box">
+						<div style={slideStyle} className="detail-profile">
+							{!other.subProfile ?
+								<div className="empty-info">
+									해당 사용자는 아직 추가 정보를 등록하지 않았어요.
+								</div>
+							:
+								<div className="subProfile-box">
+									지역, url, 테마,
+									결과물, 스택,
+									text
+								</div>
+							}
+						</div>
+						<div style={slideStyle} className="detail-profile">
+							two
+						</div>
+						<div style={slideStyle} className="detail-profile">
+							three
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

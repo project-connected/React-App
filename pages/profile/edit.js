@@ -4,25 +4,25 @@ import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux';
 import { VpnKey, CameraAlt, Reply } from '@material-ui/icons';
 import ReactMarkdown from "react-markdown";
-import wrapper from '../store/configureStore';
+import wrapper from '../../store/configureStore';
 import axios from 'axios';
 import { END } from 'redux-saga';
 
-import useInput from '../hooks/useInput';
-import SelectAttr from '../components/buttons/SelectAttr';
+import useInput from '../../hooks/useInput';
+import SelectAttr from '../../components/buttons/SelectAttr';
 
-import { Editor } from './project/create';
-import SetStack from '../components/buttons/SetStack';
-import { LOAD_USER_REQUEST } from '../reducers/user';
-import { LOAD_COMMON_REQUEST } from '../reducers/common';
+import { Editor } from '../project/create';
+import SetStack from '../../components/buttons/SetStack';
+import { LOAD_USER_REQUEST } from '../../reducers/user';
+import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
-const Profile = ({ params }) => {
+const Profile = () => {
 	const { user } = useSelector(state=>state.user);
 	const { skills, themes, region} = useSelector(state=>state.common);
 
 	const [name, OCName] = useInput(user ? user.userName : '');
 	const [url, OCUrl] = useInput((user && user.subProfile) ? user.subProfile.url : '등록된 URL이 없습니다.');
-	const [userRegion, setUserRegion] = useState((user && user.subProfile) ? (user.subProfile.region ? user.subProfile.region : '지역') : '설정된 지역이 없습니다.');
+	const [userRegion, setUserRegion] = useState((user && user.subProfile) ? (user.region ? user.region : '지역') : '설정된 지역이 없습니다.');
 	const [userStacks, setUserStacks] = useState((user && user.subProfile) ? user.subProfile.stacks : []);
 	const [intro, setIntro] = useState((user && user.subProfile) ? user.subProfile.introduct : '# test' );
 
