@@ -46,17 +46,19 @@ const CreateProj = props => {
 	const [width, setWidth] = useState(0);
 	const [pageOffset, setPageOffset] = useState(0);
 	const [ title, OCTitle ] = useInput('');
-	const [createTheme, setCreateTheme] = useState(null);
-	const [createResult, setCreateResult] = useState(null);
+
+	const [createRegion, setCreateRegion] = useState([]);
+	const [createTheme, setCreateTheme] = useState([]);
+	const [createResult, setCreateResult] = useState([]);
 	const [createStacks, setCreateStacks] = useState([]);
 	const [selectedStack, setSelectedStack] = useState(null);
+
 	const [stackNum, setStackNum, OCStackNum] = useInputWithSetter(0);
 	const [desc, setDesc] = useState('');
 	const [startDate, setStartDate] = useState(new Date());
 	const [clickDate, setClickDate] = useState(false);
 	const [warning, setWarning] = useState('');
 	const [period, setPeriod] = useState(0);
-	const [createRegion, setCreateRegion] = useState(null);
 	const [done, setDone] = useState(false);
 
 	const windowSize = useWindowSize();
@@ -71,18 +73,45 @@ const CreateProj = props => {
 		transform: `translateX(${pageOffset}px`
 	}
 
+	const getCreateRegion = useCallback((data) => {
+		setCreateRegion([...createRegion, data]);
+	}, [createRegion]);
+
+	const getCreateTheme = useCallback((data) => {
+		setCreateTheme([...createTheme, data]);
+	}, [createTheme]);
+
+	const getCreateResult = useCallback((data) => {
+		setCreateResult([...createResult, data]);
+	}, [createResult]);
+
+	const removeTheme = useCallback((data) => (e) => {
+		e.preventDefault();
+		setCreateTheme(createTheme.filter(v => v.key !== data.key))
+	}, [createTheme]);
+
+	const removeResult = useCallback((data) => (e) => {
+		e.preventDefault();
+		setCreateResult(createResult.filter(v => v.key !== data.key))
+	}, [createResult]);
+
+	const removeRegion = useCallback((data) => (e) => {
+		e.preventDefault();
+		setCreateRegion(createRegion.filter(v => v.key !== data.key))
+	}, [createRegion]);
+
 	const ClickNext = useCallback((idx) => (e) => {
 		e.preventDefault();
 		console.log(createTheme, createResult, createRegion);
 		if (idx === 0) {
-			if (createTheme === null || createResult === null)
+			if (createTheme.length === 0 || createResult.length === 0)
 				return;
 		} else if (idx === 1) {
 			if (title === '')
 				return ;
 			// 타이틀
 		} else if (idx === 2) {
-			if (createRegion === null)
+			if (createRegion.length === 0)
 				return ;
 			// 지역
 		} else if (idx === 3) {
@@ -167,11 +196,6 @@ const CreateProj = props => {
 		setSelectedStack(stack);
 	}, []);
 
-	useEffect(() => {
-		console.log(skills);
-	}, [skills])
-
-
 	// useEffect(() => {
 	// 	alert('프로젝트 모집 게시글이 작성되었어요!');
 	// 	Router.push('/project/방금만들어진 프로젝트 id')
@@ -191,9 +215,9 @@ const CreateProj = props => {
 					<h3 className="title">1.</h3>
 					<div className="selector">
 						<p>어떤 목적으로 프로젝트를 모집하세요?</p>
-						<SelectAttr name="목적" data={themes} idx={5} getAction={setCreateTheme}/>
+						<SelectAttr name="목적" data={themes} value={createTheme} idx={5} getAction={getCreateTheme}/>
 						<p>어떤 결과를 목표로 하시나요?</p>
-						<SelectAttr name="결과물" data={dummyResult} getAction={setCreateResult} idx={6} />
+						<SelectAttr name="결과물" data={dummyResult} value={createResult} getAction={getCreateResult} idx={6} />
 					</div>
 					<button className="next" onClick={ClickNext(0)}>
 						<KeyboardArrowRight />
@@ -220,7 +244,7 @@ const CreateProj = props => {
 					<h3 className="title">3.</h3>
 					<div className="selector">
 						<p>어느 지역에서 진행하시겠어요?</p>
-						<SelectAttr name="지역" data={region} getAction={setCreateRegion} idx={7}/>
+						<SelectAttr name="지역" data={region} value={createRegion} getAction={getCreateRegion} idx={7}/>
 					</div>
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
