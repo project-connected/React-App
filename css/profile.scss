@@ -22,6 +22,7 @@
 	}
 
 	.profile-box {
+		margin-top: 10px;
 
 		&.left {
 			width: 20rem;
@@ -117,7 +118,9 @@
 
 .detail-profile-header {
 	display: flex;
-	z-index: 1;
+	margin: 0 -10px 10px;
+	overflow: hidden;
+	padding: 10px 0 0 10px;
 
 	.detail-profile-btn {
 		padding: .5rem;
@@ -139,7 +142,7 @@
 	background: #fff;
 	overflow: hidden;
 	border-radius: 0 17px 17px 17px;
-	z-index: 2;
+	margin-top: -10px;
 
 	.detail-profile-box {
 		width: 300%;
@@ -157,6 +160,120 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+		}
+
+		.subProfile-wrap {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 2fr 2fr 6fr;
+
+			.subProfile-box{
+				min-height: 8rem;
+				color: #333;
+				overflow: hidden;
+				font-size: 16px;
+
+				&:nth-child(5) {
+					grid-column: 1/ span 2;
+				}
+
+				h3.title {
+					color: #666;
+					font-weight: 400;
+					font-size: 14px;
+				}
+
+				.block-content-wrap {
+					height: 100%;
+					width: 100%;
+					position: relative;
+					display: flex;
+					flex-wrap: wrap;
+					overflow: auto;
+
+					&.stack {
+						margin-left: 1rem;
+
+						&:before {
+							content:"\A";
+							position: absolute;
+							left: -1rem;
+							top: 0;
+							transform: translateY(100%);
+							width: 0;
+							height: 0;
+							border-top: .3rem solid transparent;
+							border-bottom: .3rem solid transparent;
+							border-left: .3rem solid #7990ff;
+						}
+					}
+
+					.block-content {
+						padding: .2rem .5rem;
+						border-radius: 5px;
+						position: relative;
+						height: fit-content;
+						font-size: 14px;
+						margin-right: .5rem;
+
+						&.stack {
+							color: #fff;
+							font-size: 12px;
+						}
+
+						&:nth-last-child(1) {
+							margin-right: 0;
+						}
+
+						&.string:before {
+							content:"\A";
+							position: absolute;
+							left: 0;
+							top: 50%;
+							transform: translateY(-50%);
+							width: 0;
+							height: 0;
+							border-top: .3rem solid transparent;
+							border-bottom: .3rem solid transparent;
+							border-left: .3rem solid #7990ff;
+						}
+					}
+				}
+
+				&.mult div{
+					position: relative;
+
+					span {
+						position: relative;
+						margin-left: 1rem;
+
+						a {
+							color: #333;
+
+							&:hover {
+								color: #7990ff;
+							}
+						}
+
+						&:before {
+							content:"";
+							position: absolute;
+							left: -1rem;
+							top: 50%;
+							transform: translateY(-50%);
+							width: 0;
+							height: 0;
+							border-top: .3rem solid transparent;
+							border-bottom: .3rem solid transparent;
+							border-left: .3rem solid #7990ff;
+						}
+					}
+
+					&:nth-child(2) {
+						margin-top: .5rem;
+					}
+				}
+			}
 		}
 	}
 }

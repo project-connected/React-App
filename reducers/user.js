@@ -10,11 +10,11 @@ const dummyUser = {
 		stacks: [{
 			key: "REACT",
 			value: "React.js",
-			color: '#3030FF',
+			color: '#A0A0FF',
 		},{
 			key: "NODE",
 			value: "Node.js",
-			color: '#30FF30',
+			color: '#A0FFA0',
 		}],
 		theme: [{
 			key: 'STARTUP',
@@ -29,9 +29,21 @@ const dummyUser = {
 		}, {
 			key: 'WEB',
 			value: '웹 개발'
-		}],
-		url: "github.com/gitseob",
-		introduct: "# test",
+		},{
+			key: 'APPLICATION',
+			value: '어플리케이션 개발'
+		}, {
+			key: 'WEB',
+			value: '웹 개발'
+		},{
+			key: 'APPLICATION',
+			value: '어플리케이션 개발'
+		}, {
+			key: 'WEB',
+			value: '웹 개발'
+		},],
+		url: "https://github.com/gitseob",
+		introduct: "### 안녕하세용 저는 정말 프로젝트를 완성하고 싶은 사람입니다. **하지만 전 게을러요**",
 	}
 }
 

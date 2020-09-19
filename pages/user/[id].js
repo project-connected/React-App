@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import moment from 'moment';
 import { EmailOutlined, ChatOutlined } from '@material-ui/icons';
+import ReactMarkdown from 'react-markdown'
 
 import axios from 'axios';
 import { END } from 'redux-saga';
@@ -64,10 +65,75 @@ const User = props => {
 									해당 사용자는 아직 추가 정보를 등록하지 않았어요.
 								</div>
 							:
-								<div className="subProfile-box">
-									지역, url, 테마,
-									결과물, 스택,
-									text
+								<div className="subProfile-wrap">
+									<div className="subProfile-box mult">
+										<div>
+											<h3 className="title">
+												REGION
+											</h3>
+											<span>{other.subProfile.region}</span>
+										</div>
+										<div>
+											<h3 className="title">
+												URL
+											</h3>
+											<span>
+												<a href={other.subProfile.url} target="_blank">
+													{other.subProfile.url}
+												</a>
+											</span>
+										</div>
+									</div>
+									<div className="subProfile-box">
+										<h3 className="title">
+											STACK
+										</h3>
+										<div className="block-content-wrap stack">
+											{other.subProfile.stacks.map((c, i) => {
+												return (
+													<div className="block-content stack boxShadow" key={(i)} style={{background: `${c.color}`}}>
+														{c.value}
+													</div>
+												);
+											})}
+										</div>
+									</div>
+									<div className="subProfile-box">
+										<h3 className="title">
+											THEME
+										</h3>
+										<div className="block-content-wrap">
+											{other.subProfile.theme.map((c, i) => {
+												return (
+													<div className="block-content string" key={(i)}>
+														{c.value}
+													</div>
+												)
+											})}
+										</div>
+									</div>
+									<div className="subProfile-box">
+										<h3 className="title">
+											DEST
+										</h3>
+										<div className="block-content-wrap">
+										{other.subProfile.result.map((c, i) => {
+												return (
+													<div className="block-content string" key={(i)}>
+														{c.value}
+													</div>
+												)
+											})}
+										</div>
+									</div>
+									<div className="subProfile-box">
+										<h3 className="title">
+											INTRODUCT
+										</h3>
+										<div className="block-content-wrap">
+											<ReactMarkdown source={other.subProfile.introduct} />
+										</div>
+									</div>
 								</div>
 							}
 						</div>
