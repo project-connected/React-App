@@ -87,11 +87,10 @@ const SelectAttr = ({ open=false, val, status="create", name, data, idx, getActi
 					type: CLOSE_ALL_COMP2
 				})
 			}
-		} else if (idx <= 6) {
-			dispatch({
-				type: getAction,
-				data: attr,
-			})
+		} else {
+			getAction(attr)
+			setText('');
+			setAttrs(data);
 			dispatch({
 				type: CLOSE_ALL_COMP2
 			})
