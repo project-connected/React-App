@@ -50,9 +50,9 @@ export const InfoBlock = ({ name, data }) => {
 export const ProjectPage = ({
 							status="view",
 							title="프로젝트 제목",
-							theme={key: 'DEFAULT', value: "목적"},
-							result={key: "DEFAULT", value: "결과물"},
-							region={key: "DEFAULT", value: "지역"},
+							theme=[{key: 'DEFAULT', value: "목적"}],
+							result=[{key: "DEFAULT", value: "결과물"}],
+							region=[{key: "DEFAULT", value: "지역"}],
 							startDate="2020년 8월 30일",
 							period=14,
 							stacks=[{key:"DEFAULT", value:'스택', color: '#333'}],
@@ -77,15 +77,15 @@ export const ProjectPage = ({
 		<div id='project-page-wrap'>
 			<div className="proj-head-info">
 				<div className="proj-head-title">
-					<p>{theme.value}, {result.value}</p>
+					<p>{theme[0].value}, {result[0].value}</p>
 					<h3>{title}</h3>
 				</div>
 				<div className="proj-info-container">
 					<section id="condition">
 						<h6>모집정보</h6>
-						<InfoBlock name="목적" data={theme.value} />
-						<InfoBlock name="결과물" data={result.value} />
-						<InfoBlock name="지역" data={region.value} />
+						<InfoBlock name="목적" data={theme[0].value} />
+						<InfoBlock name="결과물" data={result[0].value} />
+						<InfoBlock name="지역" data={region[0].value} />
 						<InfoBlock name="시작일" data={startDate} />
 						<InfoBlock name="기간" data={`${period} 일`} />
 						<InfoBlock name="총인원" data={`${stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)} 명`} />
