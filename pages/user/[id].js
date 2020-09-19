@@ -97,8 +97,13 @@ const SubProfileComponent = ({ other }) => {
 const PrevProject = ({ data }) => {
 	return (
 		<div className="prevProject">
-			{data.score}, {data.title}, {data.part.stack[0].value},
-			{data.startDate}, {data.endDate}
+			<div className="score-box">
+				{data.score}
+			</div>
+			<div className="content-box">
+				{data.title}, {data.part.stack[0].value},
+				{data.startDate}, {data.endDate}
+			</div>
 		</div>
 	)
 }

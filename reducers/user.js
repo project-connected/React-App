@@ -74,8 +74,8 @@ const dummyProject = [{
 		key: 'SEOUL',
 		value: '서울'
 	},
-	startDate: '2020-10-14',
-	endDate: '2020-09-01',
+	endDate: '2020-10-14',
+	startDate: '2020-09-01',
 	stacks: [{
 		key: 'NODE',
 		value: 'Node.JS',
