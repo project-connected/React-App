@@ -170,7 +170,7 @@ const FindJewel = props => {
 	const removeStack = useCallback((data) => (e) => {
 		e.preventDefault();
 		setSearchStack(searchStack.filter(v => v.key !== data.key));
-	}, [searchRegion]);
+	}, [searchStack]);
 
 	const openJewelDetail = useCallback((data) => (e) => {
 		e.preventDefault();
@@ -221,11 +221,11 @@ const FindJewel = props => {
 					</div>
 					<p>아래에서 필터를 선택해주세요</p>
 					<div className="choice-filter-box">
-						<SelectAttr val={searchRegion} status="many" idx={13} name="지역" data={region} getAction={OCSearchRegion} />
-						<SelectAttr val={searchTheme} status="many" idx={14} name="목적" data={themes} getAction={OCSearchTheme} />
-						<SelectAttr val={searchResult} status="many" idx={15} name="결과물" data={dummyResult} getAction={OCSearchResult} />
+						<SelectAttr value={searchRegion} status="many" idx={13} name="지역" data={region} getAction={OCSearchRegion} />
+						<SelectAttr value={searchTheme} status="many" idx={14} name="목적" data={themes} getAction={OCSearchTheme} />
+						<SelectAttr value={searchResult} status="many" idx={15} name="결과물" data={dummyResult} getAction={OCSearchResult} />
 						<SelectPeriod />
-						<SelectStack skills={skills}/>
+						<SelectStack skills={skills} value={searchStack} getAction={OCSearchStack}/>
 					</div>
 				</div>
 			</div>
