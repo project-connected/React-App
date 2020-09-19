@@ -42,9 +42,9 @@ const CreateMyAppeal = props => {
 	const { windowRef } = useSelector(state=>state.component);
 
 	const [title, OCTitle] = useInput('');
-	const [regionState, setRegion] = useState('');
-	const [themeState, setTheme] = useState('');
-	const [resultState, setResult] = useState('');
+	const [regionState, setRegion] = useState([]);
+	const [themeState, setTheme] = useState([]);
+	const [resultState, setResult] = useState([]);
 	const [period, setPeriod] = useState({
 									startDate: new Date(),
 									endDate: new Date(),
@@ -58,11 +58,38 @@ const CreateMyAppeal = props => {
 
 	const scrollRef = useRef();
 
+	const getRegion = useCallback((data) => {
+		setRegion([...regionState, data]);
+	}, [regionState]);
+
+	const getTheme = useCallback((data) => {
+		setTheme([...themeState, data]);
+	}, [themeState]);
+
+	const getResult = useCallback((data) => {
+		setResult([...resultState, data]);
+	}, [resultState]);
+
+	const removeTheme = useCallback((data) => (e) => {
+		e.preventDefault();
+		setTheme(themeState.filter(v => v.key !== data.key))
+	}, [themeState]);
+
+	const removeResult = useCallback((data) => (e) => {
+		e.preventDefault();
+		setResult(resultState.filter(v => v.key !== data.key))
+	}, [resultState]);
+
+	const removeRegion = useCallback((data) => (e) => {
+		e.preventDefault();
+		setRegion(regionState.filter(v => v.key !== data.key))
+	}, [regionState]);
+
 	const nextIptvisible = useCallback((e) => {
 		e.preventDefault();
 
 		if (iptStatus === 1) {
-			if (themeState === '' || resultState === '' || regionState === '')
+			if (themeState.length === 0 || resultState.length === 0 || regionState.length === 0)
 				return;
 		} else if (iptStatus === 2) {
 			if (period.startDate.getTime() === period.endDate.getTime())
@@ -135,7 +162,8 @@ const CreateMyAppeal = props => {
 						name="목적"
 						data={themes}
 						idx={8}
-						getAction={setTheme}
+						value={themeState}
+						getAction={getTheme}
 						status="profile"
 					/>
 					<p>어떤 결과물을 만들어보고 싶으신가요?</p>
@@ -143,7 +171,8 @@ const CreateMyAppeal = props => {
 						name="결과물"
 						data={dummyResult}
 						idx={9}
-						getAction={setResult}
+						value={resultState}
+						getAction={getResult}
 						status="profile"
 					/>
 					<p>어느 지역에서 진행하고 싶으신가요?</p>
@@ -151,7 +180,8 @@ const CreateMyAppeal = props => {
 						name="지역"
 						data={region}
 						idx={10}
-						getAction={setRegion}
+						value={regionState}
+						getAction={getRegion}
 						status="profile"
 					/>
 				</div>
