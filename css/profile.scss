@@ -6,6 +6,7 @@
 	position: relative;
 	width: 100%;
 	// display: flex;
+	padding: 0 1rem;
 
 	p {
 		font-size: 12px;
@@ -156,7 +157,8 @@
 			width: 100%;
 			padding: 3rem;
 			transition: .5s;
-			height: 80vh;
+			min-height: 80vh;
+			height: fit-content;
 			overflow: auto;
 
 			&.jewel {
@@ -303,5 +305,41 @@
 				}
 			}
 		}
+	}
+}
+
+.prevProject-container {
+	width: 100%;
+	height: 100%;
+
+	.score {
+		width: fit-content;
+		margin: 0 auto;
+
+		.header {
+			p {
+				font-size: 10px !important;
+				b {
+					font-size: 12px;
+					color: #5970ff;
+				}
+			}
+			div {
+				color: #4960ff;
+				font-size: 3rem;
+				font-weight: 800;
+				width: fit-content;
+				margin: 0 auto;
+
+				span {
+					font-size: 14px;
+					color: #334;
+				}
+			}
+		}
+	}
+
+	.prevProject-wrap {
+		width: 100%;
 	}
 }
