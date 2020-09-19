@@ -1,5 +1,170 @@
 import produce from '../util/produce';
 
+const dummyJewel = {
+	id: 1,
+	userId: 1,
+	user: {
+		userId: 1,
+		userName: 'han',
+		profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
+	},
+	theme: {
+		key: 'HACKERTON',
+		value: '해커톤'
+	},
+	region: {
+		key: 'SEOUL',
+		value: '서울'
+	},
+	result: {
+		key: 'APPLICATION',
+		value: '어플리케이션 개발'
+	},
+	period: {
+		startDate: 'Mon Sep 07 2020 06:26:32 GMT+0900 (대한민국 표준시)',
+		endDate: 'Mon Sep 14 2020 06:26:32 GMT+0900 (대한민국 표준시)',
+	},
+	stacks: [{
+		key: 'REACT',
+		value: 'React.JS',
+		color: 'rgb(255, 169, 75)'
+	},{
+		key: 'NODE',
+		value: 'Node.JS',
+		color: 'rgb(65, 169, 255)'
+	}],
+	title: '전 대단한 사람입니다.',
+	desc: '# test ## test ### test'
+}
+
+const dummyProject = [{
+	id: 0,
+	thumbnail_img: 'https://i.pinimg.com/originals/68/94/93/6894931eb3e93f6d6ef2dd000d8acdc6.jpg',
+	title: "우리 같이 프로젝트 모집 서비스를 만들어요!",
+	theme: {
+		id: 0,
+		content: '헤커톤'
+	},
+	result: [{
+			id: 0,
+			content: '어플리케이션 개발'
+		}, {
+			id: 1,
+			content: '웹 개발',
+	}],
+	region: {
+		id: 0,
+		spot: '서울'
+	},
+	startDate: 'Fri Aug 21 2020 19:28:29 GMT+0900 (대한민국 표준시)',
+	period: 14,
+	stacks: [{
+		name: 'Node.JS',
+		color: 'rgb(65, 169, 76)',
+		num: 1,
+		maxNum: 2,
+	},{
+		name: 'React.JS',
+		color: '#03254c',
+		num: 0,
+		maxNum: 1,
+	}, {
+		name: 'photoshop',
+		color: '#187bcd',
+		num: 1,
+		maxNum: 1,
+	}],
+	description: '## 모두 안녕하세요 굿팀 프로젝트 모집 게시물입니다.'
+},{
+	id: 1,
+	title: "하고싶으면 신청하셈",
+	thumbnail_img: 'https://lh3.googleusercontent.com/proxy/s6tZh4GsdYnP0bmyDLRU8jhcvKgKCJzw-FP5LlIRmdyoQIVxskervsIlHEs84iDCeWZcDTgBCzXyzaJcDLYgMDUE2JK-G5guvoS9AEmHLSZw1yA6DjjidVEvQd1U-QNB4lGn3vyq6AzQDkVUQLhRptkshcE',
+	theme: {
+		id: 1,
+		content: '취미'
+	},
+	result: [{
+			id: 2,
+			content: '서버 개발',
+	}],
+	region: {
+		id: 0,
+		spot: '서울'
+	},
+	startDate: 'Fri Aug 21 2020 19:28:29 GMT+0900 (대한민국 표준시)',
+	period: 14,
+	stacks: [{
+		name: 'Node.JS',
+		color: 'rgb(65, 169, 76)',
+		num: 1,
+		maxNum: 2,
+	},{
+		name: 'Spring',
+		color: 'rgb(65, 169, 76)',
+		num: 0,
+		maxNum: 4,
+	}],
+	description: '## 아 신청하던가 말던가'
+},{
+	id: 2,
+	title: "공모전 나가실 분 !!",
+	thumbnail_img: 'https://i.pinimg.com/564x/ef/c0/43/efc043c907b698025d3f4d10ccb0dc43.jpg',
+	theme: {
+		id: 2,
+		content: '공모전'
+	},
+	result: [{
+			id: 0,
+			content: '어플리케이션 개발'
+		}, {
+			id: 2,
+			content: '서버 개발',
+	}],
+	region: {
+		id: 0,
+		spot: '서울'
+	},
+	startDate: 'Fri Aug 21 2020 19:28:29 GMT+0900 (대한민국 표준시)',
+	period: 14,
+	stacks: [{
+		name: 'Node.JS',
+		color: 'rgb(65, 169, 76)',
+		num: 1,
+		maxNum: 2,
+	},{
+		name: 'React.JS',
+		color: '#03254c',
+		num: 0,
+		maxNum: 1,
+	}],
+	description: '# 상금이 무려 5억5천5백만원인 공모전 같이 나가요 !'
+},{
+	id: 3,
+	title: "42Rank를 같이 만드실 분 구합니다",
+	thumbnail_img: 'https://lh3.googleusercontent.com/proxy/ELM-s_FpaSfpNxlSIr0WmGavAeZY9WpaLg4CEpakbV1d-hGIAaGMKuwpa8AIwjhQSPXkKXSWoqHM7Q3WKDkKbQVJ8kNS0zRY',
+	theme: {
+		id: 1,
+		content: '취미'
+	},
+	result: [{
+		id: 1,
+		content: "웹 개발",
+	}],
+	region: {
+		id: 0,
+		spot: '서울'
+	},
+	startDate: 'Fri Aug 21 2020 19:28:29 GMT+0900 (대한민국 표준시)',
+	period: 14,
+	stacks: [{
+		name: 'Python',
+		color: '#e7ec00',
+		num: 1,
+		maxNum: 999,
+	}],
+	description: '# 근본있는 언어 Django로 Rank42를 개발하실 분 구합니다.'
+}]
+
 const dummyUser = {
 	useId: 1,
 	email: 'anhs0220@gmail.com',
@@ -29,22 +194,12 @@ const dummyUser = {
 		}, {
 			key: 'WEB',
 			value: '웹 개발'
-		},{
-			key: 'APPLICATION',
-			value: '어플리케이션 개발'
-		}, {
-			key: 'WEB',
-			value: '웹 개발'
-		},{
-			key: 'APPLICATION',
-			value: '어플리케이션 개발'
-		}, {
-			key: 'WEB',
-			value: '웹 개발'
-		},],
+		}],
 		url: "https://github.com/gitseob",
 		introduct: "### 안녕하세용 저는 정말 프로젝트를 완성하고 싶은 사람입니다. **하지만 전 게을러요**",
-	}
+	},
+	jewelData: null,
+	projectData: null,
 }
 
 const initialState = {

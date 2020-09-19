@@ -65,6 +65,7 @@ const User = props => {
 									해당 사용자는 아직 추가 정보를 등록하지 않았어요.
 								</div>
 							:
+								<>
 								<div className="subProfile-wrap">
 									<div className="subProfile-box mult">
 										<div>
@@ -126,22 +127,30 @@ const User = props => {
 											})}
 										</div>
 									</div>
-									<div className="subProfile-box">
-										<h3 className="title">
-											INTRODUCT
-										</h3>
-										<div className="block-content-wrap">
-											<ReactMarkdown source={other.subProfile.introduct} />
-										</div>
+								</div>
+								<div className="subProfile-box">
+									<h3 className="title">
+										INTRODUCT
+									</h3>
+									<div className="block-content-wrap introduct">
+										<ReactMarkdown source={other.subProfile.introduct} />
 									</div>
 								</div>
+								</>
 							}
 						</div>
 						<div style={slideStyle} className="detail-profile">
 							two
 						</div>
 						<div style={slideStyle} className="detail-profile">
-							three
+							{other.jewelData ?
+								<>
+								</>
+								:
+								<div className="empty-info">
+									해당 사용자는 현재 인재풀에 등록한 정보가 없어요.
+								</div>
+							}
 						</div>
 					</div>
 				</div>

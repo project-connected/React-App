@@ -7,6 +7,11 @@
 	outline: none;
 	list-style: none;
 	text-decoration: none;
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 a:hover {
@@ -307,11 +312,6 @@ button:focus {
 		box-shadow: inset 1px 1px 20px rgba(50, 50, 100, 0.1);
 		overflow: auto;
 		transition: 1s;
-		-ms-overflow-style: none;  /* IE and Edge */
-		scrollbar-width: none;  /* Firefox */
-		&::-webkit-scrollbar {
-			display: none;
-		}
 
 		.notif-content {
 			display: flex;
