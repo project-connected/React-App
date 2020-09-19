@@ -432,7 +432,8 @@
 			}
 
 			.selector {
-				max-height: 60vh;
+				max-height: 80vh;
+				overflow: auto;
 
 				&.overflowAuto {
 					overflow: auto;
