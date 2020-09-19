@@ -92,7 +92,7 @@ export const ProjectPage = ({
 					</section>
 					<section id="stack">
 						<h6>모집기술</h6>
-						<p>{stacks.reduce((a, b) => a + (b['num'] || 0), 0)}/{stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)}명</p>
+						<p className="total-num">{stacks.reduce((a, b) => a + (b['num'] || 0), 0)}/{stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)}명</p>
 						<div className="project-card-stack-block-wrap">
 							{stacks.map((c, i) => {
 								return (

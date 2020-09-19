@@ -46,19 +46,23 @@ const CreateProj = props => {
 	const [width, setWidth] = useState(0);
 	const [pageOffset, setPageOffset] = useState(0);
 	const [ title, OCTitle ] = useInput('');
-	const [stack, setStack] = useState(null);
+	const [createTheme, setCreateTheme] = useState(null);
+	const [createResult, setCreateResult] = useState(null);
+	const [createStacks, setCreateStacks] = useState([]);
+	const [selectedStack, setSelectedStack] = useState(null);
 	const [stackNum, setStackNum, OCStackNum] = useInputWithSetter(0);
 	const [desc, setDesc] = useState('');
 	const [startDate, setStartDate] = useState(new Date());
 	const [clickDate, setClickDate] = useState(false);
 	const [warning, setWarning] = useState('');
 	const [period, setPeriod] = useState(0);
+	const [createRegion, setCreateRegion] = useState(null);
+	const [done, setDone] = useState(false);
 
 	const windowSize = useWindowSize();
 
 	const dispatch = useDispatch();
 
-	const { create_stacks, create_theme, create_region, create_result } = useSelector(state=>state.project);
 	const { region, skills, themes } = useSelector(state=>state.common);
 	const { user } = useSelector(state=>state.user)
 	const { openSubProfile } = useSelector(state=>state.component);
@@ -69,15 +73,16 @@ const CreateProj = props => {
 
 	const ClickNext = useCallback((idx) => (e) => {
 		e.preventDefault();
+		console.log(createTheme, createResult, createRegion);
 		if (idx === 0) {
-			if (create_theme === '' || create_result === '')
+			if (createTheme === null || createResult === null)
 				return;
 		} else if (idx === 1) {
 			if (title === '')
 				return ;
 			// 타이틀
 		} else if (idx === 2) {
-			if (create_region === '')
+			if (createRegion === null)
 				return ;
 			// 지역
 		} else if (idx === 3) {
@@ -85,16 +90,18 @@ const CreateProj = props => {
 				return ;
 			//기간
 		} else if (idx === 4) {
-			if (create_stacks.length === 0)
+			if (createStacks.length === 0)
 				return ;
 			// 스택
 		} else {
 			if (desc === '')
 				return ;
 			// 소개
+			else
+				setDone(true);
 		}
 		setPageOffset(pageOffset - width);
-	}, [pageOffset, width, create_theme, create_result, title, create_region, period, stack, desc, create_stacks])
+	}, [pageOffset, width, createTheme, createResult, title, createRegion, period, createStacks, desc])
 
 	const ClickBefore = useCallback((e) => {
 		e.preventDefault();
@@ -102,21 +109,19 @@ const CreateProj = props => {
 	}, [pageOffset, width])
 
 	const set_create_stacks = useCallback((e) => {
-		e.preventDefault()
+		e.preventDefault();
 		if (stackNum > 0) {
-			dispatch({
-				type: GET_STACK_FOR_CREATE,
-				data: {
-					value: stack.value,
-					color: stack.color,
-					num: 0,
-					maxNum: Number(stackNum),
-				}
-			})
-			setStack(null);
+			setCreateStacks([...createStacks, {
+				key: selectedStack.key,
+				color: selectedStack.color,
+				value: selectedStack.value,
+				num: 0,
+				maxNum: Number(stackNum)
+			}])
+			setSelectedStack(null);
 			setStackNum(0);
 		}
-	}, [stack, stackNum])
+	}, [createStacks, stackNum])
 
 	const deleteStack = useCallback((c) => (e) => {
 		dispatch({
@@ -158,6 +163,15 @@ const CreateProj = props => {
 		// dispatch
 	})
 
+	const selectStack = useCallback((stack) => {
+		setSelectedStack(stack);
+	}, []);
+
+	useEffect(() => {
+		console.log(skills);
+	}, [skills])
+
+
 	// useEffect(() => {
 	// 	alert('프로젝트 모집 게시글이 작성되었어요!');
 	// 	Router.push('/project/방금만들어진 프로젝트 id')
@@ -177,9 +191,9 @@ const CreateProj = props => {
 					<h3 className="title">1.</h3>
 					<div className="selector">
 						<p>어떤 목적으로 프로젝트를 모집하세요?</p>
-						<SelectAttr name="목적" data={themes} idx={5} getAction={GET_THEME_FOR_CREATE}/>
+						<SelectAttr name="목적" data={themes} idx={5} getAction={setCreateTheme}/>
 						<p>어떤 결과를 목표로 하시나요?</p>
-						<SelectAttr name="결과물" data={dummyResult} getAction={GET_RESULT_FOR_CREATE} idx={6} />
+						<SelectAttr name="결과물" data={dummyResult} getAction={setCreateResult} idx={6} />
 					</div>
 					<button className="next" onClick={ClickNext(0)}>
 						<KeyboardArrowRight />
@@ -206,7 +220,7 @@ const CreateProj = props => {
 					<h3 className="title">3.</h3>
 					<div className="selector">
 						<p>어느 지역에서 진행하시겠어요?</p>
-						<SelectAttr name="지역" data={region} getAction={GET_REGION_FOR_CREATE} idx={7}/>
+						<SelectAttr name="지역" data={region} getAction={setCreateRegion} idx={7}/>
 					</div>
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
@@ -261,11 +275,11 @@ const CreateProj = props => {
 					<div className="selector">
 						<p>모집하고 싶은 기술을 가진 사람들을 설정해주세요.</p>
 						<div className="setting-box">
-							<SetStack stacks={skills} setValue={setStack} />
+							<SetStack stacks={skills} value={createStacks} setValue={selectStack} />
 							<div className="setting-person">
-								{stack &&
+								{selectedStack &&
 									<div className="setting">
-										<StackBlock name={stack.value} color={stack.color} />
+										<StackBlock name={selectedStack.value} color={selectedStack.color} />
 										<input type="number" value={stackNum} onChange={OCStackNum}/>
 										<button onClick={set_create_stacks}>
 											추가하기
@@ -274,7 +288,7 @@ const CreateProj = props => {
 								}
 								<div className="setted-box">
 									{
-										create_stacks.map((c, i) => {
+										createStacks.map((c, i) => {
 											return (
 												<div className="setted-stack" key={(i)}>
 													<StackBlock name={c.value} color={c.color} />
@@ -288,7 +302,7 @@ const CreateProj = props => {
 									}
 								</div>
 								<div className="result">
-									<p>총 {create_stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)}명</p>
+									<p>총 {createStacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)}명</p>
 								</div>
 							</div>
 						</div>
@@ -321,17 +335,17 @@ const CreateProj = props => {
 					<h3 className="title">마지막 .</h3>
 					<div className="selector overflowAuto">
 						<p>입력하신 정보가 맞는지 확인해주세요.</p>
-						<ProjectPage
+						{done && <ProjectPage
 							status="create"
 							title={title}
-							theme={create_theme}
-							result={create_result}
-							region={create_region}
+							theme={createTheme}
+							result={createResult}
+							region={createRegion}
 							startDate={moment(startDate).format("YYYY년 MM월 DD일")}
 							period={period}
-							stacks={create_stacks}
+							stacks={createStacks}
 							desc={desc}
-						/>
+						/>}
 					</div>
 					<button className="proj-create-btn" onClick={createProject}>
 							모집 시작
