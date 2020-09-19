@@ -5,7 +5,7 @@ import { KeyboardArrowDown, Search } from '@material-ui/icons';
 import { CLOSE_ALL_COMP2, OPEN_FILTER_ATTR } from '../../reducers/project';
 
 
-const SelectAttr = ({ open=false, value, status="create", name, data, idx, getAction, onSearchBar=true}) => {
+const SelectAttr = ({ listValue=true ,open=false, value, status="create", name, data, idx, getAction, onSearchBar=true}) => {
 	const dispatch = useDispatch();
 	const { filterAttrOpenIndx } = useSelector(state=>state.project);
 
@@ -67,13 +67,27 @@ const SelectAttr = ({ open=false, value, status="create", name, data, idx, getAc
 					</div>
 				}
 				<div className="list-box">
-					{attrs.filter(v => !value.find(elem => elem.key === v.key)).map((c, i) => {
-						return (
-							<div key={(c.key)} className="attribute" onClick={getAttrs(c)}>
-								{c.value}
-							</div>
-						);
-					})}
+					{ listValue ?
+					<>
+						{attrs.filter(v => !value.find(elem => elem.key === v.key)).map((c, i) => {
+							return (
+								<div key={(c.key)} className="attribute" onClick={getAttrs(c)}>
+									{c.value}
+								</div>
+							);
+						})}
+					</>
+					:
+					<>
+						{attrs.map((c, i) => {
+							return (
+								<div key={(c.key)} className="attribute" onClick={getAttrs(c)}>
+									{c.value}
+								</div>
+							);
+						})}
+					</>
+					}
 				</div>
 			</div>
 		</div>

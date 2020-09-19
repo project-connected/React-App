@@ -76,7 +76,7 @@ const Profile = () => {
 				</div>
 				<div className="profile-attr">
 					<p className="title">Region</p>
-					<SelectAttr idx={8} getAction={setUserRegion} name={userRegion} data={region} status="profile" />
+					<SelectAttr listValue={false} idx={8} value={userRegion} getAction={setUserRegion} name={userRegion} data={region} status="profile" />
 				</div>
 				<div className="profile-attr">
 					<p className="title">스택 선택</p>
