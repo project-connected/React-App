@@ -158,7 +158,6 @@ const initialState = {
 	updateError: '',
 	deleteError: '',
 	loadError: '',
-	// jewels: [],
 	jewels: dummyJewels,
 	jewelData: null,
 };

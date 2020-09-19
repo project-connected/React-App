@@ -65,12 +65,16 @@
 			width: 100%;
 			padding: .5rem;
 			background: rgb(121, 144, 255);
-			color: #fff;
+			color: #fff !important;
 			border-radius: 17px;
 			text-align: center;
 			font-size: 14px;
 			box-shadow: rgba(121, 144, 255, 0.15) 0px 2px 8px 0px;
 			transition: .5s;
+
+			a {
+				color: #fff;
+			}
 
 			&:hover {
 				background: #5970ff;
@@ -152,8 +156,25 @@
 			width: 100%;
 			padding: 3rem;
 			transition: .5s;
-			max-height: 80vh;
+			height: 80vh;
 			overflow: auto;
+
+			&.jewel {
+				.jewel-detail-box {
+					position: absolute;
+					transform: none;
+					width: 100%;
+					padding: 0;
+					box-shadow: none !important;
+					left: 0;
+					top: 0;
+
+					.jewel-detail {
+						max-width: none;
+						width: 100%;
+					}
+				}
+			}
 		}
 
 		.empty-info {

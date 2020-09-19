@@ -20,8 +20,9 @@ import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_JEWEL_REQUEST } from '../../reducers/jewel';
 
-const JewelDetail = ({ open, setOpen }) => {
-	const { jewelData, isLoadingJewel, isLoadedJewel } = useSelector(state=>state.jewel);
+export const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
+	const { user } = useSelector(state=>state.user);
+
 	const userName = jewelData ? jewelData.user.userName : '사용자';
 
 	const CloseDetail = useCallback((e) => {
@@ -47,9 +48,15 @@ const JewelDetail = ({ open, setOpen }) => {
 								<Link href={`/user/${jewelData.user.userId}`}>
 									<a className="btn profile">PROFILE</a>
 								</Link>
-								<div className="btn message">
-									MESSAGE
-								</div>
+								{user.userId === jewelData.user.userId ?
+									<div className="btn message">
+										수정하기
+									</div>
+								:
+									<div className="btn message">
+										MESSAGE
+									</div>
+								}
 							</div>
 						</div>
 						<div className="row-sep-box">
@@ -100,7 +107,7 @@ const JewelDetail = ({ open, setOpen }) => {
 					</div>
 				</div>
 			</div>
-			<div className={backgroundClass} onClick={CloseDetail} />
+			{ mode === 'component' && <div className={backgroundClass} onClick={CloseDetail} />}
 			</>
 		}
 		</>
@@ -120,6 +127,7 @@ const dummyResult = [{
 
 const FindJewel = props => {
 	const { region, themes, skills } = useSelector(state=>state.common);
+	const { jewelData } = useSelector(state=>state.jewel);
 	const { jewels } = useSelector(state=>state.jewel);
 	const dispatch = useDispatch();
 
@@ -228,7 +236,7 @@ const FindJewel = props => {
 					);
 				})}
 			</div>
-			<JewelDetail open={openDetail} setOpen={setOpenDetail}/>
+			<JewelDetail open={openDetail} setOpen={setOpenDetail} jewelData={jewelData}/>
 		</div>
 	);
 };

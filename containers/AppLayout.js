@@ -93,7 +93,7 @@ const UserLoggedIn = () => {
 	return (
 		<ul>
 			<li>
-				<Link href={`/profile`}>
+				<Link href={`/user/${user.userId}`}>
 					<a className="sub-menu-line">
 						<Person /> Profile
 					</a>

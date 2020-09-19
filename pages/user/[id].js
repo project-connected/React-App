@@ -2,7 +2,7 @@ import React, {useState, useCallback, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import moment from 'moment';
-import { EmailOutlined, ChatOutlined } from '@material-ui/icons';
+import { EmailOutlined, ChatOutlined, CreateOutlined } from '@material-ui/icons';
 import ReactMarkdown from 'react-markdown'
 
 import axios from 'axios';
@@ -11,11 +11,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import wrapper from '../../store/configureStore';
 
+import { JewelDetail } from '../jewel';
+
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
 const User = props => {
-	const { other } = useSelector(state=>state.user);
+	const { other, user } = useSelector(state=>state.user);
 	const dispatch = useDispatch();
 
 	const [viewIdx, setViewIdx] = useState(1);
@@ -41,8 +43,19 @@ const User = props => {
 					{other.email}
 				</div>
 				<div className="chat-btn">
-					<ChatOutlined />
-					채팅하기
+					{user.userId === other.userId ?
+					<Link href={`/user/edit`}>
+						<a>
+							<CreateOutlined />
+							수정하기
+						</a>
+					</Link>
+					:
+					<>
+						<ChatOutlined />
+						채팅하기
+					</>
+					}
 				</div>
 			</div>
 			<div className="profile-box right">
@@ -142,10 +155,9 @@ const User = props => {
 						<div style={slideStyle} className="detail-profile">
 							two
 						</div>
-						<div style={slideStyle} className="detail-profile">
+						<div style={slideStyle} className="detail-profile jewel">
 							{other.jewelData ?
-								<>
-								</>
+								<JewelDetail open={true} mode="page" jewelData={other.jewelData} />
 								:
 								<div className="empty-info">
 									해당 사용자는 현재 인재풀에 등록한 정보가 없어요.
