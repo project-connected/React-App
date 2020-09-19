@@ -7,8 +7,8 @@ import StackBlock from '../StackBlock';
 import { useSelector, useDispatch } from 'react-redux';
 import { OPEN_FILTER_ATTR, GET_STACK_FOR_SEARCH } from '../../reducers/project';
 
-const SelectStack = ({ skills, getAction=GET_STACK_FOR_SEARCH }) => {
-	const { filterAttrOpenIndx, search_stacks, create_stacks } = useSelector(state=>state.project);
+const SelectStack = ({ skills, getAction, value }) => {
+	const { filterAttrOpenIndx } = useSelector(state=>state.project);
 	const dispatch = useDispatch();
 
 	const wrapClassName = filterAttrOpenIndx === 4 ? 'select-btn-wrap stacks clicked' : 'select-btn-wrap stacks';
@@ -24,22 +24,8 @@ const SelectStack = ({ skills, getAction=GET_STACK_FOR_SEARCH }) => {
 
 	const cilckStack = useCallback((c) => (e) => {
 		e.preventDefault();
-		if (getAction === GET_STACK_FOR_SEARCH) {
-			if (!search_stacks.find(v => v.key === c.key)) {
-				dispatch({
-					type: getAction,
-					data: c,
-				})
-			}
-		} else {
-			if (!create_stacks.find(v => v.key === c.key)) {
-				dispatch({
-					type: getAction,
-					data: c,
-				})
-			}
-		}
-	}, [search_stacks, create_stacks]);
+		getAction(c)
+	}, [value]);
 
 	const openAttr = useCallback((e) => {
 		e.preventDefault();
@@ -69,7 +55,7 @@ const SelectStack = ({ skills, getAction=GET_STACK_FOR_SEARCH }) => {
 						<Search />
 					</div>
 					<div className="project-card-stack-block-wrap">
-						{stacks.map((c, i) => {
+						{stacks.filter(v => !value.find(elem => elem.key === v.key)).map((c, i) => {
 							return (
 								<div onClick={cilckStack(c)} key={(c.key)} >
 									<StackBlock name={c.value} color={c.color} />

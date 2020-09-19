@@ -5,9 +5,9 @@ import { KeyboardArrowDown, Search } from '@material-ui/icons';
 import { CLOSE_ALL_COMP2, OPEN_FILTER_ATTR } from '../../reducers/project';
 
 
-const SelectAttr = ({ open=false, val, status="create", name, data, idx, getAction, onSearchBar=true}) => {
+const SelectAttr = ({ open=false, value, status="create", name, data, idx, getAction, onSearchBar=true}) => {
 	const dispatch = useDispatch();
-	const { filterAttrOpenIndx, search_region, search_theme, search_result } = useSelector(state=>state.project);
+	const { filterAttrOpenIndx } = useSelector(state=>state.project);
 
 	const wrapClassName = filterAttrOpenIndx === idx ? 'select-btn-wrap clicked' : 'select-btn-wrap';
 
@@ -37,65 +37,20 @@ const SelectAttr = ({ open=false, val, status="create", name, data, idx, getActi
 
 	const getAttrs = useCallback((attr) => (e) => {
 		e.preventDefault();
-		if (status === "many") {
-			getAction(attr);
-			setText('');
-			setAttrs(data);
-		}
-		else if (status === "create")
+		if (status === "profile") {
 			setAttrName(attr.value);
-		else if (status === "profile") {
-			setAttrName(attr.value);
-			getAction(attr);
-			setText('');
-			setAttrs(data);
-			dispatch({
-				type: CLOSE_ALL_COMP2
-			})
-			return ;
 		}
-		if (idx === 0) {
-			if (!search_region.find(v => v.key === attr.key))
-			{
-				dispatch({
-					type: getAction,
-					data: attr,
-				})
-				dispatch({
-					type: CLOSE_ALL_COMP2
-				})
-			}
-		} else  if (idx === 1) {
-			if (!search_theme.find(v => v.key === attr.key))
-			{
-				dispatch({
-					type: getAction,
-					data: attr,
-				})
-				dispatch({
-					type: CLOSE_ALL_COMP2
-				})
-			}
-		} else if (idx === 2) {
-			if (!search_result.find(v => v.key === attr.key))
-			{
-				dispatch({
-					type: getAction,
-					data: attr,
-				})
-				dispatch({
-					type: CLOSE_ALL_COMP2
-				})
-			}
-		} else {
-			getAction(attr)
-			setText('');
-			setAttrs(data);
+
+		getAction(attr)
+		setText('');
+		setAttrs(data);
+
+		if (status !== 'many' && status !== 'search') {
 			dispatch({
 				type: CLOSE_ALL_COMP2
 			})
 		}
-	}, [text, attrs, val]);
+	}, [text, attrs, value]);
 
 
 	return (
@@ -112,7 +67,7 @@ const SelectAttr = ({ open=false, val, status="create", name, data, idx, getActi
 					</div>
 				}
 				<div className="list-box">
-					{attrs.map((c, i) => {
+					{attrs.filter(v => !value.find(elem => elem.key === v.key)).map((c, i) => {
 						return (
 							<div key={(c.key)} className="attribute" onClick={getAttrs(c)}>
 								{c.value}

@@ -18,7 +18,6 @@ const SetStack = ({ stacks=[], value, setValue }) => {
 	const cilckStack = useCallback((c) => (e) => {
 		e.preventDefault();
 		setValue(c)
-		// console.log(value)
 	}, [value]);
 
 	return (
