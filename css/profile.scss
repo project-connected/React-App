@@ -220,12 +220,12 @@
 				}
 
 				&.stack {
-					margin-left: 1rem;
+					padding-left: 1rem;
 
 					&:before {
 						content:"\A";
 						position: absolute;
-						left: -1rem;
+						left: 0;
 						top: 0;
 						transform: translateY(100%);
 						width: 0;
