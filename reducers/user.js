@@ -46,7 +46,47 @@ const dummyProject = [{
 			key: 'REACT',
 			value: 'React.js',
 			color: 'rgb(65, 169, 76)',
-		}]
+		},{
+			key: 'REACT',
+			value: 'React.js',
+			color: 'rgb(65, 169, 76)',
+		},{
+			key: 'REACT',
+			value: 'React.js',
+			color: 'rgb(65, 169, 76)',
+		},{
+			key: 'REACT',
+			value: 'React.js',
+			color: 'rgb(65, 169, 76)',
+		},{
+			key: 'REACT',
+			value: 'React.js',
+			color: 'rgb(65, 169, 76)',
+		},{
+			key: 'REACT',
+			value: 'React.js',
+			color: 'rgb(65, 169, 76)',
+		},{
+			key: 'REACT',
+			value: 'React.js',
+			color: 'rgb(65, 169, 76)',
+		},{
+			key: 'REACT',
+			value: 'React.js',
+			color: 'rgb(65, 169, 76)',
+		},{
+			key: 'REACT',
+			value: 'React.js',
+			color: 'rgb(65, 169, 76)',
+		},{
+			key: 'REACT',
+			value: 'React.js',
+			color: 'rgb(65, 169, 76)',
+		},{
+			key: 'REACT',
+			value: 'React.js',
+			color: 'rgb(65, 169, 76)',
+		},]
 	},
 	score: 3.5,
 	evaluations: [{

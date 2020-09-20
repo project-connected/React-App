@@ -159,7 +159,7 @@ const initialState = {
 	deleteError: '',
 	loadError: '',
 	jewels: dummyJewels,
-	jewelData: null,
+	jewelData: dummyJewels[0],
 };
 
 export const CREATE_JEWEL_REQUEST = 'CREATE_JEWEL_REQUEST';

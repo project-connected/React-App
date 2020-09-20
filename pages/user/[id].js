@@ -2,7 +2,7 @@ import React, {useState, useCallback, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import moment from 'moment';
-import { EmailOutlined, ChatOutlined, CreateOutlined } from '@material-ui/icons';
+import { EmailOutlined, ChatOutlined, CreateOutlined, ThumbUp } from '@material-ui/icons';
 import ReactMarkdown from 'react-markdown'
 
 import axios from 'axios';
@@ -15,6 +15,7 @@ import { JewelDetail } from '../jewel';
 
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
+import StackBlock from '../../components/StackBlock';
 
 const SubProfileComponent = ({ other }) => {
 
@@ -95,14 +96,32 @@ const SubProfileComponent = ({ other }) => {
 }
 
 const PrevProject = ({ data }) => {
+	const [clicked, setClicked] = useState(false);
+
+	const click = useCallback((e) => {
+		e.preventDefault();
+		setClicked(!clicked)
+	}, [clicked])
+
+	const clName = clicked ? 'prevProject boxShadow clicked' : 'prevProject boxShadow';
+
 	return (
-		<div className="prevProject">
+		<div className={clName}>
 			<div className="score-box">
-				{data.score}
+				<ThumbUp/>
+				<div>{data.score}</div>
 			</div>
 			<div className="content-box">
-				{data.title}, {data.part.stack[0].value},
-				{data.startDate}, {data.endDate}
+				<p>{data.startDate} ~ {data.endDate}</p>
+				<div className="content">
+					<h4>{data.title}</h4>
+					{data.part.stack.map((c, i) => {
+						console.log(c)
+						return (
+							<StackBlock name={c.value} color={c.color} />
+						)
+					})}
+				</div>
 			</div>
 		</div>
 	)
@@ -125,7 +144,7 @@ const PrevProjects = ({ data, userName }) => {
 				<div className="prevProject-list">
 					{data.map((c, i) => {
 						return (
-							<PrevProject data={c} />
+							<PrevProject data={c} key={(i)}/>
 						)
 					})}
 				</div>
