@@ -142,7 +142,7 @@ const dummyUser = {
 	userId: 1,
 	email: 'anhs0220@gmail.com',
 	userName: 'Forty Two Seoul',
-	profileImg: 'https://external-gmp1-1.xx.fbcdn.net/safe_image.php?d=AQAUhiuGEu_G5BMX&w=952&h=952&url=https%3A%2F%2Fscontent-gmp1-1.cdninstagram.com%2Fv%2Ft51.29350-15%2F117758003_121361729422768_5810775009689931108_n.jpg%3F_nc_cat%3D1%26_nc_sid%3D8ae9d6%26_nc_eui2%3DAeFVPPTRUmnnrLJmZD2wUJrEMMSk6ysYZm8wxKTrKxhmb_PCrerJ71X-qFfDOUoSjAm1RzegPawmbm40UGsLXw5F%26_nc_ohc%3Dz5Iu8p0rXMMAX_ABMhQ%26_nc_ht%3Dscontent-gmp1-1.cdninstagram.com%26oh%3D3c74d8cbb8083996ec37b64543c87e4e%26oe%3D5F663D7B&cfs=1&_nc_eui2=AeEuiFkzt-ev2dTQsYV88SrjkkdsKksNmduSR2wqSw2Z20aWDr0qywO2dsTLfWozcGC4Lo0FXGLV62sAx53N2aHb&_nc_hash=AQCPJUh53izxKRMM',
+	profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
 	subProfile: {
 		region: "서울",
 		stacks: [{

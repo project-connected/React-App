@@ -148,6 +148,7 @@
 	overflow: hidden;
 	border-radius: 0 17px 17px 17px;
 	margin-top: -10px;
+	height: fit-content;
 
 	.detail-profile-box {
 		width: 300%;
@@ -157,11 +158,11 @@
 			width: 100%;
 			padding: 3rem;
 			transition: .5s;
-			min-height: 80vh;
 			height: fit-content;
 			overflow: auto;
 
 			&.jewel {
+				min-height: 80vh;
 				.jewel-detail-box {
 					position: absolute;
 					transform: none;
@@ -347,16 +348,21 @@
 .prevProject {
 	display: flex;
 	width: 100%;
-	height: 8rem;
+	// height: 8rem;
+	min-height: 8rem;
+	max-height: 8rem;
 	border-radius: 7px;
 	position: relative;
 	overflow: hidden;
-	cursor: pointer;
-	transition: .5s;
+	transition: 1s;
 
-	&:hover {
-		transform: translateY(-8px);
-		box-shadow: rgba(0, 0, 0, 0.08) 0px 12px 20px 0px;
+	.openBtn {
+		position: absolute;
+		cursor: pointer;
+		bottom: .5rem;
+		left: 50%;
+		transform: translateX(-50%);
+		// transition: .5s;
 	}
 
 	.score-box {
@@ -370,14 +376,18 @@
 			width: 4rem;
 			height: 4rem;
 			position: absolute;
-			left: 50%;
-			top: 50%;
+			left: 4rem;
+			top: 4rem;
 			transform: translate(-50%, -50%);
 			color: #7990ff;
 			z-index: 1;
 		}
 
 		div {
+			position: absolute;
+			left: 4rem;
+			top: 4rem;
+			transform: translate(-50%, -50%);
 			z-index: 2;
 			font-size: 2rem;
 			font-weight: 800;
@@ -397,10 +407,15 @@
 		.content {
 			display: flex;
 			align-items: center;
-			flex-wrap: wrap;
 			max-width: calc(100%);
-			overflow: hidden;
-			max-height: 2rem;
+
+			.stack-box {
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				overflow: hidden;
+				max-height: 1.8rem;
+			}
 
 			h4 {
 				font-size: 1.5rem;
@@ -409,6 +424,91 @@
 				overflow: hidden;
 				text-overflow: ellipsis;
 				margin-right: 1rem;
+				text-align: left;
+			}
+		}
+	}
+
+	.eval-box {
+		height: 0;
+		overflow: hidden;
+	}
+
+	&.clicked {
+		max-height: 30rem;
+
+		.openBtn {
+			transform: translateX(-50%) rotate(180deg);
+		}
+
+		.content-box {
+			.content {
+				flex-direction: column;
+
+				.stack-box {
+					max-height: none;
+				}
+
+				h4 {
+					width: 100%;
+					margin-right: 0;
+					max-width: none;
+					text-overflow: unset;
+					overflow: visible;
+				}
+			}
+		}
+
+		.eval-box {
+			margin-top: 1rem;
+			height: fit-content;
+			padding-left: 1rem;
+			// margin-left: -1rem;
+			border-left: 1px solid #7990ff;
+
+			.eval-list {
+				width: 100%;
+
+				.eval {
+					position: relative;
+					width: 100%;
+					// margin-bottom: .5rem;
+					padding: 1rem 1rem 1rem 3rem;
+					display: flex;
+					align-items: center;
+
+					svg {
+						position: absolute;
+						top: 50%;
+						left: 0;
+						width: 2rem;
+						height: 2rem;
+						transform: translateY(-50%);
+						color: #666;
+					}
+
+					h5 {
+						margin: 0;
+					}
+
+					span {
+						position: relative;
+						margin-left: 1rem;
+						font-size: 14px;
+						color: #011;
+
+						&::before {
+							position: absolute;
+							left: -.5rem;
+							top: 50%;
+							width: 2px;
+							height: 2px;
+							background: #333;
+							border-radius: 2px;
+							content: "";
+						}
+					}
+				}
 			}
 		}
 	}

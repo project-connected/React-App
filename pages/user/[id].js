@@ -2,7 +2,7 @@ import React, {useState, useCallback, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import moment from 'moment';
-import { EmailOutlined, ChatOutlined, CreateOutlined, ThumbUp } from '@material-ui/icons';
+import { EmailOutlined, ChatOutlined, CreateOutlined, ThumbUp, Mood, MoodBad, KeyboardArrowDown } from '@material-ui/icons';
 import ReactMarkdown from 'react-markdown'
 
 import axios from 'axios';
@@ -112,16 +112,43 @@ const PrevProject = ({ data }) => {
 				<div>{data.score}</div>
 			</div>
 			<div className="content-box">
-				<p>{data.startDate} ~ {data.endDate}</p>
+				<p className="period">{data.startDate} ~ {data.endDate}</p>
 				<div className="content">
 					<h4>{data.title}</h4>
-					{data.part.stack.map((c, i) => {
-						console.log(c)
-						return (
-							<StackBlock name={c.value} color={c.color} />
-						)
-					})}
+					<div className="stack-box">
+						{data.part.stack.map((c, i) => {
+							console.log(c)
+							return (
+								<StackBlock name={c.value} color={c.color} />
+							)
+						})}
+					</div>
 				</div>
+				<div className="eval-box">
+					<p>프로젝트 팀원들의 평가입니다.</p>
+					<div className="eval-list">
+						{data.evaluations.map((c, i) => {
+							return (
+								<div className="eval" key={(i)}>
+									{ c.score >= 2.5 ?
+										<Mood />
+									:
+										<MoodBad />
+									}
+									<h5>
+										{c.score}
+									</h5>
+									<span>
+										{c.content}
+									</span>
+								</div>
+							)
+						})}
+					</div>
+				</div>
+			</div>
+			<div className="openBtn" onClick={click}>
+				<KeyboardArrowDown />
 			</div>
 		</div>
 	)
@@ -144,7 +171,7 @@ const PrevProjects = ({ data, userName }) => {
 				<div className="prevProject-list">
 					{data.map((c, i) => {
 						return (
-							<PrevProject data={c} key={(i)}/>
+							<PrevProject data={c} key={(i)} />
 						)
 					})}
 				</div>
@@ -188,7 +215,12 @@ const User = props => {
 		transform: `translateX(${(viewIdx-1) * 100 * -1}%)`
 	}
 
-	const wrapStyle = {
+	const wrapStyle = viewIdx === 2 ? {
+		maxHeight: '80vh',
+		minHeight: `${wrapHeight}px`
+	}
+	:
+	{
 		height: `${wrapHeight}px`
 	}
 
@@ -242,9 +274,9 @@ const User = props => {
 								<SubProfileComponent other={other} />
 							}
 						</div>
-						<div style={slideStyle} className="detail-profile" ref={page2ref}>
+						<div style={slideStyle} className="detail-profile project" ref={page2ref}>
 						{other.projectData.length > 0 ?
-							<PrevProjects data={other.projectData} userName={other.userName} />
+							<PrevProjects data={other.projectData} userName={other.userName} pagefunc={setWrapHeight} pageRef={page2ref}/>
 							:
 							<div className="empty-info">
 								해당 사용자는 완료한 프로젝트가 없어요.
