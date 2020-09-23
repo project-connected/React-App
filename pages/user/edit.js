@@ -67,7 +67,7 @@ const Profile = () => {
 			</div>
 			<div className="profile-form">
 				<div className="profile-attr">
-					<p className="title">nickname</p>
+					<p className="title">NICKNAME</p>
 					<input value={name} onChange={OCName} type="text" placeholder="닉네임"/>
 				</div>
 				<div className="profile-attr">
@@ -75,18 +75,19 @@ const Profile = () => {
 					<input value={url} onChange={OCUrl} type="text" placeholder="url"/>
 				</div>
 				<div className="profile-attr">
-					<p className="title">Region</p>
-					<SelectAttr listValue={false} idx={8} value={userRegion} getAction={setUserRegion} name={userRegion} data={region} status="profile" />
+					<p className="title">REGION</p>
 				</div>
 				<div className="profile-attr">
-					<p className="title">스택 선택</p>
-					<SetStack stacks={skills} value={userStacks} setValue={setUserStacks} />
+					<p className="title">STACK</p>
 				</div>
 				<div className="profile-attr">
-					<p className="title">기술 스택</p>
+					<p className="title">INTEREST THEME</p>
 				</div>
 				<div className="profile-attr">
-					<p className="title">자기소개</p>
+					<p className="title">INTEREST PRODUCT</p>
+				</div>
+				<div className="profile-attr">
+					<p className="title">INTRODUCT</p>
 					<Editor editorValue={intro} OCV={setIntro}/>
 				</div>
 			</div>
