@@ -95,7 +95,7 @@ const SubProfileComponent = ({ other }) => {
 	)
 }
 
-const PrevProject = ({ data }) => {
+const PrevProject = ({ data, pagefunc, pageRef }) => {
 	const [clicked, setClicked] = useState(false);
 
 	const click = useCallback((e) => {
@@ -103,13 +103,17 @@ const PrevProject = ({ data }) => {
 		setClicked(!clicked)
 	}, [clicked])
 
+	useEffect(() => {
+		pagefunc(pageRef.current.clientHeight);
+	}, [clicked]);
+
 	const clName = clicked ? 'prevProject boxShadow clicked' : 'prevProject boxShadow';
 
 	return (
 		<div className={clName}>
 			<div className="score-box">
 				<ThumbUp/>
-				<div>{data.score}</div>
+				<div>{data.score.toFixed(2)}</div>
 			</div>
 			<div className="content-box">
 				<p className="period">{data.startDate} ~ {data.endDate}</p>
@@ -162,7 +166,7 @@ const PrevProject = ({ data }) => {
 	)
 }
 
-const PrevProjects = ({ data, userName }) => {
+const PrevProjects = ({ data, userName, pagefunc, pageRef }) => {
 	const averageScore = (data.reduce((a, b) => a + (b.score || 0), 0) / data.length).toFixed(2)
 
 	return (
@@ -179,7 +183,7 @@ const PrevProjects = ({ data, userName }) => {
 				<div className="prevProject-list">
 					{data.map((c, i) => {
 						return (
-							<PrevProject data={c} key={(i)} />
+							<PrevProject data={c} key={(i)} pagefunc={pagefunc} pageRef={pageRef}/>
 						)
 					})}
 				</div>
@@ -223,14 +227,7 @@ const User = props => {
 		transform: `translateX(${(viewIdx-1) * 100 * -1}%)`
 	}
 
-	const wrapStyle = viewIdx === 2 ? {
-		maxHeight: '80vh',
-		minHeight: `${wrapHeight}px`
-	}
-	:
-	{
-		height: `${wrapHeight}px`
-	}
+	const wrapStyle = { height: `${wrapHeight}px` };
 
 	return (
 		<div id="profile-wrap">

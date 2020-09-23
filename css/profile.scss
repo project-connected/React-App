@@ -145,7 +145,7 @@
 
 .detail-profile-wrap {
 	background: #fff;
-	overflow: hidden;
+	overflow: auto;
 	border-radius: 0 17px 17px 17px;
 	margin-top: -10px;
 	height: fit-content;
@@ -360,7 +360,7 @@
 	border-radius: 7px;
 	position: relative;
 	overflow: hidden;
-	transition: 1s;
+	// transition: 1s;
 
 	.openBtn {
 		position: absolute;
@@ -394,15 +394,11 @@
 			left: 4rem;
 			top: 4rem;
 			transform: translate(-50%, -50%);
-			z-index: 2;
+			z-index: 3;
 			font-size: 2rem;
 			font-weight: 800;
 			color: #fff;
-			text-shadow:
-				-2px -2px 0 #5970ff,
-				2px -2px 0 #5970ff,
-				-2px 2px 0 #5970ff,
-				2px 2px 0 #5970ff;
+			text-shadow: 0 0 6px #2950ff;
 		}
 	}
 
