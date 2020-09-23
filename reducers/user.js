@@ -243,7 +243,10 @@ const dummyUser = {
 	userName: 'Forty Two Seoul',
 	profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
 	subProfile: {
-		region: "서울",
+		region: {
+			key: "SEOUL",
+			value: '서울',
+		},
 		stacks: [{
 			key: "REACT",
 			value: "React.js",

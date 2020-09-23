@@ -15,6 +15,7 @@ import { Editor } from '../project/create';
 import SetStack from '../../components/buttons/SetStack';
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
+import SelectBlock from '../../components/buttons/SelectBlock';
 
 const Profile = () => {
 	const { user } = useSelector(state=>state.user);
@@ -22,7 +23,7 @@ const Profile = () => {
 
 	const [name, OCName] = useInput(user ? user.userName : '');
 	const [url, OCUrl] = useInput((user && user.subProfile) ? user.subProfile.url : '등록된 URL이 없습니다.');
-	const [userRegion, setUserRegion] = useState((user && user.subProfile) ? (user.region ? user.region : '지역') : '설정된 지역이 없습니다.');
+	const [userRegion, setUserRegion] = useState((user && user.subProfile) ? (user.subProfile.region ? user.subProfile.region : {key: "DEFAULT", value: '지역'}) : '설정된 지역이 없습니다.');
 	const [userStacks, setUserStacks] = useState((user && user.subProfile) ? user.subProfile.stacks : []);
 	const [intro, setIntro] = useState((user && user.subProfile) ? user.subProfile.introduct : '# test' );
 
@@ -76,6 +77,7 @@ const Profile = () => {
 				</div>
 				<div className="profile-attr">
 					<p className="title">REGION</p>
+					<SelectBlock mode="single" data={region} value={userRegion} setValue={setUserRegion} />
 				</div>
 				<div className="profile-attr">
 					<p className="title">STACK</p>

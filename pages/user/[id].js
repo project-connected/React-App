@@ -27,7 +27,7 @@ const SubProfileComponent = ({ other }) => {
 						<h3 className="title">
 							REGION
 						</h3>
-						<span>{other.subProfile.region}</span>
+						<span>{other.subProfile.region.value}</span>
 					</div>
 					<div>
 						<h3 className="title">
