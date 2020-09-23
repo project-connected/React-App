@@ -121,9 +121,8 @@ const PrevProject = ({ data, pagefunc, pageRef }) => {
 					<h4>{data.title}</h4>
 					<div className="stack-box">
 						{data.part.stack.map((c, i) => {
-							console.log(c)
 							return (
-								<StackBlock name={c.value} color={c.color} />
+								<StackBlock name={c.value} color={c.color} key={(i)}/>
 							)
 						})}
 					</div>
@@ -152,8 +151,8 @@ const PrevProject = ({ data, pagefunc, pageRef }) => {
 				</div>
 				<div className="btn-box">
 					<p>아래 버튼을 클릭하시면 해당 프로젝트 상세 페이지로 이동합니다.</p>
-					<Link href={`project/${data.id}`} target="_blank">
-						<a className="btn">
+					<Link href={`/project/${data.id}`}>
+						<a target="_blank" className="btn">
 							상세보기
 						</a>
 					</Link>
@@ -214,7 +213,6 @@ const User = props => {
 			setWrapHeight(page3ref.current.clientHeight);
 		}
 		setViewIdx(idx);
-		console.log(wrapHeight);
 	}, [page1ref, page2ref, page3ref])
 
 	useEffect(() => {

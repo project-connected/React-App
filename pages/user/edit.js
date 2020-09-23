@@ -76,7 +76,7 @@ const ChangePassword = ({ open, setOpen }) => {
 			console.log('enter new pw');
 			setOpen(false);
 		}
-	}, [newPW, checkNewPW])
+	}, [newPW, checkNewPW, error])
 
 	return (
 		<>
@@ -91,7 +91,6 @@ const ChangePassword = ({ open, setOpen }) => {
 						onChange={OCPW}
 						type="password"
 						onKeyPress={(e) => {
-							console.log(e.key);
 							if(e.key === 'Enter') {
 								checkPW(e);
 							}
