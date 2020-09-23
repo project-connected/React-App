@@ -49,7 +49,7 @@ export const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 									<a className="btn profile">PROFILE</a>
 								</Link>
 								{user.userId === jewelData.user.userId ?
-									<div className="btn message">
+									<div className="btn edit">
 										수정하기
 									</div>
 								:

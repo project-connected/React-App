@@ -146,6 +146,14 @@ const PrevProject = ({ data }) => {
 						})}
 					</div>
 				</div>
+				<div className="btn-box">
+					<p>아래 버튼을 클릭하시면 해당 프로젝트 상세 페이지로 이동합니다.</p>
+					<Link href={`project/${data.id}`} target="_blank">
+						<a className="btn">
+							상세보기
+						</a>
+					</Link>
+				</div>
 			</div>
 			<div className="openBtn" onClick={click}>
 				<KeyboardArrowDown />
