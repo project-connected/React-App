@@ -258,7 +258,9 @@
 			padding-right: 2rem;
 
 			.select-block {
-				padding: .1rem 2rem .1rem .5rem;
+				&.multi {
+					padding: .1rem 2rem .1rem .5rem;
+				}
 
 				.close-btn {
 					color: #666;

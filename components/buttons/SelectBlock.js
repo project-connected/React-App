@@ -59,7 +59,7 @@ const SelectBlock = ({ mode="multi", data ,value, setValue, removeValue}) => {
 						{mode === 'multi' ?
 							value.map((c, i) => {
 								return (
-									<div className="select-block" key={(i)}>
+									<div className="select-block multi" key={(i)}>
 										{c.value}
 										<Close className="close-btn" onClick={removeValue(c)}/>
 									</div>
