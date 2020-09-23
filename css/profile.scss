@@ -777,3 +777,33 @@
 		}
 	}
 }
+
+.pw-change-box {
+	background: #fff;
+	padding: 2rem 4rem;
+	position: fixed;
+	z-index: 100;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 7px;
+	width: 50vw;
+
+	input {
+		margin-top: .5rem;
+		width: 100%;
+		font-size: 2rem;
+		border-bottom: 3px solid #eaeaea;
+		transition: .5s;
+
+		&:active, &:focus {
+			border-bottom: 3px solid #7990ff;
+		}
+	}
+
+	p {
+		font-size: 12px;
+		color: #666;
+		margin: 0;
+	}
+}
