@@ -180,6 +180,20 @@
 		&:hover {
 			background: #fafafa;
 		}
+
+		.select-block-wrap {
+			display: flex;
+			overflow: hidden;
+			width: 100%;
+
+			.select-block {
+				margin-left: .3rem;
+
+				&:nth-child(1) {
+					margin-left: -.5rem;
+				}
+			}
+		}
 	}
 
 	.list-blocks {
@@ -200,8 +214,12 @@
 			overflow: auto;
 			max-height: 15rem;
 
-			.select-block:nth-child(n+1){
-				margin-bottom: .5rem;
+			.select-block {
+				cursor: pointer;
+
+				&:nth-child(n+1){
+					margin-bottom: .5rem;
+				}
 			}
 		}
 
@@ -231,6 +249,24 @@
 	.select-block-wrap {
 		padding: .3rem .5rem;
 		position: relative;
+		width: 100%;
+		min-height: 2rem;
+
+		&.selected {
+			display: flex;
+			flex-wrap: wrap;
+			padding-right: 2rem;
+
+			.select-block {
+				padding: .1rem 2rem .1rem .5rem;
+
+				.close-btn {
+					color: #666;
+					width: 1rem;
+					height: 1rem;
+				}
+			}
+		}
 
 		.select-block {
 			font-size: 12px;
@@ -238,8 +274,9 @@
 			color: #444;
 			background: #eaeaea;
 			border-radius: 3px;
-			cursor: pointer;
 			width: fit-content;
+			position: relative;
+			margin: 0 .4rem .2rem 0;
 		}
 
 		.close-btn {
@@ -251,7 +288,7 @@
 			border-radius: 100%;
 			transition: .5s;
 
-			&:hover {
+			&.close:hover {
 				background: #dadada;
 			}
 		}

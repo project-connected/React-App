@@ -1,5 +1,5 @@
-import React, {useState, useCallback} from 'react';
-import { KeyboardArrowUp, Search } from '@material-ui/icons';
+import React, {useState, useCallback, useEffect} from 'react';
+import { Close, KeyboardArrowUp, Search } from '@material-ui/icons';
 
 const SelectBlock = ({ mode="multi", data ,value, setValue, removeValue}) => {
 	const [opened, setOpened] = useState(false);
@@ -30,14 +30,11 @@ const SelectBlock = ({ mode="multi", data ,value, setValue, removeValue}) => {
 		}
 	}, [value]);
 
-	const getRandomColor = () => {
-		const letters = '0123456789ABCDEF';
-		const color = '#';
-		for (let i = 0; i < 6; i++) {
-		  color += letters[Math.floor(Math.random() * 16)];
-		}
-		return color;
-	  }
+	if (mode === 'multi') {
+		useEffect(() => {
+			setDatas(data.filter(v => !value.find(elem => elem.key === v.key)));
+		}, [value]);
+	}
 
 	return (
 		<div className="selectBlock">
@@ -58,21 +55,20 @@ const SelectBlock = ({ mode="multi", data ,value, setValue, removeValue}) => {
 			</div>
 			{ opened &&
 				<div className="list-blocks">
-					<div className="select-block-wrap">
+					<div className="select-block-wrap selected">
 						{mode === 'multi' ?
 							value.map((c, i) => {
 								return (
-									<div className="select-block selected" key={(i)}>
+									<div className="select-block" key={(i)}>
 										{c.value}
+										<Close className="close-btn" onClick={removeValue(c)}/>
 									</div>
 								)
 							})
 						:
 							<div className="select-block" >{value.value}</div>
 						}
-						<div className="close-btn" onClick={divClose}>
-							<KeyboardArrowUp />
-						</div>
+						<KeyboardArrowUp className="close-btn close" onClick={divClose}/>
 					</div>
 					<div className="block-list-search">
 						<input type="text" value={text} onChange={OCText}/>

@@ -1,5 +1,16 @@
 import produce from '../util/produce';
 
+const dummyResult = [{
+	key: "APPLICATION",
+	value: '어플리케이션 개발'
+}, {
+	key: "WEB",
+	value: '웹 개발'
+}, {
+	key: 'SERVER',
+	value: '서버 개발'
+}]
+
 const initialState = {
 	isLoading: false,
 	isLoadded: false,
@@ -7,6 +18,7 @@ const initialState = {
 	region: [],
 	skills: [],
 	themes: [],
+	results: dummyResult,
 };
 
 export const LOAD_COMMON_REQUEST = 'LOAD_COMMON_REQUEST';

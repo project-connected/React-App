@@ -19,12 +19,14 @@ import SelectBlock from '../../components/buttons/SelectBlock';
 
 const Profile = () => {
 	const { user } = useSelector(state=>state.user);
-	const { skills, themes, region} = useSelector(state=>state.common);
+	const { skills, themes, region, results} = useSelector(state=>state.common);
 
 	const [name, OCName] = useInput(user ? user.userName : '');
 	const [url, OCUrl] = useInput((user && user.subProfile) ? user.subProfile.url : '등록된 URL이 없습니다.');
 	const [userRegion, setUserRegion] = useState((user && user.subProfile) ? (user.subProfile.region ? user.subProfile.region : {key: "DEFAULT", value: '지역'}) : '설정된 지역이 없습니다.');
 	const [userStacks, setUserStacks] = useState((user && user.subProfile) ? user.subProfile.stacks : []);
+	const [userThemes, setUserThemes] = useState((user && user.subProfile) ? user.subProfile.theme : []);
+	const [userProducts, setUserProducts] = useState((user && user.subProfile) ? user.subProfile.result : []);
 	const [intro, setIntro] = useState((user && user.subProfile) ? user.subProfile.introduct : '# test' );
 
 	const imageInput = useRef();
@@ -35,13 +37,39 @@ const Profile = () => {
 		imageInput.current.click();
 	}, [imageInput.current]);
 
+	const getStacks = useCallback((stack) => {
+		setUserStacks([...userStacks, stack]);
+	}, [userStacks]);
+
+	const removeStacks = useCallback((stack) => (e) => {
+		e.preventDefault();
+		setUserStacks(userStacks.filter(v => v.key !== stack.key));
+	}, [userStacks]);
+
+	const getThemes = useCallback((theme) => {
+		setUserThemes([...userThemes, theme]);
+	}, [userThemes]);
+
+	const removeThemes = useCallback((theme) => (e) => {
+		e.preventDefault();
+		setUserThemes(userThemes.filter(v => v.key !== theme.key));
+	}, [userThemes]);
+
+	const getProducts = useCallback((product) => {
+		setUserProducts([...userProducts, product]);
+	}, [userProducts]);
+
+	const removeProducts = useCallback((product) => (e) => {
+		e.preventDefault();
+		setUserProducts(userProducts.filter(v => v.key !== product.key));
+	}, [userProducts]);
+
 	useEffect(() => {
 		if(!user) {
 			alert('로그인을 해주세요.')
 			Router.push('/')
 		}
 	}, [user])
-
 
 	return (
 		<>
@@ -81,12 +109,15 @@ const Profile = () => {
 				</div>
 				<div className="profile-attr">
 					<p className="title">STACK</p>
+					<SelectBlock mode="multi" data={skills} value={userStacks} setValue={getStacks} removeValue={removeStacks} />
 				</div>
 				<div className="profile-attr">
 					<p className="title">INTEREST THEME</p>
+					<SelectBlock mode="multi" data={themes} value={userThemes} setValue={getThemes} removeValue={removeThemes} />
 				</div>
 				<div className="profile-attr">
 					<p className="title">INTEREST PRODUCT</p>
+					<SelectBlock mode="multi" data={results} value={userProducts} setValue={getProducts} removeValue={removeProducts} />
 				</div>
 				<div className="profile-attr">
 					<p className="title">INTRODUCT</p>

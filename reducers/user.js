@@ -260,7 +260,7 @@ const dummyUser = {
 			key: 'STARTUP',
 			value: '스타트업'
 		}, {
-			key: 'HACKERTON',
+			key: 'HACKATHON',
 			value: '해커톤'
 		}],
 		result: [{
