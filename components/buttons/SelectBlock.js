@@ -1,7 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import { Close, KeyboardArrowUp, Search } from '@material-ui/icons';
 
-const SelectBlock = ({ mode="multi", data ,value, setValue, removeValue}) => {
+const SelectBlock = ({ mode="multi", data ,value, setValue, removeValue, placeholder="select options"}) => {
 	const [opened, setOpened] = useState(false);
 	const [text, setText] = useState('');
 	const [datas, setDatas] = useState(data);
@@ -41,6 +41,9 @@ const SelectBlock = ({ mode="multi", data ,value, setValue, removeValue}) => {
 			<div className="selected-blocks" onClick={divOpen}>
 				<div className="select-block-wrap">
 					{mode === 'multi' ?
+						value.length === 0 ?
+							<p className="placeholder">{placeholder}</p>
+						:
 						value.map((c, i) => {
 							return (
 								<div className="select-block multi" key={(i)}>
@@ -49,7 +52,10 @@ const SelectBlock = ({ mode="multi", data ,value, setValue, removeValue}) => {
 							)
 						})
 					:
-						<div className="select-block" >{value.value}</div>
+						value ?
+							<div className="select-block" >{value.value}</div>
+						:
+							<p className="placeholder">{placeholder}</p>
 					}
 				</div>
 			</div>

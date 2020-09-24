@@ -19,26 +19,16 @@ import useInputWithSetter from '../../hooks/useInputWithSetter';
 
 import SetStack from '../../components/buttons/SetStack';
 import StackBlock from '../../components/StackBlock';
+import SelectBlocks from '../../components/buttons/SelectBlock';
 import SelectAttr from '../../components/buttons/SelectAttr';
 
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
-const dummyResult = [{
-	key: 'APPLICATION',
-	value: '어플리케이션 개발'
-}, {
-	key: 'WEB',
-	value: '웹 개발'
-}, {
-	key: 'SERVER',
-	value: '서버 개발'
-}];
-
 const CreateMyAppeal = props => {
 	const dispatch = useDispatch();
 	const { user } = useSelector(state=>state.user);
-	const { skills, region, themes } = useSelector(state=>state.common);
+	const { skills, region, themes, results } = useSelector(state=>state.common);
 	const { windowRef } = useSelector(state=>state.component);
 
 	const [title, OCTitle] = useInput('');
@@ -158,31 +148,49 @@ const CreateMyAppeal = props => {
 				<div className="new-jewel-content">
 					<h3 className="title">1.</h3>
 					<p>어떤 목적의 프로젝트를 하고 싶으신가요?</p>
-					<SelectAttr
+					<SelectBlocks
+						data={themes}
+						value={themeState}
+						setValue={getTheme}
+						removeValue={removeTheme}
+					/>
+					{/* <SelectAttr
 						name="목적"
 						data={themes}
 						idx={8}
 						value={themeState}
 						getAction={getTheme}
 						status="profile"
-					/>
+					/> */}
 					<p>어떤 결과물을 만들어보고 싶으신가요?</p>
-					<SelectAttr
+					{/* <SelectAttr
 						name="결과물"
-						data={dummyResult}
+						data={results}
 						idx={9}
 						value={resultState}
 						getAction={getResult}
 						status="profile"
+					/> */}
+					<SelectBlocks
+						data={results}
+						value={resultState}
+						setValue={getResult}
+						removeValue={removeResult}
 					/>
 					<p>어느 지역에서 진행하고 싶으신가요?</p>
-					<SelectAttr
+					{/* <SelectAttr
 						name="지역"
 						data={region}
 						idx={10}
 						value={regionState}
 						getAction={getRegion}
 						status="profile"
+					/> */}
+					<SelectBlocks
+						data={region}
+						value={regionState}
+						setValue={getRegion}
+						removeValue={removeRegion}
 					/>
 				</div>
 			</div>

@@ -403,6 +403,15 @@
 			position: relative;
 			min-width: 800px;
 
+
+			.select-block-wrap p, .select-block {
+				font-size: 14px !important;
+			}
+
+			.list-blocks input{
+				padding: .3rem .6rem;
+			}
+
 			h3.title {
 				color: #7990ff;
 				font-weight: 800;
@@ -413,7 +422,7 @@
 
 			p {
 				color: #777;
-				font-size: 14px;
+				font-size: 12px;
 				margin-bottom: 0.1rem;
 
 				&:nth-child(n+3) {
