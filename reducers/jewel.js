@@ -182,8 +182,6 @@ export const LOAD_JEWEL_REQUEST = 'LOAD_JEWEL_REQUEST';
 export const LOAD_JEWEL_SUCCESS = 'LOAD_JEWEL_SUCCESS';
 export const LOAD_JEWEL_FAILURE = 'LOAD_JEWEL_FAILURE';
 
-
-
 const reducer = (state=initialState, action) => produce(state, (draft) => {
 	switch (action.type) {
 		case CREATE_JEWEL_REQUEST: {
