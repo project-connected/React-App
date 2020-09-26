@@ -18,12 +18,15 @@ import BackGround from '../../containers/BackGround';
 
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
+import { CREATE_JEWEL_REQUEST } from '../../reducers/jewel';
 
 const ConfirmEdit = ({ closeFunction, confirmFunction, content="select Yes Or No", confirm="YES", close="NO", loading=false }) => {
 	return (
 		<div className="confirm-box">
 			{loading ?
-				<></>
+				<>
+					<div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+				</>
 			:
 				<>
 				<p>{content}</p>
@@ -39,6 +42,7 @@ const ConfirmEdit = ({ closeFunction, confirmFunction, content="select Yes Or No
 
 const CreateMyAppeal = () => {
 	const { skills, region, themes, results } = useSelector(state=>state.common);
+	const { isSubmitting } = useSelector(state=>state.jewel);
 
 	const [title, OCTitle] = useInput('');
 	const [regionState, setRegion] = useState([]);
@@ -152,7 +156,20 @@ const CreateMyAppeal = () => {
 
 	const submitJewel = useCallback((e) => {
 		e.preventDefault();
-	}, []);
+		dispatch({
+			type: CREATE_JEWEL_REQUEST,
+			data: {
+				jewelData: {
+					area: regionState,
+					skill: stackState,
+					theme: themeState,
+					purpose: resultState,
+					title: title,
+					content: desc,
+				}
+			}
+		})
+	}, [regionState, resultState, themeState, stackState, title, desc]);
 
 	useEffect(() => {
 		if (period.startDate.getTime() < period.endDate.getTime()) {
@@ -166,7 +183,7 @@ const CreateMyAppeal = () => {
 	return (
 		<>
 		<BackGround open={confirmWindow} setOpen={setConfirmWindow}>
-			<ConfirmEdit closeFunction={closeConfirm} confirmFunction={submitJewel} content="작성한 내용으로 전송하시겠습니까?" confirm="넹 !" close="아니용 !"/>
+			<ConfirmEdit closeFunction={closeConfirm} confirmFunction={submitJewel} content="작성한 내용으로 전송하시겠습니까?" confirm="넹 !" close="아니용 !" loading={isSubmitting}/>
 		</BackGround>
 		<div id="new-jewel-wrap" ref={scrollRef}>
 			<div className={`new-jewel-page ${iptStatus > 0 ? 'visible' : ''}`}>
