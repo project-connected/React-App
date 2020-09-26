@@ -4,6 +4,12 @@ import {
 	LOAD_JEWEL_REQUEST,
 	LOAD_JEWEL_SUCCESS,
 	LOAD_JEWEL_FAILURE,
+	CREATE_JEWEL_REQUEST,
+	CREATE_JEWEL_SUCCESS,
+	CREATE_JEWEL_FAILURE,
+	UPDATE_JEWEL_REQUEST,
+	UPDATE_JEWEL_SUCCESS,
+	UPDATE_JEWEL_FAILURE,
 } from '../reducers/jewel';
 
 const dummy = {
@@ -44,7 +50,7 @@ const dummy = {
 }
 
 function loadJewelAPI(jewelId) {
-	return {data: dummy}
+	return axios.get('/profiles/list')
 }
 
 function* loadJewel(action) {
@@ -57,7 +63,7 @@ function* loadJewel(action) {
 	} catch(e){
 		yield put({
 			type: LOAD_JEWEL_FAILURE,
-			// error: e.response.error
+			error: e.response.data.message
 		})
 	}
 }
@@ -66,8 +72,55 @@ function* watchLoadJewel() {
 	yield takeLatest(LOAD_JEWEL_REQUEST, loadJewel)
 }
 
+function updateJewelAPI(data) {
+	return axios.post(`/profiles/${data.jewelId}`, data.jewelData);
+}
+
+function* updateJewel(action) {
+	try {
+		const result = yield call(updateJewelAPI, action.data);
+		yield put({
+			type: UPDATE_JEWEL_SUCCESS,
+			data: result.data
+		})
+	} catch(e) {
+		yield put({
+			type: UPDATE_JEWEL_FAILURE,
+			error: e.response.data.message
+		})
+	}
+}
+
+function* watchUpdateJewel() {
+	yield takeLatest(UPDATE_JEWEL_REQUEST, updateJewel);
+}
+function createJewelAPI(data) {
+	return axios.post(`/profiles`, data);
+}
+
+function* createJewel(action) {
+	try {
+		const result = yield call(createJewelAPI, action.data);
+		yield put({
+			type: CREATE_JEWEL_SUCCESS,
+			data: result.data
+		})
+	} catch(e) {
+		yield put({
+			type: CREATE_JEWEL_FAILURE,
+			error: e.response.data.message
+		})
+	}
+}
+
+function* watchCreateJewel() {
+	yield takeLatest(CREATE_JEWEL_REQUEST, createJewel);
+}
+
 export default function* jewelSaga(){
 	yield all([
 		fork(watchLoadJewel),
+		fork(watchCreateJewel),
+		fork(watchUpdateJewel),
 	]);
 };
