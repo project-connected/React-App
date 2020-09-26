@@ -9,17 +9,35 @@ import axios from 'axios';
 import wrapper from '../../store/configureStore';
 import { END } from 'redux-saga';
 
-import { KeyboardArrowDown } from '@material-ui/icons';
+import { KeyboardArrowDown, Check } from '@material-ui/icons';
 
 import { Editor } from '../project/create';
 import useInput from '../../hooks/useInput';
 import SelectBlocks from '../../components/buttons/SelectBlock';
+import BackGround from '../../containers/BackGround';
 
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
-const CreateMyAppeal = props => {
-	const dispatch = useDispatch();
+const ConfirmEdit = ({ closeFunction, confirmFunction, content="select Yes Or No", confirm="YES", close="NO", loading=false }) => {
+	return (
+		<div className="confirm-box">
+			{loading ?
+				<></>
+			:
+				<>
+				<p>{content}</p>
+				<div className="confirm-box-btn-container">
+					<div className="confirm-btn left" onClick={confirmFunction}>{confirm}</div>
+					<div className="confirm-btn right" onClick={closeFunction}>{close}</div>
+				</div>
+				</>
+			}
+		</div>
+	)
+}
+
+const CreateMyAppeal = () => {
 	const { skills, region, themes, results } = useSelector(state=>state.common);
 
 	const [title, OCTitle] = useInput('');
@@ -36,6 +54,8 @@ const CreateMyAppeal = props => {
 	const [iptStatus, setIptStatus] = useState(1);
 	const [endDateAvail, setEndDateAvail] = useState(false);
 	const [periodWarn, setPeriodWarn] = useState('');
+
+	const [confirmWindow, setConfirmWindow] = useState(false);
 
 	const scrollRef = useRef();
 
@@ -81,6 +101,11 @@ const CreateMyAppeal = props => {
 		} else {
 			if (desc === '')
 				return ;
+			else {
+				console.log(iptStatus);
+				setConfirmWindow(true);
+				return ;
+			}
 		}
 		setIptStatus(iptStatus + 1);
 	}, [iptStatus, themeState, resultState, title, regionState, period, stackState, desc]);
@@ -120,6 +145,15 @@ const CreateMyAppeal = props => {
 		setStacks(stackState.filter(v => v.key !== stack.key));
 	}, [stackState]);
 
+	const closeConfirm = useCallback((e) => {
+		e.preventDefault();
+		setConfirmWindow(false)
+	}, [])
+
+	const submitJewel = useCallback((e) => {
+		e.preventDefault();
+	}, []);
+
 	useEffect(() => {
 		if (period.startDate.getTime() < period.endDate.getTime()) {
 			setPeriod({
@@ -131,6 +165,9 @@ const CreateMyAppeal = props => {
 
 	return (
 		<>
+		<BackGround open={confirmWindow} setOpen={setConfirmWindow}>
+			<ConfirmEdit closeFunction={closeConfirm} confirmFunction={submitJewel} content="작성한 내용으로 전송하시겠습니까?" confirm="넹 !" close="아니용 !"/>
+		</BackGround>
 		<div id="new-jewel-wrap" ref={scrollRef}>
 			<div className={`new-jewel-page ${iptStatus > 0 ? 'visible' : ''}`}>
 				<div className="new-jewel-content">
@@ -223,7 +260,7 @@ const CreateMyAppeal = props => {
 				</div>
 			</div>
 			<button className="next" onClick={nextIptvisible}>
-				<KeyboardArrowDown />
+				{iptStatus >= 4 ? <Check /> : <KeyboardArrowDown />}
 			</button>
 		</div>
 		</>

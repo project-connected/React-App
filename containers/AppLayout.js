@@ -323,7 +323,7 @@ const AppLayout = ({ children }) => {
 								</Link>
 							</div>
 							<div className="nav-link-btn">
-								<Link href="/jewel/new">
+								<Link href="/jewel/write">
 									<a>
 										인재풀 등록하기
 									</a>

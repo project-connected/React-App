@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useCallback} from 'react';
 
 const BackGround = ({ mode="component", open, setOpen, children }) => {
 
@@ -16,10 +15,6 @@ const BackGround = ({ mode="component", open, setOpen, children }) => {
 			{ mode === 'component' && <div className={backgroundClass} onClick={CloseDetail} />}
 		</>
 	);
-};
-
-BackGround.propTypes = {
-
 };
 
 export default BackGround;
