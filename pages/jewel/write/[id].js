@@ -6,19 +6,19 @@ import Router from 'next/router';
 import moment from 'moment';
 
 import axios from 'axios';
-import wrapper from '../../store/configureStore';
+import wrapper from '../../../store/configureStore';
 import { END } from 'redux-saga';
 
 import { KeyboardArrowDown, Check } from '@material-ui/icons';
 
-import { Editor } from '../project/create';
-import useInput from '../../hooks/useInput';
-import SelectBlocks from '../../components/buttons/SelectBlock';
-import BackGround from '../../containers/BackGround';
+import { Editor } from '../../project/create';
+import useInput from '../../../hooks/useInput';
+import SelectBlocks from '../../../components/buttons/SelectBlock';
+import BackGround from '../../../containers/BackGround';
 
-import { LOAD_USER_REQUEST } from '../../reducers/user';
-import { LOAD_COMMON_REQUEST } from '../../reducers/common';
-import { CREATE_JEWEL_REQUEST } from '../../reducers/jewel';
+import { LOAD_USER_REQUEST } from '../../../reducers/user';
+import { LOAD_COMMON_REQUEST } from '../../../reducers/common';
+import { LOAD_JEWEL_REQUEST } from '../../../reducers/jewel';
 
 const ConfirmEdit = ({ closeFunction, confirmFunction, content="select Yes Or No", confirm="YES", close="NO", loading=false }) => {
 	return (
@@ -42,23 +42,29 @@ const ConfirmEdit = ({ closeFunction, confirmFunction, content="select Yes Or No
 
 const CreateMyAppeal = () => {
 	const dispatch = useDispatch();
+	const { jewelData } = useSelector(state=>state.jewel);
+
+	if (!jewelData) {
+		alert('잘못된 접근입니다.');
+		Router.back();
+	}
 
 	const { skills, region, themes, results } = useSelector(state=>state.common);
 	const { isSubmitting, isSubmitted } = useSelector(state=>state.jewel);
 
-	const [title, OCTitle] = useInput('');
-	const [regionState, setRegion] = useState([]);
-	const [themeState, setTheme] = useState([]);
-	const [resultState, setResult] = useState([]);
+	const [title, OCTitle] = useInput(jewelData.title);
+	const [regionState, setRegion] = useState(jewelData.region);
+	const [themeState, setTheme] = useState(jewelData.theme);
+	const [resultState, setResult] = useState(jewelData.result);
 	const [period, setPeriod] = useState({
-									startDate: new Date(),
-									endDate: new Date(),
-									diff: 0,
-								});
-	const [stackState, setStacks] = useState([]);
-	const [desc, setDesc] = useState('');
-	const [iptStatus, setIptStatus] = useState(1);
-	const [endDateAvail, setEndDateAvail] = useState(false);
+			startDate: new Date(jewelData.period.startDate),
+			endDate: new Date(jewelData.period.endDate),
+			diff: jewelData.period.diff
+	});
+	const [stackState, setStacks] = useState(jewelData.stacks);
+	const [desc, setDesc] = useState(jewelData.desc);
+	const [iptStatus, setIptStatus] = useState(4);
+	const [endDateAvail, setEndDateAvail] = useState(true);
 	const [periodWarn, setPeriodWarn] = useState('');
 
 	const [confirmWindow, setConfirmWindow] = useState(false);
@@ -158,8 +164,9 @@ const CreateMyAppeal = () => {
 	const submitJewel = useCallback((e) => {
 		e.preventDefault();
 		dispatch({
-			type: CREATE_JEWEL_REQUEST,
+			type: UPDATE_JEWEL_REQUEST,
 			data: {
+				id: jewelData.id,
 				jewelData: {
 					area: regionState,
 					skill: stackState,
@@ -191,7 +198,7 @@ const CreateMyAppeal = () => {
 	return (
 		<>
 		<BackGround open={confirmWindow} setOpen={setConfirmWindow}>
-			<ConfirmEdit closeFunction={closeConfirm} confirmFunction={submitJewel} content="작성한 내용으로 전송하시겠습니까?" confirm="넹 !" close="아니용 !" loading={isSubmitting}/>
+			<ConfirmEdit closeFunction={closeConfirm} confirmFunction={submitJewel} content="작성한 내용으로 수정하시겠습니까?" confirm="예" close="아니요" loading={isSubmitting}/>
 		</BackGround>
 		<div id="new-jewel-wrap" ref={scrollRef}>
 			<div className={`new-jewel-page ${iptStatus > 0 ? 'visible' : ''}`}>
@@ -295,6 +302,7 @@ const CreateMyAppeal = () => {
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
 	const cookie = context.req ? context.req.headers.cookie : '';
 	axios.defaults.headers.Cookie = '';
+
 	if (context.req && cookie) {
 		axios.defaults.headers.Cookie = cookie;
 	}
@@ -304,8 +312,16 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	context.store.dispatch({
 		type: LOAD_COMMON_REQUEST,
 	})
+	const index = context.params.id;
+	if (index !== 'undefined') {
+		context.store.dispatch({
+			type: LOAD_JEWEL_REQUEST,
+			id: index
+		})
+	}
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();
+
 });
 
 CreateMyAppeal.propTypes = {
