@@ -62,6 +62,7 @@ const SelectBlock = ({ mode="multi", data ,value, setValue, removeValue, placeho
 			{ opened &&
 				<div className="list-blocks">
 					<div className="select-block-wrap selected">
+						<div className="background-btn" onClick={divClose} />
 						{mode === 'multi' ?
 							value.map((c, i) => {
 								return (
@@ -74,7 +75,7 @@ const SelectBlock = ({ mode="multi", data ,value, setValue, removeValue, placeho
 						:
 							<div className="select-block" >{value.value}</div>
 						}
-						<KeyboardArrowUp className="close-btn close" onClick={divClose}/>
+						<KeyboardArrowUp className="close-btn close"/>
 					</div>
 					<div className="block-list-search">
 						<input type="text" value={text} onChange={OCText}/>
@@ -84,8 +85,10 @@ const SelectBlock = ({ mode="multi", data ,value, setValue, removeValue, placeho
 						<p>{mode !== 'multi' ? 'Select one option' : 'Select multiple options'}</p>
 						{datas.map((c, i) => {
 							return (
-								<div className="select-block" key={(i)} onClick={clickBlock(c)}>
-									{c.value}
+								<div className="block-back" key={(i)} onClick={clickBlock(c)}>
+									<div className="select-block">
+										{c.value}
+									</div>
 								</div>
 							)
 						})}
