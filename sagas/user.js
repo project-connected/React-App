@@ -55,8 +55,6 @@ function loginAPI(loginData) {
 function* login(action) {
 	try {
 		const result = yield call(loginAPI, action.data);
-		console.log(result.headers);
-		// yield delay(1000);
 		yield put({
 			type: LOGIN_SUCCESS,
 			data: result.data,
@@ -64,7 +62,7 @@ function* login(action) {
 	} catch(e) {
 		yield put({
 			type: LOGIN_FAILURE,
-			error: e.reponse.error,
+			error: e.response.data.message,
 		})
 	}
 }

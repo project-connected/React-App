@@ -343,7 +343,7 @@ const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 		}
 		case LOGIN_FAILURE: {
 			draft.isLoggingIn = false;
-			draft.loginErrorReason = 'dummy is undefined';
+			draft.loginErrorReason = action.error;
 			break;
 		}
 

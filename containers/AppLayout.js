@@ -178,14 +178,13 @@ const NotifBox = ({ flg, setFlg, actionFunction }) => {
 	);
 }
 
-const UserLogin = ({ isLoggingIn }) => {
+const UserLogin = ({ isLoggingIn, loginErrorReason}) => {
 	const dispatch = useDispatch();
 
 	const [email, OCEmail] = useInput('');
 	const [password, OCPassword] = useInput('');
 
 	const [notSubmitReason, setNotSubmitReason] = useState('');
-
 
 	const onSubmitLogin = useCallback((e) => {
 		e.preventDefault();
@@ -205,7 +204,7 @@ const UserLogin = ({ isLoggingIn }) => {
 				<LoadingCircle />
 			</div>}
 			<p>
-				로그인이 필요합니다.
+				{loginErrorReason === '' ? '로그인이 필요합니다.' : loginErrorReason}
 			</p>
 			<form onSubmit={onSubmitLogin}>
 				<div className="login-ipt-box">
@@ -242,7 +241,7 @@ const UserLogin = ({ isLoggingIn }) => {
 	)
 }
 
-const UserMenu = ({ user, isLoggingIn, openUserMenu }) => {
+const UserMenu = ({ user, isLoggingIn, openUserMenu, loginErrorReason }) => {
 	const subMenuClass = openUserMenu ? "profile-sub-menu has-visibility" : "profile-sub-menu";
 
 	return (
@@ -251,7 +250,7 @@ const UserMenu = ({ user, isLoggingIn, openUserMenu }) => {
 				{ user ?
 					<UserLoggedIn />
 					:
-					<UserLogin isLoggingIn={isLoggingIn} />
+					<UserLogin isLoggingIn={isLoggingIn} loginErrorReason={loginErrorReason}/>
 				}
 			</div>
 		</>
@@ -260,7 +259,7 @@ const UserMenu = ({ user, isLoggingIn, openUserMenu }) => {
 
 const AppLayout = ({ children }) => {
 	const { openChat, openUserMenu, openApply, openSubProfile } = useSelector(state=>state.component);
-	const { user, isLoggingIn } = useSelector(state=>state.user);
+	const { user, isLoggingIn, loginErrorReason } = useSelector(state=>state.user);
 
 	const dispatch = useDispatch();
 
@@ -300,41 +299,31 @@ const AppLayout = ({ children }) => {
 				<header id="nav-header">
 					<div className="menu-navigation">
 						<div className="nav-logo-btn">
-							<Link href="/">
-								<a>
-									<img src="/images/logo.png" height="30px"/>
-									<h1>GOODTEAM</h1>
-								</a>
-							</Link>
+							<Link href="/"><a>
+								<img src="/images/logo.png" height="30px"/>
+								<h1>GOODTEAM</h1>
+							</a></Link>
 						</div>
 						<div className="nav-link-btn">
-							<Link href="/project">
-								<a>
-									모집 중인 프로젝트
-								</a>
-							</Link>
+							<Link href="/project"><a>
+								모집 중인 프로젝트
+							</a></Link>
 						</div>
-						{1 && <>
+						{user && <>
 							<div className="nav-link-btn">
-								<Link href="/project/create">
-									<a>
-										프로젝트 만들기
-									</a>
-								</Link>
+								<Link href="/project/create"><a>
+									프로젝트 만들기
+								</a></Link>
 							</div>
 							<div className="nav-link-btn">
-								<Link href="/jewel/write">
-									<a>
-										인재풀 등록하기
-									</a>
-								</Link>
+								<Link href="/jewel/write"><a>
+									인재풀 등록하기
+								</a></Link>
 							</div>
 							<div className="nav-link-btn">
-								<Link href="/jewel">
-									<a>
-										인재 살펴보기
-									</a>
-								</Link>
+								<Link href="/jewel"><a>
+									인재 살펴보기
+								</a></Link>
 							</div>
 						</>
 						}
@@ -347,7 +336,7 @@ const AppLayout = ({ children }) => {
 								<img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/b7c76929274393.55ead42cd721c.jpg"/>
 							}
 						</div>
-						<UserMenu user={user} isLoggingIn={isLoggingIn} openUserMenu={openUserMenu}/>
+						<UserMenu user={user} isLoggingIn={isLoggingIn} openUserMenu={openUserMenu} loginErrorReason={loginErrorReason}/>
 					</div>
 				</header>
 				<main className="page-wrap">
