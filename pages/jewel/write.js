@@ -41,8 +41,10 @@ const ConfirmEdit = ({ closeFunction, confirmFunction, content="select Yes Or No
 }
 
 const CreateMyAppeal = () => {
+	const dispatch = useDispatch();
+
 	const { skills, region, themes, results } = useSelector(state=>state.common);
-	const { isSubmitting } = useSelector(state=>state.jewel);
+	const { isSubmitting, isSubmitted } = useSelector(state=>state.jewel);
 
 	const [title, OCTitle] = useInput('');
 	const [regionState, setRegion] = useState([]);
@@ -106,7 +108,6 @@ const CreateMyAppeal = () => {
 			if (desc === '')
 				return ;
 			else {
-				console.log(iptStatus);
 				setConfirmWindow(true);
 				return ;
 			}
@@ -179,6 +180,13 @@ const CreateMyAppeal = () => {
 			})
 		}
 	}, [period.startDate, period.endDate]);
+
+	useEffect(() => {
+		if (isSubmitted) {
+			alert('등록되었습니다.')
+			Router.push('/jewel');
+		}
+	}, [isSubmitted])
 
 	return (
 		<>
