@@ -1,6 +1,6 @@
 import produce from '../util/produce';
 
-const dummyJewels = [{
+const tlqkf = {
 	id: 1,
 	userId: 1,
 	user: {
@@ -8,21 +8,22 @@ const dummyJewels = [{
 		userName: 'han',
 		profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
 	},
-	theme: {
+	theme: [{
 		key: 'HACKERTON',
 		value: '해커톤'
-	},
-	region: {
+	}],
+	region: [{
 		key: 'SEOUL',
 		value: '서울'
-	},
-	result: {
+	}],
+	result: [{
 		key: 'APPLICATION',
 		value: '어플리케이션 개발'
-	},
+	}],
 	period: {
-		startDate: 'Mon Sep 07 2020 06:26:32 GMT+0900 (대한민국 표준시)',
-		endDate: 'Mon Sep 14 2020 06:26:32 GMT+0900 (대한민국 표준시)',
+		startDate: 'November 01, 2020',
+		endDate: 'November 15, 2020',
+		diff: 14
 	},
 	stacks: [{
 		key: 'REACT',
@@ -35,112 +36,9 @@ const dummyJewels = [{
 	}],
 	title: '전 대단한 사람입니다.',
 	desc: '# test ## test ### test'
-},{
-	id: 2,
-	userId: 1,
-	user: {
-		userId: 1,
-		userName: 'yshim',
-		profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
-	},
-	theme: {
-		key: 'HACKERTON',
-		value: '해커톤'
-	},
-	region: {
-		key: 'SEOUL',
-		value: '서울'
-	},
-	result: {
-		key: 'APPLICATION',
-		value: '어플리케이션 개발'
-	},
-	period: {
-		startDate: 'Mon Sep 07 2020 06:26:32 GMT+0900 (대한민국 표준시)',
-		endDate: 'Mon Sep 14 2020 06:26:32 GMT+0900 (대한민국 표준시)',
-	},
-	stacks: [{
-		key: 'REACT',
-		value: 'React.JS',
-		color: 'rgb(65, 169, 75)'
-	},{
-		key: 'NODE',
-		value: 'Node.JS',
-		color: 'rgb(65, 169, 75)'
-	}],
-	title: '전 대단한 사람입니다.',
-	desc: '# test ## test ### test'
-},{
-	id: 3,
-	userId: 1,
-	user: {
-		userId: 1,
-		userName: 'hhan',
-		profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
-	},
-	theme: {
-		key: 'HACKERTON',
-		value: '해커톤'
-	},
-	region: {
-		key: 'SEOUL',
-		value: '서울'
-	},
-	result: {
-		key: 'APPLICATION',
-		value: '어플리케이션 개발'
-	},
-	period: {
-		startDate: 'Mon Sep 07 2020 06:26:32 GMT+0900 (대한민국 표준시)',
-		endDate: 'Mon Sep 14 2020 06:26:32 GMT+0900 (대한민국 표준시)',
-	},
-	stacks: [{
-		key: 'REACT',
-		value: 'React.JS',
-		color: 'rgb(65, 169, 75)'
-	},{
-		key: 'NODE',
-		value: 'Node.JS',
-		color: 'rgb(65, 169, 75)'
-	}],
-	title: '전 대단한 사람입니다.',
-	desc: '# test ## test ### test'
-},{
-	id: 4,
-	userId: 1,
-	user: {
-		userId: 1,
-		userName: 'nukim',
-		profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
-	},
-	theme: {
-		key: 'HACKERTON',
-		value: '해커톤'
-	},
-	region: {
-		key: 'SEOUL',
-		value: '서울'
-	},
-	result: {
-		key: 'APPLICATION',
-		value: '어플리케이션 개발'
-	},
-	period: {
-		startDate: 'Mon Sep 07 2020 06:26:32 GMT+0900 (대한민국 표준시)',
-		endDate: 'Mon Sep 14 2020 06:26:32 GMT+0900 (대한민국 표준시)',
-	},
-	stacks: [{
-		key: 'REACT',
-		value: 'React.JS',
-		color: 'rgb(65, 169, 75)'
-	},{
-		key: 'NODE',
-		value: 'Node.JS',
-		color: 'rgb(65, 169, 75)'
-	}],
-	title: '전 대단한 사람입니다.',
-	desc: '# test ## test ### test'
-},]
+}
+
+const dummyJewels = [tlqkf, {...tlqkf, id: 2}, {...tlqkf, id: 3}]
 
 const initialState = {
 	isSubmitted: false,
@@ -159,7 +57,7 @@ const initialState = {
 	deleteError: '',
 	loadError: '',
 	jewels: dummyJewels,
-	jewelData: dummyJewels[0],
+	jewelData: tlqkf,
 };
 
 export const CREATE_JEWEL_REQUEST = 'CREATE_JEWEL_REQUEST';
@@ -182,8 +80,10 @@ export const LOAD_JEWEL_REQUEST = 'LOAD_JEWEL_REQUEST';
 export const LOAD_JEWEL_SUCCESS = 'LOAD_JEWEL_SUCCESS';
 export const LOAD_JEWEL_FAILURE = 'LOAD_JEWEL_FAILURE';
 
+
 const reducer = (state=initialState, action) => produce(state, (draft) => {
 	switch (action.type) {
+
 		case CREATE_JEWEL_REQUEST: {
 			draft.isSubmitting = true;
 			break;
