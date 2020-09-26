@@ -47,9 +47,13 @@ export const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 							<div className="btn-container">
 								{user.userId === jewelData.user.userId ?
 									<>
-										<div className="btn edit">
+										<Link
+											href={`/jewel/write/${jewelData.id}`}
+										>
+											<a className="btn edit">
 											수정하기
-										</div>
+											</a>
+										</Link>
 										<div className="btn remove">
 											삭제하기
 										</div>
@@ -71,19 +75,19 @@ export const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 								<div className="one-info">
 									<p>{userName}님의 희망 지역</p>
 									<div className="info">
-										{jewelData.region.value}
+										{jewelData.region[0].value}
 									</div>
 								</div>
 								<div className="one-info">
 									<p>{userName}님의 프로젝트 희망 테마</p>
 									<div className="info">
-										{jewelData.theme.value}
+										{jewelData.theme[0].value}
 									</div>
 								</div>
 								<div className="one-info">
 									<p>{userName}님의 프로젝트 희망 결과</p>
 									<div className="info">
-										{jewelData.result.value}
+										{jewelData.result[0].value}
 									</div>
 								</div>
 							</div>
@@ -258,11 +262,11 @@ const JewelCard = ({ data, onClick }) => {
 					<h6>@ {data.user.userName}</h6>
 					<h2>{data.title}</h2>
 					<div className="multi-content">
-						<span>{data.region.value}</span>
+						<span>{data.region[0].value}</span>
 					</div>
 					<div className="multi-content">
-						<span>{data.theme.value}</span>
-						<span>{data.result.value}</span>
+						<span>{data.theme[0].value}</span>
+						<span>{data.result[0].value}</span>
 					</div>
 					<div className="multi-content stack">
 						{data.stacks.map((c, i) => {
