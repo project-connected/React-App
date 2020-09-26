@@ -45,17 +45,24 @@ export const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 							<img className="profile-img" src={jewelData.user.profileImg} />
 							<div className="user-name">{jewelData.user.userName}</div>
 							<div className="btn-container">
-								<Link href={`/user/${jewelData.user.userId}`}>
-									<a className="btn profile">PROFILE</a>
-								</Link>
 								{user.userId === jewelData.user.userId ?
-									<div className="btn edit">
-										수정하기
-									</div>
+									<>
+										<div className="btn edit">
+											수정하기
+										</div>
+										<div className="btn remove">
+											삭제하기
+										</div>
+									</>
 								:
+									<>
+									<Link href={`/user/${jewelData.user.userId}`}>
+										<a className="btn profile">PROFILE</a>
+									</Link>
 									<div className="btn message">
 										MESSAGE
 									</div>
+									</>
 								}
 							</div>
 						</div>

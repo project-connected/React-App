@@ -12,24 +12,15 @@ import { END } from 'redux-saga';
 import { KeyboardArrowDown } from '@material-ui/icons';
 
 import { Editor } from '../project/create';
-
-import useWindowSize from '../../hooks/useWindowSize';
 import useInput from '../../hooks/useInput';
-import useInputWithSetter from '../../hooks/useInputWithSetter';
-
-import SetStack from '../../components/buttons/SetStack';
-import StackBlock from '../../components/StackBlock';
 import SelectBlocks from '../../components/buttons/SelectBlock';
-import SelectAttr from '../../components/buttons/SelectAttr';
 
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
 const CreateMyAppeal = props => {
 	const dispatch = useDispatch();
-	const { user } = useSelector(state=>state.user);
 	const { skills, region, themes, results } = useSelector(state=>state.common);
-	const { windowRef } = useSelector(state=>state.component);
 
 	const [title, OCTitle] = useInput('');
 	const [regionState, setRegion] = useState([]);
@@ -79,16 +70,13 @@ const CreateMyAppeal = props => {
 		e.preventDefault();
 
 		if (iptStatus === 1) {
-			if (themeState.length === 0 || resultState.length === 0 || regionState.length === 0)
+			if (themeState.length === 0 || resultState.length === 0 || regionState.length === 0 || stackState.length === 0)
 				return;
 		} else if (iptStatus === 2) {
 			if (period.startDate.getTime() === period.endDate.getTime())
 				return ;
 		} else if (iptStatus === 3) {
 			if (title === '')
-				return ;
-		} else if (iptStatus === 4) {
-			if (stackState.length === 0)
 				return ;
 		} else {
 			if (desc === '')
@@ -154,23 +142,7 @@ const CreateMyAppeal = props => {
 						setValue={getTheme}
 						removeValue={removeTheme}
 					/>
-					{/* <SelectAttr
-						name="목적"
-						data={themes}
-						idx={8}
-						value={themeState}
-						getAction={getTheme}
-						status="profile"
-					/> */}
 					<p>어떤 결과물을 만들어보고 싶으신가요?</p>
-					{/* <SelectAttr
-						name="결과물"
-						data={results}
-						idx={9}
-						value={resultState}
-						getAction={getResult}
-						status="profile"
-					/> */}
 					<SelectBlocks
 						data={results}
 						value={resultState}
@@ -178,19 +150,18 @@ const CreateMyAppeal = props => {
 						removeValue={removeResult}
 					/>
 					<p>어느 지역에서 진행하고 싶으신가요?</p>
-					{/* <SelectAttr
-						name="지역"
-						data={region}
-						idx={10}
-						value={regionState}
-						getAction={getRegion}
-						status="profile"
-					/> */}
 					<SelectBlocks
 						data={region}
 						value={regionState}
 						setValue={getRegion}
 						removeValue={removeRegion}
+					/>
+					<p>어떤 스택으로 참여하시고 싶으신가요?</p>
+					<SelectBlocks
+						data={skills}
+						value={stackState}
+						setValue={getStack}
+						removeValue={removeStack}
 					/>
 				</div>
 			</div>
@@ -245,23 +216,8 @@ const CreateMyAppeal = props => {
 				</div>
 			</div>
 			<div className={`new-jewel-page ${iptStatus > 3 ? 'visible' : ''}`}>
-				<div className="new-jewel-content stack">
-					<h3 className="title">4.</h3>
-					<p>가능하신 기술 스택을 골라주세요.</p>
-					<SetStack stacks={skills} value={stackState} setValue={getStack} />
-					<p>당신의 기술 스택</p>
-					<div className="stack-block-box">
-						{stackState.map((c, i) => {
-							return (
-								<StackBlock onClick={removeStack(c)} name={c.value} color={c.color} key={(i)}/>
-							)
-						})}
-					</div>
-				</div>
-			</div>
-			<div className={`new-jewel-page ${iptStatus > 4 ? 'visible' : ''}`}>
 				<div className="new-jewel-content">
-					<h3 className="title">5.</h3>
+					<h3 className="title">4.</h3>
 					<p>자세한 자기 소개를 작성해주세요.</p>
 					<Editor editorValue={desc} OCV={setDesc} />
 				</div>
@@ -270,9 +226,6 @@ const CreateMyAppeal = props => {
 				<KeyboardArrowDown />
 			</button>
 		</div>
-		{/* <button className="next" onClick={nextIptvisible(0)}>
-			<KeyboardArrowDown />
-		</button> */}
 		</>
 	);
 };
