@@ -4,14 +4,10 @@ import Calendar from 'react-calendar';
 import dynamic from 'next/dynamic';
 import moment from 'moment';
 import Router from 'next/router';
-import useWindowSize from '../../../hooks/useWindowSize';
 import { END } from 'redux-saga';
 
 import wrapper from '../../../store/configureStore';
 import axios from 'axios';
-import {
-	GET_PRIOD_FOR_CREATE, GET_STACK_FOR_CREATE, GET_REGION_FOR_CREATE, GET_THEME_FOR_CREATE, GET_RESULT_FOR_CREATE, DELETE_STACK_FOR_CREATE
-} from '../../../reducers/project';
 import { LOAD_USER_REQUEST } from '../../../reducers/user';
 
 import SelectAttr from '../../../components/buttons/SelectAttr';
@@ -30,21 +26,68 @@ export const Editor = dynamic(import ('../../../components/Toast'), {
 	ssr: false
 });
 
-const dummyResult = [{
-	key: 'APPLICATION',
-	value: '어플리케이션 개발'
-}, {
-	key: 'WEB',
-	value: '웹 개발'
-}, {
-	key: 'SERVER',
-	value: '서버 개발'
-}];
+const CreateHeader = () => {
+	const ref1 = useRef();
+	const ref2 = useRef();
+	const ref3 = useRef();
+	const ref4 = useRef();
+	const ref5 = useRef();
+	const refFinish = useRef();
 
-const CreateProj = props => {
+	const refArray = [ref1, ref2, ref3, ref4, ref5, refFinish]
+
+	const [indicatorStyle, setIndecatorStyle] = useState({
+	});
+
+	const clickBtn = useCallback((elem) => (e) => {
+		e.preventDefault();
+		console.log(elem.current);
+		refArray.forEach((rf) => {
+			rf.current.classList.remove('current');
+		});
+
+		elem.current.classList.add('current');
+		setIndecatorStyle({
+			width: elem.current.offsetWidth,
+			left: elem.current.offsetLeft,
+		})
+		console.log(indicatorStyle);
+	}, [indicatorStyle]);
+
+	useEffect(() => {
+		setIndecatorStyle({
+			width: ref1.current.offsetWidth,
+			left: ref1.current.offsetLeft,
+		})
+	}, [])
+
+	return (
+		<div id="project-create-header">
+			<div className="page-btn current" ref={ref1} onClick={clickBtn(ref1)}>
+				1
+			</div>
+			<div className="page-btn" ref={ref2} onClick={clickBtn(ref2)}>
+				2
+			</div>
+			<div className="page-btn" ref={ref3} onClick={clickBtn(ref3)}>
+				3
+			</div>
+			<div className="page-btn" ref={ref4} onClick={clickBtn(ref4)}>
+				4
+			</div>
+			<div className="page-btn" ref={ref5} onClick={clickBtn(ref5)}>
+				5
+			</div>
+			<div className="page-btn" ref={refFinish} onClick={clickBtn(refFinish)}>
+				FINISH
+			</div>
+			<span className="nav-indicator" style={indicatorStyle}/>
+		</div>
+	)
+}
+
+const CreateProj = () => {
 	const widthRef = useRef();
-	const [width, setWidth] = useState(0);
-	const [pageOffset, setPageOffset] = useState(0);
 	const [ title, OCTitle ] = useInput('');
 
 	const [createRegion, setCreateRegion] = useState([]);
@@ -61,16 +104,15 @@ const CreateProj = props => {
 	const [period, setPeriod] = useState(0);
 	const [done, setDone] = useState(false);
 
-	const windowSize = useWindowSize();
-
 	const dispatch = useDispatch();
 
-	const { region, skills, themes } = useSelector(state=>state.common);
+	const { region, skills, themes, results } = useSelector(state=>state.common);
 	const { user } = useSelector(state=>state.user)
 	const { openSubProfile } = useSelector(state=>state.component);
 
-	const pageStyle = {
-		transform: `translateX(${pageOffset}px`
+	const [viewIdx, setViewIdx] = useState(1);
+	const slideStyle = {
+		transform: `translateX(${(viewIdx-1) * 100 * -1}%)`
 	}
 
 	const getCreateRegion = useCallback((data) => {
@@ -100,42 +142,34 @@ const CreateProj = props => {
 		setCreateRegion(createRegion.filter(v => v.key !== data.key))
 	}, [createRegion]);
 
-	const ClickNext = useCallback((idx) => (e) => {
+	const ClickNext = useCallback((e) => {
 		e.preventDefault();
 		console.log(createTheme, createResult, createRegion);
-		if (idx === 0) {
-			if (createTheme.length === 0 || createResult.length === 0)
+		if (viewIdx === 1) {
+			if (createTheme.length === 0 || createResult.length === 0 || createRegion.length === 0)
 				return;
-		} else if (idx === 1) {
-			if (title === '')
-				return ;
-			// 타이틀
-		} else if (idx === 2) {
-			if (createRegion.length === 0)
-				return ;
-			// 지역
-		} else if (idx === 3) {
-			if (period === 0)
-				return ;
-			//기간
-		} else if (idx === 4) {
+		} else if (viewIdx === 2) {
 			if (createStacks.length === 0)
 				return ;
-			// 스택
+		} else if (viewIdx === 3) {
+			if (period === 0)
+				return ;
+		} else if (viewIdx === 4) {
+			if (title === '')
+				return ;
 		} else {
 			if (desc === '')
 				return ;
-			// 소개
 			else
 				setDone(true);
 		}
-		setPageOffset(pageOffset - width);
-	}, [pageOffset, width, createTheme, createResult, title, createRegion, period, createStacks, desc])
+		setViewIdx(viewIdx+1);
+	}, [viewIdx, createTheme, createResult, title, createRegion, period, createStacks, desc])
 
 	const ClickBefore = useCallback((e) => {
 		e.preventDefault();
-		setPageOffset(pageOffset + width)
-	}, [pageOffset, width])
+		setViewIdx(viewIdx-1);
+	}, [viewIdx])
 
 	const set_create_stacks = useCallback((e) => {
 		e.preventDefault();
@@ -178,14 +212,6 @@ const CreateProj = props => {
 		}
 	}, [period]);
 
-	useEffect(() => {
-		const preWidth = width;
-		const offset = widthRef.current.offsetWidth;
-		setWidth(offset);
-		if (pageOffset !== 0)
-			setPageOffset((pageOffset/preWidth)*offset);
-	}, [widthRef, width, windowSize]);
-
 	const createProject = useCallback((e) => {
 		e.preventDefault();
 		console.log('만들기!');
@@ -196,67 +222,46 @@ const CreateProj = props => {
 		setSelectedStack(stack);
 	}, []);
 
-	// useEffect(() => {
-	// 	alert('프로젝트 모집 게시글이 작성되었어요!');
-	// 	Router.push('/project/방금만들어진 프로젝트 id')
-	// }, [isCreatedProject]);
-
-	// useEffect(() => {
-	// 	if (!user.subProfile && !openSubProfile) {
-	// 		alert('추가 정보를 입력해주세요!');
-	// 		dispatch({type: OPEN_SUB_PROFILE})
-	// 	}
-	// }, [user.subProfile, openSubProfile])
-
 	return (
-		<div id="create-wrap" style={pageStyle}>
-			<div className="one-page-component" ref={widthRef}>
+		<>
+		<CreateHeader />
+		<div id="create-wrap">
+			<div className="one-page-component" style={slideStyle} ref={widthRef}>
 				<div className="content-box">
 					<h3 className="title">1.</h3>
 					<div className="selector">
 						<p>어떤 목적으로 프로젝트를 모집하세요?</p>
 						<SelectAttr name="목적" data={themes} value={createTheme} idx={5} getAction={getCreateTheme}/>
 						<p>어떤 결과를 목표로 하시나요?</p>
-						<SelectAttr name="결과물" data={dummyResult} value={createResult} getAction={getCreateResult} idx={6} />
-					</div>
-					<button className="next" onClick={ClickNext(0)}>
-						<KeyboardArrowRight />
-					</button>
-				</div>
-			</div>
-			<div className="one-page-component">
-				<div className="content-box">
-					<h3 className="title">2.</h3>
-					<div className="selector">
-						<p>모집글 제목을 어떻게 하시겠어요?</p>
-						<input name="title" type="text" value={title} onChange={OCTitle} placeholder="제목을 입력해주세요."/>
-					</div>
-					<button className="back" onClick={ClickBefore}>
-						<KeyboardArrowLeft />
-					</button>
-					<button className="next" onClick={ClickNext(1)}>
-						<KeyboardArrowRight />
-					</button>
-				</div>
-			</div>
-			<div className="one-page-component">
-				<div className="content-box">
-					<h3 className="title">3.</h3>
-					<div className="selector">
+						<SelectAttr name="결과물" data={results} value={createResult} getAction={getCreateResult} idx={6} />
 						<p>어느 지역에서 진행하시겠어요?</p>
 						<SelectAttr name="지역" data={region} value={createRegion} getAction={getCreateRegion} idx={7}/>
 					</div>
-					<button className="back" onClick={ClickBefore}>
-						<KeyboardArrowLeft />
-					</button>
-					<button className="next" onClick={ClickNext(2)}>
+					<button className="next" onClick={ClickNext}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
 			</div>
-			<div className="one-page-component">
+			<div className="one-page-component" style={slideStyle}>
 				<div className="content-box">
-					<h3 className="title">4.</h3>
+					<h3 className="title">2.</h3>
+					<div className="selector">
+						<p>모집하고 싶은 기술을 가진 사람들을 설정해주세요.</p>
+						<div className="setting-box">
+
+						</div>
+					</div>
+					<button className="back" onClick={ClickBefore}>
+						<KeyboardArrowLeft />
+					</button>
+					<button className="next" onClick={ClickNext}>
+						<KeyboardArrowRight />
+					</button>
+				</div>
+			</div>
+			<div className="one-page-component" style={slideStyle}>
+				<div className="content-box">
+					<h3 className="title">3.</h3>
 					<div className="selector">
 					{warning === '' ? <p>프로젝트 시작일을 선택해주세요.</p> : <p className="warn">{warning}</p>}
 					<div className="setting-box">
@@ -288,73 +293,42 @@ const CreateProj = props => {
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>
-					<button className="next" onClick={ClickNext(3)}>
+					<button className="next" onClick={ClickNext}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
 			</div>
-			<div className="one-page-component">
+			<div className="one-page-component" style={slideStyle}>
 				<div className="content-box">
-					<h3 className="title">5.</h3>
+					<h3 className="title">4.</h3>
 					<div className="selector">
-						<p>모집하고 싶은 기술을 가진 사람들을 설정해주세요.</p>
-						<div className="setting-box">
-							<SetStack stacks={skills} value={createStacks} setValue={selectStack} />
-							<div className="setting-person">
-								{selectedStack &&
-									<div className="setting">
-										<StackBlock name={selectedStack.value} color={selectedStack.color} />
-										<input type="number" value={stackNum} onChange={OCStackNum}/>
-										<button onClick={set_create_stacks}>
-											추가하기
-										</button>
-									</div>
-								}
-								<div className="setted-box">
-									{
-										createStacks.map((c, i) => {
-											return (
-												<div className="setted-stack" key={(i)}>
-													<StackBlock name={c.value} color={c.color} />
-													{c.maxNum}명
-													<button onClick={deleteStack(c)}>
-														<Close />
-													</button>
-												</div>
-											)
-										})
-									}
-								</div>
-								<div className="result">
-									<p>총 {createStacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)}명</p>
-								</div>
-							</div>
-						</div>
+						<p>모집글 제목을 어떻게 하시겠어요?</p>
+						<input name="title" type="text" value={title} onChange={OCTitle} placeholder="제목을 입력해주세요."/>
 					</div>
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>
-					<button className="next" onClick={ClickNext(4)}>
+					<button className="next" onClick={ClickNext}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
 			</div>
-			<div className="one-page-component">
+			<div className="one-page-component" style={slideStyle}>
 				<div className="content-box">
-					<h3 className="title">6.</h3>
+					<h3 className="title">5.</h3>
 					<div className="selector">
 						<p>프로젝트에 대한 자세한 설명을 작성해주세요.</p>
 						<Editor editorValue={desc} OCV={setDesc} />
 						<button className="back" onClick={ClickBefore}>
 							<KeyboardArrowLeft />
 						</button>
-						<button className="next" onClick={ClickNext(5)}>
+						<button className="next" onClick={ClickNext}>
 							<KeyboardArrowRight />
 						</button>
 					</div>
 				</div>
 			</div>
-			<div className="one-page-component">
+			<div className="one-page-component" style={slideStyle}>
 				<div className="content-box">
 					<h3 className="title">마지막 .</h3>
 					<div className="selector overflowAuto">
@@ -380,6 +354,7 @@ const CreateProj = props => {
 				</div>
 			</div>
 		</div>
+		</>
 	);
 };
 

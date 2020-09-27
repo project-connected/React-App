@@ -134,10 +134,38 @@
 	}
 }
 
+#project-create-header {
+	display: inline-flex;
+	padding-left: 3rem;
+	position: relative;
+
+	.page-btn {
+		font-size: 2rem;
+		font-weight: 700;
+		color: #999;
+		margin-right: 2rem;
+		transition: .3s;
+		cursor: pointer;
+
+		&.current, &:hover {
+			color: #6980ff;
+		}
+	}
+
+	.nav-indicator {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		height: 4px;
+		transition: .2s;
+		border-radius: 5px;
+		background: #6980ff;
+	}
+}
 
 #create-wrap {
 	display: flex;
-	width: 700%;
+	width: 600%;
 	transition: all .3s ease 0s;
 	height: 80vh;
 
@@ -149,6 +177,7 @@
 		align-items: center;
 		justify-content: center;
 		height: 100%;
+		transition: .3s;
 
 		.content-box {
 			position: relative;
