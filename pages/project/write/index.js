@@ -11,6 +11,7 @@ import axios from 'axios';
 import { LOAD_USER_REQUEST } from '../../../reducers/user';
 
 import SelectAttr from '../../../components/buttons/SelectAttr';
+import SelectBlocks from '../../../components/buttons/SelectBlock';
 import useInput from '../../../hooks/useInput';
 import useInputWithSetter from '../../../hooks/useInputWithSetter';
 import SetStack from '../../../components/buttons/SetStack';
@@ -56,25 +57,27 @@ const CreateHeader = ({ idx, availIdx, clickFunction }) => {
 
 	return (
 		<div id="project-create-header">
-			<div className="page-btn current" ref={ref1} onClick={clickFunction(1)}>
-				1
+			<div className="project-create-header-box">
+				<div className="page-btn current" ref={ref1} onClick={clickFunction(1)}>
+					1
+				</div>
+				<div className="page-btn" ref={ref2} onClick={clickFunction(2)}>
+					2
+				</div>
+				<div className="page-btn" ref={ref3} onClick={clickFunction(3)}>
+					3
+				</div>
+				<div className="page-btn" ref={ref4} onClick={clickFunction(4)}>
+					4
+				</div>
+				<div className="page-btn" ref={ref5} onClick={clickFunction(5)}>
+					5
+				</div>
+				<div className="page-btn" ref={refFinish} onClick={clickFunction(6)}>
+					FINISH
+				</div>
+				<span className="nav-indicator" style={indicatorStyle}/>
 			</div>
-			<div className="page-btn" ref={ref2} onClick={clickFunction(2)}>
-				2
-			</div>
-			<div className="page-btn" ref={ref3} onClick={clickFunction(3)}>
-				3
-			</div>
-			<div className="page-btn" ref={ref4} onClick={clickFunction(4)}>
-				4
-			</div>
-			<div className="page-btn" ref={ref5} onClick={clickFunction(5)}>
-				5
-			</div>
-			<div className="page-btn" ref={refFinish} onClick={clickFunction(6)}>
-				FINISH
-			</div>
-			<span className="nav-indicator" style={indicatorStyle}/>
 		</div>
 	)
 }
@@ -238,11 +241,26 @@ const CreateProj = () => {
 					<h3 className="title">1.</h3>
 					<div className="selector">
 						<p>어떤 목적으로 프로젝트를 모집하세요?</p>
-						<SelectAttr name="목적" data={themes} value={createTheme} idx={5} getAction={getCreateTheme}/>
+						<SelectBlocks
+							data={themes}
+							value={createTheme}
+							setValue={getCreateTheme}
+							removeValue={removeTheme}
+						/>
 						<p>어떤 결과를 목표로 하시나요?</p>
-						<SelectAttr name="결과물" data={results} value={createResult} getAction={getCreateResult} idx={6} />
+						<SelectBlocks
+							data={results}
+							value={createResult}
+							setValue={getCreateResult}
+							removeValue={removeResult}
+						/>
 						<p>어느 지역에서 진행하시겠어요?</p>
-						<SelectAttr name="지역" data={region} value={createRegion} getAction={getCreateRegion} idx={7}/>
+						<SelectBlocks
+							data={region}
+							value={createRegion}
+							setValue={getCreateRegion}
+							removeValue={removeRegion}
+						/>
 					</div>
 					<button className="next" onClick={ClickNext(1)}>
 						<KeyboardArrowRight />
