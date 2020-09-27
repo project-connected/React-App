@@ -4,29 +4,29 @@ import Calendar from 'react-calendar';
 import dynamic from 'next/dynamic';
 import moment from 'moment';
 import Router from 'next/router';
-import useWindowSize from '../../hooks/useWindowSize';
+import useWindowSize from '../../../hooks/useWindowSize';
 import { END } from 'redux-saga';
 
-import wrapper from '../../store/configureStore';
+import wrapper from '../../../store/configureStore';
 import axios from 'axios';
 import {
 	GET_PRIOD_FOR_CREATE, GET_STACK_FOR_CREATE, GET_REGION_FOR_CREATE, GET_THEME_FOR_CREATE, GET_RESULT_FOR_CREATE, DELETE_STACK_FOR_CREATE
-} from '../../reducers/project';
-import { LOAD_USER_REQUEST } from '../../reducers/user';
+} from '../../../reducers/project';
+import { LOAD_USER_REQUEST } from '../../../reducers/user';
 
-import SelectAttr from '../../components/buttons/SelectAttr';
-import useInput from '../../hooks/useInput';
-import useInputWithSetter from '../../hooks/useInputWithSetter';
-import SetStack from '../../components/buttons/SetStack';
-import StackBlock from '../../components/StackBlock';
+import SelectAttr from '../../../components/buttons/SelectAttr';
+import useInput from '../../../hooks/useInput';
+import useInputWithSetter from '../../../hooks/useInputWithSetter';
+import SetStack from '../../../components/buttons/SetStack';
+import StackBlock from '../../../components/StackBlock';
 
 import { KeyboardArrowRight, KeyboardArrowLeft, Close } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { ProjectPage } from './[index]';
-import { LOAD_COMMON_REQUEST } from '../../reducers/common';
-import { OPEN_SUB_PROFILE } from '../../reducers/component';
+import { ProjectPage } from '../[index]';
+import { LOAD_COMMON_REQUEST } from '../../../reducers/common';
+import { OPEN_SUB_PROFILE } from '../../../reducers/component';
 
-export const Editor = dynamic(import ('../../components/Toast'), {
+export const Editor = dynamic(import ('../../../components/Toast'), {
 	ssr: false
 });
 

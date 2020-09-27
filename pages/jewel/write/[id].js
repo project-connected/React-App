@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useCallback, useRef} from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Calendar from 'react-calendar';
 import Router from 'next/router';
@@ -11,7 +10,7 @@ import { END } from 'redux-saga';
 
 import { KeyboardArrowDown, Check } from '@material-ui/icons';
 
-import { Editor } from '../../project/create';
+import Editor from '../../../components/Editor';
 import useInput from '../../../hooks/useInput';
 import SelectBlocks from '../../../components/buttons/SelectBlock';
 import BackGround from '../../../containers/BackGround';
