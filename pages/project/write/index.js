@@ -58,13 +58,6 @@ const CreateHeader = ({ idx, availIdx, clickFunction }) => {
 		})
 	}, [idx, availIdx]);
 
-	useEffect(() => {
-		setIndecatorStyle({
-			width: ref1.current.offsetWidth,
-			left: ref1.current.offsetLeft
-		})
-	}, [ref1.current])
-
 	return (
 		<div id="project-create-header">
 			<div className="project-create-header-box">
