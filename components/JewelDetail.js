@@ -1,12 +1,17 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Link from 'next/link';
 import ReactMarkdown from "react-markdown";
 import moment from 'moment';
-
 import { useSelector } from 'react-redux';
+
+import Confirm from './Confirm';
+import BackGround from '../containers/BackGround';
 
 const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 	const { user } = useSelector(state=>state.user);
+	const { isDeleting } = useSelector(state=>state.jewel);
+
+	const [isRemove, setRemove] = useState(false);
 
 	const userName = jewelData ? jewelData.user.userName : '사용자';
 
@@ -23,6 +28,16 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 		<>
 		{jewelData &&
 			<>
+			<BackGround open={isRemove} setOpen={setRemove} zIndex={102}>
+				<Confirm
+					content="해당 정보를 삭제하시겠습니까?"
+					confirm="네"
+					close="아니오"
+					closeFunction={() => setRemove(false)}
+					loading={isDeleting}
+					zIndex={103}
+				/>
+			</BackGround>
 			<div className={boxClass}>
 				<div className="jewel-detail">
 					<div className="back-img blur" style={{backgroundImage: `url(${jewelData.user.profileImg})`}}/>
@@ -40,7 +55,7 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 											수정하기
 											</a>
 										</Link>
-										<div className="btn remove">
+										<div className="btn remove" onClick={() => setRemove(true)}>
 											삭제하기
 										</div>
 									</>

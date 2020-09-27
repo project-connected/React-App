@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 
-const BackGround = ({ mode="component", open, setOpen, children }) => {
+const BackGround = ({ mode="component", open, setOpen, children, zIndex=100 }) => {
 
 	const CloseDetail = useCallback((e) => {
 		e.preventDefault();
@@ -12,7 +12,7 @@ const BackGround = ({ mode="component", open, setOpen, children }) => {
 	return (
 		<>
 			{open && children}
-			{ mode === 'component' && <div className={backgroundClass} onClick={CloseDetail} />}
+			{ mode === 'component' && <div className={backgroundClass} onClick={CloseDetail} style={{zIndex: zIndex}}/>}
 		</>
 	);
 };
