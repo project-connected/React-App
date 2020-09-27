@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import wrapper from '../../store/configureStore';
 
-import { JewelDetail } from '../jewel';
+import JewelDetail from '../../components/JewelDetail';
 
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';

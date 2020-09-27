@@ -66,6 +66,7 @@ const SearchProj = props => {
 	const [searchTheme, setSearchTheme] = useState([]);
 	const [searchResult, setSearchResult] = useState([]);
 	const [searchStacks, setSearchStacks] = useState([]);
+	const [searchStartDate, setSearchStartDate] = useState(new Date());
 
 	const getRegion = useCallback((rg) => {
 		setSearchRegion([...searchRegion, rg]);
@@ -134,7 +135,7 @@ const SearchProj = props => {
 						<SelectAttr status="search" value={searchRegion} idx={0} name="지역" data={region} getAction={getRegion} />
 						<SelectAttr status="search" value={searchTheme} idx={1} name="목적" data={themes} getAction={getTheme} />
 						<SelectAttr status="search" value={searchResult} idx={2} name="결과물" data={dummyResult} getAction={getResult} />
-						<SelectPeriod />
+						<SelectPeriod value={searchStartDate} setValue={setSearchStartDate}/>
 						<SelectStack skills={skills} value={searchStacks} getAction={getStacks}/>
 					</div>
 					<div className="filter-attr-box">

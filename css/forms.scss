@@ -185,6 +185,14 @@
 		height: 90%;
 		transition: .3s;
 
+		&.editor .content-box {
+			height: 100%;
+
+			.selector {
+				height: 100%;
+			}
+		}
+
 		.content-box {
 			position: relative;
 			padding: 2rem;

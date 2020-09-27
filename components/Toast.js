@@ -32,7 +32,7 @@ const Toast = ({ editorValue, OCV, mirror="tab" }) => {
 		<Editor
 			initialValue={editorValue}
 			previewStyle="vertical"
-			height="600px"
+			height="inherit"
 			initialEditType="markdown"
 			placeholder="이곳에 글을 작성하세요"
 			useCommandShortcut={true}

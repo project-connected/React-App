@@ -355,11 +355,11 @@ const CreateProj = () => {
 					</button>
 				</div>
 			</div>
-			<div className="one-page-component" style={slideStyle}>
+			<div className="one-page-component editor" style={slideStyle}>
 				<div className="content-box">
 					<div className="selector">
 						<p>프로젝트에 대한 자세한 설명을 작성해주세요.</p>
-						<Editor editorValue={desc} OCV={setDesc} />
+						<Editor editorValue={desc} OCV={setDesc}/>
 						<button className="back" onClick={ClickBefore}>
 							<KeyboardArrowLeft />
 						</button>

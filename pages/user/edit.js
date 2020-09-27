@@ -10,11 +10,11 @@ import { END } from 'redux-saga';
 import useInput from '../../hooks/useInput';
 import useInputWithSetter from '../../hooks/useInputWithSetter';
 
-import { Editor } from '../project/create';
+import Editor from '../../components/Editor';
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 
-import SelectBlock from '../../components/buttons/SelectBlock';
+import SelectBlocks from '../../components/buttons/SelectBlocks';
 
 const ChangePassword = ({ open, setOpen }) => {
 	const dispatch = useDispatch();
@@ -239,19 +239,19 @@ const Profile = () => {
 				</div>
 				<div className="profile-attr">
 					<p className="title">REGION</p>
-					<SelectBlock mode="single" data={region} value={userRegion} setValue={setUserRegion} />
+					<SelectBlocks mode="single" data={region} value={userRegion} setValue={setUserRegion} />
 				</div>
 				<div className="profile-attr">
 					<p className="title">STACK</p>
-					<SelectBlock mode="multi" data={skills} value={userStacks} setValue={getStacks} removeValue={removeStacks} />
+					<SelectBlocks mode="multi" data={skills} value={userStacks} setValue={getStacks} removeValue={removeStacks} />
 				</div>
 				<div className="profile-attr">
 					<p className="title">INTEREST THEME</p>
-					<SelectBlock mode="multi" data={themes} value={userThemes} setValue={getThemes} removeValue={removeThemes} />
+					<SelectBlocks mode="multi" data={themes} value={userThemes} setValue={getThemes} removeValue={removeThemes} />
 				</div>
 				<div className="profile-attr">
 					<p className="title">INTEREST PRODUCT</p>
-					<SelectBlock mode="multi" data={results} value={userProducts} setValue={getProducts} removeValue={removeProducts} />
+					<SelectBlocks mode="multi" data={results} value={userProducts} setValue={getProducts} removeValue={removeProducts} />
 				</div>
 				<div className="profile-attr">
 					<p className="title">INTRODUCT</p>
