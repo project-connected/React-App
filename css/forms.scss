@@ -136,8 +136,12 @@
 
 #project-create-header {
 	display: inline-flex;
-	padding-left: 3rem;
-	position: relative;
+	left: 3rem;
+	position: fixed;
+
+	.project-create-header-box {
+		position: relative;
+	}
 
 	.page-btn {
 		font-size: 2rem;

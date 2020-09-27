@@ -26,7 +26,7 @@ export const Editor = dynamic(import ('../../../components/Toast'), {
 	ssr: false
 });
 
-const CreateHeader = () => {
+const CreateHeader = ({ idx, availIdx, clickFunction }) => {
 	const ref1 = useRef();
 	const ref2 = useRef();
 	const ref3 = useRef();
@@ -36,49 +36,42 @@ const CreateHeader = () => {
 
 	const refArray = [ref1, ref2, ref3, ref4, ref5, refFinish]
 
-	const [indicatorStyle, setIndecatorStyle] = useState({
-	});
+	const [indicatorStyle, setIndecatorStyle] = useState({});
 
-	const clickBtn = useCallback((elem) => (e) => {
-		e.preventDefault();
-		console.log(elem.current);
+	useEffect(() => {
+		if (idx > availIdx)
+			return ;
+
 		refArray.forEach((rf) => {
 			rf.current.classList.remove('current');
 		});
 
-		elem.current.classList.add('current');
-		setIndecatorStyle({
-			width: elem.current.offsetWidth,
-			left: elem.current.offsetLeft,
-		})
-		console.log(indicatorStyle);
-	}, [indicatorStyle]);
+		refArray[idx-1].current.classList.add('current');
 
-	useEffect(() => {
 		setIndecatorStyle({
-			width: ref1.current.offsetWidth,
-			left: ref1.current.offsetLeft,
+			width: refArray[idx-1].current.offsetWidth,
+			left: refArray[idx-1].current.offsetLeft,
 		})
-	}, [])
+	}, [idx, availIdx]);
 
 	return (
 		<div id="project-create-header">
-			<div className="page-btn current" ref={ref1} onClick={clickBtn(ref1)}>
+			<div className="page-btn current" ref={ref1} onClick={clickFunction(1)}>
 				1
 			</div>
-			<div className="page-btn" ref={ref2} onClick={clickBtn(ref2)}>
+			<div className="page-btn" ref={ref2} onClick={clickFunction(2)}>
 				2
 			</div>
-			<div className="page-btn" ref={ref3} onClick={clickBtn(ref3)}>
+			<div className="page-btn" ref={ref3} onClick={clickFunction(3)}>
 				3
 			</div>
-			<div className="page-btn" ref={ref4} onClick={clickBtn(ref4)}>
+			<div className="page-btn" ref={ref4} onClick={clickFunction(4)}>
 				4
 			</div>
-			<div className="page-btn" ref={ref5} onClick={clickBtn(ref5)}>
+			<div className="page-btn" ref={ref5} onClick={clickFunction(5)}>
 				5
 			</div>
-			<div className="page-btn" ref={refFinish} onClick={clickBtn(refFinish)}>
+			<div className="page-btn" ref={refFinish} onClick={clickFunction(6)}>
 				FINISH
 			</div>
 			<span className="nav-indicator" style={indicatorStyle}/>
@@ -110,9 +103,11 @@ const CreateProj = () => {
 	const { user } = useSelector(state=>state.user)
 	const { openSubProfile } = useSelector(state=>state.component);
 
-	const [viewIdx, setViewIdx] = useState(1);
+	const [availPage, setAvailPage] = useState(1);
+	const [currentPage, setCurrentPage] = useState(1);
+
 	const slideStyle = {
-		transform: `translateX(${(viewIdx-1) * 100 * -1}%)`
+		transform: `translateX(${(currentPage-1) * 100 * -1}%)`
 	}
 
 	const getCreateRegion = useCallback((data) => {
@@ -142,34 +137,39 @@ const CreateProj = () => {
 		setCreateRegion(createRegion.filter(v => v.key !== data.key))
 	}, [createRegion]);
 
-	const ClickNext = useCallback((e) => {
+	const ClickNext = useCallback((idx) =>(e) => {
 		e.preventDefault();
-		console.log(createTheme, createResult, createRegion);
-		if (viewIdx === 1) {
+		if (idx === 1) {
 			if (createTheme.length === 0 || createResult.length === 0 || createRegion.length === 0)
 				return;
-		} else if (viewIdx === 2) {
+			setCurrentPage(2)
+		} else if (idx === 2) {
 			if (createStacks.length === 0)
 				return ;
-		} else if (viewIdx === 3) {
+			setCurrentPage(3)
+		} else if (idx === 3) {
 			if (period === 0)
 				return ;
-		} else if (viewIdx === 4) {
+			setCurrentPage(4)
+		} else if (idx === 4) {
 			if (title === '')
 				return ;
+			setCurrentPage(5)
 		} else {
 			if (desc === '')
 				return ;
-			else
+			else {
 				setDone(true);
+				return ;
+			}
 		}
-		setViewIdx(viewIdx+1);
-	}, [viewIdx, createTheme, createResult, title, createRegion, period, createStacks, desc])
+		setAvailPage(availPage+1);
+	}, [availPage, createTheme, createResult, title, createRegion, period, createStacks, desc])
 
 	const ClickBefore = useCallback((e) => {
 		e.preventDefault();
-		setViewIdx(viewIdx-1);
-	}, [viewIdx])
+		setCurrentPage(currentPage-1);
+	}, [currentPage])
 
 	const set_create_stacks = useCallback((e) => {
 		e.preventDefault();
@@ -222,9 +222,16 @@ const CreateProj = () => {
 		setSelectedStack(stack);
 	}, []);
 
+	const headerClick = useCallback((idx) => (e) => {
+		e.preventDefault();
+		if (idx > availPage)
+			return ;
+		setCurrentPage(idx);
+	}, [availPage]);
+
 	return (
 		<>
-		<CreateHeader />
+		<CreateHeader idx={currentPage} availIdx={availPage} clickFunction={headerClick}/>
 		<div id="create-wrap">
 			<div className="one-page-component" style={slideStyle} ref={widthRef}>
 				<div className="content-box">
@@ -237,7 +244,7 @@ const CreateProj = () => {
 						<p>어느 지역에서 진행하시겠어요?</p>
 						<SelectAttr name="지역" data={region} value={createRegion} getAction={getCreateRegion} idx={7}/>
 					</div>
-					<button className="next" onClick={ClickNext}>
+					<button className="next" onClick={ClickNext(1)}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
@@ -254,7 +261,7 @@ const CreateProj = () => {
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>
-					<button className="next" onClick={ClickNext}>
+					<button className="next" onClick={ClickNext(2)}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
@@ -293,7 +300,7 @@ const CreateProj = () => {
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>
-					<button className="next" onClick={ClickNext}>
+					<button className="next" onClick={ClickNext(3)}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
@@ -308,7 +315,7 @@ const CreateProj = () => {
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>
-					<button className="next" onClick={ClickNext}>
+					<button className="next" onClick={ClickNext(4)}>
 						<KeyboardArrowRight />
 					</button>
 				</div>
@@ -322,7 +329,7 @@ const CreateProj = () => {
 						<button className="back" onClick={ClickBefore}>
 							<KeyboardArrowLeft />
 						</button>
-						<button className="next" onClick={ClickNext}>
+						<button className="next" onClick={ClickNext(5)}>
 							<KeyboardArrowRight />
 						</button>
 					</div>
