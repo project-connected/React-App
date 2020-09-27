@@ -129,40 +129,18 @@ const dummyProject = [{
 },]
 
 const initialState = {
-	search_region: [],
-	search_theme: [],
-	search_priod: '',
-	search_stacks: [],
-	search_result: [],
 	filterAttrOpenIndx: -1,
-	create_stacks: [],
-	create_theme: '',
-	create_result: '',
-	create_region: '',
-	create_priod: '',
 	projectList: dummyProject,
+	isCreating: false,
+	isCreated: false,
+	createError: '',
+	isEditing: false,
+	isEdited: false,
+	editError: '',
+	isRemoving: false,
+	isRemoved: false,
+	removeError: '',
 }
-
-export const GET_REGION_FOR_SEARCH = 'GET_REGION_FOR_SEARCH';
-export const GET_THEME_FOR_SEARCH = 'GET_THEME_FOR_SEARCH';
-export const GET_PRIOD_FOR_SEARCH = 'GET_PRIOD_FOR_SEARCH';
-export const GET_STACK_FOR_SEARCH = 'GET_STACK_FOR_SEARCH';
-export const GET_RESULT_FOR_SEARCH = 'GET_RESULT_FOR_SEARCH';
-
-export const LOSE_REGION_FOR_SEARCH = 'LOSE_REGION_FOR_SEARCH';
-export const LOSE_THEME_FOR_SEARCH = 'LOSE_THEME_FOR_SEARCH';
-export const LOSE_PRIOD_FOR_SEARCH = 'LOSE_PRIOD_FOR_SEARCH';
-export const LOSE_STACK_FOR_SEARCH = 'LOSE_STACK_FOR_SEARCH';
-export const LOSE_RESULT_FOR_SEARCH = 'LOSE_RESULT_FOR_SEARCH';
-
-
-export const GET_REGION_FOR_CREATE = 'GET_REGION_FOR_CREATE';
-export const GET_THEME_FOR_CREATE = 'GET_THEME_FOR_CREATE';
-export const GET_RESULT_FOR_CREATE = 'GET_RESULT_FOR_CREATE';
-export const GET_PRIOD_FOR_CREATE = 'GET_PRIOD_FOR_CREATE';
-export const GET_STACK_FOR_CREATE = 'GET_STACK_FOR_CREATE';
-
-export const DELETE_STACK_FOR_CREATE = 'DELETE_STACK_FOR_CREATE';
 
 export const OPEN_FILTER_ATTR = 'OPEN_FILTER_ATTR';
 
@@ -174,75 +152,9 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 			draft.filterAttrOpenIndx = -1;
 			break;
 		}
-		case GET_REGION_FOR_SEARCH: {
-			draft.search_region = draft.search_region.concat(action.data);
-			break;
-		}
-		case LOSE_REGION_FOR_SEARCH: {
-			draft.search_region = draft.search_region.filter(v => v.key !== action.data.key);
-			break;
-		}
-
-		case GET_THEME_FOR_SEARCH: {
-			draft.search_theme = draft.search_theme.concat(action.data);
-			break;
-		}
-		case LOSE_THEME_FOR_SEARCH: {
-			draft.search_theme = draft.search_theme.filter(v => v.key !== action.data.key);
-			break;
-		}
-
-		case GET_RESULT_FOR_SEARCH: {
-			draft.search_result = draft.search_result.concat(action.data);
-			break;
-		}
-		case LOSE_RESULT_FOR_SEARCH: {
-			draft.search_result = draft.search_result.filter(v => v.key !== action.data.key);
-			break;
-		}
-
-		case GET_PRIOD_FOR_SEARCH: {
-			draft.search_priod = action.data;
-			break;
-		}
-
-		case GET_STACK_FOR_SEARCH: {
-			draft.search_stacks = draft.search_stacks.concat(action.data);
-			break;
-		}
-		case LOSE_STACK_FOR_SEARCH: {
-			draft.search_stacks = draft.search_stacks.filter(v => v.key !== action.data.key);
-			break;
-		}
 
 		case OPEN_FILTER_ATTR: {
 			draft.filterAttrOpenIndx = action.data;
-			break;
-		}
-
-		case GET_REGION_FOR_CREATE: {
-			draft.create_region = action.data;
-			break;
-		}
-		case GET_STACK_FOR_CREATE: {
-			draft.create_stacks = draft.create_stacks.concat(action.data);
-			break;
-		}
-		case GET_THEME_FOR_CREATE: {
-			draft.create_theme = action.data;
-			break;
-		}
-		case GET_RESULT_FOR_CREATE: {
-			draft.create_result = action.data;
-			break;
-		}
-		case GET_PRIOD_FOR_CREATE: {
-			draft.create_priod = action.data;
-			break;
-		}
-
-		case DELETE_STACK_FOR_CREATE: {
-			draft.create_stacks = draft.create_stacks.filter(v => v.key !== action.data.key)
 			break;
 		}
 
