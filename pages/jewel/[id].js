@@ -9,7 +9,7 @@ import { LOAD_JEWEL_REQUEST } from '../../reducers/jewel';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 
-import { JewelDetail } from './index';
+import JewelDetail from '../../components/JewelDetail';
 
 const JewelPage = props => {
 	const { jewelData } = useSelector(state=>state.jewel);

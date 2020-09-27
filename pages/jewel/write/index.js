@@ -15,30 +15,11 @@ import { Editor } from '../../project/create';
 import useInput from '../../../hooks/useInput';
 import SelectBlocks from '../../../components/buttons/SelectBlock';
 import BackGround from '../../../containers/BackGround';
+import Confirm from '../../../components/Confirm';
 
 import { LOAD_USER_REQUEST } from '../../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../../reducers/common';
 import { CREATE_JEWEL_REQUEST, LOAD_JEWEL_REQUEST } from '../../../reducers/jewel';
-
-const ConfirmEdit = ({ closeFunction, confirmFunction, content="select Yes Or No", confirm="YES", close="NO", loading=false }) => {
-	return (
-		<div className="confirm-box">
-			{loading ?
-				<>
-					<div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-				</>
-			:
-				<>
-				<p>{content}</p>
-				<div className="confirm-box-btn-container">
-					<div className="confirm-btn left" onClick={confirmFunction}>{confirm}</div>
-					<div className="confirm-btn right" onClick={closeFunction}>{close}</div>
-				</div>
-				</>
-			}
-		</div>
-	)
-}
 
 const CreateMyAppeal = () => {
 	const dispatch = useDispatch();
@@ -191,7 +172,7 @@ const CreateMyAppeal = () => {
 	return (
 		<>
 		<BackGround open={confirmWindow} setOpen={setConfirmWindow}>
-			<ConfirmEdit closeFunction={closeConfirm} confirmFunction={submitJewel} content="작성한 내용으로 전송하시겠습니까?" confirm="넹 !" close="아니용 !" loading={isSubmitting}/>
+			<Confirm closeFunction={closeConfirm} confirmFunction={submitJewel} content="작성한 내용으로 전송하시겠습니까?" confirm="넹 !" close="아니용 !" loading={isSubmitting}/>
 		</BackGround>
 		<div id="new-jewel-wrap" ref={scrollRef}>
 			<div className={`new-jewel-page ${iptStatus > 0 ? 'visible' : ''}`}>
