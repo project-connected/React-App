@@ -14,8 +14,6 @@ import SelectAttr from '../../components/buttons/SelectAttr';
 import SelectPeriod from '../../components/buttons/SelectPeriod';
 import SelectStack from '../../components/buttons/SelectStack';
 
-// import useAppend from '../../hooks/useAppend';
-
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_JEWEL_REQUEST } from '../../reducers/jewel';
@@ -27,7 +25,8 @@ export const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 
 	const CloseDetail = useCallback((e) => {
 		e.preventDefault();
-		setOpen(false);
+		if (mode === 'component')
+			setOpen(false);
 	}, []);
 
 	const backgroundClass = open ? "back-btn visible" : "back-btn hide";
