@@ -14,7 +14,7 @@ import { KeyboardArrowDown, Check } from '@material-ui/icons';
 
 import Editor from '../../../components/Editor';
 import useInput from '../../../hooks/useInput';
-import SelectBlocks from '../../../components/buttons/SelectBlock';
+import SelectBlocks from '../../../components/buttons/SelectBlocks';
 import BackGround from '../../../containers/BackGround';
 import Confirm from '../../../components/Confirm';
 

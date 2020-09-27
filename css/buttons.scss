@@ -183,17 +183,14 @@
 
 		.select-block-wrap {
 			display: flex;
+			flex-flow: row wrap;
 			overflow: hidden;
 			width: 100%;
 			overflow-x: auto;
 			position: relative;
 
 			.select-block {
-				margin-left: .3rem;
-
-				&:nth-child(1) {
-					margin-left: -.5rem;
-				}
+				margin: .3rem 0 0 .3rem;
 			}
 		}
 	}
@@ -222,7 +219,7 @@
 		}
 
 		.block-list-search {
-			// padding: .2rem .5rem;
+			padding: .3rem;
 			position: relative;
 			width: 100%;
 			background: #fff;
@@ -245,7 +242,7 @@
 	}
 
 	.select-block-wrap {
-		padding: .3rem .5rem;
+		padding: 0 .5rem .3rem 0;
 		position: relative;
 		width: 100%;
 		min-height: 2rem;
@@ -273,6 +270,7 @@
 			.select-block {
 				margin-left: .3rem;
 				z-index: 3;
+				line-height: 1.2rem;
 
 				&:nth-child(1) {
 					margin-left: -.5rem;
@@ -280,6 +278,23 @@
 
 				&.multi {
 					padding: .1rem 2rem .1rem .5rem;
+					margin-top: .3rem;
+				}
+
+				&.temp {
+					padding-right: 2.5rem;
+					color: #fff;
+					background: linear-gradient(#7990ff, #9198e5);
+
+					.close-btn {
+						background: #FFF;
+						padding: auto .5rem;
+						border-radius: 3px;
+						cursor: text;
+						width: 3ch;
+						text-align: center;
+						line-height: 1rem;
+					}
 				}
 
 				.close-btn {

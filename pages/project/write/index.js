@@ -10,14 +10,12 @@ import wrapper from '../../../store/configureStore';
 import axios from 'axios';
 import { LOAD_USER_REQUEST } from '../../../reducers/user';
 
-import SelectAttr from '../../../components/buttons/SelectAttr';
-import SelectBlocks from '../../../components/buttons/SelectBlock';
+import SelectBlocks from '../../../components/buttons/SelectBlocks';
+import SelectStackForProject from '../../../components/buttons/SelectStackForProject';
 import useInput from '../../../hooks/useInput';
 import useInputWithSetter from '../../../hooks/useInputWithSetter';
-import SetStack from '../../../components/buttons/SetStack';
-import StackBlock from '../../../components/StackBlock';
 
-import { KeyboardArrowRight, KeyboardArrowLeft, Close } from '@material-ui/icons';
+import { KeyboardArrowRight, KeyboardArrowLeft } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { ProjectPage } from '../[index]';
 import { LOAD_COMMON_REQUEST } from '../../../reducers/common';
@@ -97,8 +95,9 @@ const CreateProj = () => {
 	const [startDate, setStartDate] = useState(new Date());
 	const [clickDate, setClickDate] = useState(false);
 	const [warning, setWarning] = useState('');
-	const [period, setPeriod] = useState(0);
+	const [period, setPeriod] = useState('');
 	const [done, setDone] = useState(false);
+	const [confirm, setConfirm] = useState(false);
 
 	const dispatch = useDispatch();
 
@@ -125,6 +124,10 @@ const CreateProj = () => {
 		setCreateResult([...createResult, data]);
 	}, [createResult]);
 
+	const getCreateStack = useCallback((data) => {
+		setCreateStacks([...createStacks, data]);
+	}, [createStacks]);
+
 	const removeTheme = useCallback((data) => (e) => {
 		e.preventDefault();
 		setCreateTheme(createTheme.filter(v => v.key !== data.key))
@@ -140,61 +143,53 @@ const CreateProj = () => {
 		setCreateRegion(createRegion.filter(v => v.key !== data.key))
 	}, [createRegion]);
 
+	const removeStack = useCallback((data) => (e) => {
+		e.preventDefault();
+		setCreateStacks(createStacks.filter(v => v.key !== data.key))
+	}, [createStacks]);
+
 	const ClickNext = useCallback((idx) =>(e) => {
 		e.preventDefault();
+		console.log(idx);
 		if (idx === 1) {
 			if (createTheme.length === 0 || createResult.length === 0 || createRegion.length === 0)
 				return;
-			setCurrentPage(2)
+			else if (idx === availPage)
+				setAvailPage(2);
 		} else if (idx === 2) {
 			if (createStacks.length === 0)
 				return ;
-			setCurrentPage(3)
+			else if (idx === availPage)
+				setAvailPage(3);
 		} else if (idx === 3) {
 			if (period === 0)
 				return ;
-			setCurrentPage(4)
+			else if (idx === availPage)
+				setAvailPage(4);
 		} else if (idx === 4) {
 			if (title === '')
 				return ;
-			setCurrentPage(5)
-		} else {
+			else if (idx === availPage)
+				setAvailPage(5);
+		} else if (idx === 5) {
 			if (desc === '')
 				return ;
-			else {
+			else if (idx === availPage) {
 				setDone(true);
-				return ;
+				setAvailPage(6);
 			}
+		} else {
+			setConfirm(true);
+			return ;
 		}
-		setAvailPage(availPage+1);
-	}, [availPage, createTheme, createResult, title, createRegion, period, createStacks, desc])
+		setCurrentPage(currentPage + 1)
+		console.log(availPage);
+	}, [availPage, currentPage, createTheme, createResult, title, createRegion, period, createStacks, desc])
 
 	const ClickBefore = useCallback((e) => {
 		e.preventDefault();
 		setCurrentPage(currentPage-1);
 	}, [currentPage])
-
-	const set_create_stacks = useCallback((e) => {
-		e.preventDefault();
-		if (stackNum > 0) {
-			setCreateStacks([...createStacks, {
-				key: selectedStack.key,
-				color: selectedStack.color,
-				value: selectedStack.value,
-				num: 0,
-				maxNum: Number(stackNum)
-			}])
-			setSelectedStack(null);
-			setStackNum(0);
-		}
-	}, [createStacks, stackNum])
-
-	const deleteStack = useCallback((c) => (e) => {
-		dispatch({
-			type: DELETE_STACK_FOR_CREATE,
-			data: c
-		})
-	})
 
 	const OCStartDate = useCallback((date) => {
 		if (date.getTime() < new Date().getTime())
@@ -215,16 +210,6 @@ const CreateProj = () => {
 		}
 	}, [period]);
 
-	const createProject = useCallback((e) => {
-		e.preventDefault();
-		console.log('만들기!');
-		// dispatch
-	})
-
-	const selectStack = useCallback((stack) => {
-		setSelectedStack(stack);
-	}, []);
-
 	const headerClick = useCallback((idx) => (e) => {
 		e.preventDefault();
 		if (idx > availPage)
@@ -232,13 +217,25 @@ const CreateProj = () => {
 		setCurrentPage(idx);
 	}, [availPage]);
 
+	const closeConfirm = useCallback((e) => {
+		e.preventDefault();
+		setConfirm(false)
+	}, [])
+
+	const createProject = useCallback((e) => {
+		e.preventDefault();
+		console.log('ok');
+	})
+
 	return (
 		<>
+		<BackGround open={confirm} setOpen={setConfirm}>
+			<Confirm closeFunction={closeConfirm} confirmFunction={createProject} content="작성한 내용으로 생성하시겠습니까?" confirm="넹 !" close="아니용 !" loading={isSubmitting}/>
+		</BackGround>
 		<CreateHeader idx={currentPage} availIdx={availPage} clickFunction={headerClick}/>
 		<div id="create-wrap">
 			<div className="one-page-component" style={slideStyle} ref={widthRef}>
 				<div className="content-box">
-					<h3 className="title">1.</h3>
 					<div className="selector">
 						<p>어떤 목적으로 프로젝트를 모집하세요?</p>
 						<SelectBlocks
@@ -269,11 +266,15 @@ const CreateProj = () => {
 			</div>
 			<div className="one-page-component" style={slideStyle}>
 				<div className="content-box">
-					<h3 className="title">2.</h3>
 					<div className="selector">
 						<p>모집하고 싶은 기술을 가진 사람들을 설정해주세요.</p>
 						<div className="setting-box">
-
+							<SelectStackForProject
+								data={skills}
+								value={createStacks}
+								setValue={getCreateStack}
+								removeValue={removeStack}
+							/>
 						</div>
 					</div>
 					<button className="back" onClick={ClickBefore}>
@@ -286,7 +287,6 @@ const CreateProj = () => {
 			</div>
 			<div className="one-page-component" style={slideStyle}>
 				<div className="content-box">
-					<h3 className="title">3.</h3>
 					<div className="selector">
 					{warning === '' ? <p>프로젝트 시작일을 선택해주세요.</p> : <p className="warn">{warning}</p>}
 					<div className="setting-box">
@@ -307,7 +307,16 @@ const CreateProj = () => {
 									<div className="period-text period">
 										<h5>기간</h5>
 										<KeyboardArrowRight/>
-										<input value={period} onChange={OCPeriod} maxLength={4} type="text" name="name" pattern="[\d]{4}" autoComplete="off" autoFocus/>
+										<input
+											value={period}
+											onChange={OCPeriod}
+											maxLength={4}
+											type="text" name="name"
+											pattern="[\d]{4}"
+											autoComplete="off"
+											placeholder="0"
+											autoFocus
+										/>
 										<p>일</p>
 									</div>
 								</div>
@@ -325,10 +334,16 @@ const CreateProj = () => {
 			</div>
 			<div className="one-page-component" style={slideStyle}>
 				<div className="content-box">
-					<h3 className="title">4.</h3>
 					<div className="selector">
 						<p>모집글 제목을 어떻게 하시겠어요?</p>
-						<input name="title" type="text" value={title} onChange={OCTitle} placeholder="제목을 입력해주세요."/>
+						<input
+							name="title"
+							type="text"
+							value={title}
+							onChange={OCTitle}
+							placeholder="제목을 입력해주세요."
+							autoFocus
+						/>
 					</div>
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
@@ -340,7 +355,6 @@ const CreateProj = () => {
 			</div>
 			<div className="one-page-component" style={slideStyle}>
 				<div className="content-box">
-					<h3 className="title">5.</h3>
 					<div className="selector">
 						<p>프로젝트에 대한 자세한 설명을 작성해주세요.</p>
 						<Editor editorValue={desc} OCV={setDesc} />
@@ -355,7 +369,6 @@ const CreateProj = () => {
 			</div>
 			<div className="one-page-component" style={slideStyle}>
 				<div className="content-box">
-					<h3 className="title">마지막 .</h3>
 					<div className="selector overflowAuto">
 						<p>입력하신 정보가 맞는지 확인해주세요.</p>
 						{done && <ProjectPage
@@ -370,9 +383,9 @@ const CreateProj = () => {
 							desc={desc}
 						/>}
 					</div>
-					<button className="proj-create-btn" onClick={createProject}>
-							모집 시작
-						</button>
+					<button className="proj-create-btn" onClick={ClickNext(6)}>
+						모집 시작
+					</button>
 					<button className="back" onClick={ClickBefore}>
 						<KeyboardArrowLeft />
 					</button>
