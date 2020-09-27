@@ -14,6 +14,9 @@ import SelectBlocks from '../../../components/buttons/SelectBlocks';
 import SelectStackForProject from '../../../components/buttons/SelectStackForProject';
 import useInput from '../../../hooks/useInput';
 import useInputWithSetter from '../../../hooks/useInputWithSetter';
+import BackGround from '../../../containers/BackGround';
+import Confirm from '../../../components/Confirm';
+
 
 import { KeyboardArrowRight, KeyboardArrowLeft } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
@@ -88,9 +91,7 @@ const CreateProj = () => {
 	const [createTheme, setCreateTheme] = useState([]);
 	const [createResult, setCreateResult] = useState([]);
 	const [createStacks, setCreateStacks] = useState([]);
-	const [selectedStack, setSelectedStack] = useState(null);
 
-	const [stackNum, setStackNum, OCStackNum] = useInputWithSetter(0);
 	const [desc, setDesc] = useState('');
 	const [startDate, setStartDate] = useState(new Date());
 	const [clickDate, setClickDate] = useState(false);
@@ -102,6 +103,7 @@ const CreateProj = () => {
 	const dispatch = useDispatch();
 
 	const { region, skills, themes, results } = useSelector(state=>state.common);
+	const { isCreating, isCreated, createError } = useSelector(state=>state.project);
 	const { user } = useSelector(state=>state.user)
 	const { openSubProfile } = useSelector(state=>state.component);
 
@@ -230,7 +232,7 @@ const CreateProj = () => {
 	return (
 		<>
 		<BackGround open={confirm} setOpen={setConfirm}>
-			<Confirm closeFunction={closeConfirm} confirmFunction={createProject} content="작성한 내용으로 생성하시겠습니까?" confirm="넹 !" close="아니용 !" loading={isSubmitting}/>
+			<Confirm closeFunction={closeConfirm} confirmFunction={createProject} content="작성한 내용으로 생성하시겠습니까?" confirm="넹 !" close="아니용 !" loading={isCreating}/>
 		</BackGround>
 		<CreateHeader idx={currentPage} availIdx={availPage} clickFunction={headerClick}/>
 		<div id="create-wrap">
