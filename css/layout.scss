@@ -41,12 +41,13 @@ button:focus {
 	min-width: 800px;
 	margin: 0 auto;
 	overflow-x: hidden;
-	min-height: 80vh;
+	padding-top: 100px;
+	min-height: inherit;
 }
 
 .page-wrap {
+	min-height: 100vh;
 	position: relative;
-	margin-top: 100px;
 }
 
 #nav-header {
