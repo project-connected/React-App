@@ -5,9 +5,8 @@ import { Chat, Person, Assignment, ExitToApp, Notifications, Close } from '@mate
 
 // reducer
 import { useSelector, useDispatch } from 'react-redux';
-import { CLOSE_CHAT, OPEN_CHAT, OPEN_USER_MENU, CLOSE_USER_MENU, CLOSE_ALL_COMP1, WINDOW_REF_SAVE } from '../reducers/component';
+import { CLOSE_CHAT, OPEN_CHAT, OPEN_USER_MENU, CLOSE_USER_MENU } from '../reducers/component';
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from '../reducers/user';
-import { CLOSE_ALL_COMP2 } from '../reducers/project';
 
 // customs
 import ChatComponent from '../components/chat/ChatComponent';
@@ -311,7 +310,7 @@ const AppLayout = ({ children }) => {
 						</div>
 						{user && <>
 							<div className="nav-link-btn">
-								<Link href="/project/create"><a>
+								<Link href="/project/write"><a>
 									프로젝트 만들기
 								</a></Link>
 							</div>
