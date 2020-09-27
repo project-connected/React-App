@@ -38,7 +38,7 @@ const CreateHeader = ({ idx, availIdx, clickFunction }) => {
 
 	const refArray = [ref1, ref2, ref3, ref4, ref5, refFinish]
 
-	const [indicatorStyle, setIndecatorStyle] = useState({});
+	const [indicatorStyle, setIndecatorStyle] = useState();
 
 	useEffect(() => {
 		if (idx > availIdx)
@@ -55,6 +55,13 @@ const CreateHeader = ({ idx, availIdx, clickFunction }) => {
 			left: refArray[idx-1].current.offsetLeft,
 		})
 	}, [idx, availIdx]);
+
+	useEffect(() => {
+		setIndecatorStyle({
+			width: ref1.current.offsetWidth,
+			leff: ref1.current.offsetLeft
+		})
+	}, [ref1.current])
 
 	return (
 		<div id="project-create-header">
@@ -84,7 +91,6 @@ const CreateHeader = ({ idx, availIdx, clickFunction }) => {
 }
 
 const CreateProj = () => {
-	const widthRef = useRef();
 	const [ title, OCTitle ] = useInput('');
 
 	const [createRegion, setCreateRegion] = useState([]);
@@ -236,7 +242,7 @@ const CreateProj = () => {
 		</BackGround>
 		<CreateHeader idx={currentPage} availIdx={availPage} clickFunction={headerClick}/>
 		<div id="create-wrap">
-			<div className="one-page-component" style={slideStyle} ref={widthRef}>
+			<div className="one-page-component" style={slideStyle}>
 				<div className="content-box">
 					<div className="selector">
 						<p>어떤 목적으로 프로젝트를 모집하세요?</p>
