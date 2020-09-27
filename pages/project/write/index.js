@@ -38,7 +38,9 @@ const CreateHeader = ({ idx, availIdx, clickFunction }) => {
 
 	const refArray = [ref1, ref2, ref3, ref4, ref5, refFinish]
 
-	const [indicatorStyle, setIndecatorStyle] = useState();
+	const [indicatorStyle, setIndecatorStyle] = useState({
+		width: '16px'
+	});
 
 	useEffect(() => {
 		if (idx > availIdx)
@@ -59,7 +61,7 @@ const CreateHeader = ({ idx, availIdx, clickFunction }) => {
 	useEffect(() => {
 		setIndecatorStyle({
 			width: ref1.current.offsetWidth,
-			leff: ref1.current.offsetLeft
+			left: ref1.current.offsetLeft
 		})
 	}, [ref1.current])
 
