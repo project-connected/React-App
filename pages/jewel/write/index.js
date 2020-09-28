@@ -21,6 +21,7 @@ import Confirm from '../../../components/Confirm';
 import { LOAD_USER_REQUEST } from '../../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../../reducers/common';
 import { CREATE_JEWEL_REQUEST } from '../../../reducers/jewel';
+import { startState } from 'codemirror';
 
 const CreateMyAppeal = () => {
 	const dispatch = useDispatch();
@@ -142,14 +143,14 @@ const CreateMyAppeal = () => {
 		dispatch({
 			type: CREATE_JEWEL_REQUEST,
 			data: {
-				jewelData: {
-					area: regionState,
-					skill: stackState,
-					theme: themeState,
-					purpose: resultState,
-					title: title,
-					content: desc,
-				}
+				area: regionState,
+				skill: stackState,
+				theme: themeState,
+				purpose: resultState,
+				title: title,
+				content: desc,
+				startDate: period.startDate,
+				endDate: period.endDate,
 			}
 		})
 	}, [regionState, resultState, themeState, stackState, title, desc]);
@@ -168,7 +169,7 @@ const CreateMyAppeal = () => {
 			alert('등록되었습니다.')
 			Router.push('/jewel');
 		}
-	}, [isSubmitted])
+	}, [isSubmitted]);
 
 	return (
 		<>

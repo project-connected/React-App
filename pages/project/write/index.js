@@ -61,22 +61,22 @@ const CreateHeader = ({ idx, availIdx, clickFunction }) => {
 	return (
 		<div id="project-create-header">
 			<div className="project-create-header-box">
-				<div className="page-btn current" ref={ref1} onClick={clickFunction(1)}>
+				<div className="page-btn current" ref={ref1} onClick={() => clickFunction(1)}>
 					1
 				</div>
-				<div className="page-btn" ref={ref2} onClick={clickFunction(2)}>
+				<div className="page-btn" ref={ref2} onClick={() => clickFunction(2)}>
 					2
 				</div>
-				<div className="page-btn" ref={ref3} onClick={clickFunction(3)}>
+				<div className="page-btn" ref={ref3} onClick={() => clickFunction(3)}>
 					3
 				</div>
-				<div className="page-btn" ref={ref4} onClick={clickFunction(4)}>
+				<div className="page-btn" ref={ref4} onClick={() => clickFunction(4)}>
 					4
 				</div>
-				<div className="page-btn" ref={ref5} onClick={clickFunction(5)}>
+				<div className="page-btn" ref={ref5} onClick={() => clickFunction(5)}>
 					5
 				</div>
-				<div className="page-btn" ref={refFinish} onClick={clickFunction(6)}>
+				<div className="page-btn" ref={refFinish} onClick={() => clickFunction(6)}>
 					FINISH
 				</div>
 				<span className="nav-indicator" style={indicatorStyle}/>
@@ -215,6 +215,7 @@ const CreateProj = () => {
 
 	const headerClick = useCallback((idx) => (e) => {
 		e.preventDefault();
+		console.log(idx);
 		if (idx > availPage)
 			return ;
 		setCurrentPage(idx);
