@@ -52,7 +52,7 @@ const CreateHeader = ({ idx, availIdx, clickFunction }) => {
 		refArray[idx-1].current.classList.add('current');
 
 		setIndecatorStyle({
-			width: refArray[idx-1].current.offsetWidth,
+			width: idx === 1 ? '16px' : refArray[idx-1].current.offsetWidth,
 			left: refArray[idx-1].current.offsetLeft,
 		})
 	}, [idx, availIdx]);
@@ -104,8 +104,6 @@ const CreateProj = () => {
 
 	const { region, skills, themes, results } = useSelector(state=>state.common);
 	const { isCreating, isCreated, createError } = useSelector(state=>state.project);
-	const { user } = useSelector(state=>state.user)
-	const { openSubProfile } = useSelector(state=>state.component);
 
 	const [availPage, setAvailPage] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -412,12 +410,12 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	context.store.dispatch({
 		type: LOAD_COMMON_REQUEST,
 	})
-	const state = context.store.getState()
-	if (!state.user.user.subProfile) {
-		context.store.dispatch({
-			type: OPEN_SUB_PROFILE,
-		});
-	}
+	// const state = context.store.getState()
+	// if (!state.user.user.subProfile) {
+	// 	context.store.dispatch({
+	// 		type: OPEN_SUB_PROFILE,
+	// 	});
+	// }
 
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();
