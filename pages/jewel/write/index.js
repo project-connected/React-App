@@ -21,7 +21,6 @@ import Confirm from '../../../components/Confirm';
 import { LOAD_USER_REQUEST } from '../../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../../reducers/common';
 import { CREATE_JEWEL_REQUEST } from '../../../reducers/jewel';
-import { startState } from 'codemirror';
 
 const CreateMyAppeal = () => {
 	const dispatch = useDispatch();
