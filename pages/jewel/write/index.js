@@ -259,11 +259,11 @@ const CreateMyAppeal = () => {
 					/>
 				</div>
 			</div>
-			<div className={`new-jewel-page ${iptStatus > 3 ? 'visible' : ''}`}>
+			<div className={`new-jewel-page editor ${iptStatus > 3 ? 'visible' : ''}`}>
 				<div className="new-jewel-content">
 					<h3 className="title">4.</h3>
 					<p>자세한 자기 소개를 작성해주세요.</p>
-					<Editor editorValue={desc} OCV={setDesc} />
+					<Editor editorValue={desc} OCV={setDesc} height="80vh"/>
 				</div>
 			</div>
 			<button className="next" onClick={nextIptvisible}>

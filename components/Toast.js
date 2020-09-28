@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Editor } from '@toast-ui/react-editor';
 import { backUrl } from '../config/config';
 
-const Toast = ({ editorValue, OCV, mirror="tab" }) => {
+const Toast = ({ editorValue, OCV, mirror="tab", height="inherit" }) => {
 	const editorRef = useRef();
 
 	const handleChange = useCallback((e) => {
@@ -32,7 +32,7 @@ const Toast = ({ editorValue, OCV, mirror="tab" }) => {
 		<Editor
 			initialValue={editorValue}
 			previewStyle="vertical"
-			height="inherit"
+			height={height}
 			initialEditType="markdown"
 			placeholder="이곳에 글을 작성하세요"
 			useCommandShortcut={true}

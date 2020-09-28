@@ -170,7 +170,8 @@
 
 #create-wrap {
 	display: inline-flex;
-	position: re;
+	position: fixed;
+	left: 0;
 	width: 600%;
 	transition: all .3s ease 0s;
 	height: 80vh;
