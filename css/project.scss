@@ -67,6 +67,7 @@
 						margin: 0;
 						font-weight: 500;
 						margin-bottom: 2rem;
+						padding-top: .3rem;
 					}
 
 					.block-wrap {
@@ -79,14 +80,26 @@
 						left: 0;
 						top: 1.2rem;
 						max-height: 1.8rem;
-						background-color: #fff;
 						border-radius: 5px;
 						width: fit-content;
+
+						&.period {
+							align-items: center;
+							p {
+								margin: 0;
+
+								span {
+									font-weight: 600;
+									color: #5970ff;
+								}
+							}
+						}
 
 						&.overDisplay {
 							cursor: unset;
 							&:hover {
 								max-height: none;
+								background: #fff;
 								z-index: 2;
 								box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 8px 0px;
 								padding: 0 0 .3rem .3rem;

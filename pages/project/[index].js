@@ -123,10 +123,11 @@ export const ProjectPage = ({
 					<section id="stack">
 						<div className="info-box">
 							<p>프로젝트 진행 기간</p>
-							<div className="block-wrap">
+							<div className="block-wrap period">
 								<div className="block">
 									{projectData.period.startDate}
 								</div>
+								<p>부터 <span>{projectData.period.diff}</span>일 간</p>
 							</div>
 						</div>
 						<div className="info-box stack">
