@@ -118,7 +118,6 @@ const CreateProj = () => {
 	const getCreateRegion = useCallback((data) => {
 		setCreateRegion([...createRegion, data]);
 	}, [createRegion]);
-
 	const getCreateTheme = useCallback((data) => {
 		setCreateTheme([...createTheme, data]);
 	}, [createTheme]);
