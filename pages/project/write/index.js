@@ -115,23 +115,19 @@ const CreateProj = () => {
 		transform: `translateX(${(currentPage-1) * 100 * -1}%)`
 	}
 
-	const getCreateRegion = useCallback((data) => (e) => {
-		e.preventDefault();
+	const getCreateRegion = useCallback((data) => {
 		setCreateRegion([...createRegion, data]);
 	}, [createRegion]);
 
-	const getCreateTheme = useCallback((data) => (e) => {
-		e.preventDefault();
+	const getCreateTheme = useCallback((data) => {
 		setCreateTheme([...createTheme, data]);
 	}, [createTheme]);
 
-	const getCreateResult = useCallback((data) => (e) => {
-		e.preventDefault();
+	const getCreateResult = useCallback((data) => {
 		setCreateResult([...createResult, data]);
 	}, [createResult]);
 
-	const getCreateStack = useCallback((data) => (e) => {
-		e.preventDefault();
+	const getCreateStack = useCallback((data) => {
 		setCreateStacks([...createStacks, data]);
 	}, [createStacks]);
 
@@ -198,8 +194,7 @@ const CreateProj = () => {
 		setCurrentPage(currentPage-1);
 	}, [currentPage])
 
-	const OCStartDate = useCallback((date) => (e) => {
-		e.preventDefault();
+	const OCStartDate = useCallback((date) => {
 		if (date.getTime() < new Date().getTime())
 		{
 			setClickDate(false);
@@ -411,6 +406,7 @@ CreateProj.propTypes = {
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
 	const cookie = context.req ? context.req.headers.cookie : '';
 	axios.defaults.headers.Cookie = '';
+	console.log('getserversidepropr');
 	if (context.req && cookie) {
 		axios.defaults.headers.Cookie = cookie;
 	}
@@ -421,7 +417,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 		type: LOAD_COMMON_REQUEST,
 	})
 	const state = context.store.getState()
-	if (state.user.user.subProfile === 'undefined') {
+	if (!state.user.user.subProfile) {
 		context.store.dispatch({
 			type: OPEN_SUB_PROFILE,
 		});

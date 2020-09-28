@@ -47,18 +47,15 @@ const CreateMyAppeal = () => {
 
 	const scrollRef = useRef();
 
-	const getRegion = useCallback((data) => (e) => {
-		e.preventDefault();
+	const getRegion = useCallback((data) => {
 		setRegion([...regionState, data]);
 	}, [regionState]);
 
-	const getTheme = useCallback((data) => (e) => {
-		e.preventDefault();
+	const getTheme = useCallback((data) => {
 		setTheme([...themeState, data]);
 	}, [themeState]);
 
-	const getResult = useCallback((data) => (e) => {
-		e.preventDefault();
+	const getResult = useCallback((data) => {
 		setResult([...resultState, data]);
 	}, [resultState]);
 
@@ -100,8 +97,7 @@ const CreateMyAppeal = () => {
 		setIptStatus(iptStatus + 1);
 	}, [iptStatus, themeState, resultState, title, regionState, period, stackState, desc]);
 
-	const OCStartDate = useCallback((date) => (e) => {
-		e.preventDefault();
+	const OCStartDate = useCallback((date) => {
 		if (date.getTime() < new Date().getTime())
 		{
 			setPeriodWarn('오늘 이후 날짜를 선택해주세요.');
@@ -113,8 +109,7 @@ const CreateMyAppeal = () => {
 		}
 	}, [period]);
 
-	const OCEndDate = useCallback((date) => (e) => {
-		e.preventDefault();
+	const OCEndDate = useCallback((date) => {
 		if (date.getTime() <= period.startDate.getTime())
 		{
 			setPeriodWarn('시작일 이후 날짜로 선택해주세요.');
@@ -128,8 +123,7 @@ const CreateMyAppeal = () => {
 		}
 	}, [period]);
 
-	const getStack = useCallback((stack) => (e) => {
-		e.preventDefault();
+	const getStack = useCallback((stack) => {
 		setStacks([...stackState, stack]);
 	}, [stackState]);
 
@@ -269,7 +263,7 @@ const CreateMyAppeal = () => {
 				<div className="new-jewel-content">
 					<h3 className="title">4.</h3>
 					<p>자세한 자기 소개를 작성해주세요.</p>
-					<Editor editorValue={desc} OCV={setDesc} height="80vh"/>
+					<Editor editorValue={desc} OCV={setDesc} height="70vh"/>
 				</div>
 			</div>
 			<button className="next" onClick={nextIptvisible}>
