@@ -57,7 +57,7 @@ const initialState = {
 	deleteError: '',
 	loadError: '',
 	jewels: dummyJewels,
-	jewelData: tlqkf,
+	jewelData: null,
 };
 
 export const CREATE_JEWEL_REQUEST = 'CREATE_JEWEL_REQUEST';
@@ -152,7 +152,7 @@ const reducer = (state=initialState, action) => produce(state, (draft) => {
 		case LOAD_JEWEL_SUCCESS: {
 			draft.isLoadingJewel = false;
 			draft.isLoadedJewel = true;
-			draft.jewelData = action.data;
+			draft.jewelData = action.data.result;
 			break;
 		}
 		case LOAD_JEWEL_FAILURE: {

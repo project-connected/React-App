@@ -50,12 +50,12 @@ const dummy = {
 }
 
 function loadJewelAPI(jewelId) {
-	return axios.get('/profiles/list')
+	return axios.get(`/profiles/${jewelId}`);
 }
 
 function* loadJewel(action) {
 	try {
-		const result = yield call(loadJewelAPI, action.data);
+		const result = yield call(loadJewelAPI, action.id);
 		yield put({
 			type: LOAD_JEWEL_SUCCESS,
 			data: result.data

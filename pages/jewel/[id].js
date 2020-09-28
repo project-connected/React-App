@@ -37,12 +37,10 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	context.store.dispatch({
 		type: LOAD_COMMON_REQUEST,
 	})
-	if (context.params.id !== 'undefined') {
-		context.store.dispatch({
-			type: LOAD_JEWEL_REQUEST,
-			id: context.params.id
-		})
-	}
+	context.store.dispatch({
+		type: LOAD_JEWEL_REQUEST,
+		id: context.params.id
+	});
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();
 });

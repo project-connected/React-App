@@ -78,7 +78,8 @@ const FindJewel = props => {
 		e.preventDefault();
 		dispatch({
 			type: LOAD_JEWEL_REQUEST,
-			data: data.id,
+			// data: data.id,
+			id: 2
 		})
 		setOpenDetail(true);
 	}, []);

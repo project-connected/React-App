@@ -3,13 +3,14 @@ import Link from 'next/link';
 import ReactMarkdown from "react-markdown";
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import { Person } from '@material-ui/icons';
 
 import Confirm from './Confirm';
 import BackGround from '../containers/BackGround';
 
 const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 	const { user } = useSelector(state=>state.user);
-	const { isDeleting } = useSelector(state=>state.jewel);
+	const { isDeleting, isLoading } = useSelector(state=>state.jewel);
 
 	const [isRemove, setRemove] = useState(false);
 
@@ -38,12 +39,15 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 					zIndex={103}
 				/>
 			</BackGround>
+			{ isLoading ?
+				<div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+			:
 			<div className={boxClass}>
 				<div className="jewel-detail">
-					<div className="back-img blur" style={{backgroundImage: `url(${jewelData.user.profileImg})`}}/>
+					<div className="back-img blur" style={{background: `url(https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg)`}}/>
 					<div className="content-box">
 						<div className="profile-box">
-							<img className="profile-img" src={jewelData.user.profileImg} />
+							<img className="profile-img" src='https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg' />
 							<div className="user-name">{jewelData.user.userName}</div>
 							<div className="btn-container">
 								{user.userId === jewelData.user.userId ?
@@ -76,7 +80,8 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 								<div className="one-info">
 									<p>{userName}님의 희망 지역</p>
 									<div className="info">
-										{jewelData.region[0].value}
+										{/* {jewelData.region[0].value} */}
+										{jewelData.area[0].value}
 									</div>
 								</div>
 								<div className="one-info">
@@ -88,14 +93,15 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 								<div className="one-info">
 									<p>{userName}님의 프로젝트 희망 결과</p>
 									<div className="info">
-										{jewelData.result[0].value}
+										{/* {jewelData.result[0].value} */}
+										{jewelData.purpose[0].value}
 									</div>
 								</div>
 							</div>
 							<div className="one-side-box">
 								<p>{userName}님의 가능 스택</p>
 								<div className="stack-wrap">
-								{jewelData.stacks.map((c, i) => {
+								{jewelData.skill.map((c, i) => {
 									return (
 										<div key={(i)} className="jewel-card-stack" style={{background: c.color}}>
 											{c.value}
@@ -119,6 +125,7 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 					</div>
 				</div>
 			</div>
+			}
 			{ mode === 'component' && <div className={backgroundClass} onClick={CloseDetail} />}
 			</>
 		}
