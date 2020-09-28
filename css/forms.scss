@@ -170,14 +170,14 @@
 
 #create-wrap {
 	display: inline-flex;
-	position: absolute;
+	position: re;
 	width: 600%;
 	transition: all .3s ease 0s;
 	height: 80vh;
 	margin-top: 3rem;
 
 	.one-page-component {
-		position: relative;
+		// position: relative;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
