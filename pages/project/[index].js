@@ -6,6 +6,7 @@ import moment from 'moment';
 import ReactMarkdown from "react-markdown";
 import axios from 'axios';
 import { END } from 'redux-saga';
+import { HowToVoteOutlined, Chat } from '@material-ui/icons';
 
 import wrapper from '../../store/configureStore';
 import { OPEN_APPLY, OPEN_USER_MENU } from '../../reducers/component';
@@ -75,19 +76,13 @@ export const ProjectPage = ({
 
 	return (
 		<div id='project-page-wrap'>
-			<div className="proj-head-info">
+			<div className="proj-head-info boxShadow">
 				<div className="proj-head-title">
-					<p>{theme[0].value}, {result[0].value}</p>
 					<h3>{title}</h3>
 				</div>
 				<div className="proj-info-container">
 					<section id="condition">
 						<h6>모집정보</h6>
-						<InfoBlock name="목적" data={theme[0].value} />
-						<InfoBlock name="결과물" data={result[0].value} />
-						<InfoBlock name="지역" data={region[0].value} />
-						<InfoBlock name="시작일" data={startDate} />
-						<InfoBlock name="기간" data={`${period} 일`} />
 						<InfoBlock name="총인원" data={`${stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)} 명`} />
 					</section>
 					<section id="stack">
@@ -110,11 +105,19 @@ export const ProjectPage = ({
 			</div>
 			{ status === 'view' &&
 				<div className="proj-button-wrap">
-					<button id="apply" onClick={applyProj} >신청하기</button>
-					<button id="listup">관심등록</button>
+					<button id="apply" onClick={applyProj} >
+						<HowToVoteOutlined/>
+						<h3>
+							APPLY
+						</h3>
+					</button>
+					<button id="listup">
+						<Chat />
+						<h3>MESSAGE</h3>
+					</button>
 				</div>
 			}
-			<div className="proj-descript">
+			<div className="proj-descript boxShadow">
 				<ReactMarkdown source={desc} />
 			</div>
 		</div>

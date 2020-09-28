@@ -2,7 +2,10 @@
 @import 'animation.scss';
 
 #project-page-wrap {
-	width: 100%;
+	width: 60rem;
+	margin: 0 auto;
+	padding: 0 5rem;
+	position: relative;
 
 	p {
 		color: #999;
@@ -11,31 +14,19 @@
 	}
 
 	.proj-descript {
-		margin-top: 3rem;
+		margin-top: 1.5rem;
 		position: relative;
-		padding: .5rem 1rem;
-		border: 1px solid #DDD;
-		border-top: 3px solid #BBB;
+		padding: 1.5rem;
 		background: #FFF;
-
-		&::before {
-			content: "프로젝트 설명";
-			display: block;
-			position: absolute;
-			color: #666;
-			font-size: 14px;
-			top: -24px;
-			left: 0;
-		}
+		border-radius: 27px;
 	}
 
 	.proj-head-info {
 		width: 100%;
 		padding: 2rem;
-		border: 1px solid #DDD;
-		border-top: 3px solid #BBB;
 		position: relative;
 		background: #FFF;
+		border-radius: 27px;
 
 		.proj-head-title {
 			border-bottom: 1px solid #DDD;
@@ -118,28 +109,52 @@
 	}
 
 	.proj-button-wrap {
-		width: 100%;
+		position: absolute;
 		display: flex;
-		align-items: center;
-		margin-top: 20px;
-		justify-content: center;
+		flex-direction: column;
+		right: 0;
+		top: 0;
+
 
 		button {
-			padding: 17px 30px;
+			position: relative;
 			font-size: 18px;
 			font-weight: 500;
-			border-radius: 3px;
-			border: 1px solid #BBB;
+			border-radius: 4rem;
 			transition: .3s;
 			color: #555;
 			background: #FFF;
+			width: 4rem;
+			height: 4rem;
+			box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
+			overflow: hidden;
+			padding: 0;
+
+			svg {
+				position: absolute;
+				top: 2rem;
+				left: 2rem;
+				transform: translate(-50%, -50%);
+			}
+
+			h3 {
+				margin: 0;
+				top: 5.5rem;
+				position: absolute;
+				font-size: 16px;
+				width: 100%;
+				transform: rotate(90deg);
+			}
+
+			&:hover {
+				box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 16px 0px;
+				height: 10rem;
+			}
 
 			&#apply {
-				border: none;
-				margin-right: 20px;
 				color: white;
 				background: #779eff;
-				border: 1px solid #668eff;
+				margin-bottom: 1rem;
 
 				&:hover {
 					background: #668eff;

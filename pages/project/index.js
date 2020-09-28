@@ -33,21 +33,21 @@ const SearchResultProject = ({ project }) => {
 				<div className="thumbnail"><img src={project.thumbnail_img} /></div>
 				<div className="content">
 					<div className="header">
-						<p>{project.theme.content} | {project.result.map((c, i) => {
+						<p>{project.theme[0].value} | {project.result.map((c, i) => {
 							if (i == 0)
-								return `${c.content}`
+								return `${c.value}`
 							else
-								return `, ${c.content}`
+								return `, ${c.value}`
 						})}</p>
 						{project.title}
 					</div>
 					<div className="time">
-						<p>{moment(project.startDate).format('YYYY년 MM월 DD일')}부터 {project.period} 일동안 진행</p>
+						<p>{moment(project.period.startDate).format('YYYY년 MM월 DD일')}부터 {project.period.diff} 일동안 진행</p>
 					</div>
 					<div className="stack-box">
 						{project.stacks.map((st, i) => {
 							return (
-								<StackBlock name={st.name} color={st.color} key={(i)}/>
+								<StackBlock name={st.value} color={st.color} key={(i)}/>
 							)
 						})}
 					</div>
