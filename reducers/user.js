@@ -278,7 +278,7 @@ const dummyUser = {
 }
 
 const initialState = {
-	user: null,
+	user: dummyUser,
 	isLoggingIn: false,
 	isLoggingOut: false,
 	isSigningup: false,

@@ -13,7 +13,6 @@ import { LOAD_USER_REQUEST } from '../../../reducers/user';
 import SelectBlocks from '../../../components/buttons/SelectBlocks';
 import SelectStackForProject from '../../../components/buttons/SelectStackForProject';
 import useInput from '../../../hooks/useInput';
-import useInputWithSetter from '../../../hooks/useInputWithSetter';
 import BackGround from '../../../containers/BackGround';
 import Confirm from '../../../components/Confirm';
 
@@ -152,7 +151,6 @@ const CreateProj = () => {
 
 	const ClickNext = useCallback((idx) =>(e) => {
 		e.preventDefault();
-		console.log(idx);
 		if (idx === 1) {
 			if (createTheme.length === 0 || createResult.length === 0 || createRegion.length === 0)
 				return;
@@ -184,8 +182,7 @@ const CreateProj = () => {
 			setConfirm(true);
 			return ;
 		}
-		setCurrentPage(currentPage + 1)
-		console.log(availPage);
+		setCurrentPage(currentPage + 1);
 	}, [availPage, currentPage, createTheme, createResult, title, createRegion, period, createStacks, desc])
 
 	const ClickBefore = useCallback((e) => {
