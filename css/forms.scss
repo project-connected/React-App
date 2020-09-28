@@ -218,7 +218,7 @@
 				margin-bottom: 0.1rem;
 
 				&:nth-child(n+2) {
-					margin: 2rem 0 .1rem 0 ;
+					margin-top: 2rem;
 				}
 			}
 			button.proj-create-btn {
@@ -274,12 +274,16 @@
 					position: relative;
 
 					.set-period {
-						padding: 3rem 2rem;
+						width: 50%;
+						display: flex;
+						align-items: center;
+						justify-content: center;
 						animation: .5s padeDown 1 ease-in-out;
 					}
 
 					.react-calendar {
 						border-top: 3px solid #7990ff;
+						width: 50%;
 					}
 
 					.select-btn-wrap {
@@ -408,7 +412,7 @@
 		}
 
 		&.period {
-			margin-top: 1rem;
+			margin-top: .2rem;
 		}
 	}
 }

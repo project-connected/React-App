@@ -295,6 +295,7 @@ const CreateProj = () => {
 							<div className="set-period">
 							{clickDate &&
 								<div className="period-box">
+									<p>선택하신 날짜가 맞나요?</p>
 									<div className="highlight period-text">
 										<h5>시작</h5>
 										<KeyboardArrowRight />
