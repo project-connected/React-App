@@ -37,6 +37,7 @@ const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 			draft.region = action.data.areas;
 			draft.skills = action.data.skills;
 			draft.themes = action.data.themes;
+			// draft.results = action.data.purpose;
 			break;
 		}
 		case LOAD_COMMON_FAILURE: {

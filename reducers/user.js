@@ -278,7 +278,7 @@ const dummyUser = {
 }
 
 const initialState = {
-	user: dummyUser,
+	user: null,
 	isLoggingIn: false,
 	isLoggingOut: false,
 	isSigningup: false,
@@ -290,6 +290,8 @@ const initialState = {
 	signupErrorReason: '',
 	other: dummyUser,
 }
+
+export const GET_DUMMY_USER = 'GET_DUMMY_USER';
 
 export const RESET_DONE_FLAG = 'RESET_DONE_FLAG';
 
@@ -311,6 +313,11 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
 const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 	switch (action.type) {
+		case GET_DUMMY_USER: {
+			draft.user = dummyUser
+			break;
+		}
+
 		case RESET_DONE_FLAG: {
 			draft.isLoggedIn = false;
 			draft.isLoggedOut = false;

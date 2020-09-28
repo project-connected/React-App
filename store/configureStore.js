@@ -7,6 +7,7 @@ import reducer from '../reducers';
 import rootSaga from '../sagas';
 
 import axios from 'axios';
+import { GET_DUMMY_USER } from '../reducers/user';
 
 const configureStore = (context) => {
 	const sagaMiddleware = createSagaMiddleware();
@@ -21,8 +22,11 @@ const configureStore = (context) => {
 
 	const store = createStore(reducer, preloadedState, enhancer);
 	store.sagaTask = sagaMiddleware.run(rootSaga);
-	const tk = store.getState().user.userToken;
-	axios.defaults.headers.common['authorization'] = tk;
+	if (process.env.NODE_ENV !== 'production') {
+		store.dispatch({
+			type: GET_DUMMY_USER
+		})
+	}
 	return store;
 };
 

@@ -115,19 +115,23 @@ const CreateProj = () => {
 		transform: `translateX(${(currentPage-1) * 100 * -1}%)`
 	}
 
-	const getCreateRegion = useCallback((data) => {
+	const getCreateRegion = useCallback((data) => (e) => {
+		e.preventDefault();
 		setCreateRegion([...createRegion, data]);
 	}, [createRegion]);
 
-	const getCreateTheme = useCallback((data) => {
+	const getCreateTheme = useCallback((data) => (e) => {
+		e.preventDefault();
 		setCreateTheme([...createTheme, data]);
 	}, [createTheme]);
 
-	const getCreateResult = useCallback((data) => {
+	const getCreateResult = useCallback((data) => (e) => {
+		e.preventDefault();
 		setCreateResult([...createResult, data]);
 	}, [createResult]);
 
-	const getCreateStack = useCallback((data) => {
+	const getCreateStack = useCallback((data) => (e) => {
+		e.preventDefault();
 		setCreateStacks([...createStacks, data]);
 	}, [createStacks]);
 
@@ -194,7 +198,8 @@ const CreateProj = () => {
 		setCurrentPage(currentPage-1);
 	}, [currentPage])
 
-	const OCStartDate = useCallback((date) => {
+	const OCStartDate = useCallback((date) => (e) => {
+		e.preventDefault();
 		if (date.getTime() < new Date().getTime())
 		{
 			setClickDate(false);

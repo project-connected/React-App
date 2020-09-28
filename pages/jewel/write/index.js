@@ -47,15 +47,18 @@ const CreateMyAppeal = () => {
 
 	const scrollRef = useRef();
 
-	const getRegion = useCallback((data) => {
+	const getRegion = useCallback((data) => (e) => {
+		e.preventDefault();
 		setRegion([...regionState, data]);
 	}, [regionState]);
 
-	const getTheme = useCallback((data) => {
+	const getTheme = useCallback((data) => (e) => {
+		e.preventDefault();
 		setTheme([...themeState, data]);
 	}, [themeState]);
 
-	const getResult = useCallback((data) => {
+	const getResult = useCallback((data) => (e) => {
+		e.preventDefault();
 		setResult([...resultState, data]);
 	}, [resultState]);
 
@@ -97,7 +100,8 @@ const CreateMyAppeal = () => {
 		setIptStatus(iptStatus + 1);
 	}, [iptStatus, themeState, resultState, title, regionState, period, stackState, desc]);
 
-	const OCStartDate = useCallback((date) => {
+	const OCStartDate = useCallback((date) => (e) => {
+		e.preventDefault();
 		if (date.getTime() < new Date().getTime())
 		{
 			setPeriodWarn('오늘 이후 날짜를 선택해주세요.');
@@ -109,7 +113,8 @@ const CreateMyAppeal = () => {
 		}
 	}, [period]);
 
-	const OCEndDate = useCallback((date) => {
+	const OCEndDate = useCallback((date) => (e) => {
+		e.preventDefault();
 		if (date.getTime() <= period.startDate.getTime())
 		{
 			setPeriodWarn('시작일 이후 날짜로 선택해주세요.');
@@ -123,7 +128,8 @@ const CreateMyAppeal = () => {
 		}
 	}, [period]);
 
-	const getStack = useCallback((stack) => {
+	const getStack = useCallback((stack) => (e) => {
+		e.preventDefault();
 		setStacks([...stackState, stack]);
 	}, [stackState]);
 
