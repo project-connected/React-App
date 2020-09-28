@@ -14,7 +14,7 @@
 	}
 
 	.proj-descript {
-		margin-top: 1.5rem;
+		margin: 1.5rem 0;
 		position: relative;
 		padding: 1.5rem;
 		background: #FFF;
@@ -55,13 +55,69 @@
 			section {
 				display: table-cell;
 
+				.info-box {
+					max-width: 90%;
+					margin-top: .5rem;
+					position: relative;
+
+					&.stack p { margin-bottom: 0; }
+
+					p {
+						color: #333;
+						margin: 0;
+						font-weight: 500;
+						margin-bottom: 2rem;
+					}
+
+					.block-wrap {
+						display: flex;
+						flex-flow: row wrap;
+						overflow: hidden;
+						width: 100%;
+						overflow: hidden;
+						position: absolute;
+						left: 0;
+						top: 1.2rem;
+						max-height: 1.8rem;
+						background-color: #fff;
+						border-radius: 5px;
+						width: fit-content;
+
+						&.overDisplay {
+							cursor: unset;
+							&:hover {
+								max-height: none;
+								z-index: 2;
+								box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 8px 0px;
+								padding: 0 0 .3rem .3rem;
+							}
+						}
+					}
+
+					.block {
+						font-size: 12px;
+						padding: .1rem .5rem;
+						color: #444;
+						background: #eaeaea;
+						border-radius: 3px;
+						width: fit-content;
+						position: relative;
+						margin: .3rem .3rem 0 0;
+					}
+
+					&:nth-child(1) {
+						margin-top: 0;
+					}
+
+				}
 				p.total-num {
 					margin-top: 0;
 				}
 
 				.project-card-stack-block-wrap {
 					border: none;
-					padding: 15px 0;
+					margin-top: .3rem;
+					padding: 0;
 					overflow: unset;
 
 					.proj-stack-block {

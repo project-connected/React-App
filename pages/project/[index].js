@@ -59,6 +59,7 @@ export const ProjectPage = ({
 							stacks=[{key:"DEFAULT", value:'스택', color: '#333'}],
 							desc="프로젝트 설명이 작성되지 않았습니다." }) => {
 	const { user } = useSelector(state=>state.user);
+	const { projectData } = useSelector(state=>state.project);
 	const dispatch = useDispatch();
 
 	const applyProj = useCallback((e) => {
@@ -78,27 +79,71 @@ export const ProjectPage = ({
 		<div id='project-page-wrap'>
 			<div className="proj-head-info boxShadow">
 				<div className="proj-head-title">
-					<h3>{title}</h3>
+					<h3>{projectData.title}</h3>
 				</div>
 				<div className="proj-info-container">
 					<section id="condition">
-						<h6>모집정보</h6>
-						<InfoBlock name="총인원" data={`${stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)} 명`} />
+						<div className="info-box">
+							<p>프로젝트 테마</p>
+							<div className="block-wrap overDisplay">
+								{projectData.theme.map((c, i) => {
+									return (
+										<div key={(i)} className="block">
+											{c.value}
+										</div>
+									)
+								})}
+							</div>
+						</div>
+						<div className="info-box">
+							<p>프로젝트 결과물</p>
+							<div className="block-wrap overDisplay">
+								{projectData.result.map((c, i) => {
+									return (
+										<div key={(i)} className="block">
+											{c.value}
+										</div>
+									)
+								})}
+							</div>
+						</div>
+						<div className="info-box">
+							<p>프로젝트 진행 지역</p>
+							<div className="block-wrap overDisplay">
+								{projectData.region.map((c, i) => {
+									return (
+										<div key={(i)} className="block">
+											{c.value}
+										</div>
+									)
+								})}
+							</div>
+						</div>
 					</section>
 					<section id="stack">
-						<h6>모집기술</h6>
-						<p className="total-num">{stacks.reduce((a, b) => a + (b['num'] || 0), 0)}/{stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)}명</p>
-						<div className="project-card-stack-block-wrap">
-							{stacks.map((c, i) => {
-								return (
-									<div key={(i)} className="proj-stack-block">
-										<StackBlock name={c.value} color={c.color} />
-										<span className="proj-stack-person">
-											{c.num}/{c.maxNum} 명
-										</span>
-									</div>
-								)
-							})}
+						<div className="info-box">
+							<p>프로젝트 진행 기간</p>
+							<div className="block-wrap">
+								<div className="block">
+									{projectData.period.startDate}
+								</div>
+							</div>
+						</div>
+						<div className="info-box stack">
+							<p>모집기술</p>
+							<p className="total-num">{projectData.stacks.reduce((a, b) => a + (b['num'] || 0), 0)} / {projectData.stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)}명</p>
+							<div className="project-card-stack-block-wrap">
+								{projectData.stacks.map((c, i) => {
+									return (
+										<div key={(i)} className="proj-stack-block">
+											<StackBlock name={c.value} color={c.color} />
+											<span className="proj-stack-person">
+												{c.num}/{c.maxNum} 명
+											</span>
+										</div>
+									)
+								})}
+							</div>
 						</div>
 					</section>
 				</div>
@@ -118,7 +163,7 @@ export const ProjectPage = ({
 				</div>
 			}
 			<div className="proj-descript boxShadow">
-				<ReactMarkdown source={desc} />
+				<ReactMarkdown source={projectData.description} />
 			</div>
 		</div>
 	);

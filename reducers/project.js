@@ -72,11 +72,41 @@ const dummyProject = {
 	}, {
 		key: 'WEB',
 		value: '웹 개발',
-	}],
-	region: {
+	},{
+		key: 'APPLICATION',
+		value: '어플리케이션 개발'
+	}, {
+		key: 'WEB',
+		value: '웹 개발',
+	},{
+		key: 'APPLICATION',
+		value: '어플리케이션 개발'
+	}, {
+		key: 'WEB',
+		value: '웹 개발',
+	},{
+		key: 'APPLICATION',
+		value: '어플리케이션 개발'
+	}, {
+		key: 'WEB',
+		value: '웹 개발',
+	},{
+		key: 'APPLICATION',
+		value: '어플리케이션 개발'
+	}, {
+		key: 'WEB',
+		value: '웹 개발',
+	},{
+		key: 'APPLICATION',
+		value: '어플리케이션 개발'
+	}, {
+		key: 'WEB',
+		value: '웹 개발',
+	},],
+	region: [{
 		key: 'SEOUL',
 		value: '서울'
-	},
+	}],
 	period: {
 		endDate: '2020-10-14',
 		startDate: '2020-09-01',
@@ -107,6 +137,7 @@ const dummyProject = {
 const initialState = {
 	filterAttrOpenIndx: -1,
 	projectList: [dummyProject],
+	projectData: dummyProject,
 	isCreating: false,
 	isCreated: false,
 	createError: '',

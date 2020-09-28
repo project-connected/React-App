@@ -366,9 +366,8 @@ const CreateProj = () => {
 				</div>
 			</div>
 			<div className="one-page-component" style={slideStyle}>
-				<div className="content-box">
+				<div className="content-box finish">
 					<div className="selector overflowAuto">
-						<p>입력하신 정보가 맞는지 확인해주세요.</p>
 						{done && <ProjectPage
 							status="create"
 							title={title}

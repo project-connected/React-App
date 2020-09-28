@@ -236,8 +236,17 @@
 				}
 			}
 
+			&.finish {
+				box-shadow: none !important;
+				background: transparent;
+			}
+
 			.selector {
 				max-height: 80vh;
+				#project-page-wrap {
+					padding: 0;
+					width: 100%;
+				}
 
 				&.overflowAuto {
 					overflow: auto;
