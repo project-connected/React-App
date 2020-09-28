@@ -177,7 +177,7 @@ const CreateMyAppeal = () => {
 		</BackGround>
 		<div id="new-jewel-wrap" ref={scrollRef}>
 			<div className={`new-jewel-page ${iptStatus > 0 ? 'visible' : ''}`}>
-				<div className="new-jewel-content">
+				<div className="new-jewel-content boxShadow">
 					<h3 className="title">1.</h3>
 					<p>어떤 목적의 프로젝트를 하고 싶으신가요?</p>
 					<SelectBlocks
@@ -210,7 +210,7 @@ const CreateMyAppeal = () => {
 				</div>
 			</div>
 			<div className={`new-jewel-page ${iptStatus > 1 ? 'visible' : ''}`}>
-				<div className="new-jewel-content">
+				<div className="new-jewel-content boxShadow">
 					<h3 className="title">2.</h3>
 					{ periodWarn === '' ? <p>원하는 프로젝트 진행 기간을 선택해주세요.</p> :  <p className="warn">{periodWarn}</p> }
 					<div className="seperate-box period">
@@ -244,7 +244,7 @@ const CreateMyAppeal = () => {
 				</div>
 			</div>
 			<div className={`new-jewel-page ${iptStatus > 2 ? 'visible' : ''}`}>
-				<div className="new-jewel-content">
+				<div className="new-jewel-content boxShadow">
 				<h3 className="title">3.</h3>
 					<p>제목을 입력해주세요.</p>
 					<input
@@ -260,7 +260,7 @@ const CreateMyAppeal = () => {
 				</div>
 			</div>
 			<div className={`new-jewel-page editor ${iptStatus > 3 ? 'visible' : ''}`}>
-				<div className="new-jewel-content">
+				<div className="new-jewel-content boxShadow">
 					<h3 className="title">4.</h3>
 					<p>자세한 자기 소개를 작성해주세요.</p>
 					<Editor editorValue={desc} OCV={setDesc} height="70vh"/>
