@@ -411,7 +411,6 @@ CreateProj.propTypes = {
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
 	const cookie = context.req ? context.req.headers.cookie : '';
 	axios.defaults.headers.Cookie = '';
-	console.log('getserversidepropr');
 	if (context.req && cookie) {
 		axios.defaults.headers.Cookie = cookie;
 	}
@@ -422,7 +421,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 		type: LOAD_COMMON_REQUEST,
 	})
 	const state = context.store.getState()
-	if (!state.user.user.subProfile) {
+	if (state.user.user.subProfile === 'undefined') {
 		context.store.dispatch({
 			type: OPEN_SUB_PROFILE,
 		});
