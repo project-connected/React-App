@@ -4,64 +4,6 @@ const dummyProject = {
 	id: 0,
 	thumbnail_img: 'https://i.pinimg.com/originals/68/94/93/6894931eb3e93f6d6ef2dd000d8acdc6.jpg',
 	title: "우리 같이 프로젝트 모집 서비스를 만들어요!",
-	part: {
-		stack: [{
-			key: 'REACT',
-			value: 'React.js',
-			color: 'rgb(65, 169, 76)',
-		},{
-			key: 'REACT',
-			value: 'React.js',
-			color: 'rgb(65, 169, 76)',
-		},{
-			key: 'REACT',
-			value: 'React.js',
-			color: 'rgb(65, 169, 76)',
-		},{
-			key: 'REACT',
-			value: 'React.js',
-			color: 'rgb(65, 169, 76)',
-		},{
-			key: 'REACT',
-			value: 'React.js',
-			color: 'rgb(65, 169, 76)',
-		},{
-			key: 'REACT',
-			value: 'React.js',
-			color: 'rgb(65, 169, 76)',
-		},{
-			key: 'REACT',
-			value: 'React.js',
-			color: 'rgb(65, 169, 76)',
-		},{
-			key: 'REACT',
-			value: 'React.js',
-			color: 'rgb(65, 169, 76)',
-		},{
-			key: 'REACT',
-			value: 'React.js',
-			color: 'rgb(65, 169, 76)',
-		},{
-			key: 'REACT',
-			value: 'React.js',
-			color: 'rgb(65, 169, 76)',
-		},{
-			key: 'REACT',
-			value: 'React.js',
-			color: 'rgb(65, 169, 76)',
-		},]
-	},
-	score: 3.5,
-	evaluations: [{
-		score: 4.5,
-		content: '너무 잘해주셔서 감사합니다.'
-	}, {
-		score: 5,
-		content: '캐리해주셔서 고마워요 ㅠㅠ'
-	}, {
-		score: 1,
-		content: '잘생겨서 질투남 그래서 1점드림'
-	}],
 	theme: [{
 		key: 'HACKERTON',
 		value: '헤커톤'
@@ -72,37 +14,7 @@ const dummyProject = {
 	}, {
 		key: 'WEB',
 		value: '웹 개발',
-	},{
-		key: 'APPLICATION',
-		value: '어플리케이션 개발'
-	}, {
-		key: 'WEB',
-		value: '웹 개발',
-	},{
-		key: 'APPLICATION',
-		value: '어플리케이션 개발'
-	}, {
-		key: 'WEB',
-		value: '웹 개발',
-	},{
-		key: 'APPLICATION',
-		value: '어플리케이션 개발'
-	}, {
-		key: 'WEB',
-		value: '웹 개발',
-	},{
-		key: 'APPLICATION',
-		value: '어플리케이션 개발'
-	}, {
-		key: 'WEB',
-		value: '웹 개발',
-	},{
-		key: 'APPLICATION',
-		value: '어플리케이션 개발'
-	}, {
-		key: 'WEB',
-		value: '웹 개발',
-	},],
+	}],
 	region: [{
 		key: 'SEOUL',
 		value: '서울'
@@ -125,13 +37,17 @@ const dummyProject = {
 		num: 0,
 		maxNum: 1,
 	}, {
-		key: 'PHOTOSHAP',
+		key: 'PHOTOSHOP',
 		value: 'photoshop',
 		color: '#187bcd',
 		num: 1,
 		maxNum: 1,
 	}],
-	description: '## 모두 안녕하세요 굿팀 프로젝트 모집 게시물입니다.'
+	description: '## 모두 안녕하세요 굿팀 프로젝트 모집 게시물입니다.',
+	leaderUser: {
+		userId: 1,
+		userName: 'han',
+	}
 }
 
 const initialState = {

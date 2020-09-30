@@ -8,23 +8,23 @@ const dummyJewel = {
 		userName: 'han',
 		profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
 	},
-	theme: {
+	theme: [{
 		key: 'HACKERTON',
 		value: '해커톤'
-	},
-	region: {
+	}],
+	area: [{
 		key: 'SEOUL',
 		value: '서울'
-	},
-	result: {
+	}],
+	purpose: [{
 		key: 'APPLICATION',
 		value: '어플리케이션 개발'
-	},
+	}],
 	period: {
 		startDate: 'Mon Sep 07 2020 06:26:32 GMT+0900 (대한민국 표준시)',
 		endDate: 'Mon Sep 14 2020 06:26:32 GMT+0900 (대한민국 표준시)',
 	},
-	stacks: [{
+	skill: [{
 		key: 'REACT',
 		value: 'React.JS',
 		color: 'rgb(255, 169, 75)'

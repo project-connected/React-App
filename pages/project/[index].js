@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import Link from 'next/link';
 import ReactMarkdown from "react-markdown";
 import axios from 'axios';
 import { END } from 'redux-saga';
@@ -79,6 +80,9 @@ export const ProjectPage = ({
 		<div id='project-page-wrap'>
 			<div className="proj-head-info boxShadow">
 				<div className="proj-head-title">
+					<Link href={`/user/${projectData.leaderUser.userId}`}>
+						<a>{projectData.leaderUser.userName}</a>
+					</Link>
 					<h3>{projectData.title}</h3>
 				</div>
 				<div className="proj-info-container">
