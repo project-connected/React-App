@@ -146,7 +146,7 @@ const FindJewel = props => {
 
 const JewelCard = ({ data, onClick }) => {
 	return (
-		<div className="jewel-card" onClick={onClick}>
+		<div className="card-box" onClick={onClick}>
 			<div className="back-img blur" style={{backgroundImage: `url(${data.user.profileImg})`}}/>
 			<div className='jewel-card-content'>
 				<img className="profile-img" src={data.user.profileImg}/>

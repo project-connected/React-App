@@ -343,6 +343,9 @@ const AppLayout = ({ children }) => {
 						{children}
 					</div>
 				</main>
+				<div id="footer">
+					footer
+				</div>
 				{
 					openApply && <Curtain component={<RequestMember />} />
 				}
