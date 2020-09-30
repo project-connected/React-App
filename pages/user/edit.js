@@ -255,7 +255,7 @@ const Profile = () => {
 				</div>
 				<div className="profile-attr">
 					<p className="title">INTRODUCT</p>
-					<Editor editorValue={intro} OCV={setIntro}/>
+					<Editor editorValue={intro} OCV={setIntro} height="600px"/>
 				</div>
 			</div>
 			<div className="profile-edit-btn">
