@@ -14,25 +14,7 @@ const Index = () => {
 			헤더 메세지
 		</div>
 		<div id="main-page">
-			<div className="card-box boxShadow">
-				<div className="backgroundImg project" />
-				<CountUp
-					className="counting"
-					end={326}
-					duration={3}
-				/>
-				<p>프로젝트</p>
-				<p>가 여러분 기다리고 있어요</p>
-			</div>
-			<div className="card-box boxShadow">
-				<div className="backgroundImg jewel" />
-				<CountUp
-					className="counting"
-					end={1275}
-					duration={3}
-				/>
-				<p>명의 인재</p>
-			</div>
+			카드들
 		</div>
 		</>
 	);
