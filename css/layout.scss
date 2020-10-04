@@ -64,17 +64,17 @@ button:focus {
 	margin: 3rem 0;
 }
 
-#main-page {
+.main-page-card-div {
 	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	width: 100vw;
+	overflow-x: auto;
+	height: 24rem;
 
-	.card-box {
-		&:nth-child(1) {
-			margin-right: 6rem;
-		}
-
+	.card-list {
+		position: absolute;
+		left: calc(50% - 8.5rem);
+		display: flex;
+		width: fit-content
 	}
 }
 
