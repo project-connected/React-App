@@ -16,12 +16,41 @@ const Index = () => {
 	return (
 		<>
 		<div id="main-header">
-			헤더 메세지
+			프로젝트
 		</div>
 		<div className="main-page-card-div">
 			<div className="card-list">
 				<div className="card-box">
-					인재 수, 홍보
+					프로젝트 수, 멘트
+				</div>
+				{projectList.map((c, i) => {
+					let bg_img = ''
+					if (c.result[0].key === 'APPLICATION') {
+						bg_img = '/images/application.jpg'
+					}
+					return (
+						<Link href={`/project/1`} key={(i)}>
+							<a>
+								<div className="card-box">
+									<div style={{width: '100%', height: '10rem', background: `url(${bg_img})`}}/>
+									{c.title}
+								</div>
+							</a>
+						</Link>
+					)
+				})}
+				<div className="card-box">
+					더보기 버튼
+				</div>
+			</div>
+		</div>
+		<div id="main-header">
+			인재
+		</div>
+		<div className="main-page-card-div">
+			<div className="card-list">
+				<div className="card-box">
+					인재 수, 멘트
 				</div>
 				{ jewels.map((c, i) => {
 					return (
