@@ -292,40 +292,51 @@ const AppLayout = ({ children }) => {
 		}
 	})
 
+	const [toggleMenu, setToggle] = useState(false);
+
+	const toggleFunc = useCallback((e) => {
+		e.preventDefault();
+		setToggle(!toggleMenu);
+	}, [toggleMenu]);
+
 	return (
 		<div id="wrapper">
 			<div id="page-container">
-				<header id="nav-header">
-					<div className="menu-navigation">
-						<div className="nav-logo-btn">
-							<Link href="/"><a>
-								<img src="/images/logo.png" height="30px"/>
-								<h1>GOODTEAM</h1>
-							</a></Link>
+				<nav id="nav-header" className="navbar navbar-light navbar-expand-lg">
+					<div className="ml-0 container">
+						<Link href="/"><a className="navbar-brand">
+							<img src="/images/logo.png" height="30px"/>
+							<h1>GOODTEAM</h1>
+						</a></Link>
+
+						<button className="navbar-toggler" type="button" onClick={toggleFunc}>
+							<span className="navbar-toggler-icon"></span>
+						</button>
+
+						<div className={toggleMenu ? "collapse navbar-collapse show" : "collapse navbar-collapse"} id="navbarResponsive">
+							<ul className="navbar-nav">
+								<li className="nav-item">
+									<Link href="/project">
+										<a className="nav-link">PROJECT BOARD</a>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link href="/project/write">
+										<a className="nav-link">CREATE PROJECT</a>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link href="/jewel">
+										<a className="nav-link">JEWEL LIST</a>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link href="/jewel/write">
+										<a className="nav-link">REGISTER JEWEL</a>
+									</Link>
+								</li>
+							</ul>
 						</div>
-						<div className="nav-link-btn">
-							<Link href="/project"><a>
-								모집 중인 프로젝트
-							</a></Link>
-						</div>
-						{user && <>
-							<div className="nav-link-btn">
-								<Link href="/project/write"><a>
-									프로젝트 만들기
-								</a></Link>
-							</div>
-							<div className="nav-link-btn">
-								<Link href="/jewel/write"><a>
-									인재풀 등록하기
-								</a></Link>
-							</div>
-							<div className="nav-link-btn">
-								<Link href="/jewel"><a>
-									인재 살펴보기
-								</a></Link>
-							</div>
-						</>
-						}
 						<div type="button" className="nav-profile-btn" onClick={onClickProfileBtn}>
 							{ user ?
 								<div>
@@ -336,8 +347,9 @@ const AppLayout = ({ children }) => {
 							}
 						</div>
 						<UserMenu user={user} isLoggingIn={isLoggingIn} openUserMenu={openUserMenu} loginErrorReason={loginErrorReason}/>
+					{/* </div> */}
 					</div>
-				</header>
+				</nav>
 				<main className="page-wrap">
 					<div className="page-inner-container">
 						{children}

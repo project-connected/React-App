@@ -26,14 +26,18 @@ const Index = () => {
 				{projectList.map((c, i) => {
 					let bg_img = ''
 					if (c.result[0].key === 'APPLICATION') {
-						bg_img = '/images/application.jpg'
+						bg_img = '/images/server.jpg'
 					}
 					return (
 						<Link href={`/project/1`} key={(i)}>
 							<a>
 								<div className="card-box">
-									<div style={{width: '100%', height: '10rem', background: `url(${bg_img})`}}/>
-									{c.title}
+									<div className="card-bg" style={{backgroundImage: `url(${bg_img})`}}/>
+									<div className="card-content">
+										<div className="card-title">
+											{c.title}
+										</div>
+									</div>
 								</div>
 							</a>
 						</Link>
