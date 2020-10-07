@@ -8,6 +8,7 @@ import { END } from 'redux-saga';
 import JewelCard from '../components/JewelCard';
 
 import { LOAD_USER_REQUEST } from '../reducers/user';
+import CountUp from 'react-countup';
 
 const Index = () => {
 	const { projectList } = useSelector(state=>state.project);
@@ -15,60 +16,27 @@ const Index = () => {
 
 	return (
 		<>
-		<div id="main-header">
-			프로젝트
-		</div>
-		<div className="main-page-card-div">
-			<div className="card-list">
-				<div className="card-box">
-					프로젝트 수, 멘트
+		<div id="main-cards">
+			<Link href="/project">
+				<a className="card-box intro" style={{backgroundImage: 'url(/images/project.png)', backgroundSize: 'cover', backgroundPositionX: 'center'}}>
+					<CountUp
+						className="countUp"
+						end={361}
+						duration={3}
+					/>
+					<p>프로젝트가 인재를 모집 중입니다.</p>
+				</a>
+			</Link>
+			<Link href="/jewel">
+				<div className="card-box intro" style={{backgroundImage: 'url(/images/jewel.jpg)', backgroundSize: 'cover', backgroundPositionX: 'center'}}>
+					<CountUp
+						className="countUp"
+						end={1378}
+						duration={3}
+					/>
+					<p>명의 인재가 팀원을 찾고 있습니다.</p>
 				</div>
-				{projectList.map((c, i) => {
-					let bg_img = ''
-					if (c.result[0].key === 'APPLICATION') {
-						bg_img = '/images/server.jpg'
-					}
-					return (
-						<Link href={`/project/1`} key={(i)}>
-							<a>
-								<div className="card-box">
-									<div className="card-bg" style={{backgroundImage: `url(${bg_img})`}}/>
-									<div className="card-content">
-										<div className="card-title">
-											{c.title}
-										</div>
-									</div>
-								</div>
-							</a>
-						</Link>
-					)
-				})}
-				<div className="card-box">
-					더보기 버튼
-				</div>
-			</div>
-		</div>
-		<div id="main-header">
-			인재
-		</div>
-		<div className="main-page-card-div">
-			<div className="card-list">
-				<div className="card-box">
-					인재 수, 멘트
-				</div>
-				{ jewels.map((c, i) => {
-					return (
-						<Link href={`/jewel/2`} key={(i)}>
-							<a>
-								<JewelCard data={c} />
-							</a>
-						</Link>
-					)
-				})}
-				<div className="card-box">
-					더보기 버튼
-				</div>
-			</div>
+			</Link>
 		</div>
 		</>
 	);

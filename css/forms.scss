@@ -138,6 +138,7 @@
 	left: 3rem;
 	position: fixed;
 	z-index: 1;
+	margin-top: 100px;
 
 	.project-create-header-box {
 		position: relative;
@@ -175,7 +176,7 @@
 	width: 600%;
 	transition: all .3s ease 0s;
 	height: 80vh;
-	margin-top: 3rem;
+	margin-top: 100px;;
 
 	.one-page-component {
 		// position: relative;
@@ -441,6 +442,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	margin-top: 100px;
 
 	.new-jewel-page {
 		position: relative;

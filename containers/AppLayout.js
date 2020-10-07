@@ -350,9 +350,48 @@ const AppLayout = ({ children }) => {
 						{children}
 					</div>
 				</main>
-				<div id="footer">
-					footer
-				</div>
+				<footer id="footer" role="contentinfo">
+					<div className="footer-section">
+						<div className="widget">
+							<h2>
+								han
+							</h2>
+							<div className="content">
+								<ul>
+									<li>
+										<span className="left">Company</span>
+										<span className="right">42Seoul</span>
+									</li>
+									<li>
+										<span className="left">Position</span>
+										<span className="right">Design and FrontEnd</span>
+									</li>
+									<li>
+										<span className="left">Email</span>
+										<span className="right">anhs0220@gmail.com</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div className="widget">
+							<h2>
+								yshim
+							</h2>
+							<div className="content">
+								<ul>
+									<li>
+										<span className="left">Company</span>
+										<span className="right">42Seoul</span>
+									</li>
+									<li>
+										<span className="left">Position</span>
+										<span className="right">BackEnd</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</footer>
 				{
 					openApply && <Curtain component={<RequestMember />} />
 				}

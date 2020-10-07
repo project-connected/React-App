@@ -4,6 +4,7 @@
 #project-page-wrap {
 	width: 60rem;
 	margin: 0 auto;
+	margin-top: 100px;
 	padding: 0 5rem;
 	position: relative;
 
@@ -249,7 +250,8 @@
 }
 
 .proj-search-page {
-	margin-top: 2rem;
+	max-width: 1000px;
+	margin: 100px auto 0 auto;
 	display: flex;
 
 	&.jewel {
