@@ -6,7 +6,7 @@ const dummyJewel = {
 	user: {
 		userId: 1,
 		userName: 'han',
-		profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
+		// profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
 	},
 	theme: [{
 		key: 'HACKERTON',
@@ -213,7 +213,7 @@ const dummyUser = {
 	userId: 1,
 	email: 'anhs0220@gmail.com',
 	userName: 'Forty Two Seoul',
-	profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
+	// profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
 	subProfile: {
 		region: {
 			key: "SEOUL",

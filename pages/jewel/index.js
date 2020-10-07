@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 
 import axios from 'axios';
 import { END } from 'redux-saga';
@@ -14,7 +14,7 @@ import SelectStack from '../../components/buttons/SelectStack';
 
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 import { LOAD_USER_REQUEST } from '../../reducers/user';
-import { LOAD_JEWEL_REQUEST } from '../../reducers/jewel';
+import { LOAD_JEWEL_LIST_REQUEST, LOAD_JEWEL_REQUEST } from '../../reducers/jewel';
 
 const dummyResult = [{
 	key: 'APPLICATION',
@@ -89,6 +89,11 @@ const FindJewel = props => {
 			<div className="jewel-search-wrap">
 				<div className="search-filter-box">
 					<h3>검색 필터링</h3>
+					<button onClick={() => {
+						dispatch({
+							type: LOAD_JEWEL_LIST_REQUEST,
+						})
+					}}>btnjknbs</button>
 					<p>블럭을 클릭하면 필터링이 취소돼요</p>
 					<div className="filter-attr-box">
 							<div className="filter-block-box">
@@ -160,6 +165,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	context.store.dispatch({
 		type: LOAD_COMMON_REQUEST,
 	})
+	// context.store.dispatch({
+	// 	type: LOAD_JEWEL_LIST_REQUEST,
+	// })
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();
 });

@@ -10,6 +10,9 @@ import {
 	UPDATE_JEWEL_REQUEST,
 	UPDATE_JEWEL_SUCCESS,
 	UPDATE_JEWEL_FAILURE,
+	LOAD_JEWEL_LIST_REQUEST,
+	LOAD_JEWEL_LIST_SUCCESS,
+	LOAD_JEWEL_LIST_FAILURE
 } from '../reducers/jewel';
 
 const dummy = {
@@ -117,10 +120,36 @@ function* watchCreateJewel() {
 	yield takeLatest(CREATE_JEWEL_REQUEST, createJewel);
 }
 
+function loadJewelListAPI() {
+	return axios.post(`/profiles/list`);
+}
+
+function* loadJewelList(action) {
+	try {
+		console.log('hi')
+		const result = yield call(loadJewelListAPI);
+		console.log(result)
+		yield put({
+			type: LOAD_JEWEL_LIST_SUCCESS,
+			data: result.data.result
+		})
+	} catch(e) {
+		yield put({
+			type: LOAD_JEWEL_LIST_FAILURE,
+			error: e
+		})
+	}
+}
+
+function* watchLoadJewelList() {
+	yield takeLatest(LOAD_JEWEL_LIST_REQUEST, loadJewelList);
+}
+
 export default function* jewelSaga(){
 	yield all([
 		fork(watchLoadJewel),
 		fork(watchCreateJewel),
 		fork(watchUpdateJewel),
+		fork(watchLoadJewelList),
 	]);
 };

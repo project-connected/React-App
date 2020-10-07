@@ -4,13 +4,14 @@ import ReactMarkdown from "react-markdown";
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { Person } from '@material-ui/icons';
+import { Avatar } from '@material-ui/core';
 
 import Confirm from './Confirm';
 import BackGround from '../containers/BackGround';
 
 const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 	const { user } = useSelector(state=>state.user);
-	const { isDeleting, isLoading } = useSelector(state=>state.jewel);
+	const { isDeleting, isLoadingJewel } = useSelector(state=>state.jewel);
 
 	const [isRemove, setRemove] = useState(false);
 
@@ -39,15 +40,26 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 					zIndex={103}
 				/>
 			</BackGround>
-			{ isLoading ?
+			{ isLoadingJewel ?
 				<div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
 			:
 			<div className={boxClass}>
 				<div className="jewel-detail">
-					<div className="back-img blur" style={{background: `url(https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg)`}}/>
+					{/* <div className="back-img blur" style={{background: `url(https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg)`}}/> */}
+					{ jewelData.user && jewelData.user.profileImg ?
+						<div className="back-img blur" style={{backgroundImage: `url(${jewelData.user.profileImg})`}}/>
+						:
+						<div className="back-img blur" style={{background: 'transparent'}} />
+					}
 					<div className="content-box">
 						<div className="profile-box">
-							<img className="profile-img" src='https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg' />
+							{/* <img className="profile-img" src='https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg' /> */}
+							{ jewelData.user && jewelData.user.profileImg ?
+								<img className="profile-img" src={jewelData.user.profileImg}/>
+								:
+								<Avatar className="profile-img" style={{background: '#7990ff'}}>{jewelData.user.userName}</Avatar>
+							}
+
 							<div className="user-name">{jewelData.user.userName}</div>
 							<div className="btn-container">
 								{user.userId === jewelData.user.userId ?
@@ -120,7 +132,7 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 							</div>
 						</div>
 						<div className="text-content">
-							<ReactMarkdown source={jewelData.desc} />
+							<ReactMarkdown source={jewelData.content} />
 						</div>
 					</div>
 				</div>

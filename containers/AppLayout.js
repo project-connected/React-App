@@ -16,6 +16,7 @@ import RequestMember from '../components/forms/RequestMember';
 import useInput from '../hooks/useInput';
 import Curtain from './Curtain';
 import NoSubProfile from './NoSubProfile';
+import { Avatar } from '@material-ui/core';
 
 export const DummyProfile = () => {
 	return (
@@ -336,7 +337,11 @@ const AppLayout = ({ children }) => {
 						<div type="button" className="nav-profile-btn" onClick={onClickProfileBtn}>
 							{ user ?
 								<div>
-									<DummyProfile />
+									{user.profileImg ?
+										<img src={user.profileImg} />
+									:
+										<Avatar className="profile-img" style={{background: 'linear-gradient(#7990ff, #9198e5)'}}>{user.userName[0]}</Avatar>
+									}
 									{ dummyNotif && <div className="notification-circle"></div> }
 								</div> :
 								<img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/b7c76929274393.55ead42cd721c.jpg"/>

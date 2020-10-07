@@ -2,7 +2,7 @@ import React, {useState, useCallback, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import moment from 'moment';
-import { EmailOutlined, ChatOutlined, CreateOutlined, ThumbUp, Mood, MoodBad, KeyboardArrowDown } from '@material-ui/icons';
+import { EmailOutlined, ChatOutlined, CreateOutlined, ThumbUp, Mood, MoodBad, KeyboardArrowDown, Person } from '@material-ui/icons';
 import ReactMarkdown from 'react-markdown'
 
 import axios from 'axios';
@@ -16,6 +16,7 @@ import JewelDetail from '../../components/JewelDetail';
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
 import StackBlock from '../../components/StackBlock';
+import { Avatar } from '@material-ui/core';
 
 const SubProfileComponent = ({ other }) => {
 
@@ -230,7 +231,13 @@ const User = props => {
 	return (
 		<div id="profile-wrap">
 			<div className="profile-box left">
-				<img className="profile-img boxShadow" src={other.profileImg} />
+				{ other.profileImg ?
+					<img className="profile-img boxShadow" src={other.profileImg} />
+					:
+					<Avatar className="profile-img boxShadow">
+						<Person />
+					</Avatar>
+				}
 				<div className="user-name">
 					<b>{other.userName}</b>
 				</div>
