@@ -14,6 +14,8 @@ import SelectPeriod from '../../components/buttons/SelectPeriod';
 import SelectStack from '../../components/buttons/SelectStack';
 import StackBlock from '../../components/StackBlock';
 import { LOAD_COMMON_REQUEST } from '../../reducers/common';
+import NoSubProfile from '../../containers/NoSubProfile';
+import BackGround from '../../containers/BackGround';
 
 const dummyResult = [{
 	key: 'APPLICATION',
@@ -100,6 +102,9 @@ const SearchProj = props => {
 
 	return (
 		<div className="proj-search-page">
+			<BackGround open={true}>
+				<NoSubProfile />
+			</BackGround>
 			<div className="proj-search-wrap">
 				<div className="search-filter-box">
 					<h3>검색 필터링</h3>

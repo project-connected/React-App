@@ -21,13 +21,14 @@ const dummyResult = [{
 }];
 
 const NoSubProfile = props => {
-	const { skills, region } = useSelector(state=>state.common);
+	const { skills, region, results, themes } = useSelector(state=>state.common);
 	const dispatch = useDispatch();
 
 	const [status, setStatus] = useState(0)
 	const [userRegion, setUserRegion] = useState('');
 	const [userStacks, setUserStacks] = useState([]);
-	const [userInterest, setUserInterest] = useState([]);
+	const [userTheme, setUserTheme] = useState([]);
+	const [userPurpose, setUserPerpose] = useState([]);
 
 	const visibleName = "sP-ipt-box visible";
 	const hideName = 'sP-ipt-box hide';
@@ -41,33 +42,47 @@ const NoSubProfile = props => {
 			if (userRegion !== '')
 				setStatus(1)
 		} else if (status === 1) {
-			if (userStacks.length > 0)
+			if (userTheme.length > 0)
 				setStatus(2)
 		} else if (status === 2) {
-			if (userInterest.length > 0) {
+			if (userPurpose.length > 0) {
 				setStatus(3)
+			}
+		} else if (status === 3) {
+			if (userStacks.length > 0) {
+				setStatus(4)
 			}
 		} else {
 			dispatch({type: CLOSE_SUB_PROFILE})
 			// 서버로 전송
 			// 창 닫는 것도 state통해서 성공하면 닫기
 		}
-	}, [status, userRegion, userStacks, userInterest])
+	}, [status, userRegion, userStacks, userTheme, userPurpose])
+
+	const OCTheme = useCallback((data) =>{
+		if (!userTheme.find(v=>v.key === data.key))
+			setUserTheme([...userTheme, data]);
+	}, [userTheme]);
+
+	const OCPurpost = useCallback((data) =>{
+		if (!userPurpose.find(v=>v.key === data.key))
+			setUserPerpose([...userPurpose, data]);
+	}, [userPurpose]);
+
+	const removeTheme = useCallback((data) => (e) => {
+		e.preventDefault();
+		setUserTheme(userTheme.filter(v => v.key !== data.key));
+	}, [userTheme]);
+
+	const removePurpost = useCallback((data) => (e) => {
+		e.preventDefault();
+		setUserPurpose(userPurpose.filter(v => v.key !== data.key));
+	}, [userPurpose]);
 
 	const removeStack = useCallback((stack) => (e) => {
 		e.preventDefault();
 		setUserStacks(userStacks.filter(v => v.key !== stack.key))
 	}, [userStacks]);
-
-	const OCInterset = useCallback((interest) =>{
-		if (!userInterest.find(v=>v.key === interest.key))
-			setUserInterest([...userInterest, interest]);
-	}, [userInterest]);
-
-	const removeInterest = useCallback((interest) => (e) => {
-		e.preventDefault();
-		setUserInterest(userInterest.filter(v => v.key !== interest.key));
-	}, [userInterest]);
 
 	const SetBtn = ({ text="다음"}) => {
 		return (
@@ -83,7 +98,7 @@ const NoSubProfile = props => {
 				<div className={status === 0 ? visibleName : hideName}>
 					<p>지역을 선택해주세요.</p>
 					<div className="flex-row">
-						<SelectAttr status="profile" name="지역" data={region} getAction={setUserRegion} idx={11}/>
+						<SelectAttr listValue={false} value={userRegion} status="profile" name="지역" data={region} getAction={setUserRegion} idx={11}/>
 					</div>
 					<SetBtn />
 				</div>
@@ -109,7 +124,7 @@ const NoSubProfile = props => {
 					<div className={status=== 2 ? visibleName : hideName}>
 						<p>관심 분야를 선택해주세요.</p>
 						<div className="flex-row stack">
-							<SelectAttr open={true} val={userInterest} status="many" name="분야" data={dummyResult} getAction={OCInterset} idx={12}/>
+							<SelectAttr open={true} value={userTheme} status="many" name="분야" data={themes} getAction={OCInterset} idx={12}/>
 							<div className="stack-wrap">
 								<div className="stack-block-box interest">
 									{userInterest.map((c) => {

@@ -4,7 +4,7 @@
 
 #myProfile {
 	width: 800px;
-	margin: 1rem auto;
+	margin: 100px auto 1rem auto;
 	padding: 2rem 4rem;
 	background: #fff;
 	box-shadow: 0px 0px 4px 1px rgba(90, 90, 90, 0.2);
@@ -61,7 +61,7 @@
 		}
 		.login-info {
 			margin-left: 3rem;
-			width: 100%;
+			//width: 100%;
 
 			div {
 				position: relative;
@@ -71,21 +71,12 @@
 					font-size: 12px;
 					color: #7990ff;
 					margin-left: 1rem;
-
-					&::before {
-						content: "@";
-						position: absolute;
-						font-size: 20px;
-						left: 0;
-						top: 50%;
-						transform: translate(-105%, -50%);
-					}
 				}
 
 				&[name="name"] {
-					margin-top: -15px;
+					margin-top: -10px;
 					font-weight: 700;
-					font-size: 60px;
+					font-size: 3rem;
 					color: #444;
 				}
 
@@ -809,5 +800,28 @@
 		font-size: 12px;
 		color: #666;
 		margin: 0;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	#myProfile {
+		width: auto;
+		padding: 2rem 1rem;
+		margin-right: 1rem;
+		margin-left: 1rem;
+
+		.main-info {
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+
+			.login-info {
+				margin: 1rem 0;
+			}
+		}
+
+		.profile-form {
+			display: unset;
+		}
 	}
 }
