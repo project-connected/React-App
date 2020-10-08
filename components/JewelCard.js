@@ -7,7 +7,7 @@ const JewelCard = ({ data, onClick }) => {
 			{ data.user && data.user.profileImg ?
 				<div className="back-img blur" style={{backgroundImage: `url(${data.user.profileImg})`}}/>
 				:
-				<div className="back-img blur" style={{background: 'linear-gradient(#7990ff, #9198e5)'}} />
+				<div className="back-img blur" style={{background: 'transparent'}} />
 			}
 			<div className='jewel-card-content'>
 				{ data.user && data.user.profileImg ?

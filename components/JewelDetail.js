@@ -40,12 +40,8 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 					zIndex={103}
 				/>
 			</BackGround>
-			{ isLoadingJewel ?
-				<div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-			:
 			<div className={boxClass}>
 				<div className="jewel-detail">
-					{/* <div className="back-img blur" style={{background: `url(https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg)`}}/> */}
 					{ jewelData.user && jewelData.user.profileImg ?
 						<div className="back-img blur" style={{backgroundImage: `url(${jewelData.user.profileImg})`}}/>
 						:
@@ -53,7 +49,6 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 					}
 					<div className="content-box">
 						<div className="profile-box">
-							{/* <img className="profile-img" src='https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg' /> */}
 							{ jewelData.user && jewelData.user.profileImg ?
 								<img className="profile-img" src={jewelData.user.profileImg}/>
 								:
@@ -92,7 +87,6 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 								<div className="one-info">
 									<p>{userName}님의 희망 지역</p>
 									<div className="info">
-										{/* {jewelData.region[0].value} */}
 										{jewelData.area[0].value}
 									</div>
 								</div>
@@ -105,7 +99,6 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 								<div className="one-info">
 									<p>{userName}님의 프로젝트 희망 결과</p>
 									<div className="info">
-										{/* {jewelData.result[0].value} */}
 										{jewelData.purpose[0].value}
 									</div>
 								</div>
@@ -137,7 +130,6 @@ const JewelDetail = ({ open, setOpen, jewelData, mode="component" }) => {
 					</div>
 				</div>
 			</div>
-			}
 			{ mode === 'component' && <div className={backgroundClass} onClick={CloseDetail} />}
 			</>
 		}

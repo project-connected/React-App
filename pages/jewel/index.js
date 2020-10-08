@@ -76,10 +76,11 @@ const FindJewel = props => {
 
 	const openJewelDetail = useCallback((data) => (e) => {
 		e.preventDefault();
+		console.log(data);
 		dispatch({
 			type: LOAD_JEWEL_REQUEST,
-			// data: data.id,
-			id: 2
+			 id: data.profileId,
+			//id: 2
 		})
 		setOpenDetail(true);
 	}, []);

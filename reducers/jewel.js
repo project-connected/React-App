@@ -54,7 +54,7 @@ const initialState = {
 	updateError: '',
 	deleteError: '',
 	loadError: '',
-	jewels: dummyJewels,
+	jewels: null,
 	jewelData: null,
 };
 
