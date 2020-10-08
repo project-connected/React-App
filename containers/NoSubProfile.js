@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
+import Editor from '../components/Editor';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
-import { Search } from '@material-ui/icons';
+import { Search, CameraAlt } from '@material-ui/icons';
 
 import { defaultProfile } from '../config/config';
 import { CLOSE_SUB_PROFILE } from '../reducers/component';
@@ -21,35 +22,40 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const NoSubProfile = props => {
+const NoSubProfile = () => {
 	const { skills, region, results, themes } = useSelector(state=>state.common);
 	const dispatch = useDispatch();
 
 	const [status, setStatus] = useState(0)
-	const [userRegion, setUserRegion] = useState('');
+	const [userRegion, setUserRegion] = useState(null);
 	const [userSkill, setUserSkill] = useState([]);
 	const [userTheme, setUserTheme] = useState([]);
 	const [userPurpose, setUserPerpose] = useState([]);
 	const [userProfileImg, setUserProfileImg] = useState('');
+	const [introduct, setIntroduct] = useState('');
 
 	const visibleName = "sP-ipt-box visible";
 	const hideName = 'sP-ipt-box hide';
 
 	const iptDone = useCallback((e) => {
+		console.log(status);
 		if (status === 1) {
-			if (userRegion !== '')
-				setStatus(1)
+			console.log(userRegion);
+			if (userRegion)
+				setStatus(2)
 		} else if (status === 2) {
 			if (userTheme.length > 0)
-				setStatus(2)
+				setStatus(3)
 		} else if (status === 3) {
 			if (userPurpose.length > 0) {
-				setStatus(3)
+				setStatus(4)
 			}
 		} else if (status === 4) {
 			if (userSkill.length > 0) {
-				setStatus(4)
+				setStatus(5)
 			}
+		} else if (status === 5) {
+			setStatus(6);
 		} else {
 			dispatch({type: CLOSE_SUB_PROFILE})
 			// 서버로 전송
@@ -113,13 +119,29 @@ const NoSubProfile = props => {
 		setSkillList(skills.filter(v => v.value.toLowerCase().match(e.target.value.toLowerCase())));
 	}, [skillList, skillText]);
 
+	const imageInput = useRef();
+
+	const onClickImageUpload = useCallback(() => {
+		imageInput.current.click();
+	}, [imageInput.current]);
+
 	return (
 		<div className="noSubProfile ab-center">
 			<div className="sP-ipt-container">
 				<div className={status === 0 ? visibleName : hideName}>
 					<p>프로필 사진을 업로드해주세요.</p>
-					가운데 프로필사진 + 업로드 버튼
-					왼쪽 버튼 (기본이미지로 설정), 오른쪽 버튼(업로드 이미지로 설정)
+					<div className="profile-img">
+						<div style={{backgroundImage: `url(${userProfileImg !== '' ? userProfileImg : defaultProfile})`}}>
+							<button onClick={onClickImageUpload}>
+								<CameraAlt style={{color: 'white'}}/>
+							</button>
+							<input type="file" ref={imageInput} />
+						</div>
+					</div>
+					<div className="btn-box ai-jc-center">
+						<div className="btn boxShadow" onClick={() => setStatus(1)}>기본 이미지로 할래요.</div>
+						<div className="btn boxShadow" onClick={() => setStatus(1)}>업로드한 이미지로 할래요.</div>
+					</div>
 				</div>
 				{status >= 1 &&
 					<div className={status === 1 ? visibleName : hideName}>
@@ -131,7 +153,7 @@ const NoSubProfile = props => {
 					</div>
 				}
 				{status >= 2 &&
-					<div className={status === 1 ? visibleName : hideName}>
+					<div className={status === 2 ? visibleName : hideName}>
 						<p>관심있는 테마를 선택해주세요.</p>
 						<ChipBox
 							text={themeText}
@@ -145,7 +167,7 @@ const NoSubProfile = props => {
 					</div>
 				}
 				{status >= 3 &&
-					<div className={status=== 2 ? visibleName : hideName}>
+					<div className={status=== 3 ? visibleName : hideName}>
 						<p>관심 분야를 선택해주세요.</p>
 						<ChipBox
 							text={purposeText}
@@ -159,18 +181,35 @@ const NoSubProfile = props => {
 					</div>
 				}
 				{status === 4 &&
-					<div className={status=== 3 ? visibleName : hideName}>
-					<p>기술 스택들을 선택해주세요.</p>
-					<ChipBox
-						text={skillText}
-						OCText={OCSkillText}
-						dataList={skillList}
-						stateValue={userSkill}
-						OCState={OCSkill}
-						classes={classes}
-					/>
-					<SetBtn />
-				</div>
+					<div className={status=== 4 ? visibleName : hideName}>
+						<p>기술 스택들을 선택해주세요.</p>
+						<ChipBox
+							text={skillText}
+							OCText={OCSkillText}
+							dataList={skillList}
+							stateValue={userSkill}
+							OCState={OCSkill}
+							classes={classes}
+						/>
+						<SetBtn />
+					</div>
+				}
+				{status === 5 &&
+					<div className={status === 5 ? visibleName : hideName}>
+						<p>간단한 자기소개를 작성해주세요.</p>
+						<Editor
+							editorValue={introduct}
+							OCV={setIntroduct}
+							height={'600px'}
+						/>
+						<SetBtn />
+					</div>
+				}
+				{status === 6 &&
+					<div className={status === 6 ? visibleName : hideName}>
+						<h1>작성해주셔서 감사합니다.</h1>
+						<SetBtn text="작성완료"/>
+					</div>
 				}
 			</div>
 		</div>

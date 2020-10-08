@@ -10,6 +10,7 @@ import 'codemirror/lib/codemirror.css';
 import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-calendar/dist/Calendar.css';
+import '../css/default.scss';
 import '../css/design.scss';
 import '../css/layout.scss';
 import '../css/mainPage.scss';
