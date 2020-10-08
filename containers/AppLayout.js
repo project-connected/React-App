@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { Chat, Person, Assignment, ExitToApp, Notifications, Close } from '@material-ui/icons';
+import { Chat, Person, Assignment, ExitToApp, Notifications, Close, EmojiPeopleOutlined, WebOutlined } from '@material-ui/icons';
 
 // reducer
 import { useSelector, useDispatch } from 'react-redux';
@@ -151,11 +151,9 @@ const UserLoggedIn = () => {
 			</li>
 
 			<li>
-				<button onClick={onClickLogoutBtn}>
-					<a className="sub-menu-line">
-						<ExitToApp />Log out
-					</a>
-				</button>
+				<div className="sub-menu-line" onClick={onClickLogoutBtn}>
+					<ExitToApp />Log out
+				</div>
 			</li>
 		</ul>
 	);
@@ -300,6 +298,9 @@ const AppLayout = ({ children }) => {
 		setToggle(!toggleMenu);
 	}, [toggleMenu]);
 
+	const [togglePJ, setTogglePJ] = useState(false);
+	const [toggleJW, setToggleJW] = useState(false);
+
 	return (
 		<div id="wrapper">
 			<div id="page-container">
@@ -311,29 +312,26 @@ const AppLayout = ({ children }) => {
 								<h1>GOODTEAM</h1>
 							</a></Link>
 						</div>
-						<div className="nav-link-btn">
-							<Link href="/project"><a>
-								모집 중인 프로젝트
-							</a></Link>
+						<div className="menu-btn" onClick={() => {
+							setToggleJW(false);
+							setTogglePJ(!togglePJ);
+							}}>
+							<WebOutlined /><span>프로젝트</span>
+							<div className="menu-box" style={{maxHeight: `${togglePJ ? 140 : 0}px`}}>
+								<Link href="/project"><a className="menu-btn child">찾아보기</a></Link>
+								<Link href="/project/write"><a className="menu-btn child">모집하기</a></Link>
+							</div>
 						</div>
-						{user && <>
-							<div className="nav-link-btn">
-								<Link href="/project/write"><a>
-									프로젝트 만들기
-								</a></Link>
+						<div className="menu-btn" onClick={() => {
+							setTogglePJ(false);
+							setToggleJW(!toggleJW)
+							}}>
+							<EmojiPeopleOutlined /><span>인재풀</span>
+							<div className="menu-box" style={{maxHeight: `${toggleJW ? 140 : 0}px`}}>
+								<Link href="/jewel"><a className="menu-btn child">찾아보기</a></Link>
+								<Link href="/jewel/write"><a className="menu-btn child">모집하기</a></Link>
 							</div>
-							<div className="nav-link-btn">
-								<Link href="/jewel/write"><a>
-									인재풀 등록하기
-								</a></Link>
-							</div>
-							<div className="nav-link-btn">
-								<Link href="/jewel"><a>
-									인재 살펴보기
-								</a></Link>
-							</div>
-						</>
-						}
+						</div>
 						<div className="nav-profile-btn" onClick={onClickProfileBtn}>
 							{ user ?
 								<div>

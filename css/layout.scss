@@ -43,13 +43,13 @@ button:focus {
 	position: absolute;
 	min-height: 100vh;
 	width: 100%;
-	min-width: 800px;
+	//min-width: 800px;
 	top: 0;
 	background: #FAFAFA;
 }
 
 .page-inner-container {
-	min-width: 800px;
+	//min-width: 800px;
 	margin: 0 auto;
 	overflow-x: hidden;
 	min-height: inherit;
@@ -65,13 +65,53 @@ button:focus {
 	margin: 3rem 0;
 }
 
+.menu-btn {
+	display: flex;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	background: #fff;
+	transition: .3s;
+	height: 70px;
+	width: 10rem;
+	font-weight: 600;
+	color: #222;
+	cursor: pointer;
+
+	svg {
+		color: #5970ff;
+	}
+
+	&.child:hover {
+		background: #ededed;
+	}
+
+	span {
+		margin-left: .5rem;
+	}
+
+	.menu-box {
+		position: absolute;
+		flex-direction: column;
+		bottom: 0;
+		left: 0;
+		transform: translateY(100%);
+		transition: .3s;
+		overflow-y: hidden;
+		border: 1px solid  rgba(0, 0, 0, 0.05);
+		border-top: none;
+	}
+}
+
 #main-cards {
 	display: flex;
+	flex-flow: row wrap;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
 	min-height: inherit;
 	background: #fff;
+	margin-top: 70px;
 }
 
 .card-box.intro{
@@ -177,7 +217,7 @@ button:focus {
 	height: 70px;
 	margin: 0 auto;
 	box-sizing: border-box;
-	padding: 10px;
+	padding-left: 1rem;
 
 	.nav-logo-btn {
 		margin: 10px 30px 10px 0;
@@ -559,6 +599,18 @@ button:focus {
 @media screen and (max-width: 800px) {
 	.nav-logo-btn a h1 {
 		display: none;
+	}
+
+	.menu-btn {
+		width: 5rem;
+
+		span {
+			display: none;
+		}
+
+		&.child {
+			font-size: 1rem;
+		}
 	}
 }
 
