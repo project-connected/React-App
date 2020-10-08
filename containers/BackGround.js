@@ -12,7 +12,7 @@ const BackGround = ({ mode="component", open, setOpen, children, zIndex=100 }) =
 	return (
 		<>
 			{open && children}
-			{ mode === 'component' && <div className={backgroundClass} onClick={CloseDetail} style={{zIndex: zIndex}}/>}
+			{ mode === 'component' && open && <div className={backgroundClass} onClick={CloseDetail} style={{zIndex: zIndex}}/>}
 		</>
 	);
 };
