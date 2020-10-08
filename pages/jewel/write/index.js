@@ -1,16 +1,14 @@
 import React, {useEffect, useState, useCallback, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Calendar from 'react-calendar';
 import Router from 'next/router';
 import moment from 'moment';
 
 import axios from 'axios';
 import wrapper from '../../../store/configureStore';
 import { END } from 'redux-saga';
+import Calendar from '../../../components/DynamicCalendar';
 
 import { KeyboardArrowDown, Check } from '@material-ui/icons';
-
-
 
 import Editor from '../../../components/Editor';
 import useInput from '../../../hooks/useInput';

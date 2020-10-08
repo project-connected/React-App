@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Calendar from 'react-calendar';
+import Calendar from '../../../components/DynamicCalendar';
 import dynamic from 'next/dynamic';
 import moment from 'moment';
 import Router from 'next/router';
@@ -369,15 +369,18 @@ const CreateProj = () => {
 				<div className="content-box finish">
 					<div className="selector overflowAuto">
 						{done && <ProjectPage
-							status="create"
-							title={title}
-							theme={createTheme}
-							result={createResult}
-							region={createRegion}
-							startDate={moment(startDate).format("YYYY년 MM월 DD일")}
-							period={period}
-							stacks={createStacks}
-							desc={desc}
+							data={{
+								title: title,
+								theme: createTheme,
+								result: createResult,
+								region: createRegion,
+								period: {
+									startDate: moment(startDate).format("YYYY년 MM월 DD일"),
+									diff: period,
+								},
+								stacks: createStacks,
+								description: desc,
+							}}
 						/>}
 					</div>
 					<button className="proj-create-btn" onClick={ClickNext(6)}>

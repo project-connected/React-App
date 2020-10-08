@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -49,19 +49,12 @@ export const InfoBlock = ({ name, data }) => {
 	);
 }
 
-export const ProjectPage = ({
-							status="view",
-							title="프로젝트 제목",
-							theme=[{key: 'DEFAULT', value: "목적"}],
-							result=[{key: "DEFAULT", value: "결과물"}],
-							region=[{key: "DEFAULT", value: "지역"}],
-							startDate="2020년 8월 30일",
-							period=14,
-							stacks=[{key:"DEFAULT", value:'스택', color: '#333'}],
-							desc="프로젝트 설명이 작성되지 않았습니다." }) => {
+export const ProjectPage = ({ data=null }) => {
 	const { user } = useSelector(state=>state.user);
 	const { projectData } = useSelector(state=>state.project);
 	const dispatch = useDispatch();
+
+	const [PJData, setPJData] = useState(data ? data : projectData);
 
 	const applyProj = useCallback((e) => {
 		if (!user) {
@@ -80,17 +73,14 @@ export const ProjectPage = ({
 		<div id='project-page-wrap'>
 			<div className="proj-head-info boxShadow">
 				<div className="proj-head-title">
-					<Link href={`/user/${projectData.leaderUser.userId}`}>
-						<a>{projectData.leaderUser.userName}</a>
-					</Link>
-					<h3>{projectData.title}</h3>
+					<h3>{PJData.title}</h3>
 				</div>
 				<div className="proj-info-container">
 					<section id="condition">
 						<div className="info-box">
 							<p>프로젝트 테마</p>
 							<div className="block-wrap overDisplay">
-								{projectData.theme.map((c, i) => {
+								{PJData.theme.map((c, i) => {
 									return (
 										<div key={(i)} className="block">
 											{c.value}
@@ -102,7 +92,7 @@ export const ProjectPage = ({
 						<div className="info-box">
 							<p>프로젝트 결과물</p>
 							<div className="block-wrap overDisplay">
-								{projectData.result.map((c, i) => {
+								{PJData.result.map((c, i) => {
 									return (
 										<div key={(i)} className="block">
 											{c.value}
@@ -114,7 +104,7 @@ export const ProjectPage = ({
 						<div className="info-box">
 							<p>프로젝트 진행 지역</p>
 							<div className="block-wrap overDisplay">
-								{projectData.region.map((c, i) => {
+								{PJData.region.map((c, i) => {
 									return (
 										<div key={(i)} className="block">
 											{c.value}
@@ -129,16 +119,16 @@ export const ProjectPage = ({
 							<p>프로젝트 진행 기간</p>
 							<div className="block-wrap period">
 								<div className="block">
-									{projectData.period.startDate}
+									{PJData.period.startDate}
 								</div>
-								<p>부터 <span>{projectData.period.diff}</span>일 간</p>
+								<p>부터 <span>{PJData.period.diff}</span>일 간</p>
 							</div>
 						</div>
 						<div className="info-box stack">
 							<p>모집기술</p>
-							<p className="total-num">{projectData.stacks.reduce((a, b) => a + (b['num'] || 0), 0)} / {projectData.stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)}명</p>
+							<p className="total-num">{PJData.stacks.reduce((a, b) => a + (b['num'] || 0), 0)} / {projectData.stacks.reduce((a, b) => a + (b['maxNum'] || 0), 0)}명</p>
 							<div className="project-card-stack-block-wrap">
-								{projectData.stacks.map((c, i) => {
+								{PJData.stacks.map((c, i) => {
 									return (
 										<div key={(i)} className="proj-stack-block">
 											<StackBlock name={c.value} color={c.color} />
@@ -168,7 +158,7 @@ export const ProjectPage = ({
 				</div>
 			}
 			<div className="proj-descript boxShadow">
-				<ReactMarkdown source={projectData.description} />
+				<ReactMarkdown source={PJData.description} />
 			</div>
 		</div>
 	);
