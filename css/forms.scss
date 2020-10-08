@@ -634,11 +634,9 @@
 }
 
 .noSubProfile {
-	position: relative;
-	width: 60%;
-	min-width: 600px;
-	height: 60%;
-	min-height: 400px;
+	width: 600px;
+	z-index: 102;
+	transition: .5s;
 
 	h1 {
 		width: 100%;
@@ -737,6 +735,43 @@
 			&:hover {
 				background: #6980ff
 			}
+		}
+	}
+}
+
+.ab-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.chip-wrap {
+	width: 100%;
+	border: 1px solid #dadada;
+	border-radius: 7px;
+
+	.chip-box {
+		width: 100%;
+		padding: .5rem;
+	}
+
+	.search-box {
+		position: relative;
+		width: 100%;
+		padding: .5rem;
+		border-bottom: 1px solid #dadada;
+
+		svg {
+			color: #444;
+			position: absolute;
+		}
+
+		input {
+			width: 100%;
+			font-size: 14px;
+			padding-left: 2rem;
+			box-shadow: none !important;
 		}
 	}
 }
