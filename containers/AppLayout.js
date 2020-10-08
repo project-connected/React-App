@@ -334,7 +334,7 @@ const AppLayout = ({ children }) => {
 							</div>
 						</>
 						}
-						<div type="button" className="nav-profile-btn" onClick={onClickProfileBtn}>
+						<div className="nav-profile-btn" onClick={onClickProfileBtn}>
 							{ user ?
 								<div>
 									{user.profileImg ?
