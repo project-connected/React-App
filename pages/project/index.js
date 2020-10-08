@@ -59,7 +59,7 @@ const SearchResultProject = ({ project }) => {
 
 const SearchProj = props => {
 	const { projectList } = useSelector(state=>state.project);
-	const { region, themes, skills } = useSelector(state=>state.common);
+	const { region, themes, skills, results } = useSelector(state=>state.common);
 	const dispatch = useDispatch();
 
 	const [searchRegion, setSearchRegion] = useState([]);
@@ -104,14 +104,14 @@ const SearchProj = props => {
 				<Link href="/project/create">
 					<a>
 						<div id="create">
-						프로젝트 만들기 버튼
+							프로젝트 만들기 버튼
 						</div>
 					</a>
 				</Link>
 				<Link href="/">
 					<a>
 						<div id="apply">
-						인재풀 등록 버튼
+							인재풀 등록 버튼
 						</div>
 					</a>
 				</Link>
@@ -134,7 +134,7 @@ const SearchProj = props => {
 					<div className="choice-filter-box">
 						<SelectAttr status="search" value={searchRegion} idx={0} name="지역" data={region} getAction={getRegion} />
 						<SelectAttr status="search" value={searchTheme} idx={1} name="목적" data={themes} getAction={getTheme} />
-						<SelectAttr status="search" value={searchResult} idx={2} name="결과물" data={dummyResult} getAction={getResult} />
+						<SelectAttr status="search" value={searchResult} idx={2} name="결과물" data={results} getAction={getResult} />
 						<SelectPeriod value={searchStartDate} setValue={setSearchStartDate}/>
 						<SelectStack skills={skills} value={searchStacks} getAction={getStacks}/>
 					</div>

@@ -3,6 +3,7 @@ import React, {useState, useCallback, useEffect} from 'react';
 import axios from 'axios';
 import { END } from 'redux-saga';
 import { useSelector, useDispatch } from 'react-redux';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 import wrapper from '../../store/configureStore';
 
@@ -79,7 +80,7 @@ const FindJewel = props => {
 		console.log(data);
 		dispatch({
 			type: LOAD_JEWEL_REQUEST,
-			 id: data.profileId,
+			id: data.profileId,
 			//id: 2
 		})
 		setOpenDetail(true);
@@ -134,11 +135,19 @@ const FindJewel = props => {
 				</div>
 			</div>
 			<div className="jewel-card-wrap">
-				{jewels.map((c, i) => {
-					return (
-						<JewelCard data={c} key={(i)} onClick={openJewelDetail(c)}/>
-					);
-				})}
+				{jewels ?
+					jewels.map((c, i) => {
+						return (
+							<JewelCard data={c} key={(i)} onClick={openJewelDetail(c)}/>
+						);
+					})
+				:
+					[1,2,3,4,5,6].map((c, i) => {
+						return (
+							<Skeleton key={(i)} variant="rect" width={'15rem'} height={'22rem'} style={{margin: '1rem', borderRadius: '7px'}}/>
+						)
+					})
+				}
 			</div>
 			<JewelDetail open={openDetail} setOpen={setOpenDetail} jewelData={jewelData}/>
 		</div>
@@ -161,9 +170,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	context.store.dispatch({
 		type: LOAD_COMMON_REQUEST,
 	})
-	 context.store.dispatch({
-	 	type: LOAD_JEWEL_LIST_REQUEST,
-	 })
+	context.store.dispatch({
+		type: LOAD_JEWEL_LIST_REQUEST,
+	})
 	context.store.dispatch(END);
 	await context.store.sagaTask.toPromise();
 });

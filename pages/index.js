@@ -28,14 +28,14 @@ const Index = () => {
 				</a>
 			</Link>
 			<Link href="/jewel">
-				<div className="card-box intro" style={{backgroundImage: 'url(/images/jewel.jpg)', backgroundSize: 'cover', backgroundPositionX: 'center'}}>
+				<a className="card-box intro" style={{backgroundImage: 'url(/images/jewel.jpg)', backgroundSize: 'cover', backgroundPositionX: 'center'}}>
 					<CountUp
 						className="countUp"
 						end={1378}
 						duration={3}
 					/>
 					<p>명의 인재가 팀원을 찾고 있습니다.</p>
-				</div>
+				</a>
 			</Link>
 		</div>
 		</>

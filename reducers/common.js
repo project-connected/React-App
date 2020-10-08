@@ -18,7 +18,7 @@ const initialState = {
 	region: [],
 	skills: [],
 	themes: [],
-	results: dummyResult,
+	results: [],
 };
 
 export const LOAD_COMMON_REQUEST = 'LOAD_COMMON_REQUEST';
