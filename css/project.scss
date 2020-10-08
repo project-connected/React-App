@@ -480,3 +480,22 @@
 		}
 	}
 }
+
+@media screen and (max-width: 800px) {
+	.proj-search-wrap {
+		min-width: unset !important;
+		width: 90% !important;
+		margin: 0 auto;
+
+		.search-filter-box {
+
+			.choice-filter-box {
+				flex-direction: column;
+			}
+
+			.select-btn-wrap {
+				margin: 1rem 0 0 0;
+			}
+		}
+	}
+}
