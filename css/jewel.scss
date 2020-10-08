@@ -56,8 +56,11 @@
 .jewel-card-wrap {
 	margin: -1rem 2rem 2rem 280px;
 	display: flex;
-	flex-wrap: wrap;
-	min-width: 820px;
+	flex-flow: row wrap;
+	//flex-wrap: wrap;
+	//min-width: 820px;
+	align-items: center;
+	justify-content: center;
 }
 
 .card-box {
@@ -324,5 +327,21 @@
 
 	.back-img {
 		height: 10rem;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.jewel-search-page {
+		flex-direction: column;
+
+		.jewel-search-wrap {
+			position: relative !important;
+			width: 90% !important;
+			margin: 0 auto;
+		}
+
+		.jewel-card-wrap {
+			margin: 0;
+		}
 	}
 }

@@ -462,10 +462,8 @@
 		margin-bottom: 5px;
 		animation: .5s padeUp 1 ease-in-out;
 		height: fit-content;
+		margin-right: .5rem;
 
-		&:nth-child(n+2) {
-			margin-left: .5rem;
-		}
 		&.theme::before {
 			content: "목적: ";
 		}
