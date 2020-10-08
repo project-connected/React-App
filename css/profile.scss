@@ -61,7 +61,7 @@
 		}
 		.login-info {
 			margin-left: 3rem;
-			//width: 100%;
+			width: 100%;
 
 			div {
 				position: relative;
@@ -70,7 +70,6 @@
 				&[name="email"] {
 					font-size: 12px;
 					color: #7990ff;
-					margin-left: 1rem;
 				}
 
 				&[name="name"] {
