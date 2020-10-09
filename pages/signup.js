@@ -81,7 +81,7 @@ const Signup = () => {
 	return (
 		<>
 		<Head>
-			<title>회원가입</title>
+			<title>SIGNUP</title>
 		</Head>
 		<div id="signup-wrap">
 			<div className="signup-container">
