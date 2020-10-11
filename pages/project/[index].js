@@ -49,7 +49,7 @@ export const InfoBlock = ({ name, data }) => {
 	);
 }
 
-export const ProjectPage = ({ data=null }) => {
+export const ProjectPage = ({ data=null, status='view' }) => {
 	const { user } = useSelector(state=>state.user);
 	const { projectData } = useSelector(state=>state.project);
 	const dispatch = useDispatch();
