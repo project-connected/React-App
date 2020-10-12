@@ -5,6 +5,7 @@ const initialState = {
 	openUserMenu: false,
 	openApply: false,
 	openUserProfile: false,
+	openEnterSubProfile: false
 }
 
 export const CLOSE_ALL_COMP1 = 'CLOSE_ALL_COMP1';
@@ -46,11 +47,11 @@ const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 		}
 
 		case OPEN_SUB_PROFILE: {
-			draft.openSubProfile = true;
+			draft.openEnterSubProfile = true;
 			break;
 		}
 		case CLOSE_SUB_PROFILE: {
-			draft.openSubProfile = false;
+			draft.openEnterSubProfile = false;
 			break
 		}
 

@@ -214,37 +214,35 @@ const dummyUser = {
 	email: 'anhs0220@gmail.com',
 	userName: 'Forty Two Seoul',
 	// profileImg: 'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
-	subProfile: {
-		region: {
-			key: "SEOUL",
-			value: '서울',
-		},
-		stacks: [{
-			key: "REACT",
-			value: "React.js",
-			color: '#A0A0FF',
-		},{
-			key: "NODE",
-			value: "Node.js",
-			color: '#A0FFA0',
-		}],
-		theme: [{
-			key: 'STARTUP',
-			value: '스타트업'
-		}, {
-			key: 'HACKATHON',
-			value: '해커톤'
-		}],
-		result: [{
-			key: 'APPLICATION',
-			value: '어플리케이션 개발'
-		}, {
-			key: 'WEB',
-			value: '웹 개발'
-		}],
-		url: "https://github.com/gitseob",
-		introduct: "### 안녕하세용 저는 정말 프로젝트를 완성하고 싶은 사람입니다. **하지만 전 게을러요**",
+	area: {
+		key: "SEOUL",
+		value: '서울',
 	},
+	skill: [{
+		key: "REACT",
+		value: "React.js",
+		color: '#A0A0FF',
+	},{
+		key: "NODE",
+		value: "Node.js",
+		color: '#A0FFA0',
+	}],
+	theme: [{
+		key: 'STARTUP',
+		value: '스타트업'
+	}, {
+		key: 'HACKATHON',
+		value: '해커톤'
+	}],
+	purpose: [{
+		key: 'APPLICATION',
+		value: '어플리케이션 개발'
+	}, {
+		key: 'WEB',
+		value: '웹 개발'
+	}],
+	url: "https://github.com/gitseob",
+	introduct: "### 안녕하세용 저는 정말 프로젝트를 완성하고 싶은 사람입니다. **하지만 전 게을러요**",
 	jewelData: dummyJewel,
 	projectData: dummyProject,
 }
@@ -257,9 +255,12 @@ const initialState = {
 	isSignedup: false,
 	isLoggedIn: false,
 	isLoggedOut: false,
+	isSavingProfile: false,
+	isSavedProfile: false,
 	loginErrorReason: '',
 	logoutErrorReason: '',
 	signupErrorReason: '',
+	saveProfileError: '',
 	other: dummyUser,
 }
 
@@ -282,6 +283,10 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+
+export const SAVE_SUBPROFILE_REQUEST = 'SAVE_SUBPROFILE_REQUEST';
+export const SAVE_SUBPROFILE_SUCCESS = 'SAVE_SUBPROFILE_SUCCESS';
+export const SAVE_SUBPROFILE_FAILURE = 'SAVE_SUBPROFILE_FAILURE';
 
 const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 	switch (action.type) {
@@ -367,6 +372,24 @@ const reducer = ( state=initialState, action ) => produce(state, (draft) => {
 		case SIGNUP_FAILURE: {
 			draft.isSigningup = false;
 			draft.signupErrorReason = action.error;
+			break;
+		}
+
+		case SAVE_SUBPROFILE_REQUEST: {
+			draft.isSavingProfile = true;
+			break;
+		}
+		case SAVE_SUBPROFILE_SUCCESS: {
+			draft.isSavingProfile = false;
+			draft.isSavedProfile = true;
+			draft.user = action.data;
+			draft.user.jewelData = dummyJewel;
+			draft.user.projectData = dummyProject;
+			break;
+		}
+		case SAVE_SUBPROFILE_FAILURE: {
+			draft.isSavingProfile = false;
+			draft.saveProfileError = action.error;
 			break;
 		}
 

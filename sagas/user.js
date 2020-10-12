@@ -12,7 +12,7 @@ import {
 	SIGNUP_FAILURE,
 	LOAD_USER_REQUEST,
 	LOAD_USER_SUCCESS,
-	LOAD_USER_FAILURE
+	LOAD_USER_FAILURE, SAVE_SUBPROFILE_REQUEST, SAVE_SUBPROFILE_SUCCESS
 } from '../reducers/user';
 
 const dummyUser = {
@@ -117,11 +117,51 @@ function* watchSignup() {
 	yield takeLatest(SIGNUP_REQUEST, signup);
 }
 
+function saveProfileAPI(data) {
+	return {
+		data: {
+			result: {
+				userId: 1,
+				email: 'anhs0220@gmail.com',
+				userName: 'Forty Two Seoul',
+				area: data.area,
+				skill: data.skill,
+				theme: data.theme,
+				purpose: data.purpose,
+				url: data.url,
+				introduct: data.introduct,
+			}
+		}
+	}
+	//return axios.post('/', data);
+}
+
+function* saveProfile(action) {
+	try {
+		const result = yield call(saveProfileAPI, action.data);
+		yield put({
+			type: SAVE_SUBPROFILE_SUCCESS,
+			data: result.data.result
+		})
+
+	} catch(e) {
+		yield put({
+			type: SAVE_SUBPROFILE_FAILURE,
+			error: e.response.data
+		})
+	}
+}
+
+function* watchSaveProfile() {
+	yield takeLatest(SAVE_SUBPROFILE_REQUEST, saveProfile);
+}
+
 export default function* userSaga(){
 	yield all([
 		fork(watchLogin),
 		fork(watchLoadUser),
 		fork(watchLogout),
-		fork(watchSignup)
+		fork(watchSignup),
+		fork(watchSaveProfile),
 	]);
 }
