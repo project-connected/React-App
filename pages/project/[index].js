@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
@@ -47,6 +47,10 @@ export const ProjectPage = ({ data = null, status = "view" }) => {
 		},
 		[user]
 	);
+
+	useEffect(() => {
+		setPJData(data);
+	}, [data]);
 
 	return (
 		<div id="project-page-wrap">

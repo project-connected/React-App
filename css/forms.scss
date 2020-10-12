@@ -170,16 +170,59 @@
 		background: #6980ff;
 	}
 }
+#write-project-page {
+	width: 100%;
+	max-width: 1100px;
+	margin: 0 auto;
+	overflow-x: hidden;
+	padding: 0 50px 1rem 50px;
+	position: relative;
 
-#create-wrap {
-	display: inline-flex;
+	button.proj-create-btn {
+		position: absolute;
+		bottom: 1rem;
+		left: 50%;
+		transform: translate(-50%, 0);
+		padding: 1rem 0;
+		width: 40%;
+		border-radius: 27px;
+		background: #7990ff;
+		color: white;
+		transition: 0.3s;
+
+		&:hover {
+			background: #6980ff;
+		}
+	}
+}
+
+button.slide-btn {
 	position: absolute;
-	left: 0;
-	top: 0;
+	top: 50%;
+	svg {
+		width: 5rem;
+		height: 5rem;
+		color: #888;
+
+		&:hover {
+			color: #7990ff;
+		}
+	}
+
+	&.next {
+		right: 50px;
+	}
+
+	&.back {
+		left: 50px;
+	}
+}
+
+.create-wrap {
+	display: inline-flex;
 	width: 600%;
 	transition: all 0.3s ease 0s;
-	height: 100vh;
-	padding-top: 100px;
+	height: 80vh;
 
 	.one-page-component {
 		// position: relative;
@@ -190,6 +233,10 @@
 		justify-content: center;
 		height: 90%;
 		transition: 0.3s;
+
+		.proj-button-wrap {
+			display: none !important;
+		}
 
 		&.editor .content-box {
 			height: 100%;
@@ -207,7 +254,7 @@
 			width: 60%;
 			background: #fff;
 			justify-content: center;
-			margin-top: 4rem;
+			margin-top: 1rem;
 			max-height: 100%;
 
 			h3.title {
@@ -225,23 +272,10 @@
 					margin-top: 2rem;
 				}
 			}
-			button.proj-create-btn {
-				display: inherit;
-				padding: 1rem 0;
-				margin: 1rem auto 0 auto;
-				width: 40%;
-				border-radius: 27px;
-				background: #7990ff;
-				color: white;
-				transition: 0.3s;
-
-				&:hover {
-					background: #6980ff;
-				}
-			}
 
 			&.finish {
 				box-shadow: none !important;
+				width: 80%;
 				background: transparent;
 			}
 
@@ -249,11 +283,9 @@
 				max-height: 80vh;
 				#project-page-wrap {
 					padding: 0;
+					padding-top: 10px;
+					margin: 0;
 					width: 100%;
-				}
-
-				&.overflowAuto {
-					overflow: auto;
 				}
 
 				.select-btn-wrap {
@@ -359,32 +391,6 @@
 							text-align: right;
 						}
 					}
-				}
-			}
-
-			button {
-				svg {
-					width: 5rem;
-					height: 5rem;
-					color: #888;
-
-					&:hover {
-						color: #7990ff;
-					}
-				}
-
-				&.next {
-					position: absolute;
-					top: 50%;
-					right: 0;
-					transform: translate(110%, -50%);
-				}
-
-				&.back {
-					position: absolute;
-					top: 50%;
-					left: 0;
-					transform: translate(-110%, -50%);
 				}
 			}
 		}

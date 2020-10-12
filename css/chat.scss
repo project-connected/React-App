@@ -27,14 +27,14 @@
 	right: 0;
 	max-height: 700px;
 	border-radius: 10px 10px 0 0;
-	transition: all .6s cubic-bezier(0.65, 0.05, 0.36, 1);
+	transition: all 0.6s cubic-bezier(0.65, 0.05, 0.36, 1);
 	z-index: 5;
 	background: white;
 
 	.chat-content {
 		width: 100%;
-		transition: all .5s;
-		transition: all .6s cubic-bezier(0.65, 0.05, 0.36, 1);
+		transition: all 0.5s;
+		transition: all 0.6s cubic-bezier(0.65, 0.05, 0.36, 1);
 	}
 }
 
@@ -73,14 +73,14 @@
 		padding: 0;
 	}
 
-	.chat-room-btn{
+	.chat-room-btn {
 		width: 100%;
 		display: flex;
 		padding: 20px 10px;
-		border-bottom: 1px solid #EEE;
+		border-bottom: 1px solid #eee;
 
 		&:hover {
-			border: 1px solid #CCC;
+			border: 1px solid #ccc;
 		}
 
 		.chat-recent-message {
@@ -95,7 +95,6 @@
 	}
 }
 
-
 .chat-list .chat-room-btn img {
 	border-radius: 100%;
 	width: 40px;
@@ -106,12 +105,12 @@
 	height: 648px;
 	display: flex;
 	flex-direction: column;
-	transition: all .6s cubic-bezier(0.65, 0.05, 0.36, 1);
+	transition: all 0.6s cubic-bezier(0.65, 0.05, 0.36, 1);
 
 	.chat-log-wrap {
 		height: 592px;
 		overflow-y: scroll;
-		transition: all .6s cubic-bezier(0.65, 0.05, 0.36, 1);
+		transition: all 0.6s cubic-bezier(0.65, 0.05, 0.36, 1);
 
 		.msg-container {
 			display: flex;
@@ -144,14 +143,14 @@
 			}
 
 			&.other-user .msg-box .msg-content:before {
-				content:"";
+				content: "";
 				-moz-transform: skewX(30deg);
 				-webkit-transform: skewX(30deg);
 				transform: skewX(30deg);
 				width: 20px;
 				left: 0;
 				height: 20px;
-				background: #F8F8F8;
+				background: #f8f8f8;
 				position: absolute;
 				top: 0;
 				z-index: -1;
@@ -163,7 +162,7 @@
 
 				.msg-content {
 					flex: 1;
-					background: #F8F8F8;
+					background: #f8f8f8;
 					color: rgb(80, 114, 255);
 					padding: 16px;
 					font-size: 14px;
@@ -180,7 +179,6 @@
 					color: rgb(60, 94, 240);
 				}
 			}
-
 		}
 	}
 
@@ -191,7 +189,7 @@
 		align-items: center;
 		padding: 20px 24px;
 		background: #fff;
-		border-top: 1px solid #EEEEEE;
+		border-top: 1px solid #eeeeee;
 		justify-content: flex-end;
 
 		input[name="messageInput"] {

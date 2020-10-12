@@ -3,6 +3,9 @@ import dynamic from "next/dynamic";
 import moment from "moment";
 import Router from "next/router";
 import Calendar from "./DynamicCalendar";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 export const Editor = dynamic(import("./Toast"), {
 	ssr: false,
 });
@@ -110,7 +113,7 @@ const WriteProject = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const slideStyle = {
-		left: `-${(currentPage - 1) * 100}%`,
+		transform: `translateX(-${(currentPage - 1) * 100}%)`,
 	};
 
 	const getCreateRegion = useCallback(
@@ -175,6 +178,8 @@ const WriteProject = () => {
 	const ClickNext = useCallback(
 		(idx) => (e) => {
 			e.preventDefault();
+			console.log(idx);
+			console.log(slideStyle);
 			if (idx === 1) {
 				if (
 					createTheme.length === 0 ||
@@ -246,10 +251,9 @@ const WriteProject = () => {
 	);
 
 	const headerClick = useCallback(
-		(idx) => (e) => {
-			e.preventDefault();
-			if (idx > availPage) return;
-			setCurrentPage(idx);
+		(e, idx) => {
+			if (idx + 1 > availPage) return;
+			setCurrentPage(idx + 1);
 		},
 		[availPage]
 	);
@@ -276,194 +280,256 @@ const WriteProject = () => {
 					loading={isCreating}
 				/>
 			</BackGround>
-			<CreateHeader
+			{/* <CreateHeader
 				idx={currentPage}
 				availIdx={availPage}
 				clickFunction={headerClick}
-			/>
-			<div id="create-wrap" style={slideStyle}>
-				<div className="one-page-component">
-					<div className="content-box">
-						<div className="selector">
-							<p>어떤 목적으로 프로젝트를 모집하세요?</p>
-							<SelectBlocks
-								data={themes}
-								value={createTheme}
-								setValue={getCreateTheme}
-								removeValue={removeTheme}
-							/>
-							<p>어떤 결과를 목표로 하시나요?</p>
-							<SelectBlocks
-								data={results}
-								value={createResult}
-								setValue={getCreateResult}
-								removeValue={removeResult}
-							/>
-							<p>어느 지역에서 진행하시겠어요?</p>
-							<SelectBlocks
-								data={region}
-								value={createRegion}
-								setValue={getCreateRegion}
-								removeValue={removeRegion}
-							/>
-						</div>
-						<button className="next" onClick={ClickNext(1)}>
-							<KeyboardArrowRight />
-						</button>
-					</div>
-				</div>
-				<div className="one-page-component">
-					<div className="content-box">
-						<div className="selector">
-							<p>
-								모집하고 싶은 기술을 가진 사람들을 설정해주세요.
-							</p>
-							<div className="setting-box">
-								<SelectStackForProject
-									data={skills}
-									value={createStacks}
-									setValue={getCreateStack}
-									removeValue={removeStack}
+			/> */}
+			<AppBar position="static">
+				<Tabs value={availPage - 1} onChange={headerClick}>
+					<Tab
+						className="header-tap"
+						label={1}
+						style={{
+							background: `${
+								0 < availPage
+									? "linear-gradient(#7990ff, #9198e5)"
+									: "#dadada"
+							}`,
+						}}
+					></Tab>
+					<Tab
+						className="header-tap"
+						label={2}
+						style={{
+							background: `${
+								1 < availPage
+									? "linear-gradient(#7990ff, #9198e5)"
+									: "#dadada"
+							}`,
+						}}
+					></Tab>
+					<Tab
+						className="header-tap"
+						label={3}
+						style={{
+							background: `${
+								2 < availPage
+									? "linear-gradient(#7990ff, #9198e5)"
+									: "#dadada"
+							}`,
+						}}
+					></Tab>
+					<Tab
+						className="header-tap"
+						label={4}
+						style={{
+							background: `${
+								3 < availPage
+									? "linear-gradient(#7990ff, #9198e5)"
+									: "#dadada"
+							}`,
+						}}
+					></Tab>
+					<Tab
+						className="header-tap"
+						label={5}
+						style={{
+							background: `${
+								4 < availPage
+									? "linear-gradient(#7990ff, #9198e5)"
+									: "#dadada"
+							}`,
+						}}
+					></Tab>
+					<Tab
+						className="header-tap"
+						label={"Finish"}
+						style={{
+							background: `${
+								5 < availPage
+									? "linear-gradient(#7990ff, #9198e5)"
+									: "#dadada"
+							}`,
+						}}
+					></Tab>
+				</Tabs>
+			</AppBar>
+			<div id="write-project-page">
+				<div className="create-wrap">
+					<div className="one-page-component" style={slideStyle}>
+						<div className="content-box">
+							<div className="selector">
+								<p>어떤 목적으로 프로젝트를 모집하세요?</p>
+								<SelectBlocks
+									data={themes}
+									value={createTheme}
+									setValue={getCreateTheme}
+									removeValue={removeTheme}
+								/>
+								<p>어떤 결과를 목표로 하시나요?</p>
+								<SelectBlocks
+									data={results}
+									value={createResult}
+									setValue={getCreateResult}
+									removeValue={removeResult}
+								/>
+								<p>어느 지역에서 진행하시겠어요?</p>
+								<SelectBlocks
+									data={region}
+									value={createRegion}
+									setValue={getCreateRegion}
+									removeValue={removeRegion}
 								/>
 							</div>
 						</div>
-						<button className="back" onClick={ClickBefore}>
-							<KeyboardArrowLeft />
-						</button>
-						<button className="next" onClick={ClickNext(2)}>
-							<KeyboardArrowRight />
-						</button>
 					</div>
-				</div>
-				<div className="one-page-component">
-					<div className="content-box">
-						<div className="selector">
-							{warning === "" ? (
-								<p>프로젝트 시작일을 선택해주세요.</p>
-							) : (
-								<p className="warn">{warning}</p>
-							)}
-							<div className="setting-box">
-								<Calendar
-									value={startDate}
-									onChange={OCStartDate}
-									calendarType="US"
-								/>
-								<div className="set-period">
-									{clickDate && (
-										<div className="period-box">
-											<p>선택하신 날짜가 맞나요?</p>
-											<div className="highlight period-text">
-												<h5>시작</h5>
-												<KeyboardArrowRight />
-												<span>
-													{moment(startDate).format(
-														"YYYY년 MM월 DD일"
-													)}
-												</span>
-											</div>
-											<p>
-												프로젝트 진행 기간을
-												입력해주세요.
-											</p>
-											<div className="period-text period">
-												<h5>기간</h5>
-												<KeyboardArrowRight />
-												<input
-													value={period}
-													onChange={OCPeriod}
-													maxLength={4}
-													type="text"
-													name="name"
-													pattern="[\d]{4}"
-													autoComplete="off"
-													placeholder="0"
-													autoFocus
-												/>
-												<p>일</p>
-											</div>
-										</div>
-									)}
+					<div className="one-page-component" style={slideStyle}>
+						<div className="content-box">
+							<div className="selector">
+								<p>
+									모집하고 싶은 기술을 가진 사람들을
+									설정해주세요.
+								</p>
+								<div className="setting-box">
+									<SelectStackForProject
+										data={skills}
+										value={createStacks}
+										setValue={getCreateStack}
+										removeValue={removeStack}
+									/>
 								</div>
 							</div>
 						</div>
-						<button className="back" onClick={ClickBefore}>
-							<KeyboardArrowLeft />
-						</button>
-						<button className="next" onClick={ClickNext(3)}>
-							<KeyboardArrowRight />
-						</button>
 					</div>
-				</div>
-				<div className="one-page-component">
-					<div className="content-box">
-						<div className="selector">
-							<p>모집글 제목을 어떻게 하시겠어요?</p>
-							<input
-								name="title"
-								type="text"
-								value={title}
-								onChange={OCTitle}
-								placeholder="제목을 입력해주세요."
-								autoFocus
-							/>
+					<div className="one-page-component" style={slideStyle}>
+						<div className="content-box">
+							<div className="selector">
+								{warning === "" ? (
+									<p>프로젝트 시작일을 선택해주세요.</p>
+								) : (
+									<p className="warn">{warning}</p>
+								)}
+								<div className="setting-box">
+									<Calendar
+										value={startDate}
+										onChange={OCStartDate}
+										calendarType="US"
+									/>
+									<div className="set-period">
+										{clickDate && (
+											<div className="period-box">
+												<p>선택하신 날짜가 맞나요?</p>
+												<div className="highlight period-text">
+													<h5>시작</h5>
+													<KeyboardArrowRight />
+													<span>
+														{moment(
+															startDate
+														).format(
+															"YYYY년 MM월 DD일"
+														)}
+													</span>
+												</div>
+												<p>
+													프로젝트 진행 기간을
+													입력해주세요.
+												</p>
+												<div className="period-text period">
+													<h5>기간</h5>
+													<KeyboardArrowRight />
+													<input
+														value={period}
+														onChange={OCPeriod}
+														maxLength={4}
+														type="text"
+														name="name"
+														pattern="[\d]{4}"
+														autoComplete="off"
+														placeholder="0"
+														autoFocus
+													/>
+													<p>일</p>
+												</div>
+											</div>
+										)}
+									</div>
+								</div>
+							</div>
 						</div>
-						<button className="back" onClick={ClickBefore}>
-							<KeyboardArrowLeft />
-						</button>
-						<button className="next" onClick={ClickNext(4)}>
-							<KeyboardArrowRight />
-						</button>
 					</div>
-				</div>
-				<div className="one-page-component editor">
-					<div className="content-box">
-						<div className="selector">
-							<p>프로젝트에 대한 자세한 설명을 작성해주세요.</p>
-							<Editor editorValue={desc} OCV={setDesc} />
-							<button className="back" onClick={ClickBefore}>
-								<KeyboardArrowLeft />
-							</button>
-							<button className="next" onClick={ClickNext(5)}>
-								<KeyboardArrowRight />
-							</button>
-						</div>
-					</div>
-				</div>
-				<div className="one-page-component">
-					<div className="content-box finish">
-						<div className="selector overflowAuto">
-							{done && (
-								<ProjectPage
-									data={{
-										title: title,
-										theme: createTheme,
-										result: createResult,
-										region: createRegion,
-										period: {
-											startDate: moment(startDate).format(
-												"YYYY년 MM월 DD일"
-											),
-											diff: period,
-										},
-										stacks: createStacks,
-										description: desc,
-									}}
+					<div className="one-page-component" style={slideStyle}>
+						<div className="content-box">
+							<div className="selector">
+								<p>모집글 제목을 어떻게 하시겠어요?</p>
+								<input
+									name="title"
+									type="text"
+									value={title}
+									onChange={OCTitle}
+									placeholder="제목을 입력해주세요."
+									autoFocus
 								/>
-							)}
+							</div>
 						</div>
-						<button
-							className="proj-create-btn"
-							onClick={ClickNext(6)}
-						>
-							모집 시작
-						</button>
-						<button className="back" onClick={ClickBefore}>
-							<KeyboardArrowLeft />
-						</button>
+					</div>
+					<div
+						className="one-page-component editor"
+						style={slideStyle}
+					>
+						<div className="content-box">
+							<div className="selector">
+								<p>
+									프로젝트에 대한 자세한 설명을 작성해주세요.
+								</p>
+								<Editor editorValue={desc} OCV={setDesc} />
+							</div>
+						</div>
+					</div>
+					<div className="one-page-component" style={slideStyle}>
+						<div className="content-box finish overflowAuto">
+							<div className="selector">
+								{done && (
+									<ProjectPage
+										data={{
+											title: title,
+											theme: createTheme,
+											result: createResult,
+											region: createRegion,
+											period: {
+												startDate: moment(
+													startDate
+												).format("YYYY년 MM월 DD일"),
+												diff: period,
+											},
+											stacks: createStacks,
+											description: desc,
+										}}
+									/>
+								)}
+							</div>
+						</div>
 					</div>
 				</div>
+				{availPage === 6 && (
+					<button className="proj-create-btn" onClick={ClickNext(6)}>
+						모집 시작
+					</button>
+				)}
 			</div>
+			{currentPage > 1 && (
+				<button className="slide-btn back" onClick={ClickBefore}>
+					<KeyboardArrowLeft />
+				</button>
+			)}
+			{currentPage < 6 && (
+				<button
+					className="slide-btn next"
+					onClick={ClickNext(currentPage)}
+				>
+					<KeyboardArrowRight />
+				</button>
+			)}
 		</>
 	);
 };
