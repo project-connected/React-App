@@ -102,9 +102,9 @@ const SearchProj = props => {
 
 	return (
 		<div className="proj-search-page">
-			{/*<BackGround open={true}>
+			<BackGround open={true}>
 				<NoSubProfile />
-			</BackGround>*/}
+			</BackGround>
 			<div className="proj-search-wrap">
 				<div className="search-filter-box">
 					<h3>검색 필터링</h3>

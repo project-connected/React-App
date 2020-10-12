@@ -1,5 +1,5 @@
 @charset 'UTF-8';
-@import 'animation.scss';
+@import "animation.scss";
 
 .req-mem-wrap {
 	position: relative;
@@ -12,7 +12,7 @@
 	border-radius: 5px;
 	box-shadow: 0px 0px 4px 2px rgba(90, 90, 90, 0.2);
 
-	p{
+	p {
 		font-size: 12px;
 		color: #666;
 		margin: 0;
@@ -52,7 +52,7 @@
 					right: 0;
 					top: 50%;
 					transform: translateY(-50%);
-					animation: .3s moveStack 1 ease-in-out;
+					animation: 0.3s moveStack 1 ease-in-out;
 
 					.stack-block {
 						padding: 4px 8px;
@@ -65,9 +65,10 @@
 			.stack-block {
 				margin-right: 20px;
 				height: fit-content;
-				transition: .3s;
+				transition: 0.3s;
 
-				&:focus, &:hover {
+				&:focus,
+				&:hover {
 					padding: 4px 8px;
 					font-size: 12px;
 				}
@@ -121,7 +122,7 @@
 		height: 100%;
 		overflow: hidden;
 		background: inherit;
-		transition: width .2s;
+		transition: width 0.2s;
 		background: none;
 		color: white;
 		font-weight: 500;
@@ -129,7 +130,7 @@
 
 	&:hover .req-btn-hover {
 		width: 100px;
-		animation: .5s unfold 1 ease-in-out;
+		animation: 0.5s unfold 1 ease-in-out;
 		overflow: hidden;
 	}
 }
@@ -150,10 +151,11 @@
 		font-weight: 700;
 		color: #999;
 		margin-right: 2rem;
-		transition: .3s;
+		transition: 0.3s;
 		cursor: pointer;
 
-		&.current, &:hover {
+		&.current,
+		&:hover {
 			color: #6980ff;
 		}
 	}
@@ -163,7 +165,7 @@
 		left: 0;
 		bottom: 0;
 		height: 4px;
-		transition: .2s;
+		transition: 0.2s;
 		border-radius: 5px;
 		background: #6980ff;
 	}
@@ -171,10 +173,13 @@
 
 #create-wrap {
 	display: inline-flex;
+	position: absolute;
+	left: 0;
+	top: 0;
 	width: 600%;
-	transition: all .3s ease 0s;
+	transition: all 0.3s ease 0s;
 	height: 100vh;
-	padding-top: 100px;;
+	padding-top: 100px;
 
 	.one-page-component {
 		// position: relative;
@@ -184,7 +189,7 @@
 		align-items: center;
 		justify-content: center;
 		height: 90%;
-		transition: .3s;
+		transition: 0.3s;
 
 		&.editor .content-box {
 			height: 100%;
@@ -200,7 +205,7 @@
 			border-radius: 10px;
 			box-shadow: 0px 0px 4px 1px rgba(90, 90, 90, 0.2);
 			width: 60%;
-			background: #FFF;
+			background: #fff;
 			justify-content: center;
 			margin-top: 4rem;
 			max-height: 100%;
@@ -216,7 +221,7 @@
 				font-size: 14px;
 				margin-bottom: 0.1rem;
 
-				&:nth-child(n+2) {
+				&:nth-child(n + 2) {
 					margin-top: 2rem;
 				}
 			}
@@ -228,7 +233,7 @@
 				border-radius: 27px;
 				background: #7990ff;
 				color: white;
-				transition: .3s;
+				transition: 0.3s;
 
 				&:hover {
 					background: #6980ff;
@@ -253,7 +258,7 @@
 
 				.select-btn-wrap {
 					margin: 0;
-					.data-list{
+					.data-list {
 						width: 100%;
 
 						.data-list-search {
@@ -265,10 +270,10 @@
 				input[name="title"] {
 					color: #555;
 					width: 100%;
-					border-bottom: 3px solid #DDD;
+					border-bottom: 3px solid #ddd;
 					height: 60px;
 					font-size: 30px;
-					transition: .3s;
+					transition: 0.3s;
 
 					&:focus {
 						border-bottom: 3px solid #6980ff;
@@ -286,7 +291,7 @@
 						display: flex;
 						align-items: center;
 						justify-content: center;
-						animation: .5s padeDown 1 ease-in-out;
+						animation: 0.5s padeDown 1 ease-in-out;
 					}
 
 					.react-calendar {
@@ -299,7 +304,7 @@
 						width: 50%;
 						height: fit-content;
 
-						.data-list{
+						.data-list {
 							width: 100%;
 
 							.data-list-search {
@@ -320,13 +325,13 @@
 							align-items: center;
 							position: absolute;
 							top: 0;
-							animation: .3s padeDown 1 ease-in-out;
+							animation: 0.3s padeDown 1 ease-in-out;
 							z-index: 88;
 							background: white;
 
-							input[type="number"]{
+							input[type="number"] {
 								width: 30px;
-								border-bottom: 1px solid #BBB;
+								border-bottom: 1px solid #bbb;
 							}
 							button {
 								position: relative;
@@ -348,7 +353,7 @@
 						}
 
 						.result {
-							border-top: 1px solid #BBB;
+							border-top: 1px solid #bbb;
 							padding-top: 10px;
 							height: 50px;
 							text-align: right;
@@ -386,13 +391,13 @@
 	}
 }
 .period-box {
-	animation: .5s padeDown 1 ease-in-out;
+	animation: 0.5s padeDown 1 ease-in-out;
 
 	.period-text {
 		display: flex;
 		align-items: center;
 
-		p{
+		p {
 			margin: 0 !important;
 		}
 
@@ -411,7 +416,7 @@
 			max-width: 70px;
 			border-radius: 5px;
 			box-shadow: 0px 0px 2px 1px rgba(121, 144, 255, 0.4);
-			margin-right: .5rem;
+			margin-right: 0.5rem;
 			text-align: center;
 		}
 
@@ -420,15 +425,14 @@
 		}
 
 		&.period {
-			margin-top: .2rem;
+			margin-top: 0.2rem;
 		}
 	}
 }
 
 .highlight {
-	animation: .5s bright 1 ease-in-out;
+	animation: 0.5s bright 1 ease-in-out;
 }
-
 
 .warn {
 	color: red !important;
@@ -455,7 +459,7 @@
 			display: flex;
 		}
 
-		&:nth-child(n+2) {
+		&:nth-child(n + 2) {
 			margin-top: 1rem;
 		}
 		&:nth-child(even) {
@@ -470,13 +474,13 @@
 			position: relative;
 			min-width: 800px;
 
-
-			.select-block-wrap p, .select-block {
+			.select-block-wrap p,
+			.select-block {
 				font-size: 14px !important;
 			}
 
-			.list-blocks input{
-				padding: .3rem .6rem;
+			.list-blocks input {
+				padding: 0.3rem 0.6rem;
 			}
 
 			h3.title {
@@ -492,7 +496,7 @@
 				font-size: 12px;
 				margin-bottom: 0.1rem;
 
-				&:nth-child(n+3) {
+				&:nth-child(n + 3) {
 					margin-top: 2rem;
 				}
 			}
@@ -500,10 +504,10 @@
 			input[name="title"] {
 				color: #555;
 				width: 100%;
-				border-bottom: 3px solid #DDD;
+				border-bottom: 3px solid #ddd;
 				height: 60px;
 				font-size: 30px;
-				transition: .5s;
+				transition: 0.5s;
 
 				&:focus {
 					border-bottom: 3px solid #7990ff;
@@ -517,16 +521,16 @@
 					border: none;
 				}
 
-				.data-list{
+				.data-list {
 					width: 100%;
 				}
 			}
 
 			.calendar-box {
-				animation: .5s padeUp 1 ease-in-out;
+				animation: 0.5s padeUp 1 ease-in-out;
 				width: 50%;
 
-				&:nth-child(n+2) {
+				&:nth-child(n + 2) {
 					margin-left: 3rem;
 				}
 				.react-calendar {
@@ -541,9 +545,9 @@
 				display: flex;
 				width: 100%;
 				margin-top: 1rem;
-				animation: .5s padeUp 1 ease-in-out;
+				animation: 0.5s padeUp 1 ease-in-out;
 
-				div{
+				div {
 					width: 100%;
 
 					span {
@@ -565,7 +569,7 @@
 		width: 5rem;
 		height: 5rem;
 		color: #888;
-		transition: .3s;
+		transition: 0.3s;
 
 		&:hover {
 			color: #7990ff;
@@ -586,7 +590,8 @@
 .react-calendar__tile--active {
 	background: #7990ff;
 
-	&:enabled:hover, &:enabled:focus {
+	&:enabled:hover,
+	&:enabled:focus {
 		background: #7990ff;
 	}
 }
@@ -621,20 +626,20 @@
 	display: flex;
 	flex-wrap: wrap;
 	min-height: 30px;
-	padding: 1rem .5rem 0 .5rem;
+	padding: 1rem 0.5rem 0 0.5rem;
 	box-shadow: 0px 0px 4px 1px rgba(90, 90, 90, 0.2);
 	border-radius: 7px;
 
 	.stack-block {
 		cursor: pointer;
-		animation: .5s padeUp 1 ease-in-out;
+		animation: 0.5s padeUp 1 ease-in-out;
 	}
 }
 
 .noSubProfile {
 	width: 600px;
 	z-index: 102;
-	transition: .5s;
+	transition: 0.5s;
 
 	h1 {
 		width: 100%;
@@ -658,16 +663,16 @@
 			padding: 2rem;
 			// display: flex;
 			align-items: center;
-			transition: .5s;
-			animation: .8s appearAfterHideDown 1 ease-in-out;
+			transition: 0.5s;
+			animation: 0.8s appearAfterHideDown 1 ease-in-out;
 
 			input[type="text"] {
 				color: #555;
 				width: 100%;
-				border-bottom: 3px solid #DDD;
+				border-bottom: 3px solid #ddd;
 				height: 60px;
 				font-size: 1.5rem;
-				transition: .3s;
+				transition: 0.3s;
 
 				&.focus {
 					border-bottom: 3px solid #6980ff;
@@ -686,7 +691,7 @@
 						max-width: none;
 						font-size: 14px;
 						font-weight: 500;
-						padding: .3rem .6rem;
+						padding: 0.3rem 0.6rem;
 					}
 				}
 			}
@@ -699,7 +704,7 @@
 				height: 100%;
 				margin: 0;
 
-				.data-list{
+				.data-list {
 					width: 100%;
 				}
 			}
@@ -707,14 +712,14 @@
 			&.hide {
 				opacity: 0;
 				visibility: hidden;
-				animation: .4s hideDown 1 ease-in-out;
+				animation: 0.4s hideDown 1 ease-in-out;
 				position: absolute;
 			}
 
 			p {
 				color: #777;
 				font-size: 14px;
-				margin-bottom: .1rem;
+				margin-bottom: 0.1rem;
 			}
 
 			.flex-row.stack {
@@ -734,17 +739,17 @@
 		.sP-btn {
 			width: 100%;
 			text-align: center;
-			padding: .5rem;
+			padding: 0.5rem;
 			background: #7990ff;
 			color: #fff;
 			border-radius: 7px;
 			cursor: pointer;
-			transition: .3s;
+			transition: 0.3s;
 			font-weight: 600;
-			margin-top: .5rem;
+			margin-top: 0.5rem;
 
 			&:hover {
-				background: #6980ff
+				background: #6980ff;
 			}
 		}
 	}
@@ -764,13 +769,13 @@
 
 	.chip-box {
 		width: 100%;
-		padding: .5rem;
+		padding: 0.5rem;
 	}
 
 	.search-box {
 		position: relative;
 		width: 100%;
-		padding: .5rem;
+		padding: 0.5rem;
 		border-bottom: 1px solid #dadada;
 
 		svg {
@@ -826,7 +831,7 @@
 				background: #7990ff;
 				border-radius: 100%;
 				border: 2px solid #fff;
-				padding: .5rem;
+				padding: 0.5rem;
 			}
 
 			input[type="file"] {
@@ -836,7 +841,7 @@
 				padding: 0;
 				margin: -1px;
 				overflow: hidden;
-				clip: rect(0,0,0,0);
+				clip: rect(0, 0, 0, 0);
 				border: 0;
 			}
 		}
