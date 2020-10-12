@@ -220,19 +220,29 @@ button.slide-btn {
 
 .create-wrap {
 	display: inline-flex;
-	width: 600%;
+	width: 100%;
 	transition: all 0.3s ease 0s;
 	height: 80vh;
 
 	.one-page-component {
-		// position: relative;
+		position: absolute;
 		width: 100%;
-		display: flex;
+		display: none;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		height: 90%;
 		transition: 0.3s;
+
+		&.next {
+			display: flex;
+			animation: 0.5s pade-to-left 1 ease-in-out;
+		}
+
+		&.before {
+			display: flex;
+			animation: 0.5s pade-to-right 1 ease-in-out;
+		}
 
 		.proj-button-wrap {
 			display: none !important;

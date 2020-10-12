@@ -20,70 +20,6 @@ import { KeyboardArrowRight, KeyboardArrowLeft } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { ProjectPage } from "../pages/project/[index]";
 
-const CreateHeader = ({ idx, availIdx, clickFunction }) => {
-	const ref1 = useRef();
-	const ref2 = useRef();
-	const ref3 = useRef();
-	const ref4 = useRef();
-	const ref5 = useRef();
-	const refFinish = useRef();
-
-	const [refArray] = useState([ref1, ref2, ref3, ref4, ref5, refFinish]);
-
-	const [indicatorStyle, setIndecatorStyle] = useState({
-		width: "16px",
-	});
-
-	useEffect(() => {
-		if (idx > availIdx) return;
-
-		refArray.forEach((rf) => {
-			rf.current.classList.remove("current");
-		});
-
-		refArray[idx - 1].current.classList.add("current");
-
-		setIndecatorStyle({
-			width: idx === 1 ? "16px" : refArray[idx - 1].current.offsetWidth,
-			left: refArray[idx - 1].current.offsetLeft,
-		});
-	}, [idx, availIdx]);
-
-	return (
-		<div id="project-create-header">
-			<div className="project-create-header-box">
-				<div
-					className="page-btn current"
-					ref={ref1}
-					onClick={clickFunction(1)}
-				>
-					1
-				</div>
-				<div className="page-btn" ref={ref2} onClick={clickFunction(2)}>
-					2
-				</div>
-				<div className="page-btn" ref={ref3} onClick={clickFunction(3)}>
-					3
-				</div>
-				<div className="page-btn" ref={ref4} onClick={clickFunction(4)}>
-					4
-				</div>
-				<div className="page-btn" ref={ref5} onClick={clickFunction(5)}>
-					5
-				</div>
-				<div
-					className="page-btn"
-					ref={refFinish}
-					onClick={clickFunction(6)}
-				>
-					FINISH
-				</div>
-				<span className="nav-indicator" style={indicatorStyle} />
-			</div>
-		</div>
-	);
-};
-
 const WriteProject = () => {
 	const [title, OCTitle] = useInput("");
 
@@ -99,6 +35,7 @@ const WriteProject = () => {
 	const [period, setPeriod] = useState("");
 	const [done, setDone] = useState(false);
 	const [confirm, setConfirm] = useState(false);
+	const [aniCN, setAniCN] = useState("next");
 
 	const dispatch = useDispatch();
 
@@ -111,10 +48,6 @@ const WriteProject = () => {
 
 	const [availPage, setAvailPage] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
-
-	const slideStyle = {
-		transform: `translateX(-${(currentPage - 1) * 100}%)`,
-	};
 
 	const getCreateRegion = useCallback(
 		(data) => {
@@ -178,8 +111,6 @@ const WriteProject = () => {
 	const ClickNext = useCallback(
 		(idx) => (e) => {
 			e.preventDefault();
-			console.log(idx);
-			console.log(slideStyle);
 			if (idx === 1) {
 				if (
 					createTheme.length === 0 ||
@@ -207,6 +138,7 @@ const WriteProject = () => {
 				setConfirm(true);
 				return;
 			}
+			setAniCN("next");
 			setCurrentPage(currentPage + 1);
 		},
 		[
@@ -225,6 +157,7 @@ const WriteProject = () => {
 	const ClickBefore = useCallback(
 		(e) => {
 			e.preventDefault();
+			setAniCN("before");
 			setCurrentPage(currentPage - 1);
 		},
 		[currentPage]
@@ -280,11 +213,6 @@ const WriteProject = () => {
 					loading={isCreating}
 				/>
 			</BackGround>
-			{/* <CreateHeader
-				idx={currentPage}
-				availIdx={availPage}
-				clickFunction={headerClick}
-			/> */}
 			<AppBar position="static">
 				<Tabs value={availPage - 1} onChange={headerClick}>
 					<Tab
@@ -356,8 +284,13 @@ const WriteProject = () => {
 				</Tabs>
 			</AppBar>
 			<div id="write-project-page">
-				<div className="create-wrap">
-					<div className="one-page-component" style={slideStyle}>
+				<div className="create-wrap al-jc-center">
+					<div
+						className={
+							"one-page-component " +
+							(currentPage === 1 ? aniCN : "")
+						}
+					>
 						<div className="content-box">
 							<div className="selector">
 								<p>어떤 목적으로 프로젝트를 모집하세요?</p>
@@ -384,7 +317,12 @@ const WriteProject = () => {
 							</div>
 						</div>
 					</div>
-					<div className="one-page-component" style={slideStyle}>
+					<div
+						className={
+							"one-page-component " +
+							(currentPage === 2 ? aniCN : "")
+						}
+					>
 						<div className="content-box">
 							<div className="selector">
 								<p>
@@ -402,7 +340,12 @@ const WriteProject = () => {
 							</div>
 						</div>
 					</div>
-					<div className="one-page-component" style={slideStyle}>
+					<div
+						className={
+							"one-page-component " +
+							(currentPage === 3 ? aniCN : "")
+						}
+					>
 						<div className="content-box">
 							<div className="selector">
 								{warning === "" ? (
@@ -458,7 +401,12 @@ const WriteProject = () => {
 							</div>
 						</div>
 					</div>
-					<div className="one-page-component" style={slideStyle}>
+					<div
+						className={
+							"one-page-component " +
+							(currentPage === 4 ? aniCN : "")
+						}
+					>
 						<div className="content-box">
 							<div className="selector">
 								<p>모집글 제목을 어떻게 하시겠어요?</p>
@@ -473,10 +421,7 @@ const WriteProject = () => {
 							</div>
 						</div>
 					</div>
-					<div
-						className="one-page-component editor"
-						style={slideStyle}
-					>
+					<div className="one-page-component editor">
 						<div className="content-box">
 							<div className="selector">
 								<p>
@@ -486,7 +431,12 @@ const WriteProject = () => {
 							</div>
 						</div>
 					</div>
-					<div className="one-page-component" style={slideStyle}>
+					<div
+						className={
+							"one-page-component " +
+							(currentPage === 5 ? aniCN : "")
+						}
+					>
 						<div className="content-box finish overflowAuto">
 							<div className="selector">
 								{done && (
