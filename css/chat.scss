@@ -206,3 +206,10 @@
 		}
 	}
 }
+
+@media screen and (max-width: 600px) {
+	#chat-wrap {
+		width: 100%;
+		height: 100%;
+	}
+}
