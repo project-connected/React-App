@@ -19,6 +19,7 @@ import {
 	OPEN_CHAT,
 	OPEN_USER_MENU,
 	CLOSE_USER_MENU,
+	CLOSE_SUB_PROFILE,
 } from "../reducers/component";
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from "../reducers/user";
 
@@ -31,6 +32,7 @@ import useInput from "../hooks/useInput";
 import Curtain from "./Curtain";
 import NoSubProfile from "./NoSubProfile";
 import { Avatar } from "@material-ui/core";
+import BackGround from "./BackGround";
 
 export const DummyProfile = () => {
 	return (
@@ -314,9 +316,13 @@ const UserMenu = ({ user, isLoggingIn, openUserMenu, loginErrorReason }) => {
 };
 
 const AppLayout = ({ children }) => {
-	const { openChat, openUserMenu, openApply, openSubProfile } = useSelector(
-		(state) => state.component
-	);
+	const {
+		openChat,
+		openUserMenu,
+		openApply,
+		openSubProfile,
+		openEnterSubProfile,
+	} = useSelector((state) => state.component);
 	const { user, isLoggingIn, loginErrorReason } = useSelector(
 		(state) => state.user
 	);
@@ -461,6 +467,17 @@ const AppLayout = ({ children }) => {
 				</header>
 				<main className="page-wrap">
 					<div className="page-inner-container">{children}</div>
+					{openEnterSubProfile && (
+						<BackGround
+							stateCate="store"
+							open={openEnterSubProfile}
+							setOpen={() =>
+								dispatch({ type: CLOSE_SUB_PROFILE })
+							}
+						>
+							<NoSubProfile />
+						</BackGround>
+					)}
 				</main>
 				<footer id="footer" role="contentinfo">
 					<div className="footer-section">

@@ -15,6 +15,7 @@ import StackBlock from "../../components/StackBlock";
 import { LOAD_COMMON_REQUEST } from "../../reducers/common";
 import NoSubProfile from "../../containers/NoSubProfile";
 import BackGround from "../../containers/BackGround";
+import { OPEN_SUB_PROFILE } from "../../reducers/component";
 
 const dummyResult = [
 	{
@@ -261,12 +262,17 @@ export const getServerSideProps = wrapper.getServerSideProps(
 		if (context.req && cookie) {
 			axios.defaults.headers.Cookie = cookie;
 		}
+		const state = context.store.getState();
 		context.store.dispatch({
 			type: LOAD_USER_REQUEST,
 		});
 		context.store.dispatch({
 			type: LOAD_COMMON_REQUEST,
 		});
+		if (!state.user.theme)
+			context.store.dispatch({
+				type: OPEN_SUB_PROFILE,
+			});
 		context.store.dispatch(END);
 		await context.store.sagaTask.toPromise();
 	}
