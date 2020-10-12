@@ -109,7 +109,7 @@ const CreateProj = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const slideStyle = {
-		transform: `translateX(${(currentPage-1) * 100 * -1}%)`
+		transform: `translateX(-${(currentPage-1)/6 * 100}%)`
 	}
 
 	const getCreateRegion = useCallback((data) => {
@@ -230,8 +230,8 @@ const CreateProj = () => {
 			<Confirm closeFunction={closeConfirm} confirmFunction={createProject} content="작성한 내용으로 생성하시겠습니까?" confirm="넹 !" close="아니용 !" loading={isCreating}/>
 		</BackGround>
 		<CreateHeader idx={currentPage} availIdx={availPage} clickFunction={headerClick}/>
-		<div id="create-wrap">
-			<div className="one-page-component" style={slideStyle}>
+		<div id="create-wrap" style={slideStyle}>
+			<div className="one-page-component" >
 				<div className="content-box">
 					<div className="selector">
 						<p>어떤 목적으로 프로젝트를 모집하세요?</p>
@@ -261,7 +261,7 @@ const CreateProj = () => {
 					</button>
 				</div>
 			</div>
-			<div className="one-page-component" style={slideStyle}>
+			<div className="one-page-component" >
 				<div className="content-box">
 					<div className="selector">
 						<p>모집하고 싶은 기술을 가진 사람들을 설정해주세요.</p>
@@ -282,7 +282,7 @@ const CreateProj = () => {
 					</button>
 				</div>
 			</div>
-			<div className="one-page-component" style={slideStyle}>
+			<div className="one-page-component" >
 				<div className="content-box">
 					<div className="selector">
 					{warning === '' ? <p>프로젝트 시작일을 선택해주세요.</p> : <p className="warn">{warning}</p>}
@@ -330,7 +330,7 @@ const CreateProj = () => {
 					</button>
 				</div>
 			</div>
-			<div className="one-page-component" style={slideStyle}>
+			<div className="one-page-component" >
 				<div className="content-box">
 					<div className="selector">
 						<p>모집글 제목을 어떻게 하시겠어요?</p>
@@ -351,7 +351,7 @@ const CreateProj = () => {
 					</button>
 				</div>
 			</div>
-			<div className="one-page-component editor" style={slideStyle}>
+			<div className="one-page-component editor" >
 				<div className="content-box">
 					<div className="selector">
 						<p>프로젝트에 대한 자세한 설명을 작성해주세요.</p>
@@ -365,7 +365,7 @@ const CreateProj = () => {
 					</div>
 				</div>
 			</div>
-			<div className="one-page-component" style={slideStyle}>
+			<div className="one-page-component" >
 				<div className="content-box finish">
 					<div className="selector overflowAuto">
 						{done && <ProjectPage

@@ -171,12 +171,10 @@
 
 #create-wrap {
 	display: inline-flex;
-	position: fixed;
-	left: 0;
 	width: 600%;
 	transition: all .3s ease 0s;
-	height: 80vh;
-	margin-top: 100px;;
+	height: 100vh;
+	padding-top: 100px;;
 
 	.one-page-component {
 		// position: relative;
@@ -662,6 +660,19 @@
 			align-items: center;
 			transition: .5s;
 			animation: .8s appearAfterHideDown 1 ease-in-out;
+
+			input[type="text"] {
+				color: #555;
+				width: 100%;
+				border-bottom: 3px solid #DDD;
+				height: 60px;
+				font-size: 1.5rem;
+				transition: .3s;
+
+				&.focus {
+					border-bottom: 3px solid #6980ff;
+				}
+			}
 
 			.stack-wrap {
 				height: 100%;
