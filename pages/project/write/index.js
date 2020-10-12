@@ -20,7 +20,6 @@ import { KeyboardArrowRight, KeyboardArrowLeft } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { ProjectPage } from "../[index]";
 import { LOAD_COMMON_REQUEST } from "../../../reducers/common";
-import { OPEN_SUB_PROFILE } from "../../../reducers/component";
 
 export const Editor = dynamic(import("../../../components/Toast"), {
 	ssr: false,
@@ -34,7 +33,7 @@ const CreateHeader = ({ idx, availIdx, clickFunction }) => {
 	const ref5 = useRef();
 	const refFinish = useRef();
 
-	const refArray = [ref1, ref2, ref3, ref4, ref5, refFinish];
+	const [refArray] = useState([ref1, ref2, ref3, ref4, ref5, refFinish]);
 
 	const [indicatorStyle, setIndecatorStyle] = useState({
 		width: "16px",
@@ -119,7 +118,7 @@ const CreateProj = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const slideStyle = {
-		left: `-${(currentPage - 1) * 100}%)`,
+		left: `-${(currentPage - 1) * 100}%`,
 	};
 
 	const getCreateRegion = useCallback(
