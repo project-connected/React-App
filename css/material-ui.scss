@@ -1,0 +1,32 @@
+@charset "UTF-8";
+@import "animation.scss";
+
+.MuiAppBar-colorPrimary {
+	max-width: 1000px;
+	background: transparent !important;
+	margin: 0 auto;
+	margin-top: 120px;
+	box-shadow: none !important;
+
+	.MuiTabs-indicator {
+		display: none;
+	}
+
+	.MuiTabs-flexContainer {
+		justify-content: center;
+	}
+
+	.MuiTab-textColorInherit {
+		background: #dadada;
+		border-radius: 14rem;
+		margin: 0 1rem;
+		opacity: 1;
+		box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
+		transition: 0.3s;
+	}
+
+	.MuiTab-root {
+		min-width: unset !important;
+		padding: 0 1.5rem;
+	}
+}
