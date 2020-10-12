@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import 'animation.scss';
+@import "animation.scss";
 
 .jewel-search-page {
 	display: flex;
@@ -22,7 +22,7 @@
 			p {
 				font-size: 12px;
 				color: #666;
-				margin-bottom: .5rem;
+				margin-bottom: 0.5rem;
 			}
 
 			h3 {
@@ -30,7 +30,7 @@
 				font-size: 18px;
 			}
 
-			.filter-attr-box{
+			.filter-attr-box {
 				// min-height: 150px;
 				max-height: 300px;
 				overflow: auto;
@@ -38,7 +38,7 @@
 				margin-bottom: 1rem;
 				display: flex;
 				flex-wrap: wrap;
-				padding: .5rem .5rem .5rem 0;
+				padding: 0.5rem 0.5rem 0.5rem 0;
 
 				.filter-block {
 					margin-left: 0.5rem !important;
@@ -73,16 +73,16 @@
 	margin: 1rem;
 	overflow: hidden;
 	color: #333;
-	transition: .5s;
+	transition: 0.5s;
 	cursor: pointer;
 
-	&:hover{
+	&:hover {
 		transform: translateY(-8px);
 		box-shadow: rgba(0, 0, 0, 0.08) 0px 12px 20px 0px;
 		color: #334;
 	}
 
-	.jewel-card-content{
+	.jewel-card-content {
 		position: relative;
 
 		.jewel-card-text {
@@ -115,7 +115,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: .5rem;
+	margin: 0.5rem;
 	position: relative;
 	overflow: hidden;
 
@@ -134,10 +134,10 @@
 		color: #fff;
 		font-size: 11px;
 		background: linear-gradient(#7990ff, #9198e5);
-		padding: .2rem .4rem;
+		padding: 0.2rem 0.4rem;
 
-		&:nth-child(n+2) {
-			margin-left: .5rem;
+		&:nth-child(n + 2) {
+			margin-left: 0.5rem;
 		}
 	}
 
@@ -146,7 +146,7 @@
 		color: #666;
 		position: relative;
 
-		&:nth-child(n+2) {
+		&:nth-child(n + 2) {
 			margin-left: 10px;
 
 			&::before {
@@ -155,14 +155,13 @@
 				left: -5px;
 				width: 1px;
 				height: 1px;
-				content: '';
+				content: "";
 				background: #999;
 				border-radius: 1px;
 			}
 		}
 	}
 }
-
 
 .back-img {
 	height: 7rem;
@@ -175,7 +174,7 @@
 
 .jewel-detail-box {
 	background: #fff;
-	padding: .5rem;
+	padding: 0.5rem;
 	position: fixed;
 	z-index: 101;
 	top: 50%;
@@ -186,18 +185,18 @@
 	&.visible {
 		opacity: 1;
 		visibility: visible;
-		animation: .5s padeUp2 1 ease-in-out;
+		animation: 0.5s padeUp2 1 ease-in-out;
 	}
 	&.hide {
 		opacity: 0;
 		visibility: hidden;
-		animation: .5s hideDown2 1 ease-in-out;
+		animation: 0.5s hideDown2 1 ease-in-out;
 	}
 }
 
 .jewel-detail {
 	position: relative;
-	min-width: 600px;
+	// min-width: 600px;
 	max-width: 800px;
 	text-align: center;
 	padding-bottom: 2rem;
@@ -208,7 +207,7 @@
 		margin-bottom: 0;
 	}
 
-	.profile-box{
+	.profile-box {
 		position: relative;
 
 		.profile-img {
@@ -218,7 +217,7 @@
 			border-radius: 10rem;
 			position: absolute;
 			top: 0;
-			left: 50%
+			left: 50%;
 		}
 
 		.user-name {
@@ -228,13 +227,13 @@
 			padding-top: 4rem;
 			margin: 0;
 		}
-		.btn-container{
+		.btn-container {
 			display: flex;
 			align-items: center;
 			justify-content: center;
 
 			.btn {
-				padding: .5rem 1rem;
+				padding: 0.5rem 1rem;
 				font-size: 12px;
 				width: 7rem;
 				border-radius: 20px;
@@ -258,7 +257,7 @@
 
 		.one-side-box {
 			width: 50%;
-			margin: .5rem auto 0 auto;
+			margin: 0.5rem auto 0 auto;
 			text-align: left;
 			padding: 1rem 1rem 2rem 1rem;
 
@@ -276,19 +275,19 @@
 					border-radius: 10px;
 					color: #fff;
 					font-size: 11px;
-					padding: .2rem .4rem;
+					padding: 0.2rem 0.4rem;
 					width: fit-content;
 					margin-top: 0.5rem;
 
-					&:nth-child(n+1) {
-						margin-right: .5rem;
+					&:nth-child(n + 1) {
+						margin-right: 0.5rem;
 					}
 				}
 			}
 		}
 
 		.one-info {
-			margin-bottom: .5rem;
+			margin-bottom: 0.5rem;
 
 			.info {
 				font-weight: 700;

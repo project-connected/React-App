@@ -30,3 +30,14 @@
 		padding: 0 1.5rem;
 	}
 }
+
+@media screen and (max-width: 500px) {
+	.MuiAppBar-colorPrimary {
+		.MuiTab-textColorInherit {
+			margin: 0 0.3rem;
+		}
+		.MuiTab-root {
+			padding: 0 1.2rem;
+		}
+	}
+}

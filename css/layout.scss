@@ -1,6 +1,6 @@
 @charset "UTF-8";
-@import 'animation.scss';
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import "animation.scss";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 * {
 	box-sizing: border-box;
@@ -14,9 +14,10 @@
 	outline: none;
 	list-style: none;
 	text-decoration: none;
-	font-family: 'Noto Sans KR', sans-serif;
-	-ms-overflow-style: none;  /* IE and Edge */
-	scrollbar-width: none;  /* Firefox */
+	word-break: break-all;
+	font-family: "Noto Sans KR", sans-serif;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 	&::-webkit-scrollbar {
 		display: none;
 	}
@@ -34,7 +35,7 @@ button:focus {
 	outline: none;
 }
 
-#wrapper{
+#wrapper {
 	position: relative;
 	height: 100vh;
 }
@@ -45,7 +46,7 @@ button:focus {
 	width: 100%;
 	//min-width: 800px;
 	top: 0;
-	background: #FAFAFA;
+	background: #fafafa;
 }
 
 .page-inner-container {
@@ -71,7 +72,7 @@ button:focus {
 	align-items: center;
 	justify-content: center;
 	background: #fff;
-	transition: .3s;
+	transition: 0.3s;
 	height: 70px;
 	width: 10rem;
 	font-weight: 600;
@@ -87,7 +88,7 @@ button:focus {
 	}
 
 	span {
-		margin-left: .5rem;
+		margin-left: 0.5rem;
 	}
 
 	.menu-box {
@@ -96,9 +97,9 @@ button:focus {
 		bottom: 0;
 		left: 0;
 		transform: translateY(100%);
-		transition: .3s;
+		transition: 0.3s;
 		overflow-y: hidden;
-		border: 1px solid  rgba(0, 0, 0, 0.05);
+		border: 1px solid rgba(0, 0, 0, 0.05);
 		border-top: none;
 	}
 }
@@ -114,7 +115,7 @@ button:focus {
 	padding-top: 70px;
 }
 
-.card-box.intro{
+.card-box.intro {
 	padding: 3rem;
 	display: flex;
 	flex-direction: column;
@@ -193,7 +194,7 @@ button:focus {
 
 						.right {
 							margin-left: 1em;
-							opacity: .66;
+							opacity: 0.66;
 						}
 					}
 				}
@@ -226,7 +227,7 @@ button:focus {
 			display: flex;
 			align-items: center;
 			h1 {
-				font-family: 'Permanent Marker';
+				font-family: "Permanent Marker";
 				font-size: 20px;
 				margin: 0;
 				color: #223;
@@ -248,7 +249,7 @@ button:focus {
 
 			.notification-circle {
 				position: absolute;
-				width:15px;
+				width: 15px;
 				height: 15px;
 				top: 0;
 				right: 0;
@@ -258,12 +259,13 @@ button:focus {
 
 		.my-alert {
 			margin-right: 2rem;
-			background: #CCC;
+			background: #ccc;
 			border-radius: 100%;
-			padding: .5rem;
+			padding: 0.5rem;
 		}
 
-		.profile-img, img {
+		.profile-img,
+		img {
 			border-radius: 100%;
 			width: 40px;
 			height: 40px;
@@ -271,13 +273,13 @@ button:focus {
 
 		&:active {
 			.sub-menu {
-			opacity: 1;
-			transform: perspective(0) rotateX(0);
-			transition: 0.3s;
-			z-index: 50;
-			visibility: visible;
+				opacity: 1;
+				transform: perspective(0) rotateX(0);
+				transition: 0.3s;
+				z-index: 50;
+				visibility: visible;
+			}
 		}
-	}
 	}
 }
 
@@ -296,7 +298,7 @@ button:focus {
 	position: absolute;
 	top: 110%;
 	right: 20px;
-	background: #FFF;
+	background: #fff;
 	border-radius: 2px;
 	padding: 15px 0;
 	margin: 0;
@@ -343,7 +345,7 @@ button:focus {
 			padding: 12px;
 			font-size: 14px;
 			line-height: 17px;
-			border: 1px solid #DCDEDD;
+			border: 1px solid #dcdedd;
 			margin: 0 auto;
 			margin-bottom: 18px;
 
@@ -351,9 +353,10 @@ button:focus {
 				background: rgb(119, 158, 233);
 				border: none;
 				color: white;
-				transition: all .5s;
+				transition: all 0.5s;
 
-				&:hover, &:focus {
+				&:hover,
+				&:focus {
 					font-size: 15px;
 					background: #5970ff;
 				}
@@ -382,7 +385,8 @@ button:focus {
 			margin-left: 15px;
 			color: #7990ff;
 
-			&:hover, &:focus {
+			&:hover,
+			&:focus {
 				transform: none;
 				color: #5970ff;
 			}
@@ -398,7 +402,7 @@ button:focus {
 	}
 
 	&::before {
-		content: '';
+		content: "";
 		display: block;
 		position: absolute;
 		top: -5px;
@@ -407,7 +411,7 @@ button:focus {
 		height: 0;
 		border-left: 5px solid transparent;
 		border-right: 5px solid transparent;
-		border-bottom: 5px solid #FFF;
+		border-bottom: 5px solid #fff;
 	}
 
 	li {
@@ -421,7 +425,7 @@ button:focus {
 	}
 
 	.sub-menu-line {
-		color: #666;;
+		color: #666;
 		display: flex;
 		font-weight: 700;
 		font-size: 0.9rem;
@@ -430,12 +434,12 @@ button:focus {
 		position: relative;
 		align-items: center;
 		cursor: pointer;
-		padding: .7rem 1rem;
+		padding: 0.7rem 1rem;
 
 		svg {
 			width: 1rem;
 			height: 1rem;
-			margin-right: .5rem;
+			margin-right: 0.5rem;
 		}
 
 		&:hover,
@@ -445,7 +449,7 @@ button:focus {
 			transform: translateX(8px);
 
 			&::before {
-				content: '';
+				content: "";
 				display: block;
 				position: absolute;
 				top: 50%;
@@ -453,9 +457,9 @@ button:focus {
 				transform: translate(-10%, -50%);
 				width: 0;
 				height: 0;
-				border-top: .4rem solid transparent;
-				border-bottom: .4rem solid transparent;
-				border-left: .4rem solid #5970ff;
+				border-top: 0.4rem solid transparent;
+				border-bottom: 0.4rem solid transparent;
+				border-left: 0.4rem solid #5970ff;
 			}
 		}
 	}
@@ -469,22 +473,23 @@ button:focus {
 
 		.notif-content {
 			display: flex;
-			padding: .5rem 1rem;
+			padding: 0.5rem 1rem;
 			border-radius: 7px;
 			background: #fff;
-			padding: .5rem 1rem;
+			padding: 0.5rem 1rem;
 			box-shadow: 0px 0px 4px 1px rgba(50, 50, 100, 0.1);
-			margin: .5rem;
+			margin: 0.5rem;
 			cursor: pointer;
 			font-size: 13px;
-			transition: .5s;
+			transition: 0.5s;
 
 			&:hover {
 				box-shadow: 0px 0px 4px 1px rgba(121, 144, 255, 0.5);
 				padding: 1rem 1rem;
 			}
 
-			a, div {
+			a,
+			div {
 				display: flex;
 				align-items: center;
 
@@ -508,7 +513,7 @@ button:focus {
 					}
 				}
 
-				p{
+				p {
 					margin: 0;
 					font-size: 12px;
 					color: #7990ff;
@@ -570,7 +575,7 @@ button:focus {
 	background: rgba(30, 30, 30, 0.8);
 	border-radius: 7px;
 	color: #fff;
-	transition: .5s;
+	transition: 0.5s;
 	transform: translateX(-150%);
 	z-index: 88;
 
@@ -585,7 +590,7 @@ button:focus {
 		.close-box {
 			position: absolute;
 			cursor: pointer;
-			right: .5rem;
+			right: 0.5rem;
 			top: 50%;
 			transform: translateY(-50%);
 		}
@@ -649,12 +654,12 @@ button:focus {
 		.confirm-btn {
 			width: 10rem;
 			text-align: center;
-			padding: .5rem 3rem;
+			padding: 0.5rem 3rem;
 			background: #eaeaea;
 			font-weight: 600;
 			font-size: 16px;
 			color: #111;
-			transition: .3s;
+			transition: 0.3s;
 			border-radius: 7px;
 			cursor: pointer;
 

@@ -186,9 +186,11 @@ const WriteProject = () => {
 	const headerClick = useCallback(
 		(e, idx) => {
 			if (idx + 1 > availPage) return;
+			if (currentPage > idx + 1) setAniCN("before");
+			else setAniCN("next");
 			setCurrentPage(idx + 1);
 		},
-		[availPage]
+		[availPage, aniCN]
 	);
 
 	const closeConfirm = useCallback((e) => {
@@ -466,25 +468,25 @@ const WriteProject = () => {
 						</div>
 					</div>
 				</div>
-				{availPage === 6 && (
+				{done && currentPage === 6 && (
 					<button className="proj-create-btn" onClick={ClickNext(6)}>
 						모집 시작
 					</button>
 				)}
+				{currentPage > 1 && (
+					<button className="slide-btn back" onClick={ClickBefore}>
+						<KeyboardArrowLeft />
+					</button>
+				)}
+				{currentPage < 6 && (
+					<button
+						className="slide-btn next"
+						onClick={ClickNext(currentPage)}
+					>
+						<KeyboardArrowRight />
+					</button>
+				)}
 			</div>
-			{currentPage > 1 && (
-				<button className="slide-btn back" onClick={ClickBefore}>
-					<KeyboardArrowLeft />
-				</button>
-			)}
-			{currentPage < 6 && (
-				<button
-					className="slide-btn next"
-					onClick={ClickNext(currentPage)}
-				>
-					<KeyboardArrowRight />
-				</button>
-			)}
 		</>
 	);
 };

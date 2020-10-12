@@ -1,5 +1,5 @@
 @charset 'UTF-8';
-@import 'animation.scss';
+@import "animation.scss";
 
 #project-page-wrap {
 	width: 60rem;
@@ -18,7 +18,7 @@
 		margin: 1.5rem 0;
 		position: relative;
 		padding: 1.5rem;
-		background: #FFF;
+		background: #fff;
 		border-radius: 27px;
 	}
 
@@ -26,11 +26,11 @@
 		width: 100%;
 		padding: 2rem;
 		position: relative;
-		background: #FFF;
+		background: #fff;
 		border-radius: 27px;
 
 		.proj-head-title {
-			border-bottom: 1px solid #DDD;
+			border-bottom: 1px solid #ddd;
 			padding-bottom: 10px;
 			margin-bottom: 15px;
 
@@ -58,17 +58,19 @@
 
 				.info-box {
 					max-width: 90%;
-					margin-top: .5rem;
+					margin-top: 0.5rem;
 					position: relative;
 
-					&.stack p { margin-bottom: 0; }
+					&.stack p {
+						margin-bottom: 0;
+					}
 
 					p {
 						color: #333;
 						margin: 0;
 						font-weight: 500;
 						margin-bottom: 2rem;
-						padding-top: .3rem;
+						padding-top: 0.3rem;
 					}
 
 					.block-wrap {
@@ -103,26 +105,25 @@
 								background: #fff;
 								z-index: 2;
 								box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 8px 0px;
-								padding: 0 0 .3rem .3rem;
+								padding: 0 0 0.3rem 0.3rem;
 							}
 						}
 					}
 
 					.block {
 						font-size: 12px;
-						padding: .1rem .5rem;
+						padding: 0.1rem 0.5rem;
 						color: #444;
 						background: #eaeaea;
 						border-radius: 3px;
 						width: fit-content;
 						position: relative;
-						margin: .3rem .3rem 0 0;
+						margin: 0.3rem 0.3rem 0 0;
 					}
 
 					&:nth-child(1) {
 						margin-top: 0;
 					}
-
 				}
 				p.total-num {
 					margin-top: 0;
@@ -130,7 +131,7 @@
 
 				.project-card-stack-block-wrap {
 					border: none;
-					margin-top: .3rem;
+					margin-top: 0.3rem;
 					padding: 0;
 					overflow: unset;
 
@@ -138,7 +139,8 @@
 						position: relative;
 						overflow: unset;
 
-						&:hover, &:focus {
+						&:hover,
+						&:focus {
 							font-size: 20px;
 							.proj-stack-person {
 								display: block;
@@ -160,7 +162,7 @@
 							z-index: 99;
 
 							&::before {
-								content: '';
+								content: "";
 								display: block;
 								position: absolute;
 								top: -5px;
@@ -185,15 +187,14 @@
 		right: 0;
 		top: 0;
 
-
 		button {
 			position: relative;
 			font-size: 18px;
 			font-weight: 500;
 			border-radius: 4rem;
-			transition: .3s;
+			transition: 0.3s;
 			color: #555;
-			background: #FFF;
+			background: #fff;
 			width: 4rem;
 			height: 4rem;
 			box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
@@ -270,7 +271,7 @@
 			div {
 				border-radius: 5px;
 				color: white;
-				padding: .5rem 1.5rem;
+				padding: 0.5rem 1.5rem;
 				text-align: center;
 				margin-bottom: 1rem;
 				box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
@@ -291,12 +292,12 @@
 			border-radius: 5px;
 			display: flex;
 			flex-direction: column;
-			background: #FFF;
+			background: #fff;
 
 			a {
-				padding: .5rem 1.2rem;
+				padding: 0.5rem 1.2rem;
 				color: #444;
-				&:nth-child(n+2){
+				&:nth-child(n + 2) {
 					border-top: 1px solid #e4eaf2;
 				}
 			}
@@ -310,8 +311,8 @@
 		.search-filter-box {
 			box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
 			border-radius: 5px;
-			padding: .5rem 1rem;
-			background: #FFF;
+			padding: 0.5rem 1rem;
+			background: #fff;
 
 			h3 {
 				font-size: 16px;
@@ -325,7 +326,7 @@
 			.filter-attr-box {
 				border: 1px solid #e4eaf2;
 				border-radius: 5px;
-				padding: .5rem 1rem;
+				padding: 0.5rem 1rem;
 				margin-top: 1rem;
 
 				p {
@@ -341,10 +342,10 @@
 
 			.proj-result-header {
 				border-bottom: 1px solid #e4eaf2;
-				padding: .5rem 1.5rem;
+				padding: 0.5rem 1.5rem;
 				position: relative;
 				border-radius: 5px;
-				background: #FFF;
+				background: #fff;
 				box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
 				border-radius: 5px;
 				margin-bottom: 1rem;
@@ -367,7 +368,7 @@
 						color: #666;
 						font-size: 13px;
 						padding-bottom: -2px;
-						transition: .3s;
+						transition: 0.3s;
 						margin-right: 1rem;
 						&:hover {
 							color: #7990ff;
@@ -382,7 +383,7 @@
 
 				.searched-project {
 					width: 100%;
-					background: #FFF;
+					background: #fff;
 					box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
 					border-radius: 5px;
 					margin-bottom: 1rem;
@@ -390,7 +391,7 @@
 					height: 150px;
 					position: relative;
 					overflow: hidden;
-					transition: .3s;
+					transition: 0.3s;
 					cursor: pointer;
 
 					&:hover {
@@ -411,7 +412,7 @@
 					}
 
 					.content {
-						padding: .7rem 1rem;
+						padding: 0.7rem 1rem;
 
 						p {
 							color: #666;
@@ -452,7 +453,7 @@
 
 	.filter-block {
 		border-radius: 5px;
-		padding: .3rem .5rem;
+		padding: 0.3rem 0.5rem;
 		text-align: center;
 		font-weight: 500;
 		font-size: 13px;
@@ -460,9 +461,9 @@
 		background: linear-gradient(to bottom right, #7990ff, #9198e5);
 		cursor: pointer;
 		margin-bottom: 5px;
-		animation: .5s padeUp 1 ease-in-out;
+		animation: 0.5s padeUp 1 ease-in-out;
 		height: fit-content;
-		margin-right: .5rem;
+		margin-right: 0.5rem;
 
 		&.theme::before {
 			content: "목적: ";
@@ -474,7 +475,7 @@
 			content: "지역: ";
 		}
 		&.stack::before {
-			content: "스택: "
+			content: "스택: ";
 		}
 	}
 }
@@ -486,7 +487,6 @@
 		margin: 0 auto;
 
 		.search-filter-box {
-
 			.choice-filter-box {
 				flex-direction: column;
 			}
@@ -494,6 +494,12 @@
 			.select-btn-wrap {
 				margin: 1rem 0 0 0;
 			}
+		}
+	}
+
+	#project-page-wrap {
+		.proj-head-info .proj-info-container section {
+			display: block;
 		}
 	}
 }
