@@ -421,7 +421,12 @@ const WriteProject = () => {
 							</div>
 						</div>
 					</div>
-					<div className="one-page-component editor">
+					<div
+						className={
+							"one-page-component editor " +
+							(currentPage === 5 ? aniCN : "")
+						}
+					>
 						<div className="content-box">
 							<div className="selector">
 								<p>
@@ -434,7 +439,7 @@ const WriteProject = () => {
 					<div
 						className={
 							"one-page-component " +
-							(currentPage === 5 ? aniCN : "")
+							(currentPage === 6 ? aniCN : "")
 						}
 					>
 						<div className="content-box finish overflowAuto">
