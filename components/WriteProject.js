@@ -284,7 +284,7 @@ const WriteProject = () => {
 				</Tabs>
 			</AppBar>
 			<div id="write-project-page">
-				<div className="create-wrap al-jc-center">
+				<div className="create-wrap ai-jc-center">
 					<div
 						className={
 							"one-page-component " +
