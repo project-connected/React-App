@@ -36,12 +36,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
 			axios.defaults.headers.Cookie = cookie;
 		}
 		const state = context.store.getState();
-		// context.store.dispatch({
-		// 	type: LOAD_USER_REQUEST,
-		// });
-		// context.store.dispatch({
-		// 	type: LOAD_COMMON_REQUEST,
-		// });
+		context.store.dispatch({
+			type: LOAD_USER_REQUEST,
+		});
+		context.store.dispatch({
+			type: LOAD_COMMON_REQUEST,
+		});
 		if (!state.user.theme)
 			context.store.dispatch({
 				type: OPEN_SUB_PROFILE,
