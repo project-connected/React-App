@@ -217,7 +217,12 @@ const WriteProject = () => {
 				/>
 			</BackGround>
 			<AppBar position="static">
-				<Tabs value={availPage - 1} onChange={headerClick}>
+				<Tabs
+					value={availPage - 1}
+					onChange={headerClick}
+					variant="scrollable"
+					scrollButtons="off"
+				>
 					<Tab
 						className="header-tap"
 						label={1}

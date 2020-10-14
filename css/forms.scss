@@ -844,7 +844,12 @@ button.slide-btn {
 		}
 	}
 	.profile-img {
-		div {
+		&.noSub {
+			height: 10rem;
+			margin-bottom: 1rem;
+		}
+
+		div.image {
 			width: 10rem;
 			height: 10rem;
 			border-radius: 100%;

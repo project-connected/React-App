@@ -282,13 +282,17 @@ const initialState = {
 	isSignedup: false,
 	isLoggedIn: false,
 	isLoggedOut: false,
+	isUploadingProfileImage: false,
+	isUploadedProfileImage: false,
 	isSavingProfile: false,
 	isSavedProfile: false,
 	loginErrorReason: "",
 	logoutErrorReason: "",
 	signupErrorReason: "",
 	saveProfileError: "",
+	uploadProfileImageError: "",
 	other: dummyUser,
+	uploadedImageBeforeSave: null,
 };
 
 export const GET_DUMMY_USER = "GET_DUMMY_USER";
@@ -310,6 +314,10 @@ export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
+
+export const UPLOAD_PROFILE_IMAGE_REQUEST = "UPLOAD_PROFILE_IMAGE_REQUEST";
+export const UPLOAD_PROFILE_IMAGE_SUCCESS = "UPLOAD_PROFILE_IMAGE_SUCCESS";
+export const UPLOAD_PROFILE_IMAGE_FAILURE = "UPLOAD_PROFILE_IMAGE_FAILURE";
 
 export const SAVE_SUBPROFILE_REQUEST = "SAVE_SUBPROFILE_REQUEST";
 export const SAVE_SUBPROFILE_SUCCESS = "SAVE_SUBPROFILE_SUCCESS";
@@ -400,6 +408,22 @@ const reducer = (state = initialState, action) =>
 			case SIGNUP_FAILURE: {
 				draft.isSigningup = false;
 				draft.signupErrorReason = action.error;
+				break;
+			}
+
+			case UPLOAD_PROFILE_IMAGE_REQUEST: {
+				draft.isUploadingProfileImage = true;
+				break;
+			}
+			case UPLOAD_PROFILE_IMAGE_SUCCESS: {
+				draft.isUploadingProfileImage = false;
+				draft.isUploadedProfileImage = true;
+				draft.uploadedImageBeforeSave = action.data;
+				break;
+			}
+			case UPLOAD_PROFILE_IMAGE_FAILURE: {
+				draft.isUploadingProfileImage = false;
+				draft.uploadProfileImageError = action.error;
 				break;
 			}
 
