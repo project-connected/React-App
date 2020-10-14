@@ -170,7 +170,7 @@ const NoSubProfile = () => {
 
 	const onChangeImg = useCallback((e) => {
 		const imageFormData = new FormData();
-		imageFormData.append("image", e.target.files[0]);
+		imageFormData.append("thumb", e.target.files[0]);
 		dispatch({
 			type: UPLOAD_PROFILE_IMAGE_REQUEST,
 			data: imageFormData,
@@ -195,7 +195,7 @@ const NoSubProfile = () => {
 			<div className="sP-ipt-container">
 				<AppBar position="static" className="noSub">
 					<Tabs
-						value={availPage - 1}
+						value={availPage}
 						onChange={headerClick}
 						variant="scrollable"
 						scrollButtons="off"

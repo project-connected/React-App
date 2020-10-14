@@ -164,23 +164,24 @@ function* watchSaveProfile() {
 }
 
 function uploadProfileImageAPI(dataForm) {
-	console.log(dataForm);
-	return {
-		data: {
-			result:
-				"https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg",
-		},
-	};
-	// return axios.post('/', dataForm)
+	// console.log(dataForm);
+	// return {
+	// 	data: {
+	// 		result:
+	// 			"https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg",
+	// 	},
+	// };
+	return axios.post("/file/thumb", dataForm);
 }
 
 function* uploadProfileImage(action) {
 	try {
 		const result = yield call(uploadProfileImageAPI, action.data);
+		console.log(result);
 		yield delay(1000);
 		yield put({
 			type: UPLOAD_PROFILE_IMAGE_SUCCESS,
-			data: result.data.result,
+			data: result.data.result.location,
 		});
 	} catch (e) {
 		yield put({
