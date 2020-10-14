@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
+import Head from "next/head";
 import dynamic from "next/dynamic";
 import { END } from "redux-saga";
 
@@ -7,27 +8,24 @@ import axios from "axios";
 import { LOAD_USER_REQUEST } from "../../../reducers/user";
 import { LOAD_COMMON_REQUEST } from "../../../reducers/common";
 
-import LoadingCircles from "../../../components/LoadingCircles";
+import { LoadingBox } from "../../../components/LoadingCircles";
 
-const WriteProject = dynamic(import("../../../components/WriteProject"), {
-	loading: () => (
-		<div
-			style={{
-				width: "100vw",
-				height: "100vh",
-				display: "flex",
-				alignItems: "center",
-				justifyContent: "center",
-				background: "#FFF",
-			}}
-		>
-			<LoadingCircles />
-		</div>
-	),
-});
+const WriteProject = dynamic(
+	import("../../../containers/pagesComponent/project/WriteProject"),
+	{
+		loading: () => <LoadingBox />,
+	}
+);
 
 const CreateProj = () => {
-	return <WriteProject />;
+	return (
+		<>
+			<Head>
+				<title>굿팀 : 프로젝트 모집하기</title>
+			</Head>
+			<WriteProject />
+		</>
+	);
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(

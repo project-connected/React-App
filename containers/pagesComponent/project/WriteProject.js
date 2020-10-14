@@ -1,24 +1,25 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import dynamic from "next/dynamic";
 import moment from "moment";
 import Router from "next/router";
-import Calendar from "./DynamicCalendar";
+import Calendar from "../../../components/DynamicCalendar";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-export const Editor = dynamic(import("./Toast"), {
+import { KeyboardArrowRight, KeyboardArrowLeft } from "@material-ui/icons";
+
+export const Editor = dynamic(import("../../../components/Toast"), {
 	ssr: false,
 });
 
-import SelectBlocks from "./buttons/SelectBlocks";
-import SelectStackForProject from "./buttons/SelectStackForProject";
-import useInput from "../hooks/useInput";
-import BackGround from "../containers/BackGround";
-import Confirm from "./Confirm";
+import SelectBlocks from "../../../components/buttons/SelectBlocks";
+import SelectStackForProject from "../../../components/buttons/SelectStackForProject";
+import useInput from "../../../hooks/useInput";
+import BackGround from "../../BackGround";
+import Confirm from "../../../components/Confirm";
 
-import { KeyboardArrowRight, KeyboardArrowLeft } from "@material-ui/icons";
-import { useSelector, useDispatch } from "react-redux";
-import { ProjectPage } from "../pages/project/[index]";
+import ProjectPage from "./ProjectPage";
 
 const WriteProject = () => {
 	const [title, OCTitle] = useInput("");

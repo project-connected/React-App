@@ -391,7 +391,9 @@ const AppLayout = ({ children }) => {
 						<div
 							className="menu-btn"
 							onClick={() => {
-								setToggleJW(false);
+								if (toggleJW) setToggleJW(false);
+								if (openUserMenu)
+									dispatch({ type: CLOSE_USER_MENU });
 								setTogglePJ(!togglePJ);
 							}}
 						>
@@ -412,7 +414,9 @@ const AppLayout = ({ children }) => {
 						<div
 							className="menu-btn"
 							onClick={() => {
-								setTogglePJ(false);
+								if (togglePJ) setTogglePJ(false);
+								if (openUserMenu)
+									dispatch({ type: CLOSE_USER_MENU });
 								setToggleJW(!toggleJW);
 							}}
 						>
@@ -471,9 +475,11 @@ const AppLayout = ({ children }) => {
 						<BackGround
 							stateCate="store"
 							open={openEnterSubProfile}
-							setOpen={() =>
-								dispatch({ type: CLOSE_SUB_PROFILE })
-							}
+							setOpen={() => {
+								setTogglePJ(false);
+								setToggleJW(false);
+								dispatch({ type: CLOSE_SUB_PROFILE });
+							}}
 						>
 							<NoSubProfile />
 						</BackGround>

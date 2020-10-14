@@ -909,6 +909,18 @@ button.slide-btn {
 }
 
 @media screen and (max-width: 600px) {
+	.noSubProfile {
+		width: 300px;
+
+		.btn-box .btn {
+			width: 100%;
+
+			&:nth-child(1) {
+				margin: 0 0 1rem 0;
+			}
+		}
+	}
+
 	button.slide-btn {
 		&.next {
 			right: 5px;
