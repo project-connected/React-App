@@ -13,7 +13,7 @@ const LoadingCircles = ({ style = null }) => {
 	);
 };
 
-export const LoadingBox100P = ({ className }) => {
+export const LoadingBox100P = ({ className = null }) => {
 	return (
 		<div
 			className={"loading-box " + (className ? className : "")}
@@ -31,7 +31,7 @@ export const LoadingBox100P = ({ className }) => {
 	);
 };
 
-export const LoadingBox = () => {
+export const LoadingBox = ({ className = null }) => {
 	return (
 		<div
 			className={"loading-box " + (className ? className : "")}

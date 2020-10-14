@@ -47,8 +47,8 @@ const WriteProject = () => {
 		(state) => state.project
 	);
 
-	const [availPage, setAvailPage] = useState(1);
-	const [currentPage, setCurrentPage] = useState(1);
+	const [availPage, setAvailPage] = useState(6);
+	const [currentPage, setCurrentPage] = useState(6);
 
 	const getCreateRegion = useCallback(
 		(data) => {

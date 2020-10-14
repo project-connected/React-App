@@ -1,9 +1,11 @@
 import React, { useCallback, useState, useRef } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 
 import Editor from "../components/Editor";
-import Chip from "@material-ui/core/Chip";
 import { makeStyles } from "@material-ui/core/styles";
 import { Search, CameraAlt } from "@material-ui/icons";
 
@@ -42,24 +44,28 @@ const NoSubProfile = () => {
 	const [userProfileImg, setUserProfileImg] = useState("");
 	const [introduct, setIntroduct] = useState("");
 
-	const visibleName = "sP-ipt-box visible";
-	const hideName = "sP-ipt-box hide";
-
 	const iptDone = useCallback(
 		(e) => {
 			console.log(status);
 			if (status === 1) {
-				console.log(userRegion);
-				if (userRegion) setStatus(2);
+				if (userRegion) {
+					setStatus(2);
+					setAvailPage(2);
+				}
 			} else if (status === 2) {
-				if (userTheme.length > 0) setStatus(3);
+				if (userTheme.length > 0) {
+					setStatus(3);
+					setAvailPage(3);
+				}
 			} else if (status === 3) {
 				if (userPurpose.length > 0) {
 					setStatus(4);
+					setAvailPage(4);
 				}
 			} else if (status === 4) {
 				if (userSkill.length > 0) {
 					setStatus(5);
+					setAvailPage(5);
 				}
 			} else if (status === 5) {
 				setStatus(6);
@@ -171,55 +177,155 @@ const NoSubProfile = () => {
 		});
 	}, []);
 
+	const [availPage, setAvailPage] = useState(0);
+	const [aniCN, setAniCN] = useState("next");
+
+	const headerClick = useCallback(
+		(e, idx) => {
+			if (idx > availPage) return;
+			if (status > idx) setAniCN("before");
+			else setAniCN("next");
+			setStatus(idx);
+		},
+		[availPage, status]
+	);
+
 	return (
 		<div className="noSubProfile ab-center">
 			<div className="sP-ipt-container">
-				<div className={status === 0 ? visibleName : hideName}>
-					<p>프로필 사진을 업로드해주세요.</p>
-					<div className="profile-img noSub">
-						{isUploadingProfileImage ? (
-							<LoadingBox100P className="noSub" />
-						) : (
+				<AppBar position="static" className="noSub">
+					<Tabs
+						value={availPage - 1}
+						onChange={headerClick}
+						variant="scrollable"
+						scrollButtons="off"
+					>
+						<Tab
+							className="header-tap"
+							label={1}
+							style={{
+								background: `${
+									0 <= availPage
+										? "linear-gradient(#7990ff, #9198e5)"
+										: "#dadada"
+								}`,
+							}}
+						></Tab>
+						<Tab
+							className="header-tap"
+							label={2}
+							style={{
+								background: `${
+									1 <= availPage
+										? "linear-gradient(#7990ff, #9198e5)"
+										: "#dadada"
+								}`,
+							}}
+						></Tab>
+						<Tab
+							className="header-tap"
+							label={3}
+							style={{
+								background: `${
+									2 <= availPage
+										? "linear-gradient(#7990ff, #9198e5)"
+										: "#dadada"
+								}`,
+							}}
+						></Tab>
+						<Tab
+							className="header-tap"
+							label={4}
+							style={{
+								background: `${
+									3 <= availPage
+										? "linear-gradient(#7990ff, #9198e5)"
+										: "#dadada"
+								}`,
+							}}
+						></Tab>
+						<Tab
+							className="header-tap"
+							label={5}
+							style={{
+								background: `${
+									4 <= availPage
+										? "linear-gradient(#7990ff, #9198e5)"
+										: "#dadada"
+								}`,
+							}}
+						></Tab>
+						<Tab
+							className="header-tap Finish"
+							label={"Finish"}
+							style={{
+								background: `${
+									5 <= availPage
+										? "linear-gradient(#7990ff, #9198e5)"
+										: "#dadada"
+								}`,
+							}}
+						></Tab>
+					</Tabs>
+				</AppBar>
+				{status === 0 && (
+					<div
+						className={"sP-ipt-box " + (status === 0 ? aniCN : "")}
+					>
+						<p>프로필 사진을 업로드해주세요.</p>
+						<div className="profile-img noSub">
+							{isUploadingProfileImage ? (
+								<LoadingBox100P className="noSub" />
+							) : (
+								<div
+									className="image"
+									style={{
+										backgroundImage: `url(${
+											uploadedImageBeforeSave
+												? uploadedImageBeforeSave
+												: userProfileImg !== ""
+												? userProfileImg
+												: defaultProfile
+										})`,
+									}}
+								>
+									<button onClick={onClickImageUpload}>
+										<CameraAlt style={{ color: "white" }} />
+									</button>
+									<input
+										type="file"
+										ref={imageInput}
+										onChange={onChangeImg}
+									/>
+								</div>
+							)}
+						</div>
+						<div className="btn-box ai-jc-center">
 							<div
-								className="image"
-								style={{
-									backgroundImage: `url(${
-										uploadedImageBeforeSave
-											? uploadedImageBeforeSave
-											: userProfileImg !== ""
-											? userProfileImg
-											: defaultProfile
-									})`,
+								className="btn boxShadow"
+								onClick={() => {
+									setStatus(1);
+									setAvailPage(1);
 								}}
 							>
-								<button onClick={onClickImageUpload}>
-									<CameraAlt style={{ color: "white" }} />
-								</button>
-								<input
-									type="file"
-									ref={imageInput}
-									onChange={onChangeImg}
-								/>
+								기본 이미지로 할래요.
 							</div>
-						)}
-					</div>
-					<div className="btn-box ai-jc-center">
-						<div
-							className="btn boxShadow"
-							onClick={() => setStatus(1)}
-						>
-							기본 이미지로 할래요.
-						</div>
-						<div
-							className="btn boxShadow"
-							onClick={() => setStatus(1)}
-						>
-							업로드한 이미지로 할래요.
+							<div
+								className="btn boxShadow"
+								onClick={() => {
+									setStatus(1);
+									setAvailPage(1);
+								}}
+							>
+								업로드한 이미지로 할래요.
+							</div>
 						</div>
 					</div>
-				</div>
-				{status >= 1 && (
-					<div className={status === 1 ? visibleName : hideName}>
+				)}
+				{status === 1 && (
+					<div
+						className={"sP-ipt-box " + (status === 1 ? aniCN : "")}
+					>
 						<p>지역을 선택해주세요.</p>
 						<div className="flex-row">
 							<SelectAttr
@@ -235,8 +341,10 @@ const NoSubProfile = () => {
 						<SetBtn />
 					</div>
 				)}
-				{status >= 2 && (
-					<div className={status === 2 ? visibleName : hideName}>
+				{status === 2 && (
+					<div
+						className={"sP-ipt-box " + (status === 2 ? aniCN : "")}
+					>
 						<p>관심있는 테마를 선택해주세요.</p>
 						<ChipBox
 							text={themeText}
@@ -249,8 +357,10 @@ const NoSubProfile = () => {
 						<SetBtn />
 					</div>
 				)}
-				{status >= 3 && (
-					<div className={status === 3 ? visibleName : hideName}>
+				{status === 3 && (
+					<div
+						className={"sP-ipt-box " + (status === 3 ? aniCN : "")}
+					>
 						<p>관심 분야를 선택해주세요.</p>
 						<ChipBox
 							text={purposeText}
@@ -264,7 +374,9 @@ const NoSubProfile = () => {
 					</div>
 				)}
 				{status === 4 && (
-					<div className={status === 4 ? visibleName : hideName}>
+					<div
+						className={"sP-ipt-box " + (status === 4 ? aniCN : "")}
+					>
 						<p>기술 스택들을 선택해주세요.</p>
 						<ChipBox
 							text={skillText}
@@ -278,7 +390,9 @@ const NoSubProfile = () => {
 					</div>
 				)}
 				{status === 5 && (
-					<div className={status === 5 ? visibleName : hideName}>
+					<div
+						className={"sP-ipt-box " + (status === 5 ? aniCN : "")}
+					>
 						<p>간단한 자기소개를 작성해주세요.</p>
 						<Editor
 							editorValue={introduct}
@@ -289,7 +403,9 @@ const NoSubProfile = () => {
 					</div>
 				)}
 				{status === 6 && (
-					<div className={status === 6 ? visibleName : hideName}>
+					<div
+						className={"sP-ipt-box " + (status === 6 ? aniCN : "")}
+					>
 						<h1>작성해주셔서 감사합니다.</h1>
 						<SetBtn text="작성완료" />
 					</div>
@@ -304,7 +420,13 @@ const ChipBox = ({ text, OCText, dataList, stateValue, OCState, classes }) => {
 		<div className="chip-wrap">
 			<div className="search-box">
 				<Search />
-				<input type="text" value={text} onChange={OCText} autoFocus />
+				<input
+					name="title"
+					type="text"
+					value={text}
+					onChange={OCText}
+					autoFocus
+				/>
 			</div>
 			<div className={classes.root + " chip-box"}>
 				{dataList.map((c, i) => {
