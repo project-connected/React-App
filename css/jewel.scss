@@ -330,6 +330,10 @@
 	}
 }
 
+.jewel-page-box .jewel-detail-box {
+	z-index: 3 !important;
+}
+
 @media screen and (max-width: 800px) {
 	.jewel-search-page {
 		flex-direction: column;
