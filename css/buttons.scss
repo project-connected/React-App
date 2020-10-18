@@ -338,6 +338,12 @@
 	}
 }
 
+@media screen and (max-width: 800px) {
+	.data-list {
+		width: 100% !important;
+	}
+}
+
 @media screen and (max-width: 600px) {
 	.data-list .data-list-search {
 		min-width: unset;
