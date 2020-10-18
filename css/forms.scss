@@ -866,8 +866,10 @@ button.slide-btn {
 
 			button {
 				position: absolute;
-				top: 0;
+				bottom: 0;
 				right: 0;
+				width: 3rem;
+				height: 3rem;
 				color: white;
 				background: #7990ff;
 				border-radius: 100%;

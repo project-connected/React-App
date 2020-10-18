@@ -1,15 +1,15 @@
 import React from "react";
 
-const LoadingCircles = ({ style = null }) => {
+const LoadingCircles = ({ className = null }) => {
 	return (
-		<>
-			<div className="lds-ellipsis">
+		<div>
+			<div className={"lds-ellipsis " + (className ? className : "")}>
 				<div></div>
 				<div></div>
 				<div></div>
 				<div></div>
 			</div>
-		</>
+		</div>
 	);
 };
 

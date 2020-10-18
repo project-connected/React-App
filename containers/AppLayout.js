@@ -33,12 +33,7 @@ import Curtain from "./Curtain";
 import NoSubProfile from "./NoSubProfile";
 import { Avatar } from "@material-ui/core";
 import BackGround from "./BackGround";
-
-export const DummyProfile = () => {
-	return (
-		<img src="https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg" />
-	);
-};
+import { defaultProfile } from "../config/config";
 
 export const LoadingCircle = () => {
 	return <div className="loading-spinner"></div>;
@@ -202,7 +197,7 @@ const UserLoggedIn = () => {
 	);
 };
 
-const NotifBox = ({ flg, setFlg, actionFunction }) => {
+const NotifBox = ({ flg = false, setFlg, actionFunction }) => {
 	const pushClass = flg ? "new-notification occur" : "new-notification";
 
 	return (
@@ -440,22 +435,16 @@ const AppLayout = ({ children }) => {
 						>
 							{user ? (
 								<div>
-									{user.profileImg ? (
-										<img src={user.profileImg} />
-									) : (
-										<Avatar
-											className="profile-img"
-											style={{
-												background:
-													"linear-gradient(#7990ff, #9198e5)",
-											}}
-										>
-											{user.userName[0]}
-										</Avatar>
-									)}
-									{dummyNotif && (
-										<div className="notification-circle"></div>
-									)}
+									<img
+										src={
+											user.profileImg
+												? user.profileImg
+												: defaultProfile
+										}
+									/>
+									<div className="notification-circle">
+										{dummyNotif.length}
+									</div>
 								</div>
 							) : (
 								<img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/b7c76929274393.55ead42cd721c.jpg" />

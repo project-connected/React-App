@@ -270,6 +270,13 @@ const dummyUser = {
 	userId: 1,
 	email: "anhs0220@gmail.com",
 	userName: "Forty Two Seoul",
+	profileImg: null,
+	area: null,
+	skill: [],
+	theme: [],
+	purpose: [],
+	url: "",
+	introduct: "",
 	jewelData: dummyJewel,
 	projectData: dummyProject,
 };

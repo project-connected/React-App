@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import Chip from "@material-ui/core/Chip";
 
 import Editor from "../components/Editor";
 import { makeStyles } from "@material-ui/core/styles";
@@ -31,9 +32,11 @@ const NoSubProfile = () => {
 	const { skills, region, results, themes } = useSelector(
 		(state) => state.common
 	);
-	const { uploadedImageBeforeSave, isUploadingProfileImage } = useSelector(
-		(state) => state.user
-	);
+	const {
+		user,
+		uploadedImageBeforeSave,
+		isUploadingProfileImage,
+	} = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
 	const [status, setStatus] = useState(0);
@@ -41,7 +44,6 @@ const NoSubProfile = () => {
 	const [userSkill, setUserSkill] = useState([]);
 	const [userTheme, setUserTheme] = useState([]);
 	const [userPurpose, setUserPerpose] = useState([]);
-	const [userProfileImg, setUserProfileImg] = useState("");
 	const [introduct, setIntroduct] = useState("");
 
 	const iptDone = useCallback(
@@ -283,8 +285,8 @@ const NoSubProfile = () => {
 										backgroundImage: `url(${
 											uploadedImageBeforeSave
 												? uploadedImageBeforeSave
-												: userProfileImg !== ""
-												? userProfileImg
+												: user.profileImg
+												? user.profileImg
 												: defaultProfile
 										})`,
 									}}
@@ -420,13 +422,7 @@ const ChipBox = ({ text, OCText, dataList, stateValue, OCState, classes }) => {
 		<div className="chip-wrap">
 			<div className="search-box">
 				<Search />
-				<input
-					name="title"
-					type="text"
-					value={text}
-					onChange={OCText}
-					autoFocus
-				/>
+				<input type="text" value={text} onChange={OCText} autoFocus />
 			</div>
 			<div className={classes.root + " chip-box"}>
 				{dataList.map((c, i) => {
