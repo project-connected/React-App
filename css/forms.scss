@@ -482,6 +482,7 @@ button.slide-btn {
 		justify-content: center;
 		display: none;
 		animation: 1s pade-to-right 1 ease-in-out;
+		min-width: 360px;
 
 		&.visible {
 			display: flex;
@@ -556,7 +557,7 @@ button.slide-btn {
 
 			.calendar-box {
 				animation: 0.5s padeUp 1 ease-in-out;
-				width: 50%;
+				width: 45%;
 
 				&:nth-child(n + 2) {
 					margin-left: 3rem;
@@ -610,8 +611,8 @@ button.slide-btn {
 	display: flex;
 	flex-flow: row wrap;
 	width: 100%;
-	// align-items: center;
-	// justify-content: center;
+	align-items: center;
+	justify-content: center;
 	&.period {
 		margin-top: 2rem;
 	}
@@ -920,6 +921,24 @@ button.slide-btn {
 			font-size: 12px;
 		}
 	}
+
+	.seperate-box.period {
+		.calendar-box {
+			width: 100% !important;
+
+			&:nth-child(n + 2) {
+				margin-left: 0 !important;
+			}
+
+			.react-calendar {
+				font-size: 12px;
+			}
+		}
+	}
+
+	.react-calendar {
+		font-size: 12px !important;
+	}
 }
 
 @media screen and (max-width: 600px) {
@@ -969,20 +988,6 @@ button.slide-btn {
 						}
 					}
 				}
-			}
-		}
-	}
-
-	.seperate-box.period {
-		.calendar-box {
-			width: 100% !important;
-
-			&:nth-child(n + 2) {
-				margin-left: 0 !important;
-			}
-
-			.react-calendar {
-				font-size: 12px;
 			}
 		}
 	}
