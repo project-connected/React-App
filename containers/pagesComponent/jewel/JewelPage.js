@@ -1,8 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const JewelPage = (props) => {
-	return <div></div>;
+import JewelDetail from "../../../components/JewelDetail";
+
+const JewelPage = () => {
+	const { jewelData } = useSelector((state) => state.jewel);
+
+	return (
+		<div className="jewel-page-box">
+			<JewelDetail mode="page" jewelData={jewelData} open={true} />
+		</div>
+	);
 };
 
 JewelPage.propTypes = {};
