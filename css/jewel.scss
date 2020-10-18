@@ -135,6 +135,7 @@
 		font-size: 11px;
 		background: linear-gradient(#7990ff, #9198e5);
 		padding: 0.2rem 0.4rem;
+		word-break: keep-all;
 
 		&:nth-child(n + 2) {
 			margin-left: 0.5rem;
