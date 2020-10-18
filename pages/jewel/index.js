@@ -10,15 +10,15 @@ import { LOAD_COMMON_REQUEST } from "../../reducers/common";
 import { LOAD_USER_REQUEST } from "../../reducers/user";
 import { LOAD_JEWEL_LIST_REQUEST } from "../../reducers/jewel";
 
-const JewelPage = dynamic(
-	import("../../containers/pagesComponent/jewel/JewelPage"),
+const SearchJewelPage = dynamic(
+	import("../../containers/pagesComponent/jewel/SearchJewelPage"),
 	{
 		loading: () => <LoadingBox />,
 	}
 );
 
 const FindJewel = () => {
-	return <JewelPage />;
+	return <SearchJewelPage />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
