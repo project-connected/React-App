@@ -1,31 +1,44 @@
-import React, { useRef, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
+import React, { useRef, useCallback } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
 
-import { Editor } from '@toast-ui/react-editor';
-import { backUrl } from '../config/config';
+import { backUrl } from "../config/config";
 
-const Toast = ({ editorValue, OCV, mirror="tab", height="inherit" }) => {
+import { Editor } from "@toast-ui/react-editor";
+import hljs from "highlight.js";
+import codeSyntaxHighlightPlugin from "@toast-ui/editor-plugin-code-syntax-highlight";
+
+import javascript from "highlight.js/lib/languages/javascript";
+import clojure from "highlight.js/lib/languages/clojure";
+
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("clojure", clojure);
+
+const Toast = ({ editorValue, OCV, mirror = "tab", height = "inherit" }) => {
 	const editorRef = useRef();
 
-	const handleChange = useCallback((e) => {
-		OCV(editorRef.current.getInstance().getMarkdown());
-	}, [editorValue]);
+	const handleChange = useCallback(
+		(e) => {
+			OCV(editorRef.current.getInstance().getMarkdown());
+		},
+		[editorValue]
+	);
 
 	const uploadImage = (blob) => {
 		let imageFormData = new FormData();
-		const url = backUrl + "/post/images";
+		const url = backUrl + "/file/thumb";
 
-		imageFormData.append('image', blob);
-		return axios.post(
-			url, imageFormData, {
+		imageFormData.append("thumb", blob);
+		return axios
+			.post(url, imageFormData, {
 				withCredentials: true,
-			}
-		).then(res => {
-			return res.data;
-		}).catch(e => {
-			console.error(e);
-		})
+			})
+			.then((res) => {
+				return res.data;
+			})
+			.catch((e) => {
+				console.error(e);
+			});
 	};
 
 	return (
@@ -40,21 +53,21 @@ const Toast = ({ editorValue, OCV, mirror="tab", height="inherit" }) => {
 			onChange={handleChange}
 			hideModeSwitch={true}
 			previewStyle={mirror}
-			previewHighlight={false}
-			hooks = {{
-				addImageBlobHook : (blob, callback, source) => {
-					uploadImage(blob).then(res => {
+			// previewHighlight={false}
+			useCommandShortcut={true}
+			plugins={[[codeSyntaxHighlightPlugin, { hljs }]]}
+			hooks={{
+				addImageBlobHook: (blob, callback, source) => {
+					uploadImage(blob).then((res) => {
 						callback(res.url);
-					})
+					});
 					return false;
-				}
+				},
 			}}
 		/>
 	);
 };
 
-Toast.propTypes = {
-
-};
+Toast.propTypes = {};
 
 export default Toast;
