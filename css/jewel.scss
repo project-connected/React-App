@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import "animation.scss";
+@import 'animation.scss';
 
 .jewel-search-page {
 	display: flex;
@@ -54,13 +54,17 @@
 }
 
 .jewel-card-wrap {
-	margin: -1rem 2rem 2rem 280px;
+	margin: -1rem 0 2rem 250px;
 	display: flex;
 	flex-flow: row wrap;
-	//flex-wrap: wrap;
-	//min-width: 820px;
 	align-items: center;
 	justify-content: center;
+
+	& > i {
+		width: 15rem;
+		height: 0;
+		margin: 1rem;
+	}
 }
 
 .card-box {
@@ -69,6 +73,7 @@
 	border-radius: 7px;
 	box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
 	width: 15rem;
+	min-width: 200px;
 	height: 22rem;
 	margin: 1rem;
 	overflow: hidden;
@@ -91,6 +96,10 @@
 
 			h2 {
 				font-size: 20px;
+				word-break: keep-all;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
 			}
 			h6 {
 				font-size: 12px;
@@ -121,7 +130,9 @@
 
 	&.stack {
 		margin-top: 1.5em;
-		overflow: visible;
+		overflow: hidden;
+		flex-flow: row wrap;
+		height: 1.4rem;
 	}
 
 	&.profile {
@@ -156,7 +167,7 @@
 				left: -5px;
 				width: 1px;
 				height: 1px;
-				content: "";
+				content: '';
 				background: #999;
 				border-radius: 1px;
 			}
@@ -174,6 +185,9 @@
 }
 
 .jewel-detail-box {
+	max-height: 90vh;
+	min-width: 400px;
+	overflow: auto;
 	background: #fff;
 	padding: 0.5rem;
 	position: fixed;
@@ -197,12 +211,13 @@
 
 .jewel-detail {
 	position: relative;
+	margin: 0 auto;
 	// min-width: 600px;
 	max-width: 800px;
+	width: 800px;
 	text-align: center;
-	padding-bottom: 2rem;
 
-	p {
+	p.head-p {
 		font-size: 12px;
 		color: #666;
 		margin-bottom: 0;
@@ -320,9 +335,9 @@
 	}
 
 	.text-content {
-		margin-top: 2rem;
-		max-height: 400px;
-		overflow: auto;
+		margin: 2rem auto;
+		width: 90%;
+		text-align: left;
 	}
 
 	.back-img {
@@ -330,8 +345,22 @@
 	}
 }
 
+.jewel-page-box {
+	margin-top: 100px;
+}
+
 .jewel-page-box .jewel-detail-box {
+	position: relative;
 	z-index: 3 !important;
+	max-width: 800px;
+	margin: 0 auto 2rem auto;
+	transform: none;
+	top: unset;
+	left: unset;
+
+	.content-box .text-content {
+		max-height: unset;
+	}
 }
 
 @media screen and (max-width: 800px) {
@@ -340,12 +369,32 @@
 
 		.jewel-search-wrap {
 			position: relative !important;
-			width: 90% !important;
 			margin: 0 auto;
+			width: 32rem;
 		}
 
 		.jewel-card-wrap {
 			margin: 0;
 		}
+	}
+	.jewel-detail-box {
+		width: 94%;
+		.jewel-detail {
+			margin: 0 auto;
+			width: 100%;
+		}
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.card-box {
+		width: calc(50% - 2rem);
+		margin: 0.5rem;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.jewel-search-page .jewel-detail {
+		width: 300px;
 	}
 }

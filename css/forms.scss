@@ -1,5 +1,5 @@
 @charset 'UTF-8';
-@import "animation.scss";
+@import 'animation.scss';
 
 .req-mem-wrap {
 	position: relative;
@@ -320,7 +320,7 @@ button.slide-btn {
 					}
 				}
 
-				input[name="title"] {
+				input[name='title'] {
 					color: #555;
 					width: 100%;
 					border-bottom: 3px solid #ddd;
@@ -383,7 +383,7 @@ button.slide-btn {
 							z-index: 88;
 							background: white;
 
-							input[type="number"] {
+							input[type='number'] {
 								width: 30px;
 								border-bottom: 1px solid #bbb;
 							}
@@ -530,7 +530,7 @@ button.slide-btn {
 				}
 			}
 
-			input[name="title"] {
+			input[name='title'] {
 				color: #555;
 				width: 100%;
 				border-bottom: 3px solid #ddd;
@@ -633,7 +633,7 @@ button.slide-btn {
 	position: relative;
 
 	&::before {
-		content: "오늘";
+		content: '오늘';
 		position: absolute;
 		color: #4950ff;
 		top: 1px;
@@ -702,7 +702,7 @@ button.slide-btn {
 			transition: 0.5s;
 			// animation: 0.8s appearAfterHideDown 1 ease-in-out;
 
-			input[name="title"] {
+			input[name='title'] {
 				color: #555;
 				width: 100%;
 				border-bottom: 3px solid #ddd;
@@ -878,7 +878,7 @@ button.slide-btn {
 				padding: 0.5rem;
 			}
 
-			input[type="file"] {
+			input[type='file'] {
 				width: 1px;
 				height: 1px;
 				position: absolute;

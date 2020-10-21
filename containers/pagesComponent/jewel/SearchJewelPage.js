@@ -1,26 +1,26 @@
-import React, { useState, useCallback } from "react";
-import dynamic from "next/dynamic";
-import { useSelector, useDispatch } from "react-redux";
-import Skeleton from "@material-ui/lab/Skeleton";
+import React, { useState, useCallback } from 'react';
+import dynamic from 'next/dynamic';
+import { useSelector, useDispatch } from 'react-redux';
+import Skeleton from '@material-ui/lab/Skeleton';
 
-import LoadingCircles from "../../../components/LoadingCircles";
-import SelectAttr from "../../../components/buttons/SelectAttr";
-import SelectPeriod from "../../../components/buttons/SelectPeriod";
-import SelectStack from "../../../components/buttons/SelectStack";
+import LoadingCircles from '../../../components/LoadingCircles';
+import SelectAttr from '../../../components/buttons/SelectAttr';
+import SelectPeriod from '../../../components/buttons/SelectPeriod';
+import SelectStack from '../../../components/buttons/SelectStack';
 
-import { LOAD_JEWEL_REQUEST } from "../../../reducers/jewel";
+import { LOAD_JEWEL_REQUEST } from '../../../reducers/jewel';
 
-const JewelDetail = dynamic(import("../../../components/JewelDetail"), {
+const JewelDetail = dynamic(import('../../../components/JewelDetail'), {
 	loading: () => <LoadingCircles />,
 });
 
-const JewelCard = dynamic(import("../../../components/JewelCard"), {
+const JewelCard = dynamic(import('../../../components/JewelCard'), {
 	loading: () => <Skeleton variant="rect" className="card-box" />,
 });
 
 const SearchJewelPage = () => {
 	const { region, themes, skills, results } = useSelector(
-		(state) => state.common
+		(state) => state.common,
 	);
 	const { jewelData } = useSelector((state) => state.jewel);
 	const { jewels } = useSelector((state) => state.jewel);
@@ -41,28 +41,28 @@ const SearchJewelPage = () => {
 		(data) => {
 			setSearchRegion([...searchRegion, data]);
 		},
-		[searchRegion]
+		[searchRegion],
 	);
 
 	const OCSearchTheme = useCallback(
 		(data) => {
 			setSearchTheme([...searchTheme, data]);
 		},
-		[searchTheme]
+		[searchTheme],
 	);
 
 	const OCSearchResult = useCallback(
 		(data) => {
 			setSearchResult([...searchResult, data]);
 		},
-		[searchResult]
+		[searchResult],
 	);
 
 	const OCSearchStack = useCallback(
 		(data) => {
 			setSearchStack([...searchStack, data]);
 		},
-		[searchStack]
+		[searchStack],
 	);
 
 	const removeRegion = useCallback(
@@ -70,28 +70,28 @@ const SearchJewelPage = () => {
 			e.preventDefault();
 			setSearchRegion(searchRegion.filter((v) => v.key !== data.key));
 		},
-		[searchRegion]
+		[searchRegion],
 	);
 	const removeTheme = useCallback(
 		(data) => (e) => {
 			e.preventDefault();
 			setSearchTheme(searchTheme.filter((v) => v.key !== data.key));
 		},
-		[searchTheme]
+		[searchTheme],
 	);
 	const removeResult = useCallback(
 		(data) => (e) => {
 			e.preventDefault();
 			setSearchResult(searchResult.filter((v) => v.key !== data.key));
 		},
-		[searchRegion]
+		[searchRegion],
 	);
 	const removeStack = useCallback(
 		(data) => (e) => {
 			e.preventDefault();
 			setSearchStack(searchStack.filter((v) => v.key !== data.key));
 		},
-		[searchStack]
+		[searchStack],
 	);
 
 	const openJewelDetail = useCallback(
@@ -105,7 +105,7 @@ const SearchJewelPage = () => {
 			});
 			setOpenDetail(true);
 		},
-		[]
+		[],
 	);
 
 	return (
@@ -209,6 +209,8 @@ const SearchJewelPage = () => {
 						/>
 					);
 				})}
+				<i area-hidden="true"></i>
+				<i area-hidden="true"></i>
 			</div>
 			<JewelDetail
 				open={openDetail}

@@ -1,13 +1,13 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import ReactMarkdown from "react-markdown";
-import { HowToVoteOutlined, Chat } from "@material-ui/icons";
+import React, { useState, useCallback, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import ReactMarkdown from 'react-markdown';
+import { HowToVoteOutlined, Chat } from '@material-ui/icons';
 
-import StackBlock from "../../../components/StackBlock";
+import StackBlock from '../../../components/StackBlock';
 
-import { OPEN_APPLY, OPEN_USER_MENU } from "../../../reducers/component";
+import { OPEN_APPLY, OPEN_USER_MENU } from '../../../reducers/component';
 
-const ProjectPage = ({ data = null, status = "view" }) => {
+const ProjectPage = ({ data = null, status = 'view' }) => {
 	const { user } = useSelector((state) => state.user);
 	const { projectData } = useSelector((state) => state.project);
 	const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const ProjectPage = ({ data = null, status = "view" }) => {
 	const applyProj = useCallback(
 		(e) => {
 			if (!user) {
-				alert("로그인이 필요해요.");
+				alert('로그인이 필요해요.');
 				dispatch({
 					type: OPEN_USER_MENU,
 				});
@@ -27,12 +27,8 @@ const ProjectPage = ({ data = null, status = "view" }) => {
 				});
 			}
 		},
-		[user]
+		[user],
 	);
-
-	useEffect(() => {
-		setPJData(data);
-	}, [data]);
 
 	return (
 		<div id="project-page-wrap">
@@ -95,13 +91,13 @@ const ProjectPage = ({ data = null, status = "view" }) => {
 							<p>모집기술</p>
 							<p className="total-num">
 								{PJData.stacks.reduce(
-									(a, b) => a + (b["num"] || 0),
-									0
-								)}{" "}
-								/{" "}
+									(a, b) => a + (b['num'] || 0),
+									0,
+								)}{' '}
+								/{' '}
 								{projectData.stacks.reduce(
-									(a, b) => a + (b["maxNum"] || 0),
-									0
+									(a, b) => a + (b['maxNum'] || 0),
+									0,
 								)}
 								명
 							</p>
@@ -127,13 +123,13 @@ const ProjectPage = ({ data = null, status = "view" }) => {
 					</section>
 				</div>
 			</div>
-			{status === "view" && (
+			{status === 'view' && (
 				<div className="proj-button-wrap">
 					<button id="apply" onClick={applyProj}>
 						<HowToVoteOutlined />
 						<h3>APPLY</h3>
 					</button>
-					<button id="listup">
+					<button id="message">
 						<Chat />
 						<h3>MESSAGE</h3>
 					</button>

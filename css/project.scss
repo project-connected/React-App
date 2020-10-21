@@ -1,8 +1,8 @@
 @charset 'UTF-8';
-@import "animation.scss";
+@import 'animation.scss';
 
 #project-page-wrap {
-	width: 60rem;
+	width: 800px;
 	margin: 0 auto;
 	margin-top: 100px;
 	padding: 0 5rem;
@@ -162,7 +162,7 @@
 							z-index: 99;
 
 							&::before {
-								content: "";
+								content: '';
 								display: block;
 								position: absolute;
 								top: -5px;
@@ -215,6 +215,7 @@
 				font-size: 16px;
 				width: 100%;
 				transform: rotate(90deg);
+				word-break: keep-all;
 			}
 
 			&:hover {
@@ -466,21 +467,62 @@
 		margin-right: 0.5rem;
 
 		&.theme::before {
-			content: "목적: ";
+			content: '목적: ';
 		}
 		&.result::before {
-			content: "결과물: ";
+			content: '결과물: ';
 		}
 		&.region::before {
-			content: "지역: ";
+			content: '지역: ';
 		}
 		&.stack::before {
-			content: "스택: ";
+			content: '스택: ';
 		}
 	}
 }
 
 @media screen and (max-width: 800px) {
+	#project-page-wrap {
+		padding: 0;
+		width: 100vw;
+
+		.proj-head-info {
+			width: unset;
+		}
+
+		.proj-button-wrap {
+			position: relative;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			margin-top: 1rem;
+
+			button {
+				&:hover {
+					box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 16px 0px;
+					width: 10rem;
+					height: 4rem;
+				}
+				&#apply {
+					margin: 0 1rem 0 0;
+				}
+				&#message:hover {
+					width: 11rem;
+				}
+
+				h3 {
+					margin: 0;
+					width: fit-content;
+					top: 50%;
+					transform: translateY(-50%);
+					left: 4.5rem;
+					position: absolute;
+					font-size: 16px;
+				}
+			}
+		}
+	}
+
 	.proj-search-wrap {
 		min-width: unset !important;
 		width: 90% !important;
