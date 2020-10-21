@@ -1,26 +1,26 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import Router from "next/router";
-import { useSelector, useDispatch } from "react-redux";
-import { VpnKey, CameraAlt } from "@material-ui/icons";
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import Router from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
+import { VpnKey, CameraAlt } from '@material-ui/icons';
 
-import { UPLOAD_PROFILE_IMAGE_REQUEST } from "../../../reducers/user";
+import { UPLOAD_PROFILE_IMAGE_REQUEST } from '../../../reducers/user';
 
-import useInput from "../../../hooks/useInput";
-import useInputWithSetter from "../../../hooks/useInputWithSetter";
-import Editor from "../../../components/Editor";
+import useInput from '../../../hooks/useInput';
+import useInputWithSetter from '../../../hooks/useInputWithSetter';
+import Editor from '../../../components/Editor';
 
-import { defaultProfile } from "../../../config/config";
-import SelectBlocks from "../../../components/buttons/SelectBlocks";
-import { CircularProgress } from "@material-ui/core";
+import { defaultProfile } from '../../../config/config';
+import SelectBlocks from '../../../components/buttons/SelectBlocks';
+import { CircularProgress } from '@material-ui/core';
 
 const ChangePassword = ({ open, setOpen }) => {
 	const dispatch = useDispatch();
 
 	const checkRef = useRef();
 
-	const [pw, setPW, OCPW] = useInputWithSetter("");
-	const [newPW, setNewPW, OCNewPW] = useInputWithSetter("");
-	const [checkNewPW, setCheckNewPW, OCCheckNewPW] = useInputWithSetter("");
+	const [pw, setPW, OCPW] = useInputWithSetter('');
+	const [newPW, setNewPW, OCNewPW] = useInputWithSetter('');
+	const [checkNewPW, setCheckNewPW, OCCheckNewPW] = useInputWithSetter('');
 	const [error, setError] = useState(false);
 
 	const [idx, setIdx] = useState(0);
@@ -30,13 +30,13 @@ const ChangePassword = ({ open, setOpen }) => {
 			setIdx(1);
 		} else {
 			setIdx(0);
-			setPW("");
-			setNewPW("");
-			setCheckNewPW("");
+			setPW('');
+			setNewPW('');
+			setCheckNewPW('');
 		}
 	}, [open]);
 
-	const backgroundClass = open ? "back-btn visible" : "back-btn hide";
+	const backgroundClass = open ? 'back-btn visible' : 'back-btn hide';
 
 	const closeComponent = useCallback((e) => {
 		e.preventDefault();
@@ -50,10 +50,10 @@ const ChangePassword = ({ open, setOpen }) => {
 			// 	type: CHECK_PASSWORD,
 			// 	data: pw
 			// })
-			console.log("check pw");
+			console.log('check pw');
 			setIdx(2);
 		},
-		[pw]
+		[pw],
 	);
 
 	const changePWRequest = useCallback(
@@ -72,12 +72,12 @@ const ChangePassword = ({ open, setOpen }) => {
 			// 		new_password: newPW,
 			// 	}
 			// })
-			if (confirm("비밀번호를 변경하시겠습니까?")) {
-				console.log("enter new pw");
+			if (confirm('비밀번호를 변경하시겠습니까?')) {
+				console.log('enter new pw');
 				setOpen(false);
 			}
 		},
-		[newPW, checkNewPW, error]
+		[newPW, checkNewPW, error],
 	);
 
 	return (
@@ -93,7 +93,7 @@ const ChangePassword = ({ open, setOpen }) => {
 						onChange={OCPW}
 						type="password"
 						onKeyPress={(e) => {
-							if (e.key === "Enter") {
+							if (e.key === 'Enter') {
 								checkPW(e);
 							}
 							if (e.key == 48) {
@@ -114,7 +114,7 @@ const ChangePassword = ({ open, setOpen }) => {
 						value={newPW}
 						onChange={OCNewPW}
 						onKeyPress={(e) => {
-							if (e.key === "Enter") {
+							if (e.key === 'Enter') {
 								setIdx(3);
 								checkRef.current.focus();
 							}
@@ -132,7 +132,7 @@ const ChangePassword = ({ open, setOpen }) => {
 						value={checkNewPW}
 						onChange={OCCheckNewPW}
 						onKeyPress={(e) => {
-							if (e.key === "Enter") {
+							if (e.key === 'Enter') {
 								changePWRequest(e);
 							}
 							if (e.key == 48) {
@@ -141,7 +141,7 @@ const ChangePassword = ({ open, setOpen }) => {
 						}}
 					/>
 					{error && (
-						<p style={{ color: "#ff3333" }}>
+						<p style={{ color: '#ff3333' }}>
 							비밀번호를 다시 확인해주세요.
 						</p>
 					)}
@@ -158,12 +158,12 @@ const EditProfile = () => {
 		isUploadingProfileImage,
 	} = useSelector((state) => state.user);
 	const { skills, themes, region, results } = useSelector(
-		(state) => state.common
+		(state) => state.common,
 	);
 
-	const [name, OCName] = useInput(user ? user.userName : "");
+	const [name, OCName] = useInput(user ? user.userName : '');
 	const [url, OCUrl] = useInput(user.url);
-	const [userRegion, setUserRegion] = useState(user.region);
+	const [userRegion, setUserRegion] = useState(user.area);
 	const [userStacks, setUserStacks] = useState(user.skill);
 	const [userThemes, setUserThemes] = useState(user.theme);
 	const [userProducts, setUserProducts] = useState(user.purpose);
@@ -177,7 +177,7 @@ const EditProfile = () => {
 		(stack) => {
 			setUserStacks([...userStacks, stack]);
 		},
-		[userStacks]
+		[userStacks],
 	);
 
 	const removeStacks = useCallback(
@@ -185,14 +185,14 @@ const EditProfile = () => {
 			e.preventDefault();
 			setUserStacks(userStacks.filter((v) => v.key !== stack.key));
 		},
-		[userStacks]
+		[userStacks],
 	);
 
 	const getThemes = useCallback(
 		(theme) => {
 			setUserThemes([...userThemes, theme]);
 		},
-		[userThemes]
+		[userThemes],
 	);
 
 	const removeThemes = useCallback(
@@ -200,14 +200,14 @@ const EditProfile = () => {
 			e.preventDefault();
 			setUserThemes(userThemes.filter((v) => v.key !== theme.key));
 		},
-		[userThemes]
+		[userThemes],
 	);
 
 	const getProducts = useCallback(
 		(product) => {
 			setUserProducts([...userProducts, product]);
 		},
-		[userProducts]
+		[userProducts],
 	);
 
 	const removeProducts = useCallback(
@@ -215,13 +215,13 @@ const EditProfile = () => {
 			e.preventDefault();
 			setUserProducts(userProducts.filter((v) => v.key !== product.key));
 		},
-		[userProducts]
+		[userProducts],
 	);
 
 	useEffect(() => {
 		if (!user) {
-			alert("로그인을 해주세요.");
-			Router.push("/");
+			alert('로그인을 해주세요.');
+			Router.push('/');
 		}
 	}, [user]);
 
@@ -233,7 +233,7 @@ const EditProfile = () => {
 
 	const onChangeImg = useCallback((e) => {
 		const imageFormData = new FormData();
-		imageFormData.append("thumb", e.target.files[0]);
+		imageFormData.append('img', e.target.files[0]);
 		dispatch({
 			type: UPLOAD_PROFILE_IMAGE_REQUEST,
 			data: imageFormData,
@@ -268,7 +268,7 @@ const EditProfile = () => {
 									<>
 										<button onClick={onClickImageUpload}>
 											<CameraAlt
-												style={{ color: "white" }}
+												style={{ color: 'white' }}
 											/>
 										</button>
 										<input
