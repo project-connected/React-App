@@ -1,28 +1,28 @@
-import React, { useCallback, useState, useRef } from "react";
+import React, { useCallback, useState, useRef } from 'react';
 
-import { useSelector, useDispatch } from "react-redux";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Chip from "@material-ui/core/Chip";
+import { useSelector, useDispatch } from 'react-redux';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Chip from '@material-ui/core/Chip';
 
-import Editor from "../components/Editor";
-import { makeStyles } from "@material-ui/core/styles";
-import { Search, CameraAlt } from "@material-ui/icons";
+import Editor from '../components/Editor';
+import { makeStyles } from '@material-ui/core/styles';
+import { Search, CameraAlt } from '@material-ui/icons';
 
-import { defaultProfile } from "../config/config";
-import { CLOSE_SUB_PROFILE } from "../reducers/component";
-import { UPLOAD_PROFILE_IMAGE_REQUEST } from "../reducers/user";
+import { defaultProfile } from '../config/config';
+import { CLOSE_SUB_PROFILE } from '../reducers/component';
+import { UPLOAD_PROFILE_IMAGE_REQUEST } from '../reducers/user';
 
-import SelectAttr from "../components/buttons/SelectAttr";
-import { LoadingBox100P } from "../components/LoadingCircles";
+import SelectAttr from '../components/buttons/SelectAttr';
+import { LoadingBox100P } from '../components/LoadingCircles';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		display: "flex",
-		justifyContent: "center",
-		flexWrap: "wrap",
-		"& > *": {
+		display: 'flex',
+		justifyContent: 'center',
+		flexWrap: 'wrap',
+		'& > *': {
 			margin: theme.spacing(0.5),
 		},
 	},
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NoSubProfile = () => {
 	const { skills, region, results, themes } = useSelector(
-		(state) => state.common
+		(state) => state.common,
 	);
 	const {
 		user,
@@ -44,7 +44,7 @@ const NoSubProfile = () => {
 	const [userSkill, setUserSkill] = useState([]);
 	const [userTheme, setUserTheme] = useState([]);
 	const [userPurpose, setUserPerpose] = useState([]);
-	const [introduct, setIntroduct] = useState("");
+	const [introduct, setIntroduct] = useState('');
 
 	const iptDone = useCallback(
 		(e) => {
@@ -77,7 +77,7 @@ const NoSubProfile = () => {
 				// 창 닫는 것도 state통해서 성공하면 닫기
 			}
 		},
-		[status, userRegion, userSkill, userTheme, userPurpose]
+		[status, userRegion, userSkill, userTheme, userPurpose],
 	);
 
 	const OCTheme = useCallback(
@@ -88,7 +88,7 @@ const NoSubProfile = () => {
 				setUserTheme(userTheme.filter((v) => v.key !== data.key));
 			}
 		},
-		[userTheme]
+		[userTheme],
 	);
 
 	const OCPurpose = useCallback(
@@ -97,7 +97,7 @@ const NoSubProfile = () => {
 				setUserPerpose([...userPurpose, data]);
 			else setUserPerpose(userPurpose.filter((v) => v.key !== data.key));
 		},
-		[userPurpose]
+		[userPurpose],
 	);
 
 	const OCSkill = useCallback(
@@ -106,10 +106,10 @@ const NoSubProfile = () => {
 				setUserSkill([...userSkill, data]);
 			else setUserSkill(userSkill.filter((v) => v.key !== data.key));
 		},
-		[userSkill]
+		[userSkill],
 	);
 
-	const SetBtn = ({ text = "다음" }) => {
+	const SetBtn = ({ text = '다음' }) => {
 		return (
 			<div className="sP-btn" onClick={iptDone}>
 				{text}
@@ -120,48 +120,48 @@ const NoSubProfile = () => {
 	const classes = useStyles();
 
 	const [ThemeList, setThemeList] = useState(themes);
-	const [themeText, setThemeText] = useState("");
+	const [themeText, setThemeText] = useState('');
 
 	const OCThemeText = useCallback(
 		(e) => {
 			setThemeText(e.target.value);
 			setThemeList(
 				themes.filter((v) =>
-					v.value.toLowerCase().match(e.target.value.toLowerCase())
-				)
+					v.value.toLowerCase().match(e.target.value.toLowerCase()),
+				),
 			);
 		},
-		[themeText, ThemeList]
+		[themeText, ThemeList],
 	);
 
 	const [purposeList, setPurposeList] = useState(results);
-	const [purposeText, setPurposeText] = useState("");
+	const [purposeText, setPurposeText] = useState('');
 
 	const OCPurposeText = useCallback(
 		(e) => {
 			setPurposeText(e.target.value);
 			setPurposeList(
 				results.filter((v) =>
-					v.value.toLowerCase().match(e.target.value.toLowerCase())
-				)
+					v.value.toLowerCase().match(e.target.value.toLowerCase()),
+				),
 			);
 		},
-		[purposeText, purposeList]
+		[purposeText, purposeList],
 	);
 
 	const [skillList, setSkillList] = useState(skills);
-	const [skillText, setSkillText] = useState("");
+	const [skillText, setSkillText] = useState('');
 
 	const OCSkillText = useCallback(
 		(e) => {
 			setSkillText(e.target.value);
 			setSkillList(
 				skills.filter((v) =>
-					v.value.toLowerCase().match(e.target.value.toLowerCase())
-				)
+					v.value.toLowerCase().match(e.target.value.toLowerCase()),
+				),
 			);
 		},
-		[skillList, skillText]
+		[skillList, skillText],
 	);
 
 	const imageInput = useRef();
@@ -172,7 +172,7 @@ const NoSubProfile = () => {
 
 	const onChangeImg = useCallback((e) => {
 		const imageFormData = new FormData();
-		imageFormData.append("thumb", e.target.files[0]);
+		imageFormData.append('img', e.target.files[0]);
 		dispatch({
 			type: UPLOAD_PROFILE_IMAGE_REQUEST,
 			data: imageFormData,
@@ -180,16 +180,16 @@ const NoSubProfile = () => {
 	}, []);
 
 	const [availPage, setAvailPage] = useState(0);
-	const [aniCN, setAniCN] = useState("next");
+	const [aniCN, setAniCN] = useState('next');
 
 	const headerClick = useCallback(
 		(e, idx) => {
 			if (idx > availPage) return;
-			if (status > idx) setAniCN("before");
-			else setAniCN("next");
+			if (status > idx) setAniCN('before');
+			else setAniCN('next');
 			setStatus(idx);
 		},
-		[availPage, status]
+		[availPage, status],
 	);
 
 	return (
@@ -208,8 +208,8 @@ const NoSubProfile = () => {
 							style={{
 								background: `${
 									0 <= availPage
-										? "linear-gradient(#7990ff, #9198e5)"
-										: "#dadada"
+										? 'linear-gradient(#7990ff, #9198e5)'
+										: '#dadada'
 								}`,
 							}}
 						></Tab>
@@ -219,8 +219,8 @@ const NoSubProfile = () => {
 							style={{
 								background: `${
 									1 <= availPage
-										? "linear-gradient(#7990ff, #9198e5)"
-										: "#dadada"
+										? 'linear-gradient(#7990ff, #9198e5)'
+										: '#dadada'
 								}`,
 							}}
 						></Tab>
@@ -230,8 +230,8 @@ const NoSubProfile = () => {
 							style={{
 								background: `${
 									2 <= availPage
-										? "linear-gradient(#7990ff, #9198e5)"
-										: "#dadada"
+										? 'linear-gradient(#7990ff, #9198e5)'
+										: '#dadada'
 								}`,
 							}}
 						></Tab>
@@ -241,8 +241,8 @@ const NoSubProfile = () => {
 							style={{
 								background: `${
 									3 <= availPage
-										? "linear-gradient(#7990ff, #9198e5)"
-										: "#dadada"
+										? 'linear-gradient(#7990ff, #9198e5)'
+										: '#dadada'
 								}`,
 							}}
 						></Tab>
@@ -252,19 +252,19 @@ const NoSubProfile = () => {
 							style={{
 								background: `${
 									4 <= availPage
-										? "linear-gradient(#7990ff, #9198e5)"
-										: "#dadada"
+										? 'linear-gradient(#7990ff, #9198e5)'
+										: '#dadada'
 								}`,
 							}}
 						></Tab>
 						<Tab
 							className="header-tap Finish"
-							label={"Finish"}
+							label={'Finish'}
 							style={{
 								background: `${
 									5 <= availPage
-										? "linear-gradient(#7990ff, #9198e5)"
-										: "#dadada"
+										? 'linear-gradient(#7990ff, #9198e5)'
+										: '#dadada'
 								}`,
 							}}
 						></Tab>
@@ -272,7 +272,7 @@ const NoSubProfile = () => {
 				</AppBar>
 				{status === 0 && (
 					<div
-						className={"sP-ipt-box " + (status === 0 ? aniCN : "")}
+						className={'sP-ipt-box ' + (status === 0 ? aniCN : '')}
 					>
 						<p>프로필 사진을 업로드해주세요.</p>
 						<div className="profile-img noSub">
@@ -292,7 +292,7 @@ const NoSubProfile = () => {
 									}}
 								>
 									<button onClick={onClickImageUpload}>
-										<CameraAlt style={{ color: "white" }} />
+										<CameraAlt style={{ color: 'white' }} />
 									</button>
 									<input
 										type="file"
@@ -326,7 +326,7 @@ const NoSubProfile = () => {
 				)}
 				{status === 1 && (
 					<div
-						className={"sP-ipt-box " + (status === 1 ? aniCN : "")}
+						className={'sP-ipt-box ' + (status === 1 ? aniCN : '')}
 					>
 						<p>지역을 선택해주세요.</p>
 						<div className="flex-row">
@@ -345,7 +345,7 @@ const NoSubProfile = () => {
 				)}
 				{status === 2 && (
 					<div
-						className={"sP-ipt-box " + (status === 2 ? aniCN : "")}
+						className={'sP-ipt-box ' + (status === 2 ? aniCN : '')}
 					>
 						<p>관심있는 테마를 선택해주세요.</p>
 						<ChipBox
@@ -361,7 +361,7 @@ const NoSubProfile = () => {
 				)}
 				{status === 3 && (
 					<div
-						className={"sP-ipt-box " + (status === 3 ? aniCN : "")}
+						className={'sP-ipt-box ' + (status === 3 ? aniCN : '')}
 					>
 						<p>관심 분야를 선택해주세요.</p>
 						<ChipBox
@@ -377,7 +377,7 @@ const NoSubProfile = () => {
 				)}
 				{status === 4 && (
 					<div
-						className={"sP-ipt-box " + (status === 4 ? aniCN : "")}
+						className={'sP-ipt-box ' + (status === 4 ? aniCN : '')}
 					>
 						<p>기술 스택들을 선택해주세요.</p>
 						<ChipBox
@@ -393,20 +393,20 @@ const NoSubProfile = () => {
 				)}
 				{status === 5 && (
 					<div
-						className={"sP-ipt-box " + (status === 5 ? aniCN : "")}
+						className={'sP-ipt-box ' + (status === 5 ? aniCN : '')}
 					>
 						<p>간단한 자기소개를 작성해주세요.</p>
 						<Editor
 							editorValue={introduct}
 							OCV={setIntroduct}
-							height={"600px"}
+							height={'600px'}
 						/>
 						<SetBtn />
 					</div>
 				)}
 				{status === 6 && (
 					<div
-						className={"sP-ipt-box " + (status === 6 ? aniCN : "")}
+						className={'sP-ipt-box ' + (status === 6 ? aniCN : '')}
 					>
 						<h1>작성해주셔서 감사합니다.</h1>
 						<SetBtn text="작성완료" />
@@ -424,7 +424,7 @@ const ChipBox = ({ text, OCText, dataList, stateValue, OCState, classes }) => {
 				<Search />
 				<input type="text" value={text} onChange={OCText} autoFocus />
 			</div>
-			<div className={classes.root + " chip-box"}>
+			<div className={classes.root + ' chip-box'}>
 				{dataList.map((c, i) => {
 					const inState = stateValue.find((v) => v.key === c.key);
 					return (
@@ -435,8 +435,8 @@ const ChipBox = ({ text, OCText, dataList, stateValue, OCState, classes }) => {
 							style={
 								inState && {
 									background:
-										"linear-gradient(to bottom right, #7990ff, #9198e5)",
-									color: "#fff",
+										'linear-gradient(to bottom right, #7990ff, #9198e5)',
+									color: '#fff',
 								}
 							}
 							clickable
