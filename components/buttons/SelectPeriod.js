@@ -1,42 +1,55 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import dynamic from 'next/dynamic';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardArrowDown } from '@material-ui/icons';
-import Calendar from 'react-calendar';
 import { OPEN_FILTER_ATTR } from '../../reducers/project';
 
-const SelectPeriod = ({ name="시작일", value, setValue }) => {
+const Calendar = dynamic(import('../DynamicCalendar'), {
+	ssr: false,
+});
+
+const SelectPeriod = ({ name = '시작일', value, setValue }) => {
 	const dispatch = useDispatch();
-	const { filterAttrOpenIndx } = useSelector(state=>state.project);
+	const { filterAttrOpenIndx } = useSelector((state) => state.project);
 
-	const wrapClassName = filterAttrOpenIndx === 3 ? 'select-btn-wrap clicked' : 'select-btn-wrap';
+	const wrapClassName =
+		filterAttrOpenIndx === 3
+			? 'select-btn-wrap clicked'
+			: 'select-btn-wrap';
 
-	const OCDate = useCallback((date) => {
-		setValue(date);
-	}, [value]);
+	const OCDate = useCallback(
+		(date) => {
+			setValue(date);
+		},
+		[value],
+	);
 
-	const openAttr = useCallback((e) => {
-		e.preventDefault();
-		if (3 === filterAttrOpenIndx) {
+	const openAttr = useCallback(
+		(e) => {
+			e.preventDefault();
+			if (3 === filterAttrOpenIndx) {
+				dispatch({
+					type: OPEN_FILTER_ATTR,
+					data: -1,
+				});
+				return;
+			}
 			dispatch({
 				type: OPEN_FILTER_ATTR,
-				data: -1,
-			})
-			return ;
-		}
-		dispatch({
-			type: OPEN_FILTER_ATTR,
-			data: 3,
-		})
-	}, [filterAttrOpenIndx]);
+				data: 3,
+			});
+		},
+		[filterAttrOpenIndx],
+	);
 
 	return (
 		<div className={wrapClassName}>
-			<div className='select-btn' onClick={openAttr}>
+			<div className="select-btn" onClick={openAttr}>
 				{name}
 				<KeyboardArrowDown />
 			</div>
-			<div className="data-list">
+			<div className="data-list dp-flex jc-center">
 				<Calendar
 					value={value}
 					onChange={OCDate}
@@ -48,8 +61,6 @@ const SelectPeriod = ({ name="시작일", value, setValue }) => {
 	);
 };
 
-SelectPeriod.propTypes = {
-
-};
+SelectPeriod.propTypes = {};
 
 export default SelectPeriod;
