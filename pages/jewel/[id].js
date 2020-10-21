@@ -1,29 +1,37 @@
-import React from "react";
-import dynamic from "next/dynamic";
-import axios from "axios";
-import { END } from "redux-saga";
+import React from 'react';
+import dynamic from 'next/dynamic';
+import axios from 'axios';
+import { END } from 'redux-saga';
 
-import { LoadingBox } from "../../components/LoadingCircles";
-import wrapper from "../../store/configureStore";
-import { LOAD_JEWEL_REQUEST } from "../../reducers/jewel";
-import { LOAD_COMMON_REQUEST } from "../../reducers/common";
-import { LOAD_USER_REQUEST } from "../../reducers/user";
+import { LoadingBox } from '../../components/LoadingCircles';
+import wrapper from '../../store/configureStore';
+import { LOAD_JEWEL_REQUEST } from '../../reducers/jewel';
+import { LOAD_COMMON_REQUEST } from '../../reducers/common';
+import { LOAD_USER_REQUEST } from '../../reducers/user';
 
 const JewelPage = dynamic(
-	import("../../containers/pagesComponent/jewel/JewelPage"),
+	import('../../containers/pagesComponent/jewel/JewelPage'),
 	{
+		ssr: false,
 		loading: () => <LoadingBox />,
-	}
+	},
 );
 
 const Jewel = () => {
-	return <JewelPage />;
+	return (
+		<>
+			<Head>
+				<title>jewel/:id</title>
+			</Head>
+			<JewelPage />
+		</>
+	);
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
 	async (context) => {
-		const cookie = context.req ? context.req.headers.cookie : "";
-		axios.defaults.headers.Cookie = "";
+		const cookie = context.req ? context.req.headers.cookie : '';
+		axios.defaults.headers.Cookie = '';
 		if (context.req && cookie) {
 			axios.defaults.headers.Cookie = cookie;
 		}
@@ -39,7 +47,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 		});
 		context.store.dispatch(END);
 		await context.store.sagaTask.toPromise();
-	}
+	},
 );
 
 export default Jewel;
