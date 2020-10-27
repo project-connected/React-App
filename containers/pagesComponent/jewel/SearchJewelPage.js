@@ -1,14 +1,21 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 import Skeleton from '@material-ui/lab/Skeleton';
 
-import LoadingCircles from '../../../components/LoadingCircles';
+import LoadingCircles, {
+	LoadingBox100P,
+} from '../../../components/LoadingCircles';
 import SelectAttr from '../../../components/buttons/SelectAttr';
 import SelectPeriod from '../../../components/buttons/SelectPeriod';
 import SelectStack from '../../../components/buttons/SelectStack';
 
-import { LOAD_JEWEL_REQUEST } from '../../../reducers/jewel';
+import {
+	FILTER_JEWEL_LIST_REQUEST,
+	LOAD_JEWEL_LIST_REQUEST,
+	LOAD_JEWEL_REQUEST,
+} from '../../../reducers/jewel';
 
 const JewelDetail = dynamic(import('../../../components/JewelDetail'), {
 	loading: () => <LoadingCircles />,
@@ -22,7 +29,7 @@ const SearchJewelPage = () => {
 	const { region, themes, skills, results } = useSelector(
 		(state) => state.common,
 	);
-	const { jewelData } = useSelector((state) => state.jewel);
+	const { jewelData, isLoadingList } = useSelector((state) => state.jewel);
 	const { jewels } = useSelector((state) => state.jewel);
 	const dispatch = useDispatch();
 
@@ -30,10 +37,8 @@ const SearchJewelPage = () => {
 	const [searchTheme, setSearchTheme] = useState([]);
 	const [searchResult, setSearchResult] = useState([]);
 	const [searchStack, setSearchStack] = useState([]);
-	const [period, setPeriod] = useState({
-		startData: new Date(),
-		endDate: new Date(),
-	});
+	const [startDate, setStartDate] = useState(null);
+	const [endDate, setEndDate] = useState(null);
 
 	const [openDetail, setOpenDetail] = useState(false);
 
@@ -108,6 +113,44 @@ const SearchJewelPage = () => {
 		[],
 	);
 
+	useEffect(() => {
+		if (startDate && endDate && startDate.getTime() > endDate.getTime()) {
+			alert('기간을 확인해주세요.');
+			return;
+		}
+		if (
+			searchStack.length == 0 &&
+			searchTheme.length == 0 &&
+			searchResult.length == 0 &&
+			searchStack.length == 0 &&
+			!startDate &&
+			!endDate
+		) {
+			dispatch({
+				type: LOAD_JEWEL_LIST_REQUEST,
+			});
+		} else {
+			dispatch({
+				type: FILTER_JEWEL_LIST_REQUEST,
+				data: {
+					theme: searchTheme,
+					purpose: searchResult,
+					area: searchRegion,
+					startDate: startDate,
+					endDate: endDate,
+					skill: searchStack,
+				},
+			});
+		}
+	}, [
+		searchTheme,
+		searchResult,
+		searchRegion,
+		searchStack,
+		startDate,
+		endDate,
+	]);
+
 	return (
 		<div className="jewel-search-page jewel">
 			<div className="jewel-search-wrap">
@@ -116,6 +159,24 @@ const SearchJewelPage = () => {
 					<p>블럭을 클릭하면 필터링이 취소돼요</p>
 					<div className="filter-attr-box">
 						<div className="filter-block-box">
+							{startDate && (
+								<div
+									className="filter-block startDate"
+									onClick={() => setStartDate(null)}
+								>
+									{moment(startDate).format(
+										'YYYY년 MM월 DD일',
+									)}
+								</div>
+							)}
+							{endDate && (
+								<div
+									className="filter-block endDate"
+									onClick={() => setEndDate(null)}
+								>
+									{moment(endDate).format('YYYY년 MM월 DD일')}
+								</div>
+							)}
 							{searchRegion !== [] &&
 								searchRegion.map((c, i) => {
 									return (
@@ -190,7 +251,16 @@ const SearchJewelPage = () => {
 							data={results}
 							getAction={OCSearchResult}
 						/>
-						<SelectPeriod />
+						<SelectPeriod
+							value={startDate}
+							setValue={setStartDate}
+						/>
+						<SelectPeriod
+							name="종료일"
+							index={99}
+							value={endDate}
+							setValue={setEndDate}
+						/>
 						<SelectStack
 							skills={skills}
 							value={searchStack}
@@ -200,15 +270,28 @@ const SearchJewelPage = () => {
 				</div>
 			</div>
 			<div className="jewel-card-wrap">
-				{jewels.map((c, i) => {
-					return (
-						<JewelCard
-							data={c}
-							key={i}
-							onClick={openJewelDetail(c)}
-						/>
-					);
-				})}
+				{!jewels || (jewels && jewels.length == 0) ? (
+					<div>검색 결과가 없습니다.</div>
+				) : isLoadingList ? (
+					<>
+						<Skeleton variant="rect" className="card-box" />
+						<Skeleton variant="rect" className="card-box" />
+						<Skeleton variant="rect" className="card-box" />
+						<Skeleton variant="rect" className="card-box" />
+						<Skeleton variant="rect" className="card-box" />
+						<Skeleton variant="rect" className="card-box" />
+					</>
+				) : (
+					jewels.map((c, i) => {
+						return (
+							<JewelCard
+								data={c}
+								key={i}
+								onClick={openJewelDetail(c)}
+							/>
+						);
+					})
+				)}
 				<i area-hidden="true"></i>
 				<i area-hidden="true"></i>
 			</div>

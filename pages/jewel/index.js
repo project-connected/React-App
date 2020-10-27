@@ -42,9 +42,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
 		context.store.dispatch({
 			type: LOAD_COMMON_REQUEST,
 		});
-		context.store.dispatch({
-			type: LOAD_JEWEL_LIST_REQUEST,
-		});
+		// context.store.dispatch({
+		// 	type: LOAD_JEWEL_LIST_REQUEST,
+		// });
 		context.store.dispatch(END);
 		await context.store.sagaTask.toPromise();
 	},

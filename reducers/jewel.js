@@ -1,4 +1,4 @@
-import produce from "../util/produce";
+import produce from '../util/produce';
 
 const initialState = {
 	isSubmitted: false,
@@ -7,38 +7,42 @@ const initialState = {
 	isUpdating: false,
 	isDeleted: false,
 	isDeleting: false,
-	isLoaded: false,
-	isLoading: false,
+	isLoadedList: false,
+	isLoadingList: false,
 	isLoadedJewel: false,
 	isLoadingJewel: false,
-	loadJewelError: "",
-	submitError: "",
-	updateError: "",
-	deleteError: "",
-	loadError: "",
+	loadJewelError: '',
+	submitError: '',
+	updateError: '',
+	deleteError: '',
+	loadError: '',
 	jewels: null,
 	jewelData: null,
 };
 
-export const CREATE_JEWEL_REQUEST = "CREATE_JEWEL_REQUEST";
-export const CREATE_JEWEL_SUCCESS = "CREATE_JEWEL_SUCCESS";
-export const CREATE_JEWEL_FAILURE = "CREATE_JEWEL_FAILURE";
+export const CREATE_JEWEL_REQUEST = 'CREATE_JEWEL_REQUEST';
+export const CREATE_JEWEL_SUCCESS = 'CREATE_JEWEL_SUCCESS';
+export const CREATE_JEWEL_FAILURE = 'CREATE_JEWEL_FAILURE';
 
-export const UPDATE_JEWEL_REQUEST = "UPDATE_JEWEL_REQUEST";
-export const UPDATE_JEWEL_SUCCESS = "UPDATE_JEWEL_SUCCESS";
-export const UPDATE_JEWEL_FAILURE = "UPDATE_JEWEL_FAILURE";
+export const UPDATE_JEWEL_REQUEST = 'UPDATE_JEWEL_REQUEST';
+export const UPDATE_JEWEL_SUCCESS = 'UPDATE_JEWEL_SUCCESS';
+export const UPDATE_JEWEL_FAILURE = 'UPDATE_JEWEL_FAILURE';
 
-export const DELETE_JEWEL_REQUEST = "DELETE_JEWEL_REQUEST";
-export const DELETE_JEWEL_SUCCESS = "DELETE_JEWEL_SUCCESS";
-export const DELETE_JEWEL_FAILURE = "DELETE_JEWEL_FAILURE";
+export const DELETE_JEWEL_REQUEST = 'DELETE_JEWEL_REQUEST';
+export const DELETE_JEWEL_SUCCESS = 'DELETE_JEWEL_SUCCESS';
+export const DELETE_JEWEL_FAILURE = 'DELETE_JEWEL_FAILURE';
 
-export const LOAD_JEWEL_LIST_REQUEST = "LOAD_JEWEL_LIST_REQUEST";
-export const LOAD_JEWEL_LIST_SUCCESS = "LOAD_JEWEL_LIST_SUCCESS";
-export const LOAD_JEWEL_LIST_FAILURE = "LOAD_JEWEL_LIST_FAILURE";
+export const LOAD_JEWEL_LIST_REQUEST = 'LOAD_JEWEL_LIST_REQUEST';
+export const LOAD_JEWEL_LIST_SUCCESS = 'LOAD_JEWEL_LIST_SUCCESS';
+export const LOAD_JEWEL_LIST_FAILURE = 'LOAD_JEWEL_LIST_FAILURE';
 
-export const LOAD_JEWEL_REQUEST = "LOAD_JEWEL_REQUEST";
-export const LOAD_JEWEL_SUCCESS = "LOAD_JEWEL_SUCCESS";
-export const LOAD_JEWEL_FAILURE = "LOAD_JEWEL_FAILURE";
+export const LOAD_JEWEL_REQUEST = 'LOAD_JEWEL_REQUEST';
+export const LOAD_JEWEL_SUCCESS = 'LOAD_JEWEL_SUCCESS';
+export const LOAD_JEWEL_FAILURE = 'LOAD_JEWEL_FAILURE';
+
+export const FILTER_JEWEL_LIST_REQUEST = 'FILTER_JEWEL_LIST_REQUEST';
+export const FILTER_JEWEL_LIST_SUCCESS = 'FILTER_JEWEL_LIST_SUCCESS';
+export const FILTER_JEWEL_LIST_FAILURE = 'FILTER_JEWEL_LIST_FAILURE';
 
 const reducer = (state = initialState, action) =>
 	produce(state, (draft) => {
@@ -88,18 +92,23 @@ const reducer = (state = initialState, action) =>
 				break;
 			}
 
+			case FILTER_JEWEL_LIST_REQUEST:
 			case LOAD_JEWEL_LIST_REQUEST: {
-				draft.isLoading = true;
+				draft.isLoadingList = true;
 				break;
 			}
+
+			case FILTER_JEWEL_LIST_SUCCESS:
 			case LOAD_JEWEL_LIST_SUCCESS: {
-				draft.isLoading = false;
-				draft.isLoaded = true;
+				draft.isLoadingList = false;
+				draft.isLoadedList = true;
 				draft.jewels = action.data;
 				break;
 			}
+
+			case FILTER_JEWEL_LIST_FAILURE:
 			case LOAD_JEWEL_LIST_FAILURE: {
-				draft.isLoading = false;
+				draft.isLoadingList = false;
 				draft.loadError = action.error;
 				break;
 			}

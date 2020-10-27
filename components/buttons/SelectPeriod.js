@@ -9,12 +9,12 @@ const Calendar = dynamic(import('../DynamicCalendar'), {
 	ssr: false,
 });
 
-const SelectPeriod = ({ name = '시작일', value, setValue }) => {
+const SelectPeriod = ({ name = '시작일', value, setValue, index = 3 }) => {
 	const dispatch = useDispatch();
 	const { filterAttrOpenIndx } = useSelector((state) => state.project);
 
 	const wrapClassName =
-		filterAttrOpenIndx === 3
+		filterAttrOpenIndx === index
 			? 'select-btn-wrap clicked'
 			: 'select-btn-wrap';
 
@@ -28,7 +28,7 @@ const SelectPeriod = ({ name = '시작일', value, setValue }) => {
 	const openAttr = useCallback(
 		(e) => {
 			e.preventDefault();
-			if (3 === filterAttrOpenIndx) {
+			if (index === filterAttrOpenIndx) {
 				dispatch({
 					type: OPEN_FILTER_ATTR,
 					data: -1,
@@ -37,7 +37,7 @@ const SelectPeriod = ({ name = '시작일', value, setValue }) => {
 			}
 			dispatch({
 				type: OPEN_FILTER_ATTR,
-				data: 3,
+				data: index,
 			});
 		},
 		[filterAttrOpenIndx],
