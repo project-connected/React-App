@@ -85,8 +85,9 @@ const JewelDetail = ({ open, setOpen, jewelData, mode = 'component' }) => {
 										{jewelData.user.userName}
 									</div>
 									<div className="btn-container">
-										{user.userId ===
-										jewelData.user.userId ? (
+										{user &&
+										user.userId ===
+											jewelData.user.userId ? (
 											<>
 												<Link
 													href={`/jewel/write/${jewelData.id}`}
