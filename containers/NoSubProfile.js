@@ -88,6 +88,7 @@ const NoSubProfile = () => {
 				dispatch({
 					type: SAVE_SUBPROFILE_REQUEST,
 					data: {
+						userId: user.userId,
 						area: userRegion,
 						skill: userSkill,
 						theme: userTheme,

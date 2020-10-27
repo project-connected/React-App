@@ -126,23 +126,22 @@ function* watchSignup() {
 }
 
 function saveProfileAPI(data) {
-	return {
-		data: {
-			result: {
-				userId: 1,
-				email: 'anhs0220@gmail.com',
-				userName: 'Forty Two Seoul',
-				area: data.area,
-				skill: data.skill,
-				theme: data.theme,
-				purpose: data.purpose,
-				profileImg: data.profileImg,
-				url: data.url,
-				introduct: data.introduct,
-			},
-		},
-	};
-	//return axios.post('/', data);
+	// return {
+	// 	data: {
+	// 		result: {
+	// 			userId: data.userId,
+	// 			area: data.area,
+	// 			skill: data.skill,
+	// 			theme: data.theme,
+	// 			purpose: data.purpose,
+	// 			profileImg: data.profileImg,
+	// 			url: data.url,
+	// 			introduct: data.introduct,
+	// 		},
+	// 	},
+	// };
+
+	return axios.put(`/user/${data.userId}`, data);
 }
 
 function* saveProfile(action) {
