@@ -1,5 +1,5 @@
 @charset 'UTF-8';
-@import "animation.scss";
+@import 'animation.scss';
 
 .select-btn-wrap {
 	position: relative;
@@ -106,7 +106,8 @@
 		padding: 0.5rem 1rem !important;
 		cursor: pointer;
 
-		&:hover {
+		&:hover,
+		&:focus {
 			background: #f4f4f4;
 		}
 		&:nth-child(n + 1) {
@@ -132,7 +133,7 @@
 		height: 40px;
 		animation: 0.3s padeDown 1 ease-in-out;
 
-		input[type="number"] {
+		input[type='number'] {
 			width: 50px;
 			margin-left: 10px;
 			-webkit-appearance: none;

@@ -118,30 +118,30 @@ const SearchJewelPage = () => {
 			alert('기간을 확인해주세요.');
 			return;
 		}
-		if (
-			searchStack.length == 0 &&
-			searchTheme.length == 0 &&
-			searchResult.length == 0 &&
-			searchStack.length == 0 &&
-			!startDate &&
-			!endDate
-		) {
-			dispatch({
-				type: LOAD_JEWEL_LIST_REQUEST,
-			});
-		} else {
-			dispatch({
-				type: FILTER_JEWEL_LIST_REQUEST,
-				data: {
-					theme: searchTheme,
-					purpose: searchResult,
-					area: searchRegion,
-					startDate: startDate,
-					endDate: endDate,
-					skill: searchStack,
-				},
-			});
-		}
+		// if (
+		// 	searchStack.length == 0 &&
+		// 	searchTheme.length == 0 &&
+		// 	searchResult.length == 0 &&
+		// 	searchStack.length == 0 &&
+		// 	!startDate &&
+		// 	!endDate
+		// ) {
+		// 	dispatch({
+		// 		type: LOAD_JEWEL_LIST_REQUEST,
+		// 	});
+		// } else {
+		dispatch({
+			type: FILTER_JEWEL_LIST_REQUEST,
+			data: {
+				theme: searchTheme,
+				purpose: searchResult,
+				area: searchRegion,
+				startDate: startDate,
+				endDate: endDate,
+				skill: searchStack,
+			},
+		});
+		// }
 	}, [
 		searchTheme,
 		searchResult,

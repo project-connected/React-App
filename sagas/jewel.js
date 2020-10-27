@@ -14,6 +14,8 @@ import {
 	LOAD_JEWEL_LIST_SUCCESS,
 	LOAD_JEWEL_LIST_FAILURE,
 	FILTER_JEWEL_LIST_REQUEST,
+	FILTER_JEWEL_LIST_SUCCESS,
+	FILTER_JEWEL_LIST_FAILURE,
 } from '../reducers/jewel';
 
 const dummy = {
@@ -131,9 +133,7 @@ function loadJewelListAPI() {
 
 function* loadJewelList(action) {
 	try {
-		console.log('hi');
-		const result = yield call(loadJewelListAPI);
-		console.log(result);
+		const result = yield call(loadJewelListAPI, action.data);
 		yield put({
 			type: LOAD_JEWEL_LIST_SUCCESS,
 			data: result.data.result,
@@ -151,7 +151,7 @@ function* watchLoadJewelList() {
 }
 
 function filterJewelListAPI(data) {
-	return axios.post('', {
+	return axios.post('/profiles/list', {
 		area: data.area,
 		skill: data.skill,
 		theme: data.theme,
@@ -163,6 +163,7 @@ function filterJewelListAPI(data) {
 function* filterJewelList(action) {
 	try {
 		const result = yield call(filterJewelListAPI, action.data);
+		console.log(result);
 		yield put({
 			type: FILTER_JEWEL_LIST_SUCCESS,
 			data: result.data.result,

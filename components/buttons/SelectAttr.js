@@ -115,7 +115,7 @@ const SelectAttr = ({
 											key={c.key}
 											className="attribute"
 											onClick={getAttrs(c)}
-											tabIndex={-1}
+											tabIndex="-1"
 										>
 											{c.value}
 										</li>
