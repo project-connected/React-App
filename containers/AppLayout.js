@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
-import Link from "next/link";
-import PropTypes from "prop-types";
+import React, { useCallback, useState } from 'react';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
 import {
 	Chat,
 	Person,
@@ -10,30 +10,30 @@ import {
 	Close,
 	EmojiPeopleOutlined,
 	WebOutlined,
-} from "@material-ui/icons";
+} from '@material-ui/icons';
 
 // reducer
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import {
 	CLOSE_CHAT,
 	OPEN_CHAT,
 	OPEN_USER_MENU,
 	CLOSE_USER_MENU,
 	CLOSE_SUB_PROFILE,
-} from "../reducers/component";
-import { LOGIN_REQUEST, LOGOUT_REQUEST } from "../reducers/user";
+} from '../reducers/component';
+import { LOGIN_REQUEST, LOGOUT_REQUEST } from '../reducers/user';
 
 // customs
-import ChatComponent from "../components/chat/ChatComponent";
-import RequestMember from "../components/forms/RequestMember";
+import ChatComponent from '../components/chat/ChatComponent';
+import RequestMember from '../components/forms/RequestMember';
 
 // custom hooks
-import useInput from "../hooks/useInput";
-import Curtain from "./Curtain";
-import NoSubProfile from "./NoSubProfile";
-import { Avatar } from "@material-ui/core";
-import BackGround from "./BackGround";
-import { defaultProfile } from "../config/config";
+import useInput from '../hooks/useInput';
+import Curtain from './Curtain';
+import NoSubProfile from './NoSubProfile';
+import { Avatar } from '@material-ui/core';
+import BackGround from './BackGround';
+import { defaultProfile } from '../config/config';
 
 export const LoadingCircle = () => {
 	return <div className="loading-spinner"></div>;
@@ -41,43 +41,43 @@ export const LoadingCircle = () => {
 
 const dummyNotif = [
 	{
-		class: "chatting",
+		class: 'chatting',
 		chat: {
 			roomIdx: 1,
-			chatRoomName: "hhan",
+			chatRoomName: 'hhan',
 			mutichat: false,
 			recentContent: {
 				userId: 1,
-				userName: "hhan",
-				content: "화이팅합시다.",
+				userName: 'hhan',
+				content: '화이팅합시다.',
 			},
 		},
 		proj: null,
 		pool: null,
 	},
 	{
-		class: "chatting",
+		class: 'chatting',
 		chat: {
 			roomIdx: 1,
-			chatRoomName: "Rank42",
+			chatRoomName: 'Rank42',
 			mutichat: true,
 			recentContent: {
 				userId: 1,
-				userName: "hhan",
+				userName: 'hhan',
 				content:
-					"근본없는 Node.js는 당장 그만두고, 근본있는 Django를 씁시다.",
+					'근본없는 Node.js는 당장 그만두고, 근본있는 Django를 씁시다.',
 			},
 		},
 		proj: null,
 		pool: null,
 	},
 	{
-		class: "project",
+		class: 'project',
 		chat: null,
 		proj: {
 			projIdx: 1,
-			projectName: "Rank42",
-			status: "accept",
+			projectName: 'Rank42',
+			status: 'accept',
 		},
 	},
 ];
@@ -89,7 +89,7 @@ const UserLoggedIn = () => {
 
 	const onClickLogoutBtn = useCallback((e) => {
 		e.preventDefault();
-		if (confirm("로그아웃 하시겠습니까?")) {
+		if (confirm('로그아웃 하시겠습니까?')) {
 			dispatch({
 				type: LOGOUT_REQUEST,
 			});
@@ -100,7 +100,7 @@ const UserLoggedIn = () => {
 		(e) => {
 			setOpen(!open);
 		},
-		[open]
+		[open],
 	);
 
 	const openNotifStyle = {
@@ -136,7 +136,7 @@ const UserLoggedIn = () => {
 				</div>
 				<div className="notif-content-box" style={openNotifStyle}>
 					{dummyNotif.map((c, i) => {
-						if (c.class === "chatting") {
+						if (c.class === 'chatting') {
 							return (
 								<div className="notif-content" key={i}>
 									<div>
@@ -152,18 +152,18 @@ const UserLoggedIn = () => {
 									</div>
 								</div>
 							);
-						} else if (c.class === "project") {
+						} else if (c.class === 'project') {
 							return (
 								<div className="notif-content" key={i}>
 									<Link href={`/project/${c.proj.projIdx}`}>
 										<a>
-											{c.proj.status === "accept" ? (
+											{c.proj.status === 'accept' ? (
 												<>
 													<span>
 														{c.proj.projectName}
 													</span>
 													<p>
-														프로젝트 참가 신청이{" "}
+														프로젝트 참가 신청이{' '}
 														<b>수락</b>되었습니다.
 													</p>
 												</>
@@ -198,7 +198,7 @@ const UserLoggedIn = () => {
 };
 
 const NotifBox = ({ flg = false, setFlg, actionFunction }) => {
-	const pushClass = flg ? "new-notification occur" : "new-notification";
+	const pushClass = flg ? 'new-notification occur' : 'new-notification';
 
 	return (
 		<div className={pushClass}>
@@ -206,7 +206,7 @@ const NotifBox = ({ flg = false, setFlg, actionFunction }) => {
 				<div
 					className="notif-content"
 					onClick={() => {
-						console.log("click");
+						console.log('click');
 					}}
 				>
 					new notification
@@ -214,7 +214,7 @@ const NotifBox = ({ flg = false, setFlg, actionFunction }) => {
 				<div
 					className="close-box"
 					onClick={() => {
-						console.log("close");
+						console.log('close');
 					}}
 				>
 					<Close />
@@ -227,10 +227,10 @@ const NotifBox = ({ flg = false, setFlg, actionFunction }) => {
 const UserLogin = ({ isLoggingIn, loginErrorReason }) => {
 	const dispatch = useDispatch();
 
-	const [email, OCEmail] = useInput("");
-	const [password, OCPassword] = useInput("");
+	const [email, OCEmail] = useInput('');
+	const [password, OCPassword] = useInput('');
 
-	const [notSubmitReason, setNotSubmitReason] = useState("");
+	const [notSubmitReason, setNotSubmitReason] = useState('');
 
 	const onSubmitLogin = useCallback((e) => {
 		e.preventDefault();
@@ -252,8 +252,8 @@ const UserLogin = ({ isLoggingIn, loginErrorReason }) => {
 				</div>
 			)}
 			<p>
-				{loginErrorReason === ""
-					? "로그인이 필요합니다."
+				{loginErrorReason === ''
+					? '로그인이 필요합니다.'
 					: loginErrorReason}
 			</p>
 			<form onSubmit={onSubmitLogin}>
@@ -291,8 +291,8 @@ const UserLogin = ({ isLoggingIn, loginErrorReason }) => {
 
 const UserMenu = ({ user, isLoggingIn, openUserMenu, loginErrorReason }) => {
 	const subMenuClass = openUserMenu
-		? "profile-sub-menu has-visibility"
-		: "profile-sub-menu";
+		? 'profile-sub-menu has-visibility'
+		: 'profile-sub-menu';
 
 	return (
 		<>
@@ -319,7 +319,7 @@ const AppLayout = ({ children }) => {
 		openEnterSubProfile,
 	} = useSelector((state) => state.component);
 	const { user, isLoggingIn, loginErrorReason } = useSelector(
-		(state) => state.user
+		(state) => state.user,
 	);
 
 	const dispatch = useDispatch();
@@ -341,7 +341,7 @@ const AppLayout = ({ children }) => {
 				});
 			}
 		},
-		[openChat]
+		[openChat],
 	);
 
 	const onClickProfileBtn = useCallback((e) => {
@@ -364,7 +364,7 @@ const AppLayout = ({ children }) => {
 			e.preventDefault();
 			setToggle(!toggleMenu);
 		},
-		[toggleMenu]
+		[toggleMenu],
 	);
 
 	const [togglePJ, setTogglePJ] = useState(false);
@@ -437,7 +437,7 @@ const AppLayout = ({ children }) => {
 								<div>
 									<img
 										src={
-											user.profileImg
+											user && user.profileImg
 												? user.profileImg
 												: defaultProfile
 										}
@@ -460,7 +460,7 @@ const AppLayout = ({ children }) => {
 				</header>
 				<main className="page-wrap">
 					<div className="page-inner-container">{children}</div>
-					{openEnterSubProfile && (
+					{user && openEnterSubProfile && (
 						<BackGround
 							stateCate="store"
 							open={openEnterSubProfile}

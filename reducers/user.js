@@ -350,10 +350,6 @@ const reducer = (state = initialState, action) =>
 			}
 			case LOAD_USER_SUCCESS: {
 				draft.user = action.data;
-				draft.user.subProfile = dummyUser.subProfile;
-				draft.user.profileImg = dummyUser.profileImg;
-				draft.user.url = dummyUser.url;
-				draft.user.introduct = dummyUser.introduct;
 				draft.user.jewelData = dummyJewel;
 				draft.user.projectData = dummyProject;
 				draft.isLoggedIn = true;
@@ -369,10 +365,6 @@ const reducer = (state = initialState, action) =>
 			}
 			case LOGIN_SUCCESS: {
 				draft.user = action.data.result.user;
-				draft.user.subProfile = dummyUser.subProfile;
-				draft.user.profileImg = dummyUser.profileImg;
-				draft.user.url = dummyUser.url;
-				draft.user.introduct = dummyUser.introduct;
 				draft.user.jewelData = dummyJewel;
 				draft.user.projectData = dummyProject;
 				draft.isLoggingIn = false;

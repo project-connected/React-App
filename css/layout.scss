@@ -1,6 +1,6 @@
 @charset "UTF-8";
-@import "animation.scss";
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import 'animation.scss';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 * {
 	box-sizing: border-box;
@@ -15,7 +15,7 @@
 	list-style: none;
 	text-decoration: none;
 	word-break: break-all;
-	font-family: "Noto Sans KR", sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
 	&::-webkit-scrollbar {
@@ -122,7 +122,7 @@ button:focus {
 	justify-content: center;
 	align-items: center;
 	width: 20rem;
-	height: 30rem;
+	height: 30rem !important;
 
 	.countUp {
 		color: #fff;
@@ -227,7 +227,7 @@ button:focus {
 			display: flex;
 			align-items: center;
 			h1 {
-				font-family: "Permanent Marker";
+				font-family: 'Permanent Marker';
 				font-size: 20px;
 				margin: 0;
 				color: #223;
@@ -349,7 +349,7 @@ button:focus {
 			margin: 0 auto;
 			margin-bottom: 18px;
 
-			&[type="submit"] {
+			&[type='submit'] {
 				background: rgb(119, 158, 233);
 				border: none;
 				color: white;
@@ -402,7 +402,7 @@ button:focus {
 	}
 
 	&::before {
-		content: "";
+		content: '';
 		display: block;
 		position: absolute;
 		top: -5px;
@@ -449,7 +449,7 @@ button:focus {
 			transform: translateX(8px);
 
 			&::before {
-				content: "";
+				content: '';
 				display: block;
 				position: absolute;
 				top: 50%;
@@ -504,7 +504,7 @@ button:focus {
 					white-space: nowrap;
 					max-width: 100px;
 
-					&[name="chat-content"] {
+					&[name='chat-content'] {
 						margin-left: 1rem;
 						color: #223;
 						max-width: 190px;

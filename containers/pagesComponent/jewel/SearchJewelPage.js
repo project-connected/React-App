@@ -269,7 +269,16 @@ const SearchJewelPage = () => {
 			</div>
 			<div className="jewel-card-wrap">
 				{!jewels || (jewels && jewels.length == 0) ? (
-					<div>검색 결과가 없습니다.</div>
+					<div
+						style={{
+							background: 'transparent',
+							width: '-webkit-fill-available',
+							height: '100vh',
+						}}
+						className="dp-flex ai-jc-center"
+					>
+						검색 결과가 없습니다.
+					</div>
 				) : (
 					jewels.map((c, i) => {
 						return (
