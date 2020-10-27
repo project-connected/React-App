@@ -12,10 +12,13 @@ import { Search, CameraAlt } from '@material-ui/icons';
 
 import { defaultProfile } from '../config/config';
 import { CLOSE_SUB_PROFILE } from '../reducers/component';
-import { UPLOAD_PROFILE_IMAGE_REQUEST } from '../reducers/user';
-
+import {
+	SAVE_SUBPROFILE_REQUEST,
+	UPLOAD_PROFILE_IMAGE_REQUEST,
+} from '../reducers/user';
+import useInput from '../hooks/useInput';
 import SelectAttr from '../components/buttons/SelectAttr';
-import { LoadingBox100P } from '../components/LoadingCircles';
+import LoadingCircles, { LoadingBox100P } from '../components/LoadingCircles';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -36,6 +39,9 @@ const NoSubProfile = () => {
 		user,
 		uploadedImageBeforeSave,
 		isUploadingProfileImage,
+		isSavingProfile,
+		isSavedProfile,
+		saveProfileError,
 	} = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
@@ -45,39 +51,68 @@ const NoSubProfile = () => {
 	const [userTheme, setUserTheme] = useState([]);
 	const [userPurpose, setUserPerpose] = useState([]);
 	const [introduct, setIntroduct] = useState('');
+	const [userURL, OCUserURL] = useInput('');
 
 	const iptDone = useCallback(
-		(e) => {
+		(notPass = true) => (e) => {
 			console.log(status);
 			if (status === 1) {
-				if (userRegion) {
+				console.log(userRegion);
+				if (userRegion || !notPass) {
 					setStatus(2);
 					setAvailPage(2);
 				}
 			} else if (status === 2) {
-				if (userTheme.length > 0) {
+				if (userTheme.length > 0 || !notPass) {
 					setStatus(3);
 					setAvailPage(3);
 				}
 			} else if (status === 3) {
-				if (userPurpose.length > 0) {
+				if (userPurpose.length > 0 || !notPass) {
 					setStatus(4);
 					setAvailPage(4);
 				}
 			} else if (status === 4) {
-				if (userSkill.length > 0) {
+				if (userSkill.length > 0 || !notPass) {
 					setStatus(5);
 					setAvailPage(5);
 				}
 			} else if (status === 5) {
-				setStatus(6);
+				if (userURL !== '' || !notPass) {
+					// 유효성 검사 추가
+					setStatus(6);
+					setAvailPage(6);
+				}
+			} else if (status === 6) {
+				setStatus(7);
+				dispatch({
+					type: SAVE_SUBPROFILE_REQUEST,
+					data: {
+						area: userRegion,
+						skill: userSkill,
+						theme: userTheme,
+						purpose: userPurpose,
+						introduct: introduct,
+						url: userURL,
+						profileImg: uploadedImageBeforeSave,
+					},
+				});
 			} else {
-				dispatch({ type: CLOSE_SUB_PROFILE });
-				// 서버로 전송
-				// 창 닫는 것도 state통해서 성공하면 닫기
+				dispatch({
+					type: CLOSE_SUB_PROFILE,
+				});
 			}
 		},
-		[status, userRegion, userSkill, userTheme, userPurpose],
+		[
+			status,
+			userRegion,
+			userSkill,
+			userTheme,
+			userPurpose,
+			userURL,
+			uploadedImageBeforeSave,
+			introduct,
+		],
 	);
 
 	const OCTheme = useCallback(
@@ -109,10 +144,17 @@ const NoSubProfile = () => {
 		[userSkill],
 	);
 
-	const SetBtn = ({ text = '다음' }) => {
+	const SetBtn = ({ text = '다음', pass = true }) => {
 		return (
-			<div className="sP-btn" onClick={iptDone}>
-				{text}
+			<div className="sP-btn-box">
+				{pass && (
+					<div className="sP-btn pass" onClick={iptDone(false)}>
+						건너뛰기
+					</div>
+				)}
+				<div className="sP-btn" onClick={iptDone(true)}>
+					{text}
+				</div>
 			</div>
 		);
 	};
@@ -258,11 +300,22 @@ const NoSubProfile = () => {
 							}}
 						></Tab>
 						<Tab
+							className="header-tap"
+							label={6}
+							style={{
+								background: `${
+									5 <= availPage
+										? 'linear-gradient(#7990ff, #9198e5)'
+										: '#dadada'
+								}`,
+							}}
+						></Tab>
+						<Tab
 							className="header-tap Finish"
 							label={'Finish'}
 							style={{
 								background: `${
-									5 <= availPage
+									6 <= availPage
 										? 'linear-gradient(#7990ff, #9198e5)'
 										: '#dadada'
 								}`,
@@ -395,6 +448,28 @@ const NoSubProfile = () => {
 					<div
 						className={'sP-ipt-box ' + (status === 5 ? aniCN : '')}
 					>
+						<p>
+							본인을 어필할 수 있는 URL이 있으시면 입력해주세요.
+						</p>
+						<div className="url-box">
+							<span>https://</span>
+							<input
+								id="url"
+								name="url"
+								type="text"
+								value={userURL}
+								onChange={OCUserURL}
+								placeholder="url을 입력하세요."
+								autoFocus
+							/>
+						</div>
+						<SetBtn />
+					</div>
+				)}
+				{status === 6 && (
+					<div
+						className={'sP-ipt-box ' + (status === 6 ? aniCN : '')}
+					>
 						<p>간단한 자기소개를 작성해주세요.</p>
 						<Editor
 							editorValue={introduct}
@@ -404,12 +479,25 @@ const NoSubProfile = () => {
 						<SetBtn />
 					</div>
 				)}
-				{status === 6 && (
+				{status === 7 && (
 					<div
-						className={'sP-ipt-box ' + (status === 6 ? aniCN : '')}
+						className={'sP-ipt-box ' + (status === 7 ? aniCN : '')}
 					>
-						<h1>작성해주셔서 감사합니다.</h1>
-						<SetBtn text="작성완료" />
+						{isSavingProfile ? (
+							<>
+								<h1>저장중입니다.</h1>
+								<LoadingCircles />
+							</>
+						) : (
+							<>
+								<h1>
+									{saveProfileError !== ''
+										? saveProfileError
+										: '작성해주셔서 감사합니다.'}
+								</h1>
+								<SetBtn text="닫기" pass={false} />
+							</>
+						)}
 					</div>
 				)}
 			</div>

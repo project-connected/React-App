@@ -709,9 +709,41 @@ button.slide-btn {
 				height: 60px;
 				font-size: 1.5rem;
 				transition: 0.3s;
+				margin-top: 1rem;
 
-				&.focus {
+				&:focus {
 					border-bottom: 3px solid #6980ff;
+				}
+			}
+
+			input[name='url'] {
+				position: relative;
+				height: 40px;
+				font-size: 1rem;
+				border-bottom: 3px solid #ddd;
+				width: 100%;
+				padding-left: 4rem;
+
+				&:focus {
+					border-bottom: 3px solid #6980ff;
+				}
+			}
+
+			.url-box {
+				position: relative;
+				width: 100%;
+				display: inline-flex;
+				height: 40px;
+				margin-top: 1rem;
+
+				span {
+					position: absolute;
+					left: 0;
+					top: 50%;
+					font-size: 0.8rem;
+					color: #777;
+
+					transform: translateY(-50%);
 				}
 			}
 
@@ -772,21 +804,38 @@ button.slide-btn {
 				}
 			}
 		}
-
-		.sP-btn {
+		.sP-btn-box {
 			width: 100%;
-			text-align: center;
-			padding: 0.5rem;
-			background: #7990ff;
-			color: #fff;
-			border-radius: 7px;
-			cursor: pointer;
-			transition: 0.3s;
-			font-weight: 600;
-			margin-top: 0.5rem;
+			display: flex;
 
-			&:hover {
-				background: #6980ff;
+			.sP-btn {
+				width: 100%;
+				text-align: center;
+				padding: 0.5rem;
+				background: #7990ff;
+				color: #fff;
+				border-radius: 7px;
+				cursor: pointer;
+				transition: 0.3s;
+				font-weight: 600;
+				margin-top: 0.5rem;
+
+				&.pass {
+					background: #eee;
+					color: #777;
+
+					&:hover {
+						background: #dedede;
+					}
+				}
+
+				&:hover {
+					background: #6980ff;
+				}
+
+				&:nth-child(1) {
+					margin-right: 1rem;
+				}
 			}
 		}
 	}
@@ -890,6 +939,11 @@ button.slide-btn {
 			}
 		}
 	}
+}
+
+.tui-md-code-block.CodeMirror-linebackground {
+	left: 0;
+	right: 0;
 }
 
 @media screen and (max-width: 1000px) {

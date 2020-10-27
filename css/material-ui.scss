@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import "animation.scss";
+@import 'animation.scss';
 
 .MuiAppBar-colorPrimary {
 	max-width: 1000px;
@@ -22,11 +22,11 @@
 
 		.MuiTab-root {
 			padding: 0.5rem 0;
-			width: 90px;
+			width: 80px;
 			margin: 0;
 
 			&.Finish {
-				width: 150px;
+				width: 120px;
 			}
 		}
 	}

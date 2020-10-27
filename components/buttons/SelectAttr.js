@@ -1,14 +1,14 @@
-import React, { useState, useCallback } from "react";
-import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
-import { KeyboardArrowDown, Search } from "@material-ui/icons";
-import { CLOSE_ALL_COMP2, OPEN_FILTER_ATTR } from "../../reducers/project";
+import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { KeyboardArrowDown, Search } from '@material-ui/icons';
+import { CLOSE_ALL_COMP2, OPEN_FILTER_ATTR } from '../../reducers/project';
 
 const SelectAttr = ({
 	listValue = true,
 	open = false,
 	value,
-	status = "create",
+	status = 'create',
 	name,
 	data,
 	idx,
@@ -20,26 +20,26 @@ const SelectAttr = ({
 
 	const wrapClassName =
 		filterAttrOpenIndx === idx
-			? "select-btn-wrap clicked"
-			: "select-btn-wrap";
+			? 'select-btn-wrap clicked'
+			: 'select-btn-wrap';
 
 	const [attrName, setAttrName] = useState(name);
-	const [text, setText] = useState("");
+	const [text, setText] = useState('');
 	const [attrs, setAttrs] = useState(data);
 
 	const OCText = useCallback(
 		(e) => {
 			setText(e.target.value);
-			if (e.target.value !== "")
+			if (e.target.value !== '')
 				setAttrs(
 					data.filter((v) =>
 						v.value
 							.toLowerCase()
-							.match(e.target.value.toLowerCase())
-					)
+							.match(e.target.value.toLowerCase()),
+					),
 				);
 		},
-		[text]
+		[text],
 	);
 
 	const openAttr = useCallback(
@@ -57,31 +57,35 @@ const SelectAttr = ({
 				data: idx,
 			});
 		},
-		[filterAttrOpenIndx]
+		[filterAttrOpenIndx],
 	);
 
 	const getAttrs = useCallback(
 		(attr) => (e) => {
 			e.preventDefault();
-			if (status === "profile") {
+			if (status === 'profile') {
 				setAttrName(attr.value);
 			}
 
 			getAction(attr);
-			setText("");
+			setText('');
 			setAttrs(data);
 
-			if (status !== "many" && status !== "search") {
+			if (status !== 'many' && status !== 'search') {
 				dispatch({
 					type: CLOSE_ALL_COMP2,
 				});
 			}
 		},
-		[text, attrs, value]
+		[text, attrs, value],
 	);
 
 	return (
-		<div className={open ? "select-btn-wrap opened" : wrapClassName}>
+		<div
+			className={open ? 'select-btn-wrap opened' : wrapClassName}
+			autoFocus
+			role="tablist"
+		>
 			{!open && (
 				<div className="select-btn" onClick={openAttr}>
 					{attrName}
@@ -95,25 +99,26 @@ const SelectAttr = ({
 						<Search />
 					</div>
 				)}
-				<div className="list-box">
+				<ul className="list-box">
 					{listValue ? (
 						<>
 							{attrs
 								.filter(
 									(v) =>
 										!value.find(
-											(elem) => elem.key === v.key
-										)
+											(elem) => elem.key === v.key,
+										),
 								)
 								.map((c, i) => {
 									return (
-										<div
+										<li
 											key={c.key}
 											className="attribute"
 											onClick={getAttrs(c)}
+											tabIndex={-1}
 										>
 											{c.value}
-										</div>
+										</li>
 									);
 								})}
 						</>
@@ -121,18 +126,20 @@ const SelectAttr = ({
 						<>
 							{attrs.map((c, i) => {
 								return (
-									<div
+									<li
+										role="tab"
 										key={c.key}
 										className="attribute"
 										onClick={getAttrs(c)}
+										tabIndex={-1}
 									>
 										{c.value}
-									</div>
+									</li>
 								);
 							})}
 						</>
 					)}
-				</div>
+				</ul>
 			</div>
 		</div>
 	);

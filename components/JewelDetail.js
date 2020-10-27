@@ -183,10 +183,7 @@ const JewelDetail = ({ open, setOpen, jewelData, mode = 'component' }) => {
 									</div>
 								</div>
 								<div className="text-content markdown-content">
-									<ReactMarkdown
-										source={jewelData.content}
-										renderers={{ code: CodeBlock }}
-									/>
+									<ReactMarkdown source={jewelData.content} />
 								</div>
 							</div>
 						</div>

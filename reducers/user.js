@@ -442,8 +442,6 @@ const reducer = (state = initialState, action) =>
 				draft.isSavingProfile = false;
 				draft.isSavedProfile = true;
 				draft.user = action.data;
-				draft.user.jewelData = dummyJewel;
-				draft.user.projectData = dummyProject;
 				break;
 			}
 			case SAVE_SUBPROFILE_FAILURE: {

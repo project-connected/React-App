@@ -1,5 +1,5 @@
-import axios from "axios";
-import { call, all, fork, takeLatest, put, delay } from "redux-saga/effects";
+import axios from 'axios';
+import { call, all, fork, takeLatest, put, delay } from 'redux-saga/effects';
 import {
 	LOGIN_REQUEST,
 	LOGIN_SUCCESS,
@@ -18,17 +18,17 @@ import {
 	UPLOAD_PROFILE_IMAGE_REQUEST,
 	UPLOAD_PROFILE_IMAGE_SUCCESS,
 	UPLOAD_PROFILE_IMAGE_FAILURE,
-} from "../reducers/user";
+} from '../reducers/user';
 
 const dummyUser = {
-	email: "anhs0220@gmail.com",
-	name: "안홍섭",
+	email: 'anhs0220@gmail.com',
+	name: '안홍섭',
 	profileImg:
-		"https://media.vlpt.us/images/yujo/profile/053c9bee-1076-418c-808d-f9a1b88dc445/KakaoTalk_20200229_162658088.jpg?w=240",
+		'https://media.vlpt.us/images/yujo/profile/053c9bee-1076-418c-808d-f9a1b88dc445/KakaoTalk_20200229_162658088.jpg?w=240',
 };
 
 function loadUserAPI() {
-	return axios.get("/auth/user");
+	return axios.get('/auth/user');
 }
 
 function* loadUser() {
@@ -53,7 +53,7 @@ function* watchLoadUser() {
 }
 
 function loginAPI(loginData) {
-	return axios.post("/auth/local/login", loginData, {
+	return axios.post('/auth/local/login', loginData, {
 		withCredentials: true,
 	});
 }
@@ -79,10 +79,10 @@ function* watchLogin() {
 
 function logoutAPI(loginData) {
 	document.cookie =
-		"authorization" +
-		"=" +
-		(".anjoy.info" ? ";domain=" + ".anjoy.info" : "") +
-		";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+		'authorization' +
+		'=' +
+		('.anjoy.info' ? ';domain=' + '.anjoy.info' : '') +
+		';expires=Thu, 01 Jan 1970 00:00:01 GMT';
 	return null;
 }
 
@@ -104,7 +104,7 @@ function* watchLogout() {
 }
 
 function signupAPI(signupData) {
-	return axios.post("/user", signupData);
+	return axios.post('/user', signupData);
 }
 
 function* signup(action) {
@@ -130,12 +130,13 @@ function saveProfileAPI(data) {
 		data: {
 			result: {
 				userId: 1,
-				email: "anhs0220@gmail.com",
-				userName: "Forty Two Seoul",
+				email: 'anhs0220@gmail.com',
+				userName: 'Forty Two Seoul',
 				area: data.area,
 				skill: data.skill,
 				theme: data.theme,
 				purpose: data.purpose,
+				profileImg: data.profileImg,
 				url: data.url,
 				introduct: data.introduct,
 			},
@@ -147,6 +148,7 @@ function saveProfileAPI(data) {
 function* saveProfile(action) {
 	try {
 		const result = yield call(saveProfileAPI, action.data);
+		yield delay(2000);
 		yield put({
 			type: SAVE_SUBPROFILE_SUCCESS,
 			data: result.data.result,
@@ -171,7 +173,7 @@ function uploadProfileImageAPI(dataForm) {
 	// 			"https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg",
 	// 	},
 	// };
-	return axios.post("/file/thumb", dataForm);
+	return axios.post('/file/thumb', dataForm);
 }
 
 function* uploadProfileImage(action) {
