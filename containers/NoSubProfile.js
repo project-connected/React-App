@@ -491,11 +491,14 @@ const NoSubProfile = () => {
 							</>
 						) : (
 							<>
-								<h1>
-									{saveProfileError !== ''
-										? saveProfileError
-										: '작성해주셔서 감사합니다.'}
-								</h1>
+								{saveProfileError !== '' ? (
+									<>
+										<h1>{saveProfileError.name}</h1>
+										<p>{saveProfileError.message}</p>
+									</>
+								) : (
+									<h1>작성해주셔서 감사합니다.</h1>
+								)}
 								<SetBtn text="닫기" pass={false} />
 							</>
 						)}
