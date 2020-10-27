@@ -4,9 +4,7 @@ import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 import Skeleton from '@material-ui/lab/Skeleton';
 
-import LoadingCircles, {
-	LoadingBox100P,
-} from '../../../components/LoadingCircles';
+import LoadingCircles, { LoadingBox } from '../../../components/LoadingCircles';
 import SelectAttr from '../../../components/buttons/SelectAttr';
 import SelectPeriod from '../../../components/buttons/SelectPeriod';
 import SelectStack from '../../../components/buttons/SelectStack';
@@ -272,15 +270,6 @@ const SearchJewelPage = () => {
 			<div className="jewel-card-wrap">
 				{!jewels || (jewels && jewels.length == 0) ? (
 					<div>검색 결과가 없습니다.</div>
-				) : isLoadingList ? (
-					<>
-						<Skeleton variant="rect" className="card-box" />
-						<Skeleton variant="rect" className="card-box" />
-						<Skeleton variant="rect" className="card-box" />
-						<Skeleton variant="rect" className="card-box" />
-						<Skeleton variant="rect" className="card-box" />
-						<Skeleton variant="rect" className="card-box" />
-					</>
 				) : (
 					jewels.map((c, i) => {
 						return (
