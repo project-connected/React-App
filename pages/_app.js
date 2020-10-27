@@ -6,7 +6,6 @@ import wrapper from '../store/configureStore';
 // css import
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import 'tui-color-picker/dist/tui-color-picker.css';
 import 'codemirror/lib/codemirror.css';
 import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.css';
