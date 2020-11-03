@@ -21,13 +21,6 @@ import {
 	UPLOAD_PROFILE_IMAGE_FAILURE,
 } from '../reducers/user';
 
-const dummyUser = {
-	email: 'anhs0220@gmail.com',
-	name: '안홍섭',
-	profileImg:
-		'https://media.vlpt.us/images/yujo/profile/053c9bee-1076-418c-808d-f9a1b88dc445/KakaoTalk_20200229_162658088.jpg?w=240',
-};
-
 function loadUserAPI() {
 	return axios.get('/auth/user');
 }
@@ -78,7 +71,7 @@ function* watchLogin() {
 	yield takeLatest(LOGIN_REQUEST, login);
 }
 
-function logoutAPI(loginData) {
+function logoutAPI() {
 	document.cookie =
 		'authorization' +
 		'=' +
@@ -89,7 +82,7 @@ function logoutAPI(loginData) {
 
 function* logout(action) {
 	try {
-		const result = yield call(logoutAPI, action.data);
+		const result = yield call(logoutAPI);
 		yield put({
 			type: LOGOUT_SUCCESS,
 		});
@@ -127,21 +120,6 @@ function* watchSignup() {
 }
 
 function saveProfileAPI(data) {
-	// return {
-	// 	data: {
-	// 		result: {
-	// 			userId: data.userId,
-	// 			area: data.area,
-	// 			skill: data.skill,
-	// 			theme: data.theme,
-	// 			purpose: data.purpose,
-	// 			profileImg: data.profileImg,
-	// 			url: data.url,
-	// 			introduct: data.introduct,
-	// 		},
-	// 	},
-	// };
-
 	return axios.put(`/user/${data.userId}`, data);
 }
 
@@ -166,13 +144,6 @@ function* watchSaveProfile() {
 }
 
 function uploadProfileImageAPI(dataForm) {
-	// console.log(dataForm);
-	// return {
-	// 	data: {
-	// 		result:
-	// 			"https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg",
-	// 	},
-	// };
 	return axios.post('/file/thumb', dataForm);
 }
 

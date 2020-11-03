@@ -18,47 +18,6 @@ import {
 	FILTER_JEWEL_LIST_FAILURE,
 } from '../reducers/jewel';
 
-const dummy = {
-	id: 1,
-	userId: 1,
-	user: {
-		userId: 1,
-		userName: 'han',
-		profileImg:
-			'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
-	},
-	theme: {
-		key: 'HACKERTON',
-		value: '해커톤',
-	},
-	region: {
-		key: 'SEOUL',
-		value: '서울',
-	},
-	result: {
-		key: 'APPLICATION',
-		value: '어플리케이션 개발',
-	},
-	period: {
-		startDate: 'Mon Sep 07 2020 06:26:32 GMT+0900 (대한민국 표준시)',
-		endDate: 'Mon Sep 14 2020 06:26:32 GMT+0900 (대한민국 표준시)',
-	},
-	stacks: [
-		{
-			key: 'REACT',
-			value: 'React.JS',
-			color: 'rgb(65, 169, 75)',
-		},
-		{
-			key: 'NODE',
-			value: 'Node.JS',
-			color: 'rgb(65, 169, 75)',
-		},
-	],
-	title: '전 대단한 사람입니다.',
-	desc: '# test ## test ### test',
-};
-
 function loadJewelAPI(jewelId) {
 	return axios.get(`/profiles/${jewelId}`);
 }
